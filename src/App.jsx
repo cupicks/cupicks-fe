@@ -1,4 +1,4 @@
-const App=()=> {
+const App = () => {
   return (
     <div className="App">
     </div>
@@ -6,5 +6,3 @@ const App=()=> {
 }
 
 export default App
-
-
