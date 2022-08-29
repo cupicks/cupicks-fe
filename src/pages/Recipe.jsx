@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../common/Header";
-import RecipeBody from "../components/RecipeBody";
+import RecipeBody from "../components/recipeMain/RecipeBody";
 import Footer from "../common/Footer";
 
 const Recipe = () => {
