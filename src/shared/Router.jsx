@@ -4,7 +4,7 @@ import Login from "../pages/Login";
 import Recipe from "../pages/Recipe";
 // import RecipeCreate from "../pages/RecipeCreate";
 import RecipeDetail from "../pages/RecipeDetail";
-import Register from "../pages/register";
+import Register from "../pages/Register";
 
 const Router = () => {
   return (

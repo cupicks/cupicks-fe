@@ -42,7 +42,7 @@ const Register = () => {
           {...register("nickname", {
             required: "닉네임은 필수 입력입니다.",
             pattern: {
-              value: /[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,10}/g,
+              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/,
               message: "닉네임은 2~10자이며, 한글, 영어, 숫자포함합니다.",
             },
           })}
@@ -57,8 +57,7 @@ const Register = () => {
           {...register("password", {
             required: "비밀번호는 필수 입력입니다.",
             pattern: {
-              value:
-                /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+              value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
               message:
                 "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
             },
@@ -73,7 +72,11 @@ const Register = () => {
             validate: (value) => value === password.current,
           })}
         />
-        {errors.password_confirm && <p>비밀번호가 일치하지 않습니다</p>}
+        {errors.password_confirm && <p>{errors.password_confirm.message}</p>}
+        {errors.password_confirm &&
+          errors.password_confirm.type === "validate" && (
+            <p>비밀번호가 일치하지 않습니다.</p>
+          )}
         <button type="submit" disabled={isSubmitting}>
           완료
         </button>
