@@ -80,7 +80,9 @@ const Register = () => {
         <button type="submit" disabled={isSubmitting}>
           완료
         </button>
-        <button onClick={() => navigate("/signIn")}>취소</button>
+        <button type="button" onClick={() => navigate("/signIn")}>
+          취소
+        </button>
       </StForm>
     </StDiv>
   );
