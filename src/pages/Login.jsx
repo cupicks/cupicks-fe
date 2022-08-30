@@ -16,7 +16,7 @@ const Login = () => {
   return (
     <Stdiv>
       <Stform onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email">이메일</label>
+        <label>이메일</label>
         <input
           type="text"
           placeholder="test@email.com"
