@@ -1,6 +1,10 @@
-const IngredientList = (props) => {
-  const {register, setValue, fields, append, remove} = props;
+import RecipeIngredient from '../RecipeIngredient'
+import { cutNumberByLength, numberPositiveInteger } from '../../../util/recipeCalcNumber'
 
+const IngredientList = (props) => {
+  const {register, setValue, fields, append, remove, watch} = props;
+
+  /** cupSize보다 넘치는 값 자르는 함수 */
   const calcAmount = (e) => {
     const newList = watch('ingrediantList');
     const currCupSize = Number(watch('cupSize'));
@@ -36,52 +40,17 @@ const IngredientList = (props) => {
     const amountLeft = currCupSize - sumArray;
   }
 
-  const numberPositiveInteger = (value) => {
-    return Math.floor(Math.abs(Number(value)));
-  }
-
   return ( 
     <>
       {fields.map((field, idx) => (
-        <div
+        <RecipeIngredient
           key={field.id}
-        >
-          <input 
-            type="text" 
-            placeholder={`재료 ${idx}`}
-            {...register(`ingrediantList.${idx}.ingredientName`)}
-          />
-
-          <select 
-            {...register(`ingrediantList.${idx}.ingredientColor`)}
-          >
-            <option value="#000000">옵션1</option>
-            <option value="#111111">옵션2</option>
-            <option value="#222222">옵션2</option>
-          </select>
-
-          <input 
-            type="number"
-            placeholder={ `재료 ${idx}` }
-            id={ idx }
-            max={ 1000 }
-            {...register(`ingrediantList.${idx}.ingredientAmount`, {
-              max: {
-                value: 1000,
-                message: "1000이하로 입력"
-              }
-            })}
-            onBlur={(e)=>{
-              calcAmount(e);
-            }}
-            onChange={(e)=>{
-              const value = String(e.target.value)
-              const currValue = value.length > 3 ? Number(value.slice(0, 4)) : Number(value);
-
-              setValue(`ingrediantList.${idx}.ingredientAmount`, currValue)
-            }}
-          />
-        </div>
+          idx={idx}
+          register={register}
+          calcAmount={calcAmount}
+          cutNumberByLength={cutNumberByLength}
+          setValue={setValue}
+        />
       ))}
 
       <button 
@@ -98,7 +67,6 @@ const IngredientList = (props) => {
       }}>
         재료 삭제
       </button>
-      <hr style={{margin: "1em auto"}} />
     </>
   )
 }

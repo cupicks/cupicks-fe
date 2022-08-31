@@ -78,13 +78,14 @@ const RecipeCreateForm = () => {
         />
       }
 
-      {level === 2 && 
+      {/* {level === 2 &&  */}
+      {1 && 
         <RecipeIngredientList
-          register = { register }
-          setValue = { setValue }
-          fields = { fields }
-          append = { append }
-          remove = { remove }
+          register={register}
+          setValue={setValue}
+          fields={fields}
+          append={append}
+          remove={remove}
           watch={watch}
         />
       }
