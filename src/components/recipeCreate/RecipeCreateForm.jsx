@@ -5,10 +5,11 @@ import RecipeCupSize from "./level/RecipeCupSize";
 import RecipeIsIced from "./level/RecipeIsIced";
 import RecipeTextValue from "./level/RecipeTextValue";
 import RecipeIngredientList from "./level/RecipeIngredientList";
+
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
-  const { register, handleSubmit, setValue, watch, control, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, getValues, watch, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({
     control, 
     name: "ingrediantList"
@@ -33,6 +34,27 @@ const RecipeCreateForm = () => {
       isPublic: isPublicTrue,
       ingrediantList: newIngrediantList
     });
+  }
+
+  /** 다음 level의 컴포넌트 랜더링 하기 전 조건 확인 */
+  const ButtonClickLevelHandler = (go) => {
+    if(go === 'back'){
+      level > 0 ? setLevel(prev => prev - 1) : '';
+    } else {
+      switch (level) {
+        case 0:
+          if(watch('cupSize') === null) return;
+          break;
+        case 1:
+          if(watch('isIced') === null) return;
+          break;
+        case 2:
+          if(watch('ingrediantList').length === 0) return;
+          break;
+        default: '';
+      }
+      level < finalLevel ? setLevel(prev => prev + 1) : '';
+    }
   }
 
   return (
@@ -73,9 +95,16 @@ const RecipeCreateForm = () => {
       }
 
       <button onClick={()=>{
-        level < finalLevel ? setLevel(prev => prev + 1) : ''
+        ButtonClickLevelHandler('next');
       }}>
-        submit
+        {level === finalLevel ? '작성' : '다음'}
+      </button>
+
+      <button
+        onClick={()=>{
+        ButtonClickLevelHandler('back');
+      }}> 
+        뒤로 가기
       </button>
     </StForm>
   )
