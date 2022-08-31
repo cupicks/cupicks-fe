@@ -1,10 +1,11 @@
 import RecipeRadio from "../RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {register, setValue, errors} = props;
+  const {register, setValue, errors, trigger} = props;
 
   const onChangeCupSize = () => {
     setValue('ingrediantList', [])
+    trigger('cupSize')
   }
   return ( 
     <>

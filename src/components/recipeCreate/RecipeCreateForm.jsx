@@ -9,7 +9,7 @@ import RecipeIngredientList from "./level/RecipeIngredientList";
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
-  const { register, handleSubmit, setValue, getValues, watch, control, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, trigger, watch, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({
     control, 
     name: "ingrediantList"
@@ -65,6 +65,7 @@ const RecipeCreateForm = () => {
           register={register}
           setValue={setValue}
           errors={errors}
+          trigger={trigger}
         />
       }
 
@@ -73,6 +74,7 @@ const RecipeCreateForm = () => {
           register={register}
           errors={errors}
           watch={watch}
+          trigger={trigger}
         />
       }
 

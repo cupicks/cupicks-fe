@@ -2,7 +2,7 @@ import { useState } from 'react'
 import RecipeRadio from "../RecipeRadio";
 
 const RecipeIsIced = (props) => {
-  const {register, errors, watch} = props;
+  const {register, errors, watch, trigger} = props;
   const [isIcedResult, setIsIcedResult] = useState('');
 
   /** isIced를 watch해서 'isIcedResult' state를 set하는 함수 */ 
@@ -11,7 +11,9 @@ const RecipeIsIced = (props) => {
     let isNotUndefined = Boolean(isIced);
     let isTrue = isNotUndefined && isIced === '1'
     let result = isTrue ? 'Iced' : 'Hot';
+    
     setIsIcedResult(result)
+    trigger('isIced')
   }
   
   return ( 
