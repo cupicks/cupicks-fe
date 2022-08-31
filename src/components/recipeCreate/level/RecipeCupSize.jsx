@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
+import RecipeRadio from "../RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {register, setValue, formState: { errors }} = useForm();
+  const {register, setValue, errors} = props;
 
   const onChangeCupSize = () => {
     setValue('ingrediantList', [])
@@ -15,6 +15,7 @@ const RecipeCupSize = (props) => {
           value={value}
           register={register}
           onChange={onChangeCupSize}
+          config={{required: true}}
         />
       ))}
       {errors.cupSize?.type === 'required' && "사이즈를 선택해주세요."}
