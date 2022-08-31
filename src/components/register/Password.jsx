@@ -11,11 +11,11 @@ const Password = (props) => {
       <label>비밀번호</label>
       <input
         type="password"
-        placeholder="***********"
+        placeholder="8자리 이상 입력해 주세요"
         minLength={8}
         maxLength={15}
         {...register("password", {
-          required: "비밀번호는 필수 입력입니다.",
+          required: true,
           pattern: {
             value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
             message:
@@ -27,12 +27,13 @@ const Password = (props) => {
       <label>비밀번호 확인</label>
       <input
         type="password"
+        placeholder="다시 한번 입력해 주세요"
         {...register("password_confirm", {
-          required: "비밀번호 재입력은 필수입니다.",
+          required: true,
           validate: (value) => value === password.current,
         })}
       />
-      {errors.password_confirm && <p>{errors.password_confirm.message}</p>}
+
       {errors.password_confirm &&
         errors.password_confirm.type === "validate" && (
           <p>비밀번호가 일치하지 않습니다.</p>

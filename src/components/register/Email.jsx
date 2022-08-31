@@ -7,11 +7,11 @@ const Email = (props) => {
       <label>이메일</label>
       <input
         type="text"
-        placeholder="test@email.com"
+        placeholder="이메일 주소를 입력해 주세요"
         autoComplete="off"
         maxLength={20}
         {...register("email", {
-          required: "이메일은 필수 입력입니다",
+          required: true,
           pattern: {
             value: /\S+@\S+\.\S+/,
             message: "이메일 형식에 맞지 않습니다.",

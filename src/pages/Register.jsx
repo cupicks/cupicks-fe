@@ -17,30 +17,30 @@ const Register = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
+
   const [level, setLevel] = React.useState(0);
 
   const onSubmit = (data) => {
-    // await new Promise((r) => setTimeout(r, 1000));
-    // alert(JSON.stringify(data));
     console.log(data);
   };
   const next = () => {
-    // if (level === 0 && watch("email") === "") {
-    //   return;
-    // }
-    if (errors.email) {
+    //에러가 날 경우 알림띄우기
+    if (errors.email && level === 0) {
       alert("이메일을 제대로 입력해주세요!");
       return;
     }
-    if (errors.password) {
+    if (errors.password && level === 1) {
       alert("비밀번호를 제대로 입력해주세요");
       return;
     }
-    if (errors.password_confirm) {
+    if (errors.password_confirm && level === 1) {
       alert("비밀번호가 일치하지 않습니다");
       return;
     }
-    if (errors.nickname) {
+    if (errors.image && level === 2) {
+      alert("이미지를 추가해 주세요");
+    }
+    if (errors.nickname && level === 3) {
       alert("닉네임을 제대로 입력해주세요");
       return;
     }
@@ -60,7 +60,9 @@ const Register = () => {
         {level === 1 && (
           <Password register={register} errors={errors} watch={watch} />
         )}
-        {level === 2 && <Image />}
+        {level === 2 && (
+          <Image register={register} errors={errors} watch={watch} />
+        )}
         {level === 3 && <Nickname register={register} errors={errors} />}
 
         <button
@@ -70,7 +72,7 @@ const Register = () => {
             (level === 0 && watch("email") === undefined) ||
             (level === 0 && watch("email") === "") ||
             (level === 1 && watch("password") === "") ||
-            (level === 2 && watch("img") === "") ||
+            (level === 2 && watch("image") === undefined) ||
             (level === 3 && watch("nickname") === "")
           }
         >
