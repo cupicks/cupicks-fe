@@ -76,7 +76,7 @@ const IngredientList = (props) => {
             }}
             onChange={(e)=>{
               const value = String(e.target.value)
-              const currValue = value.length > 4 ? Number(value.slice(0, 4)) : Number(value);
+              const currValue = value.length > 3 ? Number(value.slice(0, 4)) : Number(value);
 
               setValue(`ingrediantList.${idx}.ingredientAmount`, currValue)
             }}

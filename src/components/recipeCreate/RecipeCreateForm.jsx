@@ -85,6 +85,7 @@ const RecipeCreateForm = () => {
           fields = { fields }
           append = { append }
           remove = { remove }
+          watch={watch}
         />
       }
 
