@@ -1,7 +1,13 @@
 import React from "react";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
+import Email from "../components/register/Email";
+import Nickname from "../components/register/Nickname";
+import Password from "../components/register/Password";
+import Image from "../components/register/Image";
+
+import styled from "styled-components";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -10,74 +16,64 @@ const Register = () => {
     watch,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm();
-  const password = React.useRef();
-  password.current = watch("password");
+  } = useForm({ criteriaMode: "all", mode: "onChange" });
+  const [level, setLevel] = React.useState(0);
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    // await new Promise((r) => setTimeout(r, 1000));
+    // alert(JSON.stringify(data));
+    console.log(data);
+  };
+  const next = () => {
+    // if (level === 0 && watch("email") === "") {
+    //   return;
+    // }
+    if (errors.email) {
+      alert("이메일을 제대로 입력해주세요!");
+      return;
+    }
+    if (errors.password) {
+      alert("비밀번호를 제대로 입력해주세요");
+      return;
+    }
+    if (errors.password_confirm) {
+      alert("비밀번호가 일치하지 않습니다");
+      return;
+    }
+    if (errors.nickname) {
+      alert("닉네임을 제대로 입력해주세요");
+      return;
+    }
+    setLevel((prev) => prev + 1);
+  };
+  const before = () => {
+    setLevel((prev) => prev - 1);
+  };
 
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>
-        <label>이메일</label>
-        <input
-          type="text"
-          placeholder="test@email.com"
-          autoComplete="off"
-          maxLength={20}
-          {...register("email", {
-            required: "이메일은 필수 입력입니다.",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "이메일 형식에 맞지 않습니다.",
-            },
-          })}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
-        <label>닉네임</label>
-        <input
-          placeholder="닉네임"
-          minLength={2}
-          maxLength={10}
-          {...register("nickname", {
-            required: "닉네임은 필수 입력입니다.",
-            pattern: {
-              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/,
-              message: "닉네임은 2~10자이며, 한글, 영어, 숫자포함합니다.",
-            },
-          })}
-        />
-        {errors.nickname && <p>{errors.nickname.message}</p>}
-        <label>비밀번호</label>
-        <input
-          type="password"
-          placeholder="***********"
-          minLength={8}
-          maxLength={15}
-          {...register("password", {
-            required: "비밀번호는 필수 입력입니다.",
-            pattern: {
-              value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
-              message:
-                "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
-            },
-          })}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
-        <label>비밀번호 재확인</label>
-        <input
-          type="password"
-          {...register("password_confirm", {
-            required: "비밀번호 재입력은 필수입니다.",
-            validate: (value) => value === password.current,
-          })}
-        />
-        {errors.password_confirm && <p>{errors.password_confirm.message}</p>}
-        {errors.password_confirm &&
-          errors.password_confirm.type === "validate" && (
-            <p>비밀번호가 일치하지 않습니다.</p>
-          )}
-        <button type="submit" disabled={isSubmitting}>
+        <button onClick={before} disabled={level === 0}>
+          &lt;
+        </button>
+        {level === 0 && <Email register={register} errors={errors} />}
+        {level === 1 && (
+          <Password register={register} errors={errors} watch={watch} />
+        )}
+        {level === 2 && <Image />}
+        {level === 3 && <Nickname register={register} errors={errors} />}
+
+        <button
+          type="submit"
+          onClick={next}
+          disabled={
+            (level === 0 && watch("email") === undefined) ||
+            (level === 0 && watch("email") === "") ||
+            (level === 1 && watch("password") === "") ||
+            (level === 2 && watch("img") === "") ||
+            (level === 3 && watch("nickname") === "")
+          }
+        >
           완료
         </button>
         <button type="button" onClick={() => navigate("/signIn")}>
