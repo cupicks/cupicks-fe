@@ -1,5 +1,5 @@
 import RecipeIngredient from '../RecipeIngredient'
-import { cutNumberByLength, numberPositiveInteger } from '../../../util/recipeCalcNumber'
+import { cutNumberByLength } from '../../../util/recipeCalcNumber'
 
 const IngredientList = (props) => {
   const {register, setValue, fields, append, remove, watch} = props;
@@ -9,35 +9,32 @@ const IngredientList = (props) => {
     const newList = watch('ingrediantList');
     const currCupSize = Number(watch('cupSize'));
     const idx = e.target.id;
+
+    // 소숫점 자르기 => 다시 저장
+    const currTargetName = `ingrediantList.${idx}.ingredientAmount`
+    const currValue = Math.floor(e.target.value);
+    setValue(currTargetName, currValue)
     
-    // max: 현재 컵 용량
-    let eventAmount = numberPositiveInteger(e.target.value);
-    eventAmount = eventAmount > currCupSize ? currCupSize : eventAmount;
-
     // sumArray: 배열의 ingredientAmount 합
-    let sumArray;
+    let prevSum = 0;
+    let totalSum = 0;
     if(newList.length > 1){
-      sumArray = newList.reduce((x, curr) => {
-        const amount_x = numberPositiveInteger(x.ingredientAmount);
-        const amount_curr = numberPositiveInteger(curr.ingredientAmount);
-        return amount_x + amount_curr
-      })
+      newList.map(list => totalSum += list.ingredientAmount)
+      prevSum = totalSum - currValue;
     } else {
-      sumArray = numberPositiveInteger(newList[0].ingredientAmount);
+      totalSum = newList[0].ingredientAmount;
     }
+    
+    // currCupSize에서 prevSum을 뺀 만큼이 max입니다.
+    // 컵 용량보다 currValue가 크다면(용량이 넘치면) 현재 용량으로 고정
+    const maxValue = currCupSize - prevSum;
 
-    // 컵 용량보다 sumArray가 크다면(용량이 넘치면)
-    // 500까지인데 기존 200 + 400이면 
-    if(currCupSize < sumArray){
-      const overThisMuch = sumArray - currCupSize;
-      console.log(abs(overThisMuch));
-      setValue(`ingrediantList.${idx}.ingredientAmount`, eventAmount - overThisMuch)
-    } else {
-      setValue(`ingrediantList.${idx}.ingredientAmount`, eventAmount)
+    if (maxValue === 0){
+      alert('컵 사이즈를 초과하였습니다.')
     }
-
-    // amountLeft: 컵 용량에서 sumArray를 뺀 값
-    const amountLeft = currCupSize - sumArray;
+    if(maxValue < currValue){
+      setValue(currTargetName, maxValue)
+    }
   }
 
   return ( 

@@ -1,3 +1,5 @@
+import { setState } from 'react'
+
 import RecipeIngredientNumber from "./RecipeIngredientNumber";
 
 import styled from "styled-components";
@@ -5,6 +7,7 @@ import styled from "styled-components";
 const RecipeIngredient = ({
   idx, register, calcAmount, cutNumberByLength, setValue
 }) => {
+  const [sublevel, setSublevel] = setState(0);
 
   return (
     <StRecipeIngredient>
@@ -22,7 +25,7 @@ const RecipeIngredient = ({
         <option value="#222222">옵션2</option>
       </select>
 
-      <RecipeIngredientNumber 
+      <RecipeIngredientNumber
         idx={idx}
         register={register}
         setValue={setValue}

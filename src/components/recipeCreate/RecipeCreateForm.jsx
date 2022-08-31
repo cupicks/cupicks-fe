@@ -78,8 +78,7 @@ const RecipeCreateForm = () => {
         />
       }
 
-      {/* {level === 2 &&  */}
-      {1 && 
+      {level === 2 && 
         <RecipeIngredientList
           register={register}
           setValue={setValue}
