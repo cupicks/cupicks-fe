@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import RecipeRadio from "../RecipeRadio";
+import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeIsIced = (props) => {
   const {register, errors, watch, trigger} = props;

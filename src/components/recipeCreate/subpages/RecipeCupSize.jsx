@@ -1,4 +1,4 @@
-import RecipeRadio from "../RecipeRadio";
+import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
   const {register, setValue, errors, trigger} = props;

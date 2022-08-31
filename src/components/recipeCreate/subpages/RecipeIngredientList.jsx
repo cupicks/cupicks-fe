@@ -1,8 +1,10 @@
-import RecipeIngredient from '../RecipeIngredient'
+import { useState } from 'react'
+
+import RecipeIngredient from '../element/RecipeIngredient'
 import { cutNumberByLength } from '../../../util/recipeCalcNumber'
 
 const IngredientList = (props) => {
-  const {register, setValue, fields, append, remove, watch} = props;
+  const {register, setValue, fields, append, remove, watch, sublevel, setSublevel, finalSublevel} = props;
 
   /** cupSize보다 넘치는 값 자르는 함수 */
   const calcAmount = (e) => {
@@ -44,9 +46,13 @@ const IngredientList = (props) => {
           key={field.id}
           idx={idx}
           register={register}
+          watch={watch}
           calcAmount={calcAmount}
           cutNumberByLength={cutNumberByLength}
           setValue={setValue}
+          sublevel={sublevel}
+          setSublevel={setSublevel}
+          finalSublevel={finalSublevel}
         />
       ))}
 
@@ -54,6 +60,7 @@ const IngredientList = (props) => {
         type="button" 
         onClick={()=>{
           append()
+          setSublevel(0)
       }}>
         재료 추가
       </button>
