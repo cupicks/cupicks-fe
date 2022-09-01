@@ -15,6 +15,7 @@ export default RecipeTitle;
 
 const StRecipeTitle = styled.div`
   height: 50px;
+  
   padding: 0 1rem;
 
   display: flex;

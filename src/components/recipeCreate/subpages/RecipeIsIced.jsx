@@ -8,8 +8,7 @@ const RecipeIsIced = (props) => {
   /** isIced를 watch해서 'isIcedResult' state를 set하는 함수 */ 
   const isIcedSelectHandler = () => {
     const isIced = watch('isIced');
-    let isNotUndefined = Boolean(isIced);
-    let isTrue = isNotUndefined && isIced === '1'
+    let isTrue = Boolean(isIced) && isIced === '1'
     let result = isTrue ? 'Iced' : 'Hot';
     
     setIsIcedResult(result)
