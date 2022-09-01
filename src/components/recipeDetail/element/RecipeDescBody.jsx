@@ -8,9 +8,10 @@ const RecipeDescBody = (props) => {
         {content}
       </div>
       <div className="name">
-        <span>
+        <strong>
           By 
-        </span>
+        </strong>
+        <div className="profile_img"></div>
         <span>
           사용자 이름
         </span>
@@ -22,7 +23,7 @@ const RecipeDescBody = (props) => {
 export default RecipeDescBody;
 
 const StRecipeDescBody=styled.div`
-  padding: .5rem 1rem;
+  padding: .8rem 1rem;
 
   display: flex;
   flex-flow: column;
@@ -30,7 +31,16 @@ const StRecipeDescBody=styled.div`
   
   .name {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
-    gap: 5px;
+    gap: 8px;
+  }
+
+  .profile_img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    background-color: #aaa;
   }
 `

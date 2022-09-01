@@ -1,7 +1,7 @@
 const IsIcedIcon = (props) => {
   return (
     <div>
-      {props.isIced?"Iced":"Hot"}
+      {props.isIced?"ice":"hot"}
     </div>
   )
 };

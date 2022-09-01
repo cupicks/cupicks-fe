@@ -1,6 +1,8 @@
+import styled from "styled-components";
 import IsIcedIcon from "../components/recipeDetail/element/IsIcedIcon";
 import IngredientsContainer from "../components/recipeDetail/IngredientsContainer";
 import RecipeDesc from "../components/recipeDetail/RecipeDesc";
+import Navigation from "../partial/Navigation";
 
 const RecipeDetail = () => {
   const recipe = {
@@ -29,12 +31,31 @@ const RecipeDetail = () => {
   }
   
   return (
-    <div>
-      <IsIcedIcon isIced={recipe.isIced} />
+    <StRecipeDetail>
+
+      <Navigation>
+        <div className="icon_box fcc">
+          <IsIcedIcon isIced={recipe.isIced} />
+        </div>
+      </Navigation>
+
       <IngredientsContainer recipe={recipe} />
       <RecipeDesc recipe={recipe} />
-    </div>
+    
+    </StRecipeDetail>
   );
 };
 
 export default RecipeDetail;
+
+const StRecipeDetail = styled.div`
+
+  .icon_box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background-color: #444;
+    color: #fff;
+  }
+`
