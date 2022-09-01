@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import RecipeIngredient from '../element/RecipeIngredient'
 import { cutNumberByLength } from '../../../util/recipeCalcNumber'
 

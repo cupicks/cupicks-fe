@@ -2,6 +2,7 @@ import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
   const {register, setValue, errors, trigger} = props;
+  const cupSizes = [355, 473, 591]
 
   const onChangeCupSize = () => {
     setValue('ingrediantList', [])
@@ -9,7 +10,7 @@ const RecipeCupSize = (props) => {
   }
   return ( 
     <>
-      {[355, 473, 591].map((value, idx) => (  
+      {cupSizes.map((value, idx) => (  
         <RecipeRadio
           key={idx}
           label={'cupSize'}
