@@ -6,6 +6,8 @@ import RecipeIsIced from "./subpages/RecipeIsIced";
 import RecipeTextValue from "./subpages/RecipeTextValue";
 import RecipeIngredientList from "./subpages/RecipeIngredientList";
 
+import { setDataType } from '../../util/recipeSetDataType'
+
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
@@ -18,26 +20,15 @@ const RecipeCreateForm = () => {
   const [sublevel, setSublevel] = useState(0);
   const finalSublevel = 2;
 
-  /** submit할 데이터 형변환 + finalLevel일 때 데이터 보내는 함수 */
+  /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
-    const isPublicTrue = data.isPublic === '1' ? true : false;
-    const isIcedTrue = data.isIced === '1' ? true : false;
-    const newIngrediantList = data.ingrediantList.map(list =>(
-      {...list, ingredientAmount: Number(list.ingredientAmount) }
-    )) 
+    data = setDataType(data);
 
     // level === finalLevel일 때 request할 예정
     if(level === finalLevel + 1){
       console.log('request');
+      console.log(data);
     }
-
-    console.log({
-      ...data,
-      cupSize: Number(data.cupSize),
-      isIced: isIcedTrue,
-      isPublic: isPublicTrue,
-      ingrediantList: newIngrediantList
-    });
   }
 
   /** 이전 level */
@@ -45,6 +36,8 @@ const RecipeCreateForm = () => {
     level > 0 && setLevel(prev => prev - 1);
   }
   
+  const caseDisabled = ''
+
   /** 다음 level의 컴포넌트 랜더링 하기 전 조건 확인 */
   const levelButtonNextClickHandler = () => {
     switch (level) {

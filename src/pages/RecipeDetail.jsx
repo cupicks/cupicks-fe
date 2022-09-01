@@ -1,33 +1,38 @@
+import IsIcedIcon from "../components/recipeDetail/element/IsIcedIcon";
 import IngredientsContainer from "../components/recipeDetail/IngredientsContainer";
-import RecipeTitle from "../components/recipeDetail/RecipeTitle";
+import RecipeDesc from "../components/recipeDetail/RecipeDesc";
 
 const RecipeDetail = () => {
   const recipe = {
+    recipeId: 123456,
     title: '레시피 이름',
-    content: '레시피 사진',
+    content: '레시피 본문',
+    isIced: true,
+    cupSize: 473,
     ingredientList: [
       {
-        ingredientName: '음식 재료 이름1',
+        ingredientName: '커피',
         ingredientColor: '#884712',
-        ingredientAmount: 60
+        ingredientAmount: 50
       },
       {
-        ingredientName: '음식 재료 이름2',
+        ingredientName: '우유',
         ingredientColor: '#fff7ea',
-        ingredientAmount: 20
+        ingredientAmount: 200
       },
       {
-        ingredientName: '음식 재료 이름3',
+        ingredientName: '시럽',
         ingredientColor: '#ffb641',
-        ingredientAmount: 20
+        ingredientAmount: 100
       }
     ]
   }
   
   return (
     <div>
+      <IsIcedIcon isIced={recipe.isIced} />
       <IngredientsContainer recipe={recipe} />
-      <RecipeTitle title={recipe.title} />
+      <RecipeDesc recipe={recipe} />
     </div>
   );
 };
