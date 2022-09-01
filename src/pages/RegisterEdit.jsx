@@ -10,8 +10,8 @@ const RegisterEdit = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
-  console.log(errors);
-  console.log(watch("name"));
+  // console.log(errors);
+  // console.log(watch("name"));
   return (
     <Wrap onSubmit={handleSubmit(onSubmit)}>
       <ProfileEditTitle>개인정보편집</ProfileEditTitle>

@@ -1,9 +1,9 @@
-import Router from "./shared/Router";
+import Layout from "../src/common/Layout";
 
 const App = () => {
   return (
     <div className="App">
-      <Router />
+      <Layout />
     </div>
   );
 };

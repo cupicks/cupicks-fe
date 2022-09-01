@@ -16,10 +16,9 @@ export default Header;
 
 const Wrap = styled.div`
   width: 500px;
-  height: 100px;
+  height: 80px;
   flex-direction: row;
   display: flex;
-  border: 2px solid orange;
   margin: 0 auto;
   margin-top: 20px;
   align-items: center;
@@ -30,7 +29,6 @@ const Logo = styled.div`
   height: 80px;
   border: 2px solid black;
   border-radius: 50%;
-  margin-left: 10px;
 `;
 
 const Title = styled.div`

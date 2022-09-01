@@ -149,8 +149,7 @@ export default RecipeBody;
 
 const Wrap = styled.div`
   width: 600px;
-  height: 800px;
-  border: 2px solid blue;
+  height: 600px;
   display: flex;
   flex-direction: column;
 `;
@@ -158,7 +157,10 @@ const Wrap = styled.div`
 const RecipeTitle = styled.div`
   width: 600px;
   height: 100px;
-  font-size: 30px;
+  font-size: 25px;
+  font-weight: bold;
   align-items: center;
   display: flex;
+  margin-left: 40px;
+  margin-top: 15px;
 `;
