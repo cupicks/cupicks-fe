@@ -10,6 +10,7 @@ const RecipeIngredientNumber = ({
         id={idx}
         max={1000}
         min={0}
+        step={1}
 
         {...register(`ingrediantList.${idx}.ingredientAmount`, {
           max: {

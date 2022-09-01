@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 
-import RecipeCupSize from "./level/RecipeCupSize";
-import RecipeIsIced from "./level/RecipeIsIced";
-import RecipeTextValue from "./level/RecipeTextValue";
-import RecipeIngredientList from "./level/RecipeIngredientList";
+import RecipeCupSize from "./subpages/RecipeCupSize";
+import RecipeIsIced from "./subpages/RecipeIsIced";
+import RecipeTextValue from "./subpages/RecipeTextValue";
+import RecipeIngredientList from "./subpages/RecipeIngredientList";
 
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
   const { register, handleSubmit, setValue, trigger, watch, control, formState: { errors } } = useForm();
-  const { fields, append, remove } = useFieldArray({
-    control, 
-    name: "ingrediantList"
-  })
+  const { fields, append, remove } = useFieldArray({ control, name: "ingrediantList" })
 
   const [level, setLevel] = useState(0)
   const finalLevel = 3;
+
+  const [sublevel, setSublevel] = useState(0);
+  const finalSublevel = 2;
 
   /** submit할 데이터 형변환 + finalLevel일 때 데이터 보내는 함수 */
   const onSubmit = data => {
@@ -27,6 +27,10 @@ const RecipeCreateForm = () => {
     )) 
 
     // level === finalLevel일 때 request할 예정
+    if(level === finalLevel + 1){
+      console.log('request');
+    }
+
     console.log({
       ...data,
       cupSize: Number(data.cupSize),
@@ -36,25 +40,31 @@ const RecipeCreateForm = () => {
     });
   }
 
+  /** 이전 level */
+  const levelButtonPrevClickHandler = () => {
+    level > 0 && setLevel(prev => prev - 1);
+  }
+  
   /** 다음 level의 컴포넌트 랜더링 하기 전 조건 확인 */
-  const ButtonClickLevelHandler = (go) => {
-    if(go === 'back'){
-      level > 0 ? setLevel(prev => prev - 1) : '';
-    } else {
-      switch (level) {
-        case 0:
-          if(watch('cupSize') === null) return;
-          break;
-        case 1:
-          if(watch('isIced') === null) return;
-          break;
-        case 2:
-          if(watch('ingrediantList').length === 0) return;
-          break;
+  const levelButtonNextClickHandler = () => {
+    switch (level) {
+      case 0:
+        if(watch('cupSize') === null) return;
+        break;
+      case 1:
+        if(watch('isIced') === null) return;
+        break;
+      case 2:
+        if(watch('ingrediantList').length === 0) return;
+        setSublevel(0)
+        break;
+      case 3:
+        if(watch('title').length === 0 || watch('content').length === 0 ) return;
+        setSublevel(0)
+        break;
         default: '';
       }
-      level < finalLevel ? setLevel(prev => prev + 1) : '';
-    }
+    level < finalLevel + 1 ? setLevel(prev => prev + 1) : '';
   }
 
   return (
@@ -78,8 +88,7 @@ const RecipeCreateForm = () => {
         />
       }
 
-      {/* {level === 2 &&  */}
-      {1 && 
+      {level === 2 && 
         <RecipeIngredientList
           register={register}
           setValue={setValue}
@@ -87,6 +96,9 @@ const RecipeCreateForm = () => {
           append={append}
           remove={remove}
           watch={watch}
+          sublevel={sublevel}
+          setSublevel={setSublevel}
+          finalSublevel={finalSublevel}
         />
       }
 
@@ -98,18 +110,20 @@ const RecipeCreateForm = () => {
         />
       }
 
-      <button onClick={()=>{
-        ButtonClickLevelHandler('next');
-      }}>
-        {level === finalLevel ? '작성' : '다음'}
-      </button>
+      <StButtonBox>
+        <button onClick={()=>{
+          levelButtonNextClickHandler();
+        }}>
+          {level === finalLevel ? '작성' : '다음'}
+        </button>
 
-      <button
-        onClick={()=>{
-        ButtonClickLevelHandler('back');
-      }}> 
-        뒤로 가기
-      </button>
+        <button onClick={()=>{
+          levelButtonPrevClickHandler();
+        }}> 
+          뒤로 가기
+        </button>
+      </StButtonBox>
+      
     </StForm>
   )
 };
@@ -121,4 +135,8 @@ const StForm = styled.form`
   flex-flow: column;
   text-align: center;
   gap: 5px;
+`
+
+const StButtonBox = styled.div`
+  
 `

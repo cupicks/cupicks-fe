@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import RecipeInput from "../RecipeInput";
-import RecipeRadio from "../RecipeRadio";
+
+import RecipeInput from "../element/RecipeInput";
+import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeTextValue = (props) => {
   const { register, errors, watch } = props;
@@ -25,6 +26,15 @@ const RecipeTextValue = (props) => {
         }}
       />
       {errors.title?.type === 'required' && "레시피 이름을 입력해주세요."}
+      
+      <RecipeInput 
+        label={"content"} 
+        register={register}
+        config={{
+          required: true
+        }}
+      />
+      {errors.content?.type === 'required' && "레시피 내용을 입력해주세요."}
       
       {[0, 1].map((value, idx) => {
         let opt = { required: true }
