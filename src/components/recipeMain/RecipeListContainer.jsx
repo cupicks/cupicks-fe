@@ -39,6 +39,7 @@ const ListHead = styled.div`
   height: 100px;
   flex-direction: row;
   display: flex;
+  background-color: #eee;
 `;
 
 const ListContent = styled.div`
@@ -51,5 +52,6 @@ const ListTitle = styled.div`
   height: 100px;
   flex-direction: row;
   display: flex;
-  border: 2px solid black;
+  background-color: #eee;
+  /* border-radius: 12px; */
 `;
