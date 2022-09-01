@@ -1,17 +1,28 @@
-import Ingredient from "./Ingredient";
+import styled from "styled-components";
+import Ingredient from "./element/Ingredient";
 
 const IngredientsContainer = (props) => {
-  const lists = props.recipe.ingredientList; 
+  const { cupSize, ingredientList: lists } = props.recipe
 
   return (
-    <div className="IngredientsContainer"
-      style={{height: 'calc(100vh - 60px)'}}
-    >
+    <StIngredientsContainer>
       { lists.map( list => 
-        <Ingredient list={list} />
+        <Ingredient 
+          list={list} 
+          cupSize={cupSize} 
+        />
       ) }
-    </div>
+    </StIngredientsContainer>
   );
 };
 
 export default IngredientsContainer;
+
+const StIngredientsContainer = styled.div`
+  /* 전체 높이에서 헤더와 하단 영역 제외 */
+  height: calc(100vh - 100px);
+
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+`
