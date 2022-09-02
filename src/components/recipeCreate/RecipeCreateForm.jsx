@@ -24,7 +24,7 @@ const RecipeCreateForm = () => {
   const [sublevel, setSublevel] = useState(0);
   const finalSublevel = 2;
 
-  const [cupStyleHeight, setCupStyleHeight] = useState(50);
+  const [cupStyleHeight, setCupStyleHeight] = useState(0);
 
   /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
@@ -44,8 +44,8 @@ const RecipeCreateForm = () => {
 
   /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
   const onClickCupSize = (e) => {
-    const currCup = e.target.textContent;
-    setCupStyleHeight(currCup / 591 * 100)
+    const currCup = (""+e.target.textContent).split('ml')[0];
+    setCupStyleHeight((+currCup / 591 * 100).toFixed(1))
     
     setValue('cupSize', currCup)
     trigger('cupSize') // errors 지우기
@@ -94,58 +94,80 @@ const RecipeCreateForm = () => {
         </button>
       </Navigation>
 
-      <StRecipeVisualContainer>
-        <StRecipeVisual ingredient_height={cupStyleHeight}>
-          <div className="ingredient_outline fcc">
-            <button>+</button>
-          </div>
-        </StRecipeVisual>
-      </StRecipeVisualContainer>
+      {level !== 3 && 
+        <StRecipeVisualContainer>
+          <StRecipeVisual ingredient_height={cupStyleHeight}>
+            <div className="ingredient_outline fcc">
+              {level === 2 &&
+                <>
+                  <button 
+                    type="button" 
+                    onClick={()=>{
+                      append()
+                      setSublevel(0)
+                  }}>
+                    +
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={()=>{
+                      remove(fields.length-1)
+                  }}>
+                    x
+                  </button>
+                </>
+              }         
+            </div>
+          </StRecipeVisual>
+        </StRecipeVisualContainer>
+      }
 
-      <StRecipeOptContainer>
-        {level === 0 && 
-          <RecipeCupSize
-            register={register}
-            setValue={setValue}
-            errors={errors}
-            watch={watch}
-            trigger={trigger}
-            onClickCupSize={onClickCupSize}
-          />
-        }
+      { level !== 3 &&
+        <StRecipeOptContainer>
+          {level === 0 && 
+            <RecipeCupSize
+              register={register}
+              setValue={setValue}
+              errors={errors}
+              watch={watch}
+              trigger={trigger}
+              onClickCupSize={onClickCupSize}
+            />
+          }
 
-        {level === 1 &&
-          <RecipeIsIced 
-            register={register}
-            errors={errors}
-            watch={watch}
-            setValue={setValue}
-            trigger={trigger}
-          />
-        }
+          {level === 1 &&
+            <RecipeIsIced 
+              register={register}
+              errors={errors}
+              watch={watch}
+              setValue={setValue}
+              trigger={trigger}
+            />
+          }
 
-        {level === 2 && 
-          <RecipeIngredientList
-            register={register}
-            setValue={setValue}
-            fields={fields}
-            append={append}
-            remove={remove}
-            watch={watch}
-            sublevel={sublevel}
-            setSublevel={setSublevel}
-            finalSublevel={finalSublevel}
-          />
-        }
+          {level === 2 && 
+            <RecipeIngredientList
+              register={register}
+              setValue={setValue}
+              fields={fields}
+              append={append}
+              remove={remove}
+              watch={watch}
+              sublevel={sublevel}
+              setSublevel={setSublevel}
+              finalSublevel={finalSublevel}
+            />
+          }
+        </StRecipeOptContainer>
+      }
 
-        {level === 3 && 
-          <RecipeTextValue
-            register={register}
-            errors={errors}
-            watch={watch}
-          />
-        }
-      </StRecipeOptContainer>
+      {level === 3 && 
+        <RecipeTextValue
+          register={register}
+          errors={errors}
+          watch={watch}
+        />
+      }
       
     </StForm>
   )
@@ -177,6 +199,7 @@ const StRecipeVisualContainer = styled.div`
 
   background-color: #fff;
 `
+
 const StRecipeVisual = styled.div`
   width: 70%;
   height: 80%;
@@ -195,35 +218,51 @@ const StRecipeVisual = styled.div`
   .ingredient_outline {
     height: ${props => props.ingredient_height+ '%'};
 
-    transition: all .5s;
+    transition: height .5s;
 
-    border: 7px dashed #aaa;
+    border: 3px dashed #555;
   }
 `
 
 const StRecipeOptContainer = styled.div`
-  padding: 1.5rem 1.5rem;
+  padding: 1rem 1.5rem;
   
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
   
-  .error_box {
+  .info_box {
     flex: 0 0 100%;
-    color: #aaa;
+    min-height: 30px;
+    
+    color: #222;
+
+    text-align: left;
+    line-height: 30px;
   }
 
-  input {
-    display: none;
+  .error_box {
+    flex: 0 0 100%;
+    line-height: 1.6;
+
+    color: #888;
+  }
+
+  input[type="radio"] {
+    /* display: none; */
+    position: absolute;
+    z-index: -9;
+    opacity: 0;
   }
   
   label {
     flex: 1 1 auto;
-    padding: 10px;
+    height: 40px;
     border-radius: .5rem;
 
     border: 1px solid var(--button-borderColor);
+
     transition: all .2s;
   }
   

@@ -39,6 +39,12 @@ const IngredientList = (props) => {
 
   return ( 
     <>
+      <div className="info_box">
+        {sublevel === 0 && 
+        '+ 버튼을 눌러 재료를 추가해주세요.'
+        }
+      </div>
+
       {fields.map((field, idx) => (
         <RecipeIngredient
           key={field.id}
@@ -54,21 +60,6 @@ const IngredientList = (props) => {
         />
       ))}
 
-      <button 
-        type="button" 
-        onClick={()=>{
-          append()
-          setSublevel(0)
-      }}>
-        재료 추가
-      </button>
-      <button 
-        type="button" 
-        onClick={()=>{
-          remove(fields.length-1)
-      }}>
-        재료 삭제
-      </button>
     </>
   )
 }

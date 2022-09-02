@@ -7,8 +7,9 @@ const RecipeRadio = ({ label, value, register, config={}, onChange=null, onClick
         value={ value }
         {...register( label, config )}
         onChange={ onChange } 
-      />
+        />
       <label 
+        className="fcc"
         htmlFor={ label+value }
         onClick={ onClick } 
       >

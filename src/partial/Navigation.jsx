@@ -7,7 +7,7 @@ const Navigation = (props) => {
   return (
     <StNav>
       {!empty && <span className="button_goBack" onClick={()=> navigate(-1)}>
-        〈
+        &lt;
       </span>}
       {props.children}
     </StNav>
@@ -17,7 +17,7 @@ const Navigation = (props) => {
 export default Navigation;
 
 const StNav = styled.nav`
-  padding: 0 1rem;
+  padding: 0 1.2rem;
 
   display: flex;
   align-items: center;
