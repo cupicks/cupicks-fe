@@ -1,13 +1,9 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {register, setValue, errors, trigger} = props;
+  const {register, setValue, errors, trigger, onClickCupSize, watch} = props;
   const cupSizes = [355, 473, 591]
 
-  const onChangeCupSize = () => {
-    setValue('ingrediantList', [])
-    trigger('cupSize')
-  }
   return ( 
     <>
       {cupSizes.map((value, idx) => (  
@@ -16,11 +12,13 @@ const RecipeCupSize = (props) => {
           label={'cupSize'}
           value={value}
           register={register}
-          onChange={onChangeCupSize}
+          onClick={onClickCupSize}
           config={{required: true}}
         />
       ))}
-      {errors.cupSize?.type === 'required' && "사이즈를 선택해주세요."}
+      <div className="error_box">
+        {errors.cupSize?.type === 'required' && "사이즈를 선택해주세요."}
+      </div>
     </>
   )
 }
