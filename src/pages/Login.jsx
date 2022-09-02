@@ -187,7 +187,6 @@ const StKakaoBox = styled.div`
 
   background-color: #fff115;
   color: #4a4a4a;
-  box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
 
   font-size: 20px;
   font-weight: bold;
