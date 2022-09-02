@@ -42,6 +42,7 @@ const Register = () => {
     }
     if (errors.image && level === 2) {
       alert("이미지를 추가해 주세요");
+      return;
     }
     if (errors.nickname && level === 3) {
       alert("닉네임을 제대로 입력해주세요");
@@ -87,6 +88,7 @@ const Register = () => {
               (level === 0 && watch("email") === undefined) ||
               (level === 0 && watch("email") === "") ||
               (level === 1 && watch("password") === "") ||
+              (level === 1 && watch("password_confirm") === "") ||
               (level === 2 && watch("image") === undefined) ||
               // (level === 2 && watch("image").length === 0) ||
               (level === 3 && watch("nickname") === "")
