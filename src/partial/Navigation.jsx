@@ -17,7 +17,7 @@ const Navigation = (props) => {
 export default Navigation;
 
 const StNav = styled.nav`
-  padding: 0 1.2rem;
+  padding: 0 5px;
 
   display: flex;
   align-items: center;
@@ -32,6 +32,7 @@ const StNav = styled.nav`
 
   button {
     all: unset;
+    padding: 0 16px;
   }
 
   .button_goBack {
@@ -40,5 +41,9 @@ const StNav = styled.nav`
 
   span {
     cursor: pointer;
+  }
+  
+  .sublevel_button {
+    background-color: red;
   }
 `

@@ -2,9 +2,11 @@ import RecipeIngredientNumber from "./RecipeIngredientNumber";
 
 import styled from "styled-components";
 
-const RecipeIngredient = ({
-  idx, register, calcAmount, cutNumberByLength, setValue, sublevel, setSublevel, finalSublevel, watch
-}) => {
+const RecipeIngredient = () => {
+  const {
+    idx, register, calcAmount, watch,
+    cutNumberByLength, setValue, 
+    sublevel, setSublevel, finalSublevel } = props;
 
   const sublevelButtonNextClickHandler = () => {
     switch (sublevel) {
@@ -57,22 +59,6 @@ const RecipeIngredient = ({
           <option value="#222222">옵션3</option>
         </select>
       }
-
-      <StButtonBox>
-        <button onClick={()=>{
-          sublevelButtonNextClickHandler();
-        }}>
-          {sublevel === finalSublevel ? '재료 고르기 완료' : '다음'}
-        </button>
-
-        <button
-          onClick={()=>{
-            sublevelButtonPrevClickHandler();
-        }}> 
-          뒤로 가기
-        </button>
-      </StButtonBox>
-
     </StRecipeIngredient>
 	)
 }
@@ -80,14 +66,9 @@ const RecipeIngredient = ({
 export default RecipeIngredient;
 
 const StRecipeIngredient = styled.div`
-
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-`
-
-const StButtonBox = styled.div`
-  
 `

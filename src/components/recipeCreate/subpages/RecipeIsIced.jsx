@@ -41,10 +41,6 @@ const RecipeIsIced = (props) => {
           onChange={isIcedSelectHandler}
         />
       ))}
-
-      <div className="error_box">
-        { errors.isIced?.type === 'required' && "음료 타입을 선택해주세요." }
-      </div>
       
       {isIcedResult &&
         <StIsIcedIconBox>
