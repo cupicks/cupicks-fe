@@ -1,10 +1,11 @@
 import React from "react";
+import styled from "styled-components";
 
 const Email = (props) => {
   const { register, errors } = props;
   return (
-    <div>
-      <label>이메일</label>
+    <StDiv>
+      <label>이메일 입력</label>
       <input
         type="text"
         placeholder="이메일 주소를 입력해 주세요"
@@ -21,8 +22,13 @@ const Email = (props) => {
       />
       {errors?.email?.types?.required && <p>{errors.email.message}</p>}
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
-    </div>
+    </StDiv>
   );
 };
 
 export default Email;
+
+const StDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
