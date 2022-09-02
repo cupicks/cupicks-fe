@@ -6,48 +6,73 @@ const Footer = () => {
   // const { pathname } = useLocation();
   // console.log(pathname);
   return (
-    <Wrap>
-      <ButtonSet>
-        <MyPageBtn></MyPageBtn>
-        <MainBtn></MainBtn>
-      </ButtonSet>
-    </Wrap>
+    <StWrap>
+      <StButtonSet>
+        <StMyPageBtn></StMyPageBtn>
+        <CreateButton>+</CreateButton>
+        <StMainBtn></StMainBtn>
+      </StButtonSet>
+    </StWrap>
   );
 };
 
 export default Footer;
 
-const Wrap = styled.footer`
+const StWrap = styled.footer`
   width: 600px;
-  height: 200px;
+  height: 150px;
   margin: 0 auto;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+
   display: flex;
   align-items: center;
-  background-color: ghostwhite;
+
+  background-color: #eee;
 `;
 
-const ButtonSet = styled.div`
+const StButtonSet = styled.div`
   width: 400px;
   height: 100px;
-  display: flex;
+
   margin: 0 auto;
-  justify-content: space-between;
+
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const MyPageBtn = styled.button`
-  width: 75px;
-  height: 75px;
+const StMyPageBtn = styled.button`
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+
   border: 2px solid black;
 `;
 
-const MainBtn = styled.button`
-  width: 75px;
-  height: 75px;
+const CreateButton = styled.button`
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
+
+  background-color: #393939;
+
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 20px 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translateY(-80%);
+
+  padding-bottom: 5px;
+
+  color: white;
+  font-size: 80px;
+`;
+
+const StMainBtn = styled.button`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
   border: 2px solid black;
 `;

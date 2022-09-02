@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const RecipeListIngredient = (props) => {
+const AllRecipeListIngredient = (props) => {
   const { ingredientColor, ingredientAmount, ingredientName } =
     props.ingredients;
   return (
@@ -14,7 +14,7 @@ const RecipeListIngredient = (props) => {
   );
 };
 
-export default RecipeListIngredient;
+export default AllRecipeListIngredient;
 
 const StIngredientWrap = styled.div`
   height: ${(props) => props.ingredientAmount + "%"};

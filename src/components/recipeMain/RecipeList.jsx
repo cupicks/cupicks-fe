@@ -5,8 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { RecipeListContainer } from "./RecipeListContainer";
 
-const RecipeList = ({ recipe, setRecipe }) => {
-  recipe = recipe.recipeList;
+const RecipeList = ({ favRecipe, setFavRecipe }) => {
+  favRecipe = favRecipe.recipeList;
   const settings = {
     centerMode: true,
     arrows: true,
@@ -16,11 +16,13 @@ const RecipeList = ({ recipe, setRecipe }) => {
     slidesToScroll: 1,
     variableWidth: true,
     speed: 500,
+    nextArrow: <Div>&gt</Div>,
+    prevArrow: <DivPre>&lt</DivPre>,
   };
   return (
     <>
       <StyledSlider {...settings}>
-        {recipe.map((recipes) => (
+        {favRecipe.map((recipes) => (
           <RecipeListContainer recipes={recipes} />
         ))}
       </StyledSlider>
@@ -31,21 +33,39 @@ const RecipeList = ({ recipe, setRecipe }) => {
 export default RecipeList;
 
 const StyledSlider = styled(Slider)`
-  /* .slick-slide div {
-    height: 320px;
-    width: 320px;
-    outline: none;
-    border: 2px solid black;
-  } */
+  position: relative;
+  width: 100%;
 
-  .slick-prev:before {
-    opacity: 1; // 기존에 숨어있던 화살표 버튼이 보이게
-    color: black; // 버튼 색은 검은색으로
-    left: 0;
-  }
-
-  .slick-next:before {
+  .slick-prev::before {
     opacity: 1;
-    color: black;
+    /* display: none; */
   }
+  .slick-next::before {
+    opacity: 1;
+    /* display: none; */
+  }
+
+  .slick-slide div {
+    cursor: pointer;
+  }
+`;
+
+const Div = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 16px;
+  z-index: 99;
+  text-align: right;
+  line-height: 30px;
+`;
+
+const DivPre = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 16px;
+  z-index: 99;
+  text-align: left;
+  line-height: 30px;
 `;

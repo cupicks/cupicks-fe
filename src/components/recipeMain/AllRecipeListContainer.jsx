@@ -1,37 +1,45 @@
 import React from "react";
 import styled from "styled-components";
-import RecipeListIngredient from "./RecipeListIngredient";
+import AllRecipeListIngredient from "./AllRecipeListIngredient";
 
-export const RecipeListContainer = (props) => {
-  const { recipeId, ingredientList, title, cupSize } = props.recipes;
+const AllRecipeListContainer = (props) => {
+  const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
   return (
-    <StList key={recipeId}>
+    <div key={recipeId}>
       <StListWrap>
         <StListHead>
           <StListProfile></StListProfile>
           <StNickname>닉네임</StNickname>
+          <div>...</div>
         </StListHead>
         <StListContent>
           {ingredientList.map((ingredients) => (
-            <RecipeListIngredient ingredients={ingredients} cupSize={cupSize} />
+            <AllRecipeListIngredient
+              ingredients={ingredients}
+              cupSize={cupSize}
+            />
           ))}
         </StListContent>
         <StListTitle>{title}</StListTitle>
       </StListWrap>
-    </StList>
+    </div>
   );
 };
 
-const StList = styled.div`
-  width: 300px;
-`;
+export default AllRecipeListContainer;
+
+// const StList = styled.div`
+//   background-color: #fff;
+// `;
 
 const StListWrap = styled.div`
-  height: 420px;
+  width: 170px;
+  height: 280px;
   border-radius: 12px;
 
   margin: 0 auto;
   margin-top: 30px;
+  margin-left: 20px;
 
   display: flex;
   flex-flow: column;
@@ -40,7 +48,7 @@ const StListWrap = styled.div`
 `;
 
 const StListHead = styled.div`
-  height: 80px;
+  height: 50px;
 
   display: flex;
   flex-flow: row;
@@ -49,37 +57,42 @@ const StListHead = styled.div`
   background-color: #ffffff;
 
   border-radius: 12px;
-  border-top: 2px solid #e6e6e6;
+  /* border-top: 2px solid #e6e6e6; */
 `;
 
 const StListProfile = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 
-  margin-left: 10px;
-
   border: 2px solid gray;
+
+  margin-left: 10px;
 `;
 
 const StNickname = styled.div`
   margin-left: 10px;
+
+  font-size: 13px;
 `;
 
 const StListContent = styled.div`
-  height: 300px;
+  height: 240px;
 `;
 
 const StListTitle = styled.div`
-  height: 40px;
+  height: 30px;
   border-radius: 12px;
+
+  padding-left: 5px;
+  padding-bottom: 20px;
 
   display: flex;
   flex-flow: row;
 
-  margin-left: 10px;
-
   background-color: #ffffff;
 
   border-bottom: 2px solid #e6e6e6;
+
+  font-size: 14px;
 `;
