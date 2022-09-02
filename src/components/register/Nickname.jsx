@@ -1,12 +1,14 @@
 import React from "react";
 
+import styled from "styled-components";
+
 const Nickname = (props) => {
   const { register, errors } = props;
   return (
-    <div>
+    <StDiv>
       <label>닉네임</label>
       <input
-        placeholder="닉네임"
+        placeholder="닉네임을 입력해 주세요"
         minLength={2}
         maxLength={10}
         {...register("nickname", {
@@ -18,8 +20,16 @@ const Nickname = (props) => {
         })}
       />
       {errors.nickname && <p>{errors.nickname.message}</p>}
-    </div>
+    </StDiv>
   );
 };
 
 export default Nickname;
+
+const StDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  & input {
+    margin-top: 70px;
+  }
+`;
