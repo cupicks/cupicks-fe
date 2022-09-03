@@ -42,9 +42,14 @@ const Layout = () => {
 export default Layout;
 
 const StLayout = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
   max-width: 600px;
+  /* min-height: 100vh; */
+  height: 100vh;
+
   margin: 0 auto;
+
+  display: flex;
+  flex-flow: column;
+
+  overflow: hidden;
 `;

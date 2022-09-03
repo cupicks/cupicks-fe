@@ -3,45 +3,51 @@ import styled from "styled-components";
 
 const Header = () => {
   return (
-    <Wrap>
-      <Logo></Logo>
-      <Title>
-        <Name>Cupick</Name>
-      </Title>
-    </Wrap>
+    <StWrap>
+      <StLogo></StLogo>
+    </StWrap>
   );
 };
 
 export default Header;
 
-const Wrap = styled.div`
-  width: 500px;
+const StWrap = styled.header`
+  width: 100%;
   height: 80px;
-  flex-direction: row;
-  display: flex;
+
   margin: 0 auto;
-  margin-top: 20px;
-  align-items: center;
-`;
 
-const Logo = styled.div`
-  width: 80px;
-  height: 80px;
-  border: 2px solid black;
-  border-radius: 50%;
-`;
-
-const Title = styled.div`
-  width: 200px;
-  height: 100px;
-  margin-left: 15px;
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   align-items: center;
+
+  background-color: #ffffff;
 `;
 
-const Name = styled.div`
-  width: 200px;
-  height: 80px;
-  font-size: 45px;
+const StLogo = styled.div`
+  width: 250px;
+  height: 60px;
+
+  background-image: url("/assets/image/Logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
+
+// const StTitle = styled.div`
+//   width: 200px;
+//   height: 100px;
+
+//   margin-left: 15px;
+
+//   display: flex;
+//   flex-flow: row;
+//   align-items: center;
+// `;
+
+// const StName = styled.div`
+//   width: 200px;
+//   height: 80px;
+
+//   font-size: 45px;
+// `;

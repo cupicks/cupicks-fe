@@ -13,14 +13,14 @@ const RegisterEdit = () => {
   // console.log(errors);
   // console.log(watch("name"));
   return (
-    <Wrap onSubmit={handleSubmit(onSubmit)}>
-      <ProfileEditTitle>개인정보편집</ProfileEditTitle>
-      <ProfileEdit>
-        <ProfilePic></ProfilePic>
-      </ProfileEdit>
-      <ProfileEditBody>
-        <RegisterLabel>이름</RegisterLabel>
-        <RegisterInput
+    <StWrap onSubmit={handleSubmit(onSubmit)}>
+      <StProfileEditTitle>개인정보편집</StProfileEditTitle>
+      <StProfileEdit>
+        <StProfilePic></StProfilePic>
+      </StProfileEdit>
+      <StProfileEditBody>
+        <StRegisterLabel>이름</StRegisterLabel>
+        <StRegisterInput
           {...register("name", {
             required: true,
             minLength: {
@@ -44,8 +44,8 @@ const RegisterEdit = () => {
         {errors.name && errors.name.type == "maxLength" && (
           <p className={"warning"}>{errors.name.message}</p>
         )}
-        <RegisterLabel>닉네임</RegisterLabel>
-        <RegisterInput
+        <StRegisterLabel>닉네임</StRegisterLabel>
+        <StRegisterInput
           {...register("nickname", {
             required: true,
             minLength: {
@@ -69,8 +69,8 @@ const RegisterEdit = () => {
         {errors.nickname && errors.nickname.type == "maxLength" && (
           <p className={"warning"}>{errors.nickname.message}</p>
         )}
-        <RegisterLabel>패스워드</RegisterLabel>
-        <RegisterInput
+        <StRegisterLabel>패스워드</StRegisterLabel>
+        <StRegisterInput
           {...register("password", {
             required: true,
             minLength: {
@@ -127,47 +127,53 @@ const RegisterEdit = () => {
         {errors.email && errors.email.type == "maxLength" && (
           <p className={"warning"}>'20자 이내로 써주세요'</p>
         )} */}
-      </ProfileEditBody>
+      </StProfileEditBody>
       <button type="submit">저장</button>
-    </Wrap>
+    </StWrap>
   );
 };
 
 export default RegisterEdit;
 
-const Wrap = styled.form`
+const StWrap = styled.form`
   width: 600px;
   height: 100vh;
 `;
 
-const ProfileEditTitle = styled.div`
+const StProfileEditTitle = styled.div`
   width: 600px;
   height: 10vh;
+
   border: 2px solid yellow;
 `;
 
-const ProfileEdit = styled.div`
+const StProfileEdit = styled.div`
   width: 600px;
   height: 20vh;
-  border: 2px solid green;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border: 2px solid green;
 `;
 
-const ProfilePic = styled.div`
+const StProfilePic = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
+
   border: 2px solid black;
 `;
-const ProfileEditBody = styled.div`
+const StProfileEditBody = styled.div`
   width: 600px;
   height: 60vh;
-  border: 2px solid skyblue;
+
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   align-items: flex-start;
+
+  border: 2px solid skyblue;
 
   & .warning {
     color: #ff7c7c;
@@ -175,15 +181,17 @@ const ProfileEditBody = styled.div`
   }
 `;
 
-const RegisterInput = styled.input`
+const StRegisterInput = styled.input`
   width: 500px;
   height: 90px;
+
   margin-top: 30px;
   margin: 0 auto;
 `;
 
-const RegisterLabel = styled.label`
+const StRegisterLabel = styled.label`
+  margin-left: 50px;
+
   align-items: flex-start;
   display: flex;
-  margin-left: 50px;
 `;
