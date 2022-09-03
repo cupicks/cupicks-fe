@@ -1,6 +1,4 @@
 import RecipeRadio from "../element/RecipeRadio";
-import IsIcedIcon from "../element/IsIcedIcon"
-import styled from 'styled-components';
 
 const RecipeIsIced = (props) => {
   const {register, trigger, cupState, setCupState} = props;
@@ -36,34 +34,8 @@ const RecipeIsIced = (props) => {
           onChange={isIcedSelectHandler}
         />
       ))}
-        {isIcedTag !== null && (isIcedTag ?
-        <StIsIcedIconBox>
-          <IsIcedIcon isIced={true} />
-        </StIsIcedIconBox>
-        :
-        <StIsIcedIconBox>
-          <IsIcedIcon isIced={false} />
-        </StIsIcedIconBox>
-        )}
     </>
   )
 }
 
 export default RecipeIsIced;
-
-const StIsIcedIconBox = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  top: 70px;
-  right: 1.5rem;
-
-  background-color: #444;
-  color: #fff;
-`

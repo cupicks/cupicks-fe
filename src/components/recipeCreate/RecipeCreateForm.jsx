@@ -13,38 +13,53 @@ import RecipeVisualContainer from "./subpages/RecipeVisualContainer";
 import RecipeCreateNavigation from "./subpages/RecipeCreateNavigation";
 
 const RecipeCreateForm = () => {
-  const { register, handleSubmit, setValue, trigger, watch, control, formState: { errors } } = useForm();
-  const { fields, append, remove } = useFieldArray({ control, name: "ingrediantList" })
+  const { register, handleSubmit, setValue, getValues, trigger, watch, control, formState: { errors } } = useForm();
+  const { fields, append, remove } = useFieldArray({ control, name: "ingredientList" })
 
   const [cupState, setCupState] = useState({
     level: 0,
     finalLevel: 3,
     sublevel: 0,
-    finalSublevel: 2,
+    finalSublevel: 3,
     cupStyleHeight: 0,
+    isIcedTag: null,
+    isPublicTag: null,
+    currCupSize: null,
     ingredientDeleteMode: false,
-    isIcedTag: null
+    ingredientCount: 0,
+    currIngredients: {
+      ingredientName: "",
+      ingredientAmount: null,
+      ingredientColor: ""
+    }
   })
-  const { level, finalLevel, sublevel, finalSublevel, cupStyleHeight, ingredientDeleteMode, isIcedTag } = cupState
+  const { level, finalLevel } = cupState
+
+  // console.log(getValues());
   
   /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
+    console.log(data);
     data = setDataType(data);
     
     // level === finalLevel일 때 request할 예정
-    if(level === finalLevel + 1){
+    if(level === finalLevel){
       console.log('request');
-      console.log(data);
     }
+    console.log(data);
   }
   
   /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
   const onClickCupSize = (e) => {
-    const currCup = +(""+e.target.textContent).split('ml')[0];
-    setCupState({...cupState, cupStyleHeight : +(+currCup / 591 * 100).toFixed(1)})
+    const currCupSize = +(""+e.target.textContent).split('ml')[0];
+    setCupState({
+      ...cupState, 
+      currCupSize: currCupSize, 
+      cupStyleHeight : +(+currCupSize / 591 * 100).toFixed(1)
+    })
     
-    // setValue('cupSize', currCup)
-    setValue('ingrediantList', [])
+    setValue('cupSize', currCupSize)
+    setValue('ingredientList', [])
   }
 
   return (
@@ -72,10 +87,7 @@ const RecipeCreateForm = () => {
             <RecipeCupSize
               errors={errors}              
               register={register}
-              setValue={setValue}
-              watch={watch}
-              trigger={trigger}
-              onClickCupSize={onClickCupSize}
+              onClick={onClickCupSize}
             />
           }
 
@@ -88,8 +100,8 @@ const RecipeCreateForm = () => {
               trigger={trigger}
               cupState={cupState}
               setCupState={setCupState}
-              />
-            }
+            />
+          }
 
           {level === 2 && 
             <RecipeIngredientList
@@ -100,6 +112,7 @@ const RecipeCreateForm = () => {
               remove={remove}
               watch={watch}
               cupState={cupState}
+              setCupState={setCupState}
             />
           }
         </StRecipeOptContainer>
@@ -108,8 +121,10 @@ const RecipeCreateForm = () => {
       {level === 3 && 
         <RecipeTextValue
           errors={errors}
+          cupState={cupState}
+          setValue={setValue}
           register={register}
-          watch={watch}
+          setCupState={setCupState}
         />
       }
       
@@ -134,6 +149,7 @@ const StForm = styled.form`
 `
 
 const StRecipeOptContainer = styled.div`
+  flex: 1 1 auto;
   padding: 1rem 1.5rem;
   
   display: flex;
@@ -179,7 +195,7 @@ const StRecipeOptContainer = styled.div`
     transition: all .2s;
   }
   
-  input:checked + label {
+  input:not(.colorLabel):checked + label {
     background-color: var(--button-activeBackgroundColor);
     color: var(--button-activeColor);
   }

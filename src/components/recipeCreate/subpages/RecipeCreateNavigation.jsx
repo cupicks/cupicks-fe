@@ -58,8 +58,6 @@ const RecipeCreateNavigation = (props) => {
     // }
     sublevel < finalSublevel && setCupState({...cupState, sublevel: cupState.sublevel + 1});
   }
-  
-  console.log(level, sublevel);
 
   const lv0 = level === 0;
   const lv2 = level === 2;

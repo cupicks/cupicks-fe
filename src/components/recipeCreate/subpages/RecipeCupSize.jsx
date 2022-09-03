@@ -1,7 +1,7 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {register, errors, onClickCupSize} = props;
+  const {register, errors, onClick} = props;
   const cupSizes = ['355ml', '473ml', '591ml']
 
   return ( 
@@ -16,7 +16,7 @@ const RecipeCupSize = (props) => {
           label={'cupSize'}
           value={value}
           register={register}
-          onClick={onClickCupSize}
+          onClick={onClick}
           config={{
             required: {
               value: 'required',

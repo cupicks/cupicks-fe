@@ -1,4 +1,7 @@
 import styled from "styled-components"
+import IngredientsContainer from "../../recipeDetail/IngredientsContainer";
+
+import IsIcedIcon from "../element/IsIcedIcon"
 
 const RecipeVisualContainer = (props) => {
   const {fields, append, remove, cupState, setCupState} = props;
@@ -6,36 +9,41 @@ const RecipeVisualContainer = (props) => {
   
   return (
     <StRecipeVisualContainer>
-      <StRecipeVisual ingredient_height={cupStyleHeight}>
-        <div 
-          className=
-          {cupStyleHeight === 0? "ingredient_outline fcc empty":
-          "ingredient_outline fcc"
-          }
-        >
-          {(level === 2 && !ingredientDeleteMode) &&
-            <>
-              <button
-                type="button" 
-                className={ sublevel===0 ? "" : "disable" }
-                onClick={()=>{
-                  append()
-                  setCupState({...prev, sublevel: 0})
-              }}>
-                +
-              </button>
-            </>
-          }
-          {(level === 2 && ingredientDeleteMode) &&
+
+    <StRecipeVisual ingredient_height={cupStyleHeight}>
+      <div 
+        className=
+        {cupStyleHeight === 0? "ingredient_outline fcc empty":
+        "ingredient_outline fcc"
+        }
+      >
+
+        
+        {/* <IngredientsContainer recipe={fields} /> */}
+
+        {(level === 2 && !ingredientDeleteMode) &&
+          <>
             <button
-              type="button" 
+              type="button"
+              className={ sublevel===0 ? "" : "disable" }
               onClick={()=>{
-                remove(fields.length-1)
+                append()
+                setCupState({...cupState, sublevel: 1})
             }}>
-              x
+              +
             </button>
-          }
-        </div>
+          </>
+        }
+        {(level === 2 && ingredientDeleteMode) &&
+          <button
+            type="button" 
+            onClick={()=>{
+              remove(fields.length-1)
+          }}>
+            x
+          </button>
+        }
+      </div>
         
       </StRecipeVisual>
       { isIcedTag &&
@@ -43,6 +51,23 @@ const RecipeVisualContainer = (props) => {
           ice 선택 시 전체량 중 200ml가 채워집니다.
         </div>
       }
+      
+      { sublevel === 0 && fields > 0 &&
+        <div className="info_box">
+          채워진 재료를 누르면 제거 버튼이 나옵니다.
+        </div>
+      }
+      
+      {isIcedTag !== null && (isIcedTag ?
+        <StIsIcedIconBox>
+          <IsIcedIcon isIced={true} />
+        </StIsIcedIconBox>
+        :
+        <StIsIcedIconBox>
+          <IsIcedIcon isIced={false} />
+        </StIsIcedIconBox>
+      )}
+
     </StRecipeVisualContainer>
   )
 }
@@ -75,6 +100,8 @@ const StRecipeVisualContainer = styled.div`
 
     font-size: 50px;
     line-height: 50px;
+    
+    transition: all .2s;
   }
 
   .info_box {
@@ -118,4 +145,21 @@ const StRecipeVisual = styled.div`
     height: 50%;
     opacity: 0;
   }
+`
+
+const StIsIcedIconBox = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 5px;
+  right: 1.5rem;
+
+  background-color: #444;
+  color: #fff;
 `

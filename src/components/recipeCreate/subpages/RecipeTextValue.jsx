@@ -6,17 +6,15 @@ import RecipeRadio from "../element/RecipeRadio";
 import RecipeTextarea from '../element/RecipeTextarea';
 
 const RecipeTextValue = (props) => {
-  const { register, errors, watch } = props;
-  const [isPublicResult, setIsPublicResult] = useState('');
+  const { register, errors, cupState, setCupState } = props;
+  const { isPublicTag, setValue } = cupState;
 
   /** isPublic를 watch해서 'isPublicResult' state를 set하는 함수 */ 
-  const isPublicSelectHandler = () => {
-    const isPublic = watch('isPublic');
-    let isNotUndefined = Boolean(isPublic);
-    let isTrue = isNotUndefined && isPublic === '1'
-    let result = isTrue ? '나만 보기' : '공유';
-    setIsPublicResult(result)
+  const isPublicSelectHandler = (e) => {
+    setCupState({...cupState, isPublicTag: !e.target.checked});
+    // setValue()
   }
+  console.log(cupState.isPublicTag);
 
   return ( 
     <>
@@ -60,22 +58,21 @@ const RecipeTextValue = (props) => {
             커뮤니티에 공유하기
           </div>
           
-          <StRangeBar>
-            {[0, 1].map((value, idx) => {
-              let opt = { required: true }
-
-              return (
-                <RecipeRadio
-                  key={idx}
-                  label={'isPublic'}
-                  value={value}
-                  config={opt}
-                  register={register}
-                  onChange={isPublicSelectHandler}
-                />
-              )
-            })}
+          <StRangeBar isPublic={isPublicTag}>
+            <input 
+              type="checkbox" 
+              id='publicCheckbox'
+              value={ true }
+              {...register('isPublic')}
+              onChange={ isPublicSelectHandler } 
+              />
+            <label 
+              htmlFor='publicCheckbox'
+            >
+            </label>
           </StRangeBar>
+
+          {isPublicTag === "1" && "공유"}
         </StIsPulicBox>
       </StTextInputContainer>
 
@@ -122,22 +119,19 @@ const StIsPulicBox = styled.div`
 
 const StRangeBar = styled.div`
   width: 60px;
-  height: 26px;
+  height: 25px;
   border-radius: 26px;
   
-  display: flex;
+  position: relative;
 
-  background: #222;
+  background: #555;
   
   .info_box {
     width: auto;
   }
 
-  input[type="radio"] {
+  input[type="checkbox"] {
     position: absolute;
-    display: none;
-    z-index: -9;
-    opacity: 0;
   }
   
   label {
@@ -145,15 +139,20 @@ const StRangeBar = styled.div`
     height: 100%;
     border-radius: 15px;
 
+    position: absolute;
+    left: ${props => props.isPublic?'0':'50%'};
+    right: 0;
+
     background-color: #fff;
-    border: 1px solid #222;
+    border: 1px solid #555;
     color: #fff;
+
+    transition: all .4s;
   }
 
-  input:checked + label {
+  input {
+    z-index: -9;
     opacity: 0;
-    background-color: var(--button-activeBackgroundColor);
-    color: var(--button-activeColor);
   }
 
   *::placeholder {
