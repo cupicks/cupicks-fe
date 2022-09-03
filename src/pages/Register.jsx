@@ -40,10 +40,10 @@ const Register = () => {
       alert("비밀번호가 일치하지 않습니다");
       return;
     }
-    if (errors.image && level === 2) {
-      alert("이미지를 추가해 주세요");
-      return;
-    }
+    // if (errors.image && level === 2) {
+    //   alert("이미지를 추가해 주세요");
+    //   return;
+    // }
     if (errors.nickname && level === 3) {
       alert("닉네임을 제대로 입력해주세요");
       return;
@@ -57,7 +57,6 @@ const Register = () => {
       setLevel((prev) => prev - 1);
     }
   };
-
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>
@@ -75,14 +74,12 @@ const Register = () => {
         {level === 3 && <Nickname register={register} errors={errors} />}
         {level === 3 ? (
           <StButton
-            type="submit"
             disabled={(level === 3 && watch("nickname") === "") || isSubmitting}
           >
             완료
           </StButton>
         ) : (
           <StButton
-            type="submit"
             onClick={next}
             disabled={
               (level === 0 && watch("email") === undefined) ||
@@ -90,7 +87,7 @@ const Register = () => {
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "") ||
               (level === 2 && watch("image") === undefined) ||
-              // (level === 2 && watch("image").length === 0) ||
+              (level === 2 && watch("image")?.length === 0) ||
               (level === 3 && watch("nickname") === "")
             }
           >
@@ -165,8 +162,7 @@ const StButton = styled.button`
   :disabled {
     pointer-events: none;
   }
-  :hover,
-  :focus {
+  :hover {
     background-color: #000;
     border: none;
     color: #fff;
