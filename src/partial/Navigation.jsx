@@ -29,6 +29,7 @@ const StNav = styled.nav`
   background-color: #fff;
   
   line-height: 60px;
+  z-index: 999;
 
   button {
     all: unset;
@@ -45,5 +46,11 @@ const StNav = styled.nav`
   
   .sublevel_button {
     background-color: red;
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `

@@ -16,32 +16,34 @@ const RecipeCreateForm = () => {
   const { register, handleSubmit, setValue, trigger, watch, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({ control, name: "ingrediantList" })
 
-  const [level, setLevel] = useState(0)
-  const finalLevel = 3;
-
-  const [sublevel, setSublevel] = useState(0);
-  const finalSublevel = 2;
-
-  const [cupStyleHeight, setCupStyleHeight] = useState(0);
-  const [ingredientDeleteMode, setIngredientDeleteMode] = useState(false);
-
+  const [cupState, setCupState] = useState({
+    level: 0,
+    finalLevel: 3,
+    sublevel: 0,
+    finalSublevel: 2,
+    cupStyleHeight: 0,
+    ingredientDeleteMode: false,
+    isIcedTag: null
+  })
+  const { level, finalLevel, sublevel, finalSublevel, cupStyleHeight, ingredientDeleteMode, isIcedTag } = cupState
+  
   /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
     data = setDataType(data);
-
+    
     // level === finalLevel일 때 request할 예정
     if(level === finalLevel + 1){
       console.log('request');
       console.log(data);
     }
   }
-
+  
   /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
   const onClickCupSize = (e) => {
     const currCup = +(""+e.target.textContent).split('ml')[0];
-    setCupStyleHeight(+(+currCup / 591 * 100).toFixed(1))
-
-    setValue('cupSize', currCup)
+    setCupState({...cupState, cupStyleHeight : +(+currCup / 591 * 100).toFixed(1)})
+    
+    // setValue('cupSize', currCup)
     setValue('ingrediantList', [])
   }
 
@@ -49,28 +51,22 @@ const RecipeCreateForm = () => {
     <StForm onSubmit={handleSubmit(onSubmit)}>
       
       <RecipeCreateNavigation
-        level={level}
-        finalLevel={finalLevel}
-        setLevel={setLevel}
-        sublevel={sublevel}
-        finalSublevel={finalLevel}
-        setSublevel={setSublevel}
         watch={watch}
+        cupState={cupState}
+        setCupState={setCupState}
       />
 
       {level !== 3 && 
         <RecipeVisualContainer
-          level={level}
           fields={fields}
-          cupStyleHeight={cupStyleHeight}
-          ingredientDeleteMode={ingredientDeleteMode}
           append={append}
-          setSublevel={setSublevel}
           remove={remove}
+          cupState={cupState}
+          setCupState={setCupState}
         />
       }
 
-      { level !== 3 &&
+      {level !== 3 &&
         <StRecipeOptContainer>
           {level === 0 && 
             <RecipeCupSize
@@ -90,20 +86,20 @@ const RecipeCreateForm = () => {
               watch={watch}
               setValue={setValue}
               trigger={trigger}
-            />
-          }
+              cupState={cupState}
+              setCupState={setCupState}
+              />
+            }
 
           {level === 2 && 
             <RecipeIngredientList
               fields={fields}
-              sublevel={sublevel}
-              finalSublevel={finalSublevel}
               register={register}
               setValue={setValue}
               append={append}
               remove={remove}
               watch={watch}
-              setSublevel={setSublevel}
+              cupState={cupState}
             />
           }
         </StRecipeOptContainer>
@@ -147,12 +143,12 @@ const StRecipeOptContainer = styled.div`
   
   .info_box {
     flex: 0 0 100%;
-    min-height: 30px;
+    display: flex;
+    gap: 15px;
     
     color: #222;
 
     text-align: left;
-    line-height: 30px;
   }
 
   .error_box {

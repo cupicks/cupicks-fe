@@ -1,25 +1,20 @@
-import { useState } from 'react'
-
 import RecipeRadio from "../element/RecipeRadio";
 import IsIcedIcon from "../element/IsIcedIcon"
 import styled from 'styled-components';
 
 const RecipeIsIced = (props) => {
-  const {register, errors, watch, setValue, trigger} = props;
-  const [isIcedResult, setIsIcedResult] = useState(null);
+  const {register, trigger, cupState, setCupState} = props;
+  const {isIcedTag} = cupState
   
   const recipeTypes = ['hot', 'ice']
-  const [isIcedValue, setIsIcedValue] = useState(null);
 
   /** watch('isIced')해서 'isIcedResult' state변경
    * ice음료는 true, hot음료는 false */ 
   const isIcedSelectHandler = (e) => {
     const currValue = e.target.value; 
     const isIced = currValue === "ice";
-    let isIcedTrue = currValue !== null && isIced === true
-    
-    console.log();
-    setIsIcedResult(isIcedTrue)
+
+    setCupState({...cupState, isIcedTag: isIced})
     trigger('isIced')
   }
   
@@ -41,12 +36,15 @@ const RecipeIsIced = (props) => {
           onChange={isIcedSelectHandler}
         />
       ))}
-      
-      {isIcedResult &&
+        {isIcedTag !== null && (isIcedTag ?
         <StIsIcedIconBox>
-          <IsIcedIcon isIced={isIcedResult} />
+          <IsIcedIcon isIced={true} />
         </StIsIcedIconBox>
-      }
+        :
+        <StIsIcedIconBox>
+          <IsIcedIcon isIced={false} />
+        </StIsIcedIconBox>
+        )}
     </>
   )
 }
@@ -68,5 +66,4 @@ const StIsIcedIconBox = styled.div`
 
   background-color: #444;
   color: #fff;
-  
 `

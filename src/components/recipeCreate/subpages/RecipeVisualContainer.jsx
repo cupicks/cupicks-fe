@@ -1,10 +1,9 @@
 import styled from "styled-components"
 
 const RecipeVisualContainer = (props) => {
-  const {fields, cupStyleHeight, level, append, setSublevel, remove, ingredientDeleteMode} = props;
-
-  console.log(cupStyleHeight);
-
+  const {fields, append, remove, cupState, setCupState} = props;
+  const {level, sublevel, cupStyleHeight, ingredientDeleteMode, isIcedTag} = cupState;
+  
   return (
     <StRecipeVisualContainer>
       <StRecipeVisual ingredient_height={cupStyleHeight}>
@@ -18,9 +17,10 @@ const RecipeVisualContainer = (props) => {
             <>
               <button
                 type="button" 
+                className={ sublevel===0 ? "" : "disable" }
                 onClick={()=>{
                   append()
-                  setSublevel(0)
+                  setCupState({...prev, sublevel: 0})
               }}>
                 +
               </button>
@@ -38,12 +38,12 @@ const RecipeVisualContainer = (props) => {
         </div>
         
       </StRecipeVisual>
-      { level === 1 &&
+      { isIcedTag &&
         <div className="info_box">
           ice 선택 시 전체량 중 200ml가 채워집니다.
         </div>
       }
-  </StRecipeVisualContainer>
+    </StRecipeVisualContainer>
   )
 }
 
@@ -52,17 +52,19 @@ export default RecipeVisualContainer;
 const StRecipeVisualContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
   height: calc(100vh - 60px - 150px);
-
+  
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column wrap;
+  
+  position: relative;
 
   background-color: #fff;
 
   button {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     
     background: var(--button-activeBackgroundColor);
@@ -71,12 +73,22 @@ const StRecipeVisualContainer = styled.div`
     color: var(--button-activeColor);
     outline: none;
 
-    font-size: 30px;
-    line-height: 30px;
+    font-size: 50px;
+    line-height: 50px;
   }
 
   .info_box {
-    margin-top: 10px;
+    position: absolute;
+    bottom: 3%;
+
+    color: #888;
+
+    font-size: 14px;
+  }
+
+  .disable {
+    pointer-events: none;
+    opacity: 0.3;
   }
 `
 

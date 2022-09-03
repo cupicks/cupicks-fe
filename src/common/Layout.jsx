@@ -6,20 +6,18 @@ import Header from "../partial/Header";
 import Footer from "../partial/Footer";
 
 const Layout = () => {
-  console.log(window.location.pathname);
   const [footer, setFooter] = useState(false);
   const [header, setHeader] = useState(false);
   //|| "/mypage" || "/profile/:userId/edit"
   useEffect(() => {
     const pathname = window.location.pathname;
-    console.log(pathname !== "/recipe");
+    // console.log(pathname !== "/recipe");
     if (
       pathname === "/recipe" ||
       pathname === "/mypage" ||
       pathname.indexOf("/profile") > -1
     ) {
       setFooter(true);
-      console.log("hi");
     } else {
       setFooter(false);
     }

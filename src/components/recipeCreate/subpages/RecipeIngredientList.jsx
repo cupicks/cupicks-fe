@@ -1,8 +1,12 @@
+import styled from "styled-components"
+
 import RecipeIngredient from '../element/RecipeIngredient'
+
 import { cutNumberByLength } from '../../../util/recipeCalcNumber'
 
 const IngredientList = (props) => {
-  const {register, setValue, fields, append, remove, watch, sublevel, setSublevel, finalSublevel} = props;
+  const {register, setValue, fields, watch, cupState} = props;
+  const {sublevel, setSublevel, finalSublevel} = cupState;
 
   /** cupSize보다 넘치는 값 자르는 함수 */
   const calcAmount = (e) => {
@@ -38,11 +42,9 @@ const IngredientList = (props) => {
   }
 
   return ( 
-    <>
-      <div className="info_box">
-        {sublevel === 0 && 
-        '+ 버튼을 눌러 재료를 추가해주세요.'
-        }
+    <StIngredientList>
+      <div className="info_box_center">
+        {sublevel === 0 && '+ 버튼을 눌러 재료를 추가해주세요.'}
       </div>
 
       {fields.map((field, idx) => (
@@ -60,8 +62,19 @@ const IngredientList = (props) => {
         />
       ))}
 
-    </>
+    </StIngredientList>
   )
 }
 
 export default IngredientList;
+
+const StIngredientList = styled.div`
+  flex: 1 1 auto;
+  
+  display: flex;
+  flex-flow: column;
+  
+  .info_box_center {
+    margin-bottom: 10px;
+  }
+`
