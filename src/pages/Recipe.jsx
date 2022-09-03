@@ -13,7 +13,7 @@ const Recipe = () => {
 export default Recipe;
 
 const StWrap = styled.div`
-  min-height: calc(100vh - 80px - 150px);
+  height: calc(100vh - 80px - 150px);
   margin: 0 auto;
-  overflow: auto;
+  overflow: hidden;
 `;

@@ -160,11 +160,13 @@ const RecipeBody = () => {
 export default RecipeBody;
 
 const StWrap = styled.div`
-  max-width: 600px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
 
   display: flex;
   flex-flow: column;
+
+  overflow: auto;
 `;
 
 const StAllRecipeTitle = styled.div`

@@ -14,7 +14,7 @@ const RecipeList = ({ favRecipe, setFavRecipe }) => {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    variableWidth: true,
+    variableWidth: false,
     speed: 500,
     nextArrow: <Div>&gt</Div>,
     prevArrow: <DivPre>&lt</DivPre>,
@@ -33,8 +33,8 @@ const RecipeList = ({ favRecipe, setFavRecipe }) => {
 export default RecipeList;
 
 const StyledSlider = styled(Slider)`
+  width: 390px;
   position: relative;
-  width: 100%;
 
   .slick-prev::before {
     opacity: 1;
@@ -47,6 +47,8 @@ const StyledSlider = styled(Slider)`
 
   .slick-slide div {
     cursor: pointer;
+    margin-left: 2px;
+    margin-right: 14px;
   }
 `;
 

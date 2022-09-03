@@ -16,7 +16,7 @@ const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
 export default AllRecipeList;
 
 const StAllListWrap = styled.div`
-  width: 600px;
+  width: 100%;
   height: 220px;
   border-radius: 12px;
 

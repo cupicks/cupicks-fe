@@ -19,7 +19,7 @@ const Footer = () => {
 export default Footer;
 
 const StWrap = styled.footer`
-  width: 600px;
+  width: 100%;
   height: 150px;
   margin: 0 auto;
 
@@ -33,11 +33,9 @@ const StButtonSet = styled.div`
   width: 400px;
   height: 100px;
 
-  margin: 0 auto;
-
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 const StMyPageBtn = styled.button`
@@ -46,6 +44,8 @@ const StMyPageBtn = styled.button`
   border-radius: 50%;
 
   border: 2px solid black;
+
+  cursor: pointer;
 `;
 
 const CreateButton = styled.button`
@@ -67,6 +67,8 @@ const CreateButton = styled.button`
 
   color: white;
   font-size: 80px;
+
+  cursor: pointer;
 `;
 
 const StMainBtn = styled.button`
@@ -75,4 +77,6 @@ const StMainBtn = styled.button`
   border-radius: 50%;
 
   border: 2px solid black;
+
+  cursor: pointer;
 `;

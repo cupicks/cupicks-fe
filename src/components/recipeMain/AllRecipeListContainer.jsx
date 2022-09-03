@@ -20,7 +20,13 @@ const AllRecipeListContainer = (props) => {
             />
           ))}
         </StListContent>
-        <StListTitle>{title}</StListTitle>
+        <StListTitle>
+          {title}
+          <StItemSet>
+            <div>🖤</div>
+            <div>💬</div>
+          </StItemSet>
+        </StListTitle>
       </StListWrap>
     </div>
   );
@@ -38,7 +44,7 @@ const StListWrap = styled.div`
   border-radius: 12px;
 
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 5px;
   margin-left: 20px;
 
   display: flex;
@@ -78,6 +84,9 @@ const StNickname = styled.div`
 
 const StListContent = styled.div`
   height: 240px;
+
+  display: flex;
+  flex-flow: column-reverse;
 `;
 
 const StListTitle = styled.div`
@@ -89,10 +98,17 @@ const StListTitle = styled.div`
 
   display: flex;
   flex-flow: row;
+  justify-content: space-between;
 
   background-color: #ffffff;
 
   border-bottom: 2px solid #e6e6e6;
 
   font-size: 14px;
+`;
+
+const StItemSet = styled.div`
+  display: flex;
+  flex-flow: row;
+  gap: 8px;
 `;

@@ -16,7 +16,13 @@ export const RecipeListContainer = (props) => {
             <RecipeListIngredient ingredients={ingredients} cupSize={cupSize} />
           ))}
         </StListContent>
-        <StListTitle>{title}</StListTitle>
+        <StListTitle>
+          {title}
+          <StItemSet>
+            <div>🖤</div>
+            <div>💬</div>
+          </StItemSet>
+        </StListTitle>
       </StListWrap>
     </StList>
   );
@@ -57,8 +63,6 @@ const StListProfile = styled.div`
   height: 35px;
   border-radius: 50%;
 
-  margin-left: 10px;
-
   border: 2px solid gray;
 `;
 
@@ -68,6 +72,8 @@ const StNickname = styled.div`
 
 const StListContent = styled.div`
   height: 300px;
+  display: flex;
+  flex-flow: column-reverse;
 `;
 
 const StListTitle = styled.div`
@@ -76,10 +82,16 @@ const StListTitle = styled.div`
 
   display: flex;
   flex-flow: row;
+  justify-content: space-between;
 
-  margin-left: 10px;
+  padding-left: 10px;
 
   background-color: #ffffff;
 
   border-bottom: 2px solid #e6e6e6;
+`;
+
+const StItemSet = styled.div`
+  display: flex;
+  flex-flow: row;
 `;

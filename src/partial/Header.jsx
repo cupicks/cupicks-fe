@@ -12,11 +12,10 @@ const Header = () => {
 export default Header;
 
 const StWrap = styled.header`
-  width: 600px;
+  width: 100%;
   height: 80px;
 
   margin: 0 auto;
-  margin-top: 20px;
 
   display: flex;
   flex-flow: row;
