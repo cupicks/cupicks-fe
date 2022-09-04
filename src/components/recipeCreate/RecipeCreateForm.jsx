@@ -13,53 +13,37 @@ import RecipeVisualContainer from "./subpages/RecipeVisualContainer";
 import RecipeCreateNavigation from "./subpages/RecipeCreateNavigation";
 
 const RecipeCreateForm = () => {
-  const { register, handleSubmit, setValue, getValues, trigger, watch, control, formState: { errors } } = useForm();
-  const { fields, append, remove } = useFieldArray({ control, name: "ingredientList" })
+  const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
+  const { fields, append, remove } = useFieldArray({ 
+    control, 
+    name: "ingredientList"
+  })
+  const formProps = {register, watch, setValue, getValues, errors, trigger}
 
   const [cupState, setCupState] = useState({
     level: 0,
     finalLevel: 3,
     sublevel: 0,
-    finalSublevel: 3,
+    finalSublevel: 4,
     cupStyleHeight: 0,
     isIcedTag: null,
     isPublicTag: null,
     currCupSize: null,
     ingredientDeleteMode: false,
-    ingredientCount: 0,
-    currIngredients: {
-      ingredientName: "",
-      ingredientAmount: null,
-      ingredientColor: ""
-    }
+    currIngredientList: []
   })
-  const { level, finalLevel } = cupState
+  const { level, finalLevel } = cupState;
 
-  // console.log(getValues());
-  
   /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
-    console.log(data);
+    // console.log(data);
     data = setDataType(data);
     
     // level === finalLevel일 때 request할 예정
     if(level === finalLevel){
       console.log('request');
+      console.log(data);
     }
-    console.log(data);
-  }
-  
-  /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
-  const onClickCupSize = (e) => {
-    const currCupSize = +(""+e.target.textContent).split('ml')[0];
-    setCupState({
-      ...cupState, 
-      currCupSize: currCupSize, 
-      cupStyleHeight : +(+currCupSize / 591 * 100).toFixed(1)
-    })
-    
-    setValue('cupSize', currCupSize)
-    setValue('ingredientList', [])
   }
 
   return (
@@ -77,6 +61,7 @@ const RecipeCreateForm = () => {
           append={append}
           remove={remove}
           cupState={cupState}
+          getValues={getValues}
           setCupState={setCupState}
         />
       }
@@ -85,21 +70,19 @@ const RecipeCreateForm = () => {
         <StRecipeOptContainer>
           {level === 0 && 
             <RecipeCupSize
-              errors={errors}              
-              register={register}
-              onClick={onClickCupSize}
+              cupState={cupState}   
+              setCupState={setCupState}
+              formProps={formProps}
+              resetField={resetField}
             />
           }
 
           {level === 1 &&
             <RecipeIsIced 
-              errors={errors}
-              register={register}
-              watch={watch}
-              setValue={setValue}
-              trigger={trigger}
               cupState={cupState}
               setCupState={setCupState}
+              formProps={formProps}
+              resetField={resetField}
             />
           }
 

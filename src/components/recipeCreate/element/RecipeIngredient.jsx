@@ -23,7 +23,7 @@ const RecipeIngredient = (props) => {
     ]
   ]
 
-  console.log(`ingredientList.${idx}.ingredientColor`);
+  // console.log(`ingredientList.${idx}.ingredientColor`);
 
   return (
     <StRecipeIngredient>

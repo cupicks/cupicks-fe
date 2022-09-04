@@ -2,7 +2,9 @@
 const NavButtonNextSublevel = ({onClick}) => {
   return (
     <button
-      onClick={onClick}>
+      className='sublevel_button'
+      onClick={onClick}
+    >
       다음
     </button>
   )

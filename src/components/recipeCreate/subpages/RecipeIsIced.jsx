@@ -1,8 +1,10 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeIsIced = (props) => {
-  const {register, trigger, cupState, setCupState} = props;
+  const {cupState, setCupState, formProps, resetField} = props
   const {isIcedTag} = cupState
+  const {register, trigger} = formProps
+  const cupSizes = ['355ml', '473ml', '591ml']
   
   const recipeTypes = ['hot', 'ice']
 
@@ -14,6 +16,7 @@ const RecipeIsIced = (props) => {
 
     setCupState({...cupState, isIcedTag: isIced})
     trigger('isIced')
+    resetField('ingredientList')
   }
   
   return ( 

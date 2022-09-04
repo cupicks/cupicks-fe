@@ -1,8 +1,22 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {register, errors, onClick} = props;
+  const {cupState, setCupState, formProps, resetField} = props
+  const {setValue, register, errors} = formProps
   const cupSizes = ['355ml', '473ml', '591ml']
+
+  /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
+  const onClickCupSize = (e) => {
+    const currCupSize = +(""+e.target.textContent).split('ml')[0];
+    setCupState({
+      ...cupState, 
+      currCupSize: currCupSize, 
+      cupStyleHeight : +(+currCupSize / 591 * 100).toFixed(1)
+    })
+    
+    setValue('cupSize', currCupSize)
+    resetField('ingredientList')
+  }
 
   return ( 
     <>
@@ -16,7 +30,7 @@ const RecipeCupSize = (props) => {
           label={'cupSize'}
           value={value}
           register={register}
-          onClick={onClick}
+          onClick={onClickCupSize}
           config={{
             required: {
               value: 'required',

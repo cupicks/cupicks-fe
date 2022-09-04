@@ -1,31 +1,50 @@
 import styled from "styled-components"
-import IngredientsContainer from "../../recipeDetail/IngredientsContainer";
 
 import IsIcedIcon from "../element/IsIcedIcon"
+import RecipeCreateIngredientsContainer from "./RecipeCreateIngredientsContainer";
 
 const RecipeVisualContainer = (props) => {
-  const {fields, append, remove, cupState, setCupState} = props;
-  const {level, sublevel, cupStyleHeight, ingredientDeleteMode, isIcedTag} = cupState;
+  const {fields, append, remove, getValues, cupState, setCupState} = props;
+  const {level, sublevel, finalSublevel, cupStyleHeight, ingredientDeleteMode, isIcedTag} = cupState;
   
+  const initList = {
+    ingredientAmount: 0,
+    ingredientColor: '#fff',
+    ingredientName: ''
+  }
+
+  const thisVal = getValues('ingredientList');
+  if(thisVal && thisVal.length > 0){ 
+    // console.log(...thisVal); 
+    console.log(cupState.currCupSize, thisVal);
+  }
+
   return (
     <StRecipeVisualContainer>
 
     <StRecipeVisual ingredient_height={cupStyleHeight}>
       <div 
-        className=
-        {cupStyleHeight === 0? "ingredient_outline fcc empty":
+        className={
+          cupStyleHeight === 0 ? "ingredient_outline fcc empty":
         "ingredient_outline fcc"
         }
       >
 
-        
-        {/* <IngredientsContainer recipe={fields} /> */}
+      {thisVal !== undefined ?
+        <RecipeCreateIngredientsContainer 
+          cupSize = {cupState.currCupSize}
+          ingredientLists = {thisVal} 
+        />
+        :""
+      }
 
         {(level === 2 && !ingredientDeleteMode) &&
           <>
             <button
               type="button"
-              className={ sublevel===0 ? "" : "disable" }
+              className={ 
+                sublevel === 0 || sublevel === finalSublevel ? "" : "disable"
+              }
               onClick={()=>{
                 append()
                 setCupState({...cupState, sublevel: 1})
@@ -46,6 +65,7 @@ const RecipeVisualContainer = (props) => {
       </div>
         
       </StRecipeVisual>
+
       { isIcedTag &&
         <div className="info_box">
           ice 선택 시 전체량 중 200ml가 채워집니다.
@@ -67,7 +87,6 @@ const RecipeVisualContainer = (props) => {
           <IsIcedIcon isIced={false} />
         </StIsIcedIconBox>
       )}
-
     </StRecipeVisualContainer>
   )
 }
@@ -91,10 +110,12 @@ const StRecipeVisualContainer = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
+
+    position: absolute;
     
     background: var(--button-activeBackgroundColor);
     border: none;
-    box-shadow: 0 5px 10px 5px #ccc;
+    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.3);
     color: var(--button-activeColor);
     outline: none;
 
