@@ -6,13 +6,12 @@ const RecipeIngredientNumber = ({
       <input 
         type="number"
         autoComplete="off"
-        placeholder={ `재료 ${idx}` }
         id={idx}
         max={1000}
         min={0}
         step={1}
 
-        {...register(`ingrediantList.${idx}.ingredientAmount`, {
+        {...register(`ingredientList.${idx}.ingredientAmount`, {
           max: {
             value: 1000,
             message: "1000이하로 입력"
@@ -22,10 +21,10 @@ const RecipeIngredientNumber = ({
         onBlur={(e)=>{
           calcAmount(e);
         }}
-        onChange={(e)=>{
-          const currValue = cutNumberByLength(e);
-          setValue(`ingrediantList.${idx}.ingredientAmount`, currValue)
-        }}
+        // onChange={(e)=>{
+        //   const currValue = cutNumberByLength(e);
+        //   setValue(`ingredientList.${idx}.ingredientAmount`, currValue)
+        // }}
       />
     </>
   )

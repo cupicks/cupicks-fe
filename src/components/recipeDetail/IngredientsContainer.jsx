@@ -11,7 +11,7 @@ const IngredientsContainer = (props) => {
           list={list} 
           cupSize={cupSize} 
         />
-      ) }
+      ).reverse() }
     </StIngredientsContainer>
   );
 };
