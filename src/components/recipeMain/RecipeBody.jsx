@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import RecipeList from "./RecipeList";
+import AllRecipeList from "./AllRecipeList";
 
 const RecipeBody = () => {
   const start = {
@@ -135,32 +136,64 @@ const RecipeBody = () => {
       },
     ],
   };
-  const [recipe, setRecipe] = useState(start);
+
+  const [favRecipe, setFavRecipe] = useState(start);
+  const [allRecipe, setAllRecipe] = useState(start);
+  const [AllRecipeOpen, setAllRecipeOpen] = useState(false);
+
+  const openAllRecipe = () => {
+    setAllRecipeOpen(!AllRecipeOpen);
+  };
 
   return (
-    <Wrap>
-      <RecipeTitle>이번주 인기 레시피</RecipeTitle>
-      <RecipeList recipe={recipe} setRecipe={setRecipe} />
-    </Wrap>
+    <StWrap>
+      <StRecipeTitle>이번주 인기 레시피</StRecipeTitle>
+      <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} />
+      <StAllRecipeTitle onClick={openAllRecipe}>최신순 ▼</StAllRecipeTitle>
+      {AllRecipeOpen == true ? (
+        <AllRecipeList allRecipe={allRecipe} setAllRecipe={setAllRecipe} />
+      ) : null}
+    </StWrap>
   );
 };
 
 export default RecipeBody;
 
-const Wrap = styled.div`
-  width: 600px;
-  height: 600px;
+const StWrap = styled.div`
+  width: 100%;
+  height: 100%;
+
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
+
+  overflow: auto;
 `;
 
-const RecipeTitle = styled.div`
-  width: 600px;
+const StAllRecipeTitle = styled.div`
+  height: 50px;
+
+  margin-left: 45px;
+  margin-top: 30px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+`;
+
+const StRecipeTitle = styled.div`
+  /* width: 600px; */
   height: 100px;
+
+  margin-left: 45px;
+  margin-top: 15px;
+
+  display: flex;
+  align-items: center;
+
   font-size: 25px;
   font-weight: bold;
-  align-items: center;
-  display: flex;
-  margin-left: 40px;
-  margin-top: 15px;
 `;

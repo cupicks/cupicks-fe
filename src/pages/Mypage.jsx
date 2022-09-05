@@ -4,19 +4,21 @@ import MypageBody from "../components/recipeMypage/MypageBody";
 
 const Mypage = () => {
   return (
-    <Wrap>
+    <StWrap>
       <MypageBody />
-    </Wrap>
+    </StWrap>
   );
 };
 
 export default Mypage;
 
-const Wrap = styled.div`
+const StWrap = styled.div`
   width: 600px;
   height: 100vh;
-  border: 2px solid black;
+
   margin: 0 auto;
+
+  border: 2px solid black;
   /* flex-direction: column;
   display: flex; */
 `;
