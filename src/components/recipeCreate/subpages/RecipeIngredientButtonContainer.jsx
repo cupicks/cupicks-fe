@@ -11,13 +11,13 @@ const RecipeIngredientButtonContainer = (props) => {
     setCupState(prev => ({
       ...prev, 
       sublevel: 0,
-      ingredientDeleteMode: false
+      ingredientDeleteMode: 0
     }))
   }
 
   return (
     <StRecipeIngredientButtonContainer>
-      {(level === 2 && !ingredientDeleteMode) &&
+      {(level === 2 && ingredientDeleteMode !== 1) &&
         <>
           <button
             type="button"
@@ -32,11 +32,12 @@ const RecipeIngredientButtonContainer = (props) => {
           </button>
         </>
       }
-      {level === 2 && ingredientDeleteMode === true &&
+      {level === 2 &&  ingredientDeleteMode === 1 &&
         <>
           <StModal
             onClick={()=>{
               setCupState(prev => ({...prev, ingredientDeleteMode: 0}))
+              document.querySelector('.ingredientSelected').classList.remove('ingredientSelected')
             }}
           >
             <span 

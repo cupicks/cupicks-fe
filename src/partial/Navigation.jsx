@@ -46,7 +46,6 @@ const StNav = styled.nav`
   }
   
   .sublevel_button {
-    background-color: red;
   }
 
   .title {

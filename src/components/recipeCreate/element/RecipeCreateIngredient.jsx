@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const RecipeCreateIngredient = (props) => {
-  const {cupSize, onClick} = props
+  const {cupSize, sublevel, onClick} = props
 
   // 재료 입력할 때 undefined 예외처리
   let ingredientValues = {
@@ -20,7 +20,7 @@ const RecipeCreateIngredient = (props) => {
     <StIngredient 
       ingredientColor={ingredientColor?ingredientColor:""}
       ingredientAmount={amountPercent}
-      onClick={onClick}
+      onClick={sublevel === 4 ? onClick : null}
     >
       <span>
         {ingredientName?ingredientName:""}
@@ -51,7 +51,7 @@ const StIngredient = styled.div`
   }
   
   &.ingredientSelected {
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
     

@@ -6,7 +6,7 @@ import { cutNumberByLength } from '../../../util/recipeCalcNumber'
 
 const IngredientList = (props) => {
   const {cupState, setCupState, formProps, formArrayProps} = props;
-  const {sublevel, currCupSize} = cupState;
+  const {sublevel, finalSublevel, currCupSize} = cupState;
   const {fields} = formArrayProps
   const {watch, setValue, register} = formProps
   
@@ -39,10 +39,10 @@ const IngredientList = (props) => {
       alert('컵 사이즈를 초과하였습니다.')
     }
   }
-
+  
   return ( 
     <StIngredientList>
-      {sublevel === 0 &&
+      {sublevel === 0 || sublevel === finalSublevel &&
         <div className="info_box_center">
           + 버튼을 눌러 재료를 추가해주세요.
         </div>

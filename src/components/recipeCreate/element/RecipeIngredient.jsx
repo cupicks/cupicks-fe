@@ -22,9 +22,7 @@ const RecipeIngredient = (props) => {
       '#262626','#353535','#555555','#737373','#999999','#b2b2b2','#c6c6c6','#d5d5d5','#ededed'
     ]
   ]
-
-  // console.log(`ingredientList.${idx}.ingredientColor`);
-
+  
   return (
     <StRecipeIngredient>
       {sublevel === 1 &&

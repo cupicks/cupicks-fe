@@ -12,13 +12,8 @@ const RecipeVisualContainer = (props) => {
   const IngredientList = getValues('ingredientList');
 
   const ingredientClickHandler = (e) => {
-    setCupState(prev => ({...prev, ingredientDeleteMode: !prev.ingredientDeleteMode}))
-
-    if(!cupState.ingredientDeleteMode){
-      e.target.classList.add('ingredientSelected')
-    } else {
-      e.target.classList.remove('ingredientSelected')
-    }
+    setCupState(prev => ({...prev, ingredientDeleteMode: 1}))
+    e.target.classList.add('ingredientSelected')
   }
 
   return (
@@ -34,6 +29,7 @@ const RecipeVisualContainer = (props) => {
         {IngredientList !== undefined ?
           <RecipeCreateIngredientsContainer 
             cupSize = {cupState.currCupSize}
+            sublevel = {cupState.sublevel}
             ingredientLists = {IngredientList}
             onClick = {ingredientClickHandler}
           />
@@ -43,13 +39,13 @@ const RecipeVisualContainer = (props) => {
         
       </StRecipeVisual>
 
-      { isIcedTag &&
+      { isIcedTag && sublevel !== 4 && 
         <div className="info_box">
           ice 선택 시 전체량 중 200ml가 채워집니다.
         </div>
       }
       
-      { sublevel === 0 && fields > 0 &&
+      { sublevel === 4 && fields.length > 0 &&
         <div className="info_box">
           채워진 재료를 누르면 제거 버튼이 나옵니다.
         </div>
