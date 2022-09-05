@@ -28,6 +28,7 @@ const StNav = styled.nav`
   
   background-color: #fff;
   
+  min-height: 60px;
   line-height: 60px;
   z-index: 999;
 

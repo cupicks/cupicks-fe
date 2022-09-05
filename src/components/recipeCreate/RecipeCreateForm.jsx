@@ -11,6 +11,7 @@ import { setDataType } from '../../util/recipeSetDataType'
 import styled from "styled-components";
 import RecipeVisualContainer from "./subpages/RecipeVisualContainer";
 import RecipeCreateNavigation from "./subpages/RecipeCreateNavigation";
+import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
 const RecipeCreateForm = () => {
   const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
@@ -19,6 +20,7 @@ const RecipeCreateForm = () => {
     name: "ingredientList"
   })
   const formProps = {register, watch, setValue, getValues, errors, trigger}
+  const formArrayProps = {fields, append, remove}
 
   const [cupState, setCupState] = useState({
     level: 0,
@@ -49,20 +51,23 @@ const RecipeCreateForm = () => {
   return (
     <StForm onSubmit={handleSubmit(onSubmit)}>
       
+      <RecipeIngredientButtonContainer
+        cupState={cupState}
+        setCupState={setCupState}
+        formArrayProps={formArrayProps}
+      />
+
       <RecipeCreateNavigation
-        watch={watch}
         cupState={cupState}
         setCupState={setCupState}
       />
 
       {level !== 3 && 
         <RecipeVisualContainer
-          fields={fields}
-          append={append}
-          remove={remove}
           cupState={cupState}
-          getValues={getValues}
           setCupState={setCupState}
+          formProps={formProps}
+          formArrayProps={formArrayProps}
         />
       }
 
@@ -73,6 +78,7 @@ const RecipeCreateForm = () => {
               cupState={cupState}   
               setCupState={setCupState}
               formProps={formProps}
+              formArrayProps={formArrayProps}
               resetField={resetField}
             />
           }
@@ -83,19 +89,16 @@ const RecipeCreateForm = () => {
               setCupState={setCupState}
               formProps={formProps}
               resetField={resetField}
+              remove={remove}
             />
           }
 
           {level === 2 && 
             <RecipeIngredientList
-              fields={fields}
-              register={register}
-              setValue={setValue}
-              append={append}
-              remove={remove}
-              watch={watch}
               cupState={cupState}
               setCupState={setCupState}
+              formProps={formProps}
+              formArrayProps={formArrayProps}
             />
           }
         </StRecipeOptContainer>
@@ -103,11 +106,9 @@ const RecipeCreateForm = () => {
 
       {level === 3 && 
         <RecipeTextValue
-          errors={errors}
           cupState={cupState}
-          setValue={setValue}
-          register={register}
           setCupState={setCupState}
+          formProps={formProps}
         />
       }
       

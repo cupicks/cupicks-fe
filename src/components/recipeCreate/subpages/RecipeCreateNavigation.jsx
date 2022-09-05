@@ -7,8 +7,8 @@ import NavButtonPrevLevel from "../../elements/button/NavButtonPrevLevel";
 import NavButtonPrevSubLevel from "../../elements/button/NavButtonPrevSubLevel";
 
 const RecipeCreateNavigation = (props) => {
-	const { watch, cupState, setCupState } = props;
-  const { level, finalLevel, sublevel, finalSublevel } = cupState
+	const { cupState, setCupState } = props;
+  const { level, finalLevel, sublevel, finalSublevel, ingredientDeleteMode } = cupState
 
   /** 이전 level */
   const levelButtonPrevClickHandler = () => {
@@ -67,34 +67,37 @@ const RecipeCreateNavigation = (props) => {
 
 	return (
 		<Navigation empty={true}>
+      {!ingredientDeleteMode && 
+        <>
+          {lv0 &&
+            <NavButtonGoBack />
+          }
 
-			{lv0 &&
-				<NavButtonGoBack />
-			}
+          {!lv0 &&
+            !(lv2 && !sublv0) &&
+            <NavButtonPrevLevel onClick={levelButtonPrevClickHandler} />
+          }
 
-			{!lv0 &&
-        !(lv2 && !sublv0) &&
-        <NavButtonPrevLevel onClick={levelButtonPrevClickHandler} />
-			}
+          {(lv2 && !sublv0) &&
+            <NavButtonPrevSubLevel onClick={sublevelButtonPrevClickHandler} />
+          }
 
-			{(lv2 && !sublv0) &&
-				<NavButtonPrevSubLevel onClick={sublevelButtonPrevClickHandler} />
-			}
+          {lvEnd &&
+            <NavButtonDone />
+          }
 
-      {lvEnd &&
-        <NavButtonDone />
+          {!lvEnd &&
+            !(lv2 && !sublvEnd) &&
+            <NavButtonNextLevel onClick={levelButtonNextClickHandler} />
+          }
+
+          {(lv2 && !sublvEnd) &&
+            <NavButtonNextSublevel onClick={sublevelButtonNextClickHandler} />
+          }
+
+          <h4 className="title">레시피 만들기</h4>
+        </>
       }
-
-      {!lvEnd &&
-        !(lv2 && !sublvEnd) &&
-        <NavButtonNextLevel onClick={levelButtonNextClickHandler} />
-      }
-
-			{(lv2 && !sublvEnd) &&
-        <NavButtonNextSublevel onClick={sublevelButtonNextClickHandler} />
-      }
-
-			<h4 className="title">레시피 만들기</h4>
       
 		</Navigation>
 	)

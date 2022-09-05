@@ -2,7 +2,7 @@ import styled from "styled-components";
 import RecipeCreateIngredient from "../element/RecipeCreateIngredient";
 
 const RecipeCreateIngredientsContainer = (props) => {
-  const { cupSize, ingredientLists } = props;
+  const { cupSize, ingredientLists, onClick } = props;
 
   return (
     <StRecipeCreateIngredientsContainer>
@@ -11,6 +11,7 @@ const RecipeCreateIngredientsContainer = (props) => {
           key={idx}
           ingredientList={ingredientList} 
           cupSize={cupSize} 
+          onClick={onClick}
         />
       ).reverse() }
     </StRecipeCreateIngredientsContainer>

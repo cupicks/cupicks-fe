@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const RecipeCreateIngredient = (props) => {
+  const {cupSize, onClick} = props
+
+  // 재료 입력할 때 undefined 예외처리
   let ingredientValues = {
     ingredientName: "", 
     ingredientColor: "#eee", 
@@ -11,13 +14,13 @@ const RecipeCreateIngredient = (props) => {
   }
   const {ingredientName, ingredientColor, ingredientAmount} = ingredientValues
 
-  const {cupSize} = props
   const amountPercent = +(ingredientAmount / cupSize * 100).toFixed(1)
   
   return (
     <StIngredient 
       ingredientColor={ingredientColor?ingredientColor:""}
       ingredientAmount={amountPercent}
+      onClick={onClick}
     >
       <span>
         {ingredientName?ingredientName:""}
@@ -40,9 +43,29 @@ const StIngredient = styled.div`
   justify-content: right;
   align-items: flex-end;
 
-  transition: height .5s .2s;
-
+  transition: height .5s .1s;
+  animation: fadein .3s forwards;
+  
   span {
     transform: translateY(-1rem);
+  }
+  
+  &.ingredientSelected {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    z-index: 999;
+    animation: ingredientSelected 0.6s infinite alternate;
+  }
+
+  @keyframes fadein {
+    0% {opacity: 0}
+    100% {opacity: 1}
+  }
+
+  @keyframes ingredientSelected {
+    0% {opacity: 0.5}
+    100% {opacity: 1}
   }
 `

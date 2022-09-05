@@ -2,17 +2,16 @@ import { useState } from 'react'
 import styled from 'styled-components';
 
 import RecipeInput from "../element/RecipeInput";
-import RecipeRadio from "../element/RecipeRadio";
 import RecipeTextarea from '../element/RecipeTextarea';
 
 const RecipeTextValue = (props) => {
-  const { register, errors, cupState, setCupState } = props;
-  const { isPublicTag, setValue } = cupState;
+  const { cupState, setCupState, formProps } = props;
+  const { isPublicTag } = cupState;
+  const { register, errors } = formProps
 
   /** isPublic를 watch해서 'isPublicResult' state를 set하는 함수 */ 
   const isPublicSelectHandler = (e) => {
     setCupState({...cupState, isPublicTag: !e.target.checked});
-    // setValue()
   }
   console.log(cupState.isPublicTag);
 

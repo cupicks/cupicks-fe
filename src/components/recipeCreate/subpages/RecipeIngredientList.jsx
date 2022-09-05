@@ -5,8 +5,10 @@ import RecipeIngredient from '../element/RecipeIngredient'
 import { cutNumberByLength } from '../../../util/recipeCalcNumber'
 
 const IngredientList = (props) => {
-  const {register, setValue, fields, watch, cupState, setCupState} = props;
+  const {cupState, setCupState, formProps, formArrayProps} = props;
   const {sublevel, currCupSize} = cupState;
+  const {fields} = formArrayProps
+  const {watch, setValue, register} = formProps
   
   /** cupSize보다 넘치는 값 자르는 함수 */
   const calcAmount = (e) => {
@@ -46,17 +48,23 @@ const IngredientList = (props) => {
         </div>
       }
 
-      {fields.map((field, idx) => (
-        <RecipeIngredient
-          key={field.id}
-          idx={idx}
-          watch={watch}
-          register={register}
-          calcAmount={calcAmount}
-          cutNumberByLength={cutNumberByLength}
-          cupState={cupState}
-        />
-      ))}
+      {fields.map((field, idx) => {
+        const lastInput = idx === fields.length - 1;
+        return (
+          lastInput &&
+          <>
+            <RecipeIngredient
+              key={field.id}
+              idx={idx}
+              watch={watch}
+              register={register}
+              calcAmount={calcAmount}
+              cutNumberByLength={cutNumberByLength}
+              cupState={cupState}
+            />
+          </>
+        )
+      })}
 
     </StIngredientList>
   )

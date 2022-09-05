@@ -1,8 +1,11 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {cupState, setCupState, formProps, resetField} = props
+  const {cupState, setCupState, formProps, resetField, formArrayProps} = props
+  const {isIcedTag} = cupState
   const {setValue, register, errors} = formProps
+  const {remove} = formArrayProps
+  
   const cupSizes = ['355ml', '473ml', '591ml']
 
   /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
@@ -16,6 +19,16 @@ const RecipeCupSize = (props) => {
     
     setValue('cupSize', currCupSize)
     resetField('ingredientList')
+    
+    if(isIcedTag){
+      setValue('ingredientList.0', {
+        ingredientAmount: 200,
+        ingredientColor: "#c1e9ff",
+        ingredientName: "얼음"
+      })
+    } else {
+      remove(0)
+    }
   }
 
   return ( 

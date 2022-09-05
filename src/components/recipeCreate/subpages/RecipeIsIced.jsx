@@ -1,9 +1,8 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeIsIced = (props) => {
-  const {cupState, setCupState, formProps, resetField} = props
-  const {isIcedTag} = cupState
-  const {register, trigger} = formProps
+  const {cupState, setCupState, formProps, resetField, remove} = props
+  const {register, trigger, getValues, setValue} = formProps
   const cupSizes = ['355ml', '473ml', '591ml']
   
   const recipeTypes = ['hot', 'ice']
@@ -14,9 +13,22 @@ const RecipeIsIced = (props) => {
     const currValue = e.target.value; 
     const isIced = currValue === "ice";
 
-    setCupState({...cupState, isIcedTag: isIced})
+    setCupState({
+      ...cupState, 
+      isIcedTag: isIced
+    })
     trigger('isIced')
     resetField('ingredientList')
+
+    if(isIced){
+      setValue('ingredientList.0', {
+        ingredientAmount: 200,
+        ingredientColor: "#c1e9ff",
+        ingredientName: "얼음"
+      })
+    } else {
+      remove(0)
+    }
   }
   
   return ( 

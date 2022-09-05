@@ -4,19 +4,21 @@ import IsIcedIcon from "../element/IsIcedIcon"
 import RecipeCreateIngredientsContainer from "./RecipeCreateIngredientsContainer";
 
 const RecipeVisualContainer = (props) => {
-  const {fields, append, remove, getValues, cupState, setCupState} = props;
-  const {level, sublevel, finalSublevel, cupStyleHeight, ingredientDeleteMode, isIcedTag} = cupState;
-  
-  const initList = {
-    ingredientAmount: 0,
-    ingredientColor: '#fff',
-    ingredientName: ''
-  }
+  const {cupState, setCupState, formProps, formArrayProps} = props;
+  const {sublevel, cupStyleHeight, isIcedTag} = cupState;
+  const {fields} = formArrayProps
+  const {getValues} = formProps
 
-  const thisVal = getValues('ingredientList');
-  if(thisVal && thisVal.length > 0){ 
-    // console.log(...thisVal); 
-    console.log(cupState.currCupSize, thisVal);
+  const IngredientList = getValues('ingredientList');
+
+  const ingredientClickHandler = (e) => {
+    setCupState(prev => ({...prev, ingredientDeleteMode: !prev.ingredientDeleteMode}))
+
+    if(!cupState.ingredientDeleteMode){
+      e.target.classList.add('ingredientSelected')
+    } else {
+      e.target.classList.remove('ingredientSelected')
+    }
   }
 
   return (
@@ -29,38 +31,13 @@ const RecipeVisualContainer = (props) => {
         "ingredient_outline fcc"
         }
       >
-
-      {thisVal !== undefined ?
-        <RecipeCreateIngredientsContainer 
-          cupSize = {cupState.currCupSize}
-          ingredientLists = {thisVal} 
-        />
-        :""
-      }
-
-        {(level === 2 && !ingredientDeleteMode) &&
-          <>
-            <button
-              type="button"
-              className={ 
-                sublevel === 0 || sublevel === finalSublevel ? "" : "disable"
-              }
-              onClick={()=>{
-                append()
-                setCupState({...cupState, sublevel: 1})
-            }}>
-              +
-            </button>
-          </>
-        }
-        {(level === 2 && ingredientDeleteMode) &&
-          <button
-            type="button" 
-            onClick={()=>{
-              remove(fields.length-1)
-          }}>
-            x
-          </button>
+        {IngredientList !== undefined ?
+          <RecipeCreateIngredientsContainer 
+            cupSize = {cupState.currCupSize}
+            ingredientLists = {IngredientList}
+            onClick = {ingredientClickHandler}
+          />
+          :""
         }
       </div>
         
@@ -106,25 +83,6 @@ const StRecipeVisualContainer = styled.div`
 
   background-color: #fff;
 
-  button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-
-    position: absolute;
-    
-    background: var(--button-activeBackgroundColor);
-    border: none;
-    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.3);
-    color: var(--button-activeColor);
-    outline: none;
-
-    font-size: 50px;
-    line-height: 50px;
-    
-    transition: all .2s;
-  }
-
   .info_box {
     position: absolute;
     bottom: 3%;
@@ -132,11 +90,6 @@ const StRecipeVisualContainer = styled.div`
     color: #888;
 
     font-size: 14px;
-  }
-
-  .disable {
-    pointer-events: none;
-    opacity: 0.3;
   }
 `
 
@@ -158,9 +111,11 @@ const StRecipeVisual = styled.div`
   .ingredient_outline {
     height: ${props => props.ingredient_height+ '%'};
 
-    transition: all .5s;
+    position: relative;
 
     border: 3px dashed #555;
+
+    transition: all .5s;
   }
   .empty {
     height: 50%;
