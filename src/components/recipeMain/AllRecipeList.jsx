@@ -64,8 +64,8 @@ const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
 
   // console.log(ref);
   // console.log(items);
-  console.log(inView);
-  console.log(page);
+  // console.log(inView);
+  // console.log(page);
   return (
     <StAllListWrap>
       {items.map((allrecipes, index) => (
