@@ -5,6 +5,11 @@ import Navigation from "../partial/Navigation";
 
 import styled from "styled-components";
 
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const RecipeDetail = () => {
   const recipe = {
     recipeId: 123456,
@@ -30,6 +35,15 @@ const RecipeDetail = () => {
       }
     ]
   }
+
+  const settings = {
+    slide: 'div',
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
   
   return (
     <StRecipeDetail>
@@ -50,6 +64,8 @@ const RecipeDetail = () => {
 export default RecipeDetail;
 
 const StRecipeDetail = styled.div`
+  height: 100%;
+  overflow-y: scroll;
 
   .icon_box {
     width: 40px;

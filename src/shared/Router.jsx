@@ -8,6 +8,8 @@ import RecipeDetail from "../pages/RecipeDetail";
 import Register from "../pages/Register";
 import RegisterEdit from "../pages/RegisterEdit";
 
+import Test from "../components/Test";
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -19,6 +21,7 @@ const Router = () => {
         <Route path="/signIn" element={<Login />} />
         <Route path="/signUp" element={<Register />} />
         <Route path="/profile/:userId/edit" element={<RegisterEdit />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );

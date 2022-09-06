@@ -1,5 +1,5 @@
 import RecipeIngredientNumber from "./RecipeIngredientNumber";
-import RecipeIngredientColor from "./RecipeIngredientColor";
+import RecipeIngredientColorList from "./RecipeIngredientColorList";
 
 import styled from "styled-components";
 
@@ -64,20 +64,12 @@ const RecipeIngredient = (props) => {
           <div className="info_box_center">
             재료색을 선택해주세요.
           </div>
-
-          <StColorCircleBox>
-            {colorLists[0].map((color, i)=>{
-              return (
-                <RecipeIngredientColor
-                  key={i}
-                  color={color}
-                  name={`ingredientList.${idx}.ingredientColor`}
-                  register={register} 
-                />
-              )
-            })}
-            
-          </StColorCircleBox>
+          
+          <RecipeIngredientColorList 
+            colorLists={colorLists}
+            idx={idx}
+            register={register}
+          />
         </>
       }
     </StRecipeIngredient>

@@ -28,13 +28,15 @@ export default RecipeIngredientColor;
 
 const StColorCircle = styled.label`
   &.colorLabel {
-    display: block;
-  
-    flex: 0 0 2rem;
+    
+    width: 2rem;
     height: 2rem;
     border-radius: 50%;
-  
+    
+    margin: 0 5px;
     box-sizing: initial;
+    
+    display: inline-block;
     
     background-color: ${props => props.color};
     border: 4px solid #fff;

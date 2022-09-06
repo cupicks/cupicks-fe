@@ -54,7 +54,7 @@ const IngredientList = (props) => {
           lastInput &&
           <>
             <RecipeIngredient
-              key={field.id}
+              key={idx}
               idx={idx}
               watch={watch}
               register={register}
