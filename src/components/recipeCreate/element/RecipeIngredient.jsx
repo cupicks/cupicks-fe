@@ -1,5 +1,5 @@
 import RecipeIngredientNumber from "./RecipeIngredientNumber";
-import RecipeIngredientColorList from "./RecipeIngredientColorList";
+import RecipeIngredientColorLists from "./RecipeIngredientColorLists";
 
 import styled from "styled-components";
 
@@ -65,7 +65,7 @@ const RecipeIngredient = (props) => {
             재료색을 선택해주세요.
           </div>
           
-          <RecipeIngredientColorList 
+          <RecipeIngredientColorLists 
             colorLists={colorLists}
             idx={idx}
             register={register}
