@@ -50,6 +50,8 @@ const RecipeDetail = () => {
 export default RecipeDetail;
 
 const StRecipeDetail = styled.div`
+  height: 100%;
+  overflow-y: scroll;
 
   .icon_box {
     width: 40px;

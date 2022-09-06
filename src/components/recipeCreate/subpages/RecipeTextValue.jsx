@@ -13,7 +13,6 @@ const RecipeTextValue = (props) => {
   const isPublicSelectHandler = (e) => {
     setCupState({...cupState, isPublicTag: !e.target.checked});
   }
-  console.log(cupState.isPublicTag);
 
   return ( 
     <>
