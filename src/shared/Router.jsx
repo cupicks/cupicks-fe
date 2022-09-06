@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Login from "../pages/Login";
 import Mypage from "../pages/Mypage";
@@ -10,17 +10,15 @@ import RegisterEdit from "../pages/RegisterEdit";
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/recipe" element={<Recipe />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/recipe/create" element={<RecipeCreate />} />
-        <Route path="/recipe/detail/:recipeId" element={<RecipeDetail />} />
-        <Route path="/signIn" element={<Login />} />
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/profile/:userId/edit" element={<RegisterEdit />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/recipe" element={<Recipe />} />
+      <Route path="/mypage" element={<Mypage />} />
+      <Route path="/recipe/create" element={<RecipeCreate />} />
+      <Route path="/recipe/detail/:recipeId" element={<RecipeDetail />} />
+      <Route path="/signIn" element={<Login />} />
+      <Route path="/signUp" element={<Register />} />
+      <Route path="/profile/:userId/edit" element={<RegisterEdit />} />
+    </Routes>
   );
 };
 

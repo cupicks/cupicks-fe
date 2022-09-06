@@ -134,6 +134,131 @@ const RecipeBody = () => {
           },
         ],
       },
+      {
+        recipeId: 6,
+        title: "카페카페",
+        content: "레시피 내용",
+        isIced: true,
+        cupSize: 591,
+        nickname: "우찬",
+        ingredientList: [
+          {
+            ingredientName: "커피",
+            ingredientColor: "#b22336",
+            ingredientAmount: 75,
+          },
+          {
+            ingredientName: "연유",
+            ingredientColor: "#1e9b2d",
+            ingredientAmount: 80,
+          },
+          {
+            ingredientName: "물",
+            ingredientColor: "#2082e4",
+            ingredientAmount: 110,
+          },
+        ],
+      },
+      {
+        recipeId: 7,
+        title: "옥수수콘",
+        content: "레시피 내용",
+        isIced: true,
+        cupSize: 591,
+        nickname: "우찬",
+        ingredientList: [
+          {
+            ingredientName: "커피",
+            ingredientColor: "#b22336",
+            ingredientAmount: 75,
+          },
+          {
+            ingredientName: "연유",
+            ingredientColor: "#1e9b2d",
+            ingredientAmount: 80,
+          },
+          {
+            ingredientName: "물",
+            ingredientColor: "#2082e4",
+            ingredientAmount: 110,
+          },
+        ],
+      },
+      {
+        recipeId: 8,
+        title: "테스트8",
+        content: "레시피 내용",
+        isIced: true,
+        cupSize: 591,
+        nickname: "우찬",
+        ingredientList: [
+          {
+            ingredientName: "커피",
+            ingredientColor: "#b22336",
+            ingredientAmount: 75,
+          },
+          {
+            ingredientName: "연유",
+            ingredientColor: "#1e9b2d",
+            ingredientAmount: 80,
+          },
+          {
+            ingredientName: "물",
+            ingredientColor: "#2082e4",
+            ingredientAmount: 110,
+          },
+        ],
+      },
+      {
+        recipeId: 9,
+        title: "테스트9",
+        content: "레시피 내용",
+        isIced: true,
+        cupSize: 591,
+        nickname: "우찬",
+        ingredientList: [
+          {
+            ingredientName: "커피",
+            ingredientColor: "#b22336",
+            ingredientAmount: 75,
+          },
+          {
+            ingredientName: "연유",
+            ingredientColor: "#1e9b2d",
+            ingredientAmount: 80,
+          },
+          {
+            ingredientName: "물",
+            ingredientColor: "#2082e4",
+            ingredientAmount: 110,
+          },
+        ],
+      },
+      {
+        recipeId: 10,
+        title: "테스트10",
+        content: "레시피 내용",
+        isIced: true,
+        cupSize: 591,
+        nickname: "우찬",
+        ingredientList: [
+          {
+            ingredientName: "커피",
+            ingredientColor: "#b22336",
+            ingredientAmount: 75,
+          },
+          {
+            ingredientName: "연유",
+            ingredientColor: "#1e9b2d",
+            ingredientAmount: 80,
+          },
+          {
+            ingredientName: "물",
+            ingredientColor: "#2082e4",
+            ingredientAmount: 110,
+          },
+        ],
+      },
     ],
   };
 

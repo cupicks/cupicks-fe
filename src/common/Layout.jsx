@@ -6,7 +6,7 @@ import Header from "../partial/Header";
 import Footer from "../partial/Footer";
 
 const Layout = () => {
-  console.log(window.location.pathname);
+  // console.log(window.location.pathname);
   const [footer, setFooter] = useState(false);
   const [header, setHeader] = useState(false);
   //|| "/mypage" || "/profile/:userId/edit"
@@ -19,7 +19,6 @@ const Layout = () => {
       pathname.indexOf("/profile") > -1
     ) {
       setFooter(true);
-      console.log("hi");
     } else {
       setFooter(false);
     }
