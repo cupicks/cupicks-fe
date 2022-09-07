@@ -15,8 +15,15 @@ const GlobalStyle=createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
   }
 
+  @media (max-width: 560px) {
+    body {
+      font-size: 14px
+    }
+  }
+  
   ul,
   ol,
   li {
