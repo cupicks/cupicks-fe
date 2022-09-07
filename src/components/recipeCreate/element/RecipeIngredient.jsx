@@ -9,7 +9,6 @@ const RecipeIngredient = (props) => {
     cutNumberByLength, setValue, cupState } = props;
   const {sublevel, setSublevel, finalSublevel} = cupState;
 
-
   // temp
   const colorLists = [
     [

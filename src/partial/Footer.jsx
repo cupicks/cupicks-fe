@@ -35,7 +35,7 @@ const StWrap = styled.footer`
 `;
 
 const StButtonSet = styled.div`
-  width: 400px;
+  width: 100%;
   height: 100px;
 
   display: flex;

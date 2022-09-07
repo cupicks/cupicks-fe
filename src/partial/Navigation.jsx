@@ -1,14 +1,22 @@
 import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
+
+import arrowBackIcon from '../assets/svg/arrow_back.svg'
 
 const Navigation = (props) => {
   const {empty=false} = props
   const navigate = useNavigate();
   return (
     <StNav>
-      {!empty && <span className="button_goBack" onClick={()=> navigate(-1)}>
-        &lt;
-      </span>}
+      {!empty && 
+        <div 
+          className="button_goBack fcc" 
+          onClick={()=> navigate(-1)}
+        >
+          <img src={arrowBackIcon} alt="뒤로 가기 버튼"/>
+        </div>
+      }
       {props.children}
     </StNav>
   )
@@ -38,9 +46,10 @@ const StNav = styled.nav`
   }
 
   .button_goBack {
-    font-size: 20px;
+    margin-left: 16px;
+    cursor: pointer;
   }
-
+  
   span {
     cursor: pointer;
   }
