@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import logo from "../assets/svg/Logo_Cupick.svg";
 
 const Header = () => {
   return (
     <StWrap>
-      <StLogo></StLogo>
+      <StLogo src={logo}></StLogo>
     </StWrap>
   );
 };
@@ -17,6 +18,8 @@ const StWrap = styled.header`
 
   margin: 0 auto;
 
+  padding-left: 30px;
+
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -24,30 +27,11 @@ const StWrap = styled.header`
   background-color: #ffffff;
 `;
 
-const StLogo = styled.div`
-  width: 250px;
+const StLogo = styled.img`
+  width: 100px;
   height: 60px;
 
-  background-image: url("/assets/image/Logo.png");
-  background-size: contain;
+  /* background-size: contain;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 `;
-
-// const StTitle = styled.div`
-//   width: 200px;
-//   height: 100px;
-
-//   margin-left: 15px;
-
-//   display: flex;
-//   flex-flow: row;
-//   align-items: center;
-// `;
-
-// const StName = styled.div`
-//   width: 200px;
-//   height: 80px;
-
-//   font-size: 45px;
-// `;

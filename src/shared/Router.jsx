@@ -7,6 +7,7 @@ import RecipeCreate from "../pages/RecipeCreate";
 import RecipeDetail from "../pages/RecipeDetail";
 import Register from "../pages/Register";
 import RegisterEdit from "../pages/RegisterEdit";
+import Comments from "../pages/Comments";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
       <Route path="/signIn" element={<Login />} />
       <Route path="/signUp" element={<Register />} />
       <Route path="/profile/:userId/edit" element={<RegisterEdit />} />
+      <Route path="/recipe/comment/:recipeId" element={<Comments />} />
     </Routes>
   );
 };

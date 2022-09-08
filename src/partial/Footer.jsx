@@ -1,21 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
+import createButton from "../assets/svg/cancel.svg";
+import myPageIcon from "../assets/svg/account.svg";
+import mainIcon from "../assets/svg/language.svg";
 
-const Footer = () => {
+const Footer = (props) => {
   // const { pathname } = useLocation();
   // console.log(pathname);
   const navigate = useNavigate();
+  const onCreate = () => {
+    navigate("/recipe/create");
+    props.setLoaded(false);
+  };
   return (
     <StWrap>
       <StButtonSet>
-        <StMyPageBtn></StMyPageBtn>
-        <CreateButton onClick={() => navigate("/recipe/create")}>
-          +
+        <StMyPageBtn>
+          <img className="mypageBtn" src={myPageIcon} />
+        </StMyPageBtn>
+        <CreateButton onClick={onCreate}>
+          <img className="createBtn" src={createButton} />
         </CreateButton>
-        <StMainBtn></StMainBtn>
+        <StMainBtn>
+          <img className="mainBtn" src={mainIcon} />
+        </StMainBtn>
       </StButtonSet>
     </StWrap>
   );
@@ -35,7 +45,7 @@ const StWrap = styled.footer`
 `;
 
 const StButtonSet = styled.div`
-  width: 400px;
+  width: 100%;
   height: 100px;
 
   display: flex;
@@ -48,32 +58,43 @@ const StMyPageBtn = styled.button`
   height: 40px;
   border-radius: 50%;
 
-  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
 
   cursor: pointer;
+
+  .mypageBtn {
+    width: 45px;
+    height: 45px;
+  }
 `;
 
 const CreateButton = styled.button`
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-
-  background-color: #393939;
-
-  box-shadow: rgb(0 0 0 / 10%) 0px 1px 20px 0px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  border-radius: 50%;
+
   transform: translateY(-80%);
 
   padding-bottom: 5px;
 
-  color: white;
-  font-size: 80px;
+  border: none;
 
   cursor: pointer;
+
+  .createBtn {
+    width: 120px;
+    height: 120px;
+    border: none;
+  }
 `;
 
 const StMainBtn = styled.button`
@@ -81,7 +102,16 @@ const StMainBtn = styled.button`
   height: 40px;
   border-radius: 50%;
 
-  border: 2px solid black;
+  border: none;
 
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mainBtn {
+    width: 45px;
+    height: 45px;
+  }
 `;

@@ -8,6 +8,7 @@ import Footer from "../partial/Footer";
 const Layout = () => {
   const [footer, setFooter] = useState(false);
   const [header, setHeader] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   //|| "/mypage" || "/profile/:userId/edit"
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -26,13 +27,14 @@ const Layout = () => {
     } else {
       setHeader(false);
     }
-  }, []);
+    setLoaded(true);
+  }, [loaded]);
 
   return (
     <StLayout>
       {header && <Header />}
       <Router />
-      {footer && <Footer />}
+      {footer && <Footer setLoaded={setLoaded} />}
     </StLayout>
   );
 };
@@ -47,7 +49,7 @@ const StLayout = styled.div`
   margin: 0 auto;
 
   position: relative;
-  
+
   display: flex;
   flex-flow: column;
 

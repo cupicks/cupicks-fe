@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import RecipeListIngredient from "./RecipeListIngredient";
+import talk from "../../assets/svg/talk.svg";
+import like from "../../assets/svg/like.svg";
 
 export const RecipeListContainer = (props) => {
   const { recipeId, ingredientList, title, cupSize } = props.recipes;
@@ -17,10 +19,10 @@ export const RecipeListContainer = (props) => {
           ))}
         </StListContent>
         <StListTitle>
-          {title}
+          <div className="title">{title}</div>
           <StItemSet>
-            <div>🖤</div>
-            <div>💬</div>
+            <img className="talk_btn" src={talk} />
+            <img className="like_btn" src={like} />
           </StItemSet>
         </StListTitle>
       </StListWrap>
@@ -29,7 +31,8 @@ export const RecipeListContainer = (props) => {
 };
 
 const StList = styled.div`
-  width: 300px;
+  /* min-width: 300px; */
+  width: 80vw;
 `;
 
 const StListWrap = styled.div`
@@ -83,15 +86,32 @@ const StListTitle = styled.div`
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+  align-items: center;
 
   padding-left: 10px;
 
   background-color: #ffffff;
 
   border-bottom: 2px solid #e6e6e6;
+
+  .title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
 `;
 
 const StItemSet = styled.div`
   display: flex;
   flex-flow: row;
+
+  gap: 8px;
+
+  .talk_btn {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .like_btn {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 `;

@@ -8,9 +8,7 @@ const AllRecipeListIngredient = (props) => {
     <StIngredientWrap
       ingredientColor={ingredientColor}
       ingredientAmount={((ingredientAmount / props.cupSize) * 100).toFixed(1)}
-    >
-      {ingredientName}
-    </StIngredientWrap>
+    ></StIngredientWrap>
   );
 };
 
