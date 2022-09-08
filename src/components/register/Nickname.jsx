@@ -1,9 +1,30 @@
 import React from "react";
+import axios from "axios";
 
 import styled from "styled-components";
 
 const Nickname = (props) => {
-  const { register, errors } = props;
+  const { register, errors, watch, setValue, getValues } = props;
+
+  const confirmNicknameVerifyCode = async () => {
+    try {
+      const res = await axios.get(
+        `http://3.38.250.115/api/auth/confirm-nickname?email=${getValues(
+          "email"
+        )}
+        &nickname=${watch("nickname")}`,
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      );
+      const token = res.data.nicknameVerifyToken;
+      setValue("nicknameVerifyToken", token);
+      console.log(getValues("nicknameVerifyToken"));
+      alert(res.data.message);
+    } catch (err) {
+      console.log(err);
+      alert("이미 존재하는 닉네임입니다");
+    }
+  };
+
   return (
     <StDiv>
       <label>닉네임</label>
@@ -20,6 +41,7 @@ const Nickname = (props) => {
         })}
       />
       {errors.nickname && <p>{errors.nickname.message}</p>}
+      <button onClick={confirmNicknameVerifyCode}>닉네임 중복확인</button>
     </StDiv>
   );
 };

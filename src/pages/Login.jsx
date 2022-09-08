@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import serverAxios from "../server/server.axios";
+import axios from "axios";
 
 import styled from "styled-components";
 
@@ -14,7 +16,30 @@ const Login = () => {
     reset,
     formState: { isSubmitting, isDirty, errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async () => {
+    const data = { email: watch("email"), password: watch("password") };
+    const queryStringData = Object.keys(data)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+      .join("&");
+    console.log(queryStringData);
+    try {
+      const res = await axios.post(
+        "http://3.38.250.115/api/auth/signin",
+        queryStringData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      console.log(res);
+      console.log(res.data.accessToken);
+      localStorage.setItem("accessToken", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.refreshToken);
+      alert(res.data.message);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <StDiv>
@@ -27,7 +52,7 @@ const Login = () => {
           type="text"
           placeholder="이메일 주소를 입력해 주세요"
           autoComplete="off"
-          maxLength={20}
+          maxLength={100}
           {...register("email", {
             required: true,
             pattern: {

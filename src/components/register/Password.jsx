@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Password = (props) => {
-  const { register, errors, watch } = props;
+  const { register, errors, watch, getValues } = props;
   const password = React.useRef();
   password.current = watch("password");
   return (

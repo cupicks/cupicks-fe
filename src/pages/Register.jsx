@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Email from "../components/register/Email";
 import Nickname from "../components/register/Nickname";
@@ -15,15 +16,36 @@ const Register = () => {
     register,
     watch,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
   const [level, setLevel] = React.useState(0);
 
-  const onSubmit = (data) => {
+  const onSubmit = async () => {
+    const form = new FormData();
+    form.append("imageValue", getValues("image")[0]);
     if (level === 3) {
-      navigate("/signIn");
-      console.log(data);
+      try {
+        console.log(getValues("image")[0]);
+        const res = await axios.post(
+          `http://3.38.250.115/api/auth/signup?nickname=${getValues(
+            "nickname"
+          )}&email=${getValues("email")}&password=${getValues(
+            "password"
+          )}&nicknameVerifyToken=${getValues(
+            "nicknameVerifyToken"
+          )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
+          form,
+          { headers: { "Content-Type": "multi-part/form-data" } }
+        );
+        console.log(res);
+        alert(res.data.message);
+        navigate("/signIn");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const next = () => {
@@ -65,24 +87,48 @@ const Register = () => {
           <StSpanLeft onClick={before}>&lt;</StSpanLeft>
           <StSpanCenter>회원가입</StSpanCenter>
         </StSpanBox>
-        {level === 0 && <Email register={register} errors={errors} />}
+        {level === 0 && (
+          <Email
+            register={register}
+            errors={errors}
+            watch={watch}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        )}
         {level === 1 && (
-          <Password register={register} errors={errors} watch={watch} />
+          <Password
+            register={register}
+            errors={errors}
+            watch={watch}
+            getValues={getValues}
+          />
         )}
         {level === 2 && (
-          <Image register={register} errors={errors} watch={watch} />
+          <Image
+            register={register}
+            errors={errors}
+            watch={watch}
+            getValues={getValues}
+          />
         )}
-        {level === 3 && <Nickname register={register} errors={errors} />}
+        {level === 3 && (
+          <Nickname
+            register={register}
+            errors={errors}
+            watch={watch}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        )}
         {level === 3 ? (
           <StButton
-            type="submit"
             disabled={(level === 3 && watch("nickname") === "") || isSubmitting}
           >
             완료
           </StButton>
         ) : (
           <StButton
-            type="submit"
             onClick={next}
             disabled={
               (level === 0 && watch("email") === undefined) ||
@@ -90,7 +136,7 @@ const Register = () => {
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "") ||
               (level === 2 && watch("image") === undefined) ||
-              // (level === 2 && watch("image").length === 0) ||
+              (level === 2 && watch("image")?.length === 0) ||
               (level === 3 && watch("nickname") === "")
             }
           >
@@ -165,8 +211,7 @@ const StButton = styled.button`
   :disabled {
     pointer-events: none;
   }
-  :hover,
-  :focus {
+  :hover {
     background-color: #000;
     border: none;
     color: #fff;

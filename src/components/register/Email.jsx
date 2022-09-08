@@ -1,8 +1,43 @@
 import React from "react";
 import styled from "styled-components";
+import serverAxios from "../../server/server.axios";
+import axios from "axios";
 
 const Email = (props) => {
-  const { register, errors } = props;
+  const { register, errors, watch, setValue, getValues } = props;
+
+  const confirmEmailVerifyCode = async () => {
+    try {
+      const res = await axios.get(
+        `http://3.38.250.115/api/auth/confirm-email?email=${watch(
+          "email"
+        )}&email-verify-code=${watch("Number")}`,
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      );
+      const token = res.data.emailVerifyToken;
+      console.log(token);
+      setValue("emailVerifyToken", token);
+      console.log(getValues("emailVerifyToken"));
+      alert(res.data.message);
+    } catch (err) {
+      console.log(err);
+      alert("이미 인증이 완료되었습니다");
+    }
+  };
+  const sendEmailVerifyCode = async () => {
+    try {
+      const res = await axios.get(
+        `http://3.38.250.115/api/auth/send-email?email=${watch("email")}`,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      console.log(res.data.message);
+      alert(res.data.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <StDiv>
       <label>이메일 입력</label>
@@ -10,7 +45,7 @@ const Email = (props) => {
         type="text"
         placeholder="이메일 주소를 입력해 주세요"
         autoComplete="off"
-        maxLength={20}
+        maxLength={100}
         {...register("email", {
           required: true,
           pattern: {
@@ -22,6 +57,10 @@ const Email = (props) => {
       />
       {errors?.email?.types?.required && <p>{errors.email.message}</p>}
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
+      <button onClick={sendEmailVerifyCode}>이메일 인증번호 발송</button>
+      <label>인증번호</label>
+      <input type="text" placeholder="인증번호" {...register("Number")} />
+      <button onClick={confirmEmailVerifyCode}>인증번호 확인</button>
     </StDiv>
   );
 };
