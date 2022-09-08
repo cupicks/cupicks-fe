@@ -4,7 +4,7 @@ import editIcon from '../../assets/svg/edit.svg'
 import lockIcon from '../../assets/svg/lock.svg'
 
 const ProfileEditBody = (props) => {
-  const {register, errors} = props
+  const {register, errors, watch} = props
 
   const userEmail="temp@test.com"
 

@@ -31,6 +31,7 @@ const ProfileEdit = () => {
       />
       
       <ProfileEditBody
+        watch={watch}
         register={register}
         errors={errors}
       />

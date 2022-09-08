@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
 const RecipeDescBody = (props) => {
-  const { content } = props
+  const { content, ingredientList } = props
   return (
     <StRecipeDescBody>
       <div>
-        {content}
+        {ingredientList.map((list, i) => (
+          <div key={i}>
+            {list.ingredientName} : {list.ingredientAmount}ml
+          </div>
+        ))}
+      </div>
+      <div>
+          {content}
       </div>
       <div className="name">
         <strong>

@@ -42,7 +42,7 @@ const IngredientList = (props) => {
   
   return ( 
     <StIngredientList>
-      {sublevel === 0 || sublevel === finalSublevel &&
+      {(sublevel === 0 || sublevel === finalSublevel) &&
         <div className="info_box_center">
           + 버튼을 눌러 재료를 추가해주세요.
         </div>
