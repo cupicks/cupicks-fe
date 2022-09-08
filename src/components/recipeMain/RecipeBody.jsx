@@ -4,6 +4,17 @@ import RecipeList from "./RecipeList";
 import AllRecipeList from "./AllRecipeList";
 
 const RecipeBody = () => {
+  // const colorLists = [
+  //   [
+  //   '#ffffff','#000000','#3897ef','#7acffe','#c1e9ff','#b5f2bb','#92e172','#e8d0a3','#ae7948'
+  //   ],
+  //   [
+  //   '#fee484','#fecda8','#f29d50','#ee714a','#f33d3d','#ffb1c8','#e1a6db','#d076de','#a63bd9'
+  //   ],
+  //   [
+  //   '#262626','#353535','#555555','#737373','#999999','#b2b2b2','#c6c6c6','#d5d5d5','#ededed'
+  //   ]
+  //   ]
   const start = {
     isSuccess: true,
     message: "레시피 조회에성공하셨습니다",
@@ -18,18 +29,18 @@ const RecipeBody = () => {
         nickname: "창용",
         ingredientList: [
           {
-            ingredientName: "연유",
-            ingredientColor: "#123456",
+            ingredientName: "물",
+            ingredientColor: "#c1e9ff",
             ingredientAmount: 100,
           },
           {
             ingredientName: "커피",
-            ingredientColor: "#df18b4",
+            ingredientColor: "#ee714a",
             ingredientAmount: 120,
           },
           {
             ingredientName: "시럽",
-            ingredientColor: "#9db3c9",
+            ingredientColor: "#fecda8",
             ingredientAmount: 100,
           },
         ],
@@ -44,17 +55,17 @@ const RecipeBody = () => {
         ingredientList: [
           {
             ingredientName: "연유",
-            ingredientColor: "#123456",
+            ingredientColor: "#c1e9ff",
             ingredientAmount: 100,
           },
           {
             ingredientName: "원두",
-            ingredientColor: "#d10a0a",
+            ingredientColor: "#a8611f",
             ingredientAmount: 85,
           },
           {
             ingredientName: "모카모카",
-            ingredientColor: "#3222c9",
+            ingredientColor: "#ffc670",
             ingredientAmount: 100,
           },
         ],
@@ -69,17 +80,17 @@ const RecipeBody = () => {
         ingredientList: [
           {
             ingredientName: "연유",
-            ingredientColor: "#123456",
+            ingredientColor: "#c1e9fe",
             ingredientAmount: 100,
           },
           {
             ingredientName: "커피",
-            ingredientColor: "#24b922",
+            ingredientColor: "#a8611f",
             ingredientAmount: 120,
           },
           {
             ingredientName: "시럽",
-            ingredientColor: "#c44d4d",
+            ingredientColor: "#a0d680",
             ingredientAmount: 100,
           },
         ],
@@ -94,17 +105,17 @@ const RecipeBody = () => {
         ingredientList: [
           {
             ingredientName: "연유",
-            ingredientColor: "#123456",
+            ingredientColor: "#f33d3d",
             ingredientAmount: 150,
           },
           {
             ingredientName: "카라멜시럽",
-            ingredientColor: "#1eb4b9",
+            ingredientColor: "#ffb1c8",
             ingredientAmount: 120,
           },
           {
             ingredientName: "원두",
-            ingredientColor: "#aebd29",
+            ingredientColor: "#d076de",
             ingredientAmount: 100,
           },
         ],
@@ -124,7 +135,7 @@ const RecipeBody = () => {
           },
           {
             ingredientName: "연유",
-            ingredientColor: "#1e9b2d",
+            ingredientColor: "#f33d3d",
             ingredientAmount: 80,
           },
           {
@@ -149,12 +160,12 @@ const RecipeBody = () => {
           },
           {
             ingredientName: "연유",
-            ingredientColor: "#1e9b2d",
+            ingredientColor: "#a63bd9",
             ingredientAmount: 80,
           },
           {
             ingredientName: "물",
-            ingredientColor: "#2082e4",
+            ingredientColor: "#c1e9ff",
             ingredientAmount: 110,
           },
         ],
@@ -194,7 +205,7 @@ const RecipeBody = () => {
         ingredientList: [
           {
             ingredientName: "커피",
-            ingredientColor: "#b22336",
+            ingredientColor: "#262626",
             ingredientAmount: 75,
           },
           {
@@ -204,7 +215,7 @@ const RecipeBody = () => {
           },
           {
             ingredientName: "물",
-            ingredientColor: "#2082e4",
+            ingredientColor: "#c1e9ff",
             ingredientAmount: 110,
           },
         ],
@@ -314,7 +325,6 @@ const StRecipeTitle = styled.div`
   height: 100px;
 
   margin-left: 45px;
-  margin-top: 15px;
 
   display: flex;
   align-items: center;

@@ -33,7 +33,7 @@ const RecipeList = ({ favRecipe, setFavRecipe }) => {
 export default RecipeList;
 
 const StyledSlider = styled(Slider)`
-  width: 390px;
+  width: 100vw;
   position: relative;
 
   .slick-prev::before {
@@ -49,6 +49,13 @@ const StyledSlider = styled(Slider)`
     cursor: pointer;
     margin-left: 2px;
     margin-right: 14px;
+  }
+  .slick-list {
+    /* position: absolute; */
+    /* width: 40vw; */
+    /* width: 390px; */
+    width: 100vw;
+    margin: 0 auto;
   }
 `;
 

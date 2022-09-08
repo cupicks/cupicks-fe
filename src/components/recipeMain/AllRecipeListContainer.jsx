@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
+import talk from "../../assets/svg/talk.svg";
+import like from "../../assets/svg/like.svg";
 
 const AllRecipeListContainer = (props) => {
   const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
@@ -10,7 +12,6 @@ const AllRecipeListContainer = (props) => {
         <StListHead>
           <StListProfile></StListProfile>
           <StNickname>닉네임</StNickname>
-          <div>...</div>
         </StListHead>
         <StListContent>
           {ingredientList.map((ingredients) => (
@@ -21,10 +22,10 @@ const AllRecipeListContainer = (props) => {
           ))}
         </StListContent>
         <StListTitle>
-          {title}
+          <div className="title">{title}</div>
           <StItemSet>
-            <div>🖤</div>
-            <div>💬</div>
+            <img className="talk_btn" src={talk} />
+            <img className="like_btn" src={like} />
           </StItemSet>
         </StListTitle>
       </StListWrap>
@@ -39,13 +40,13 @@ export default AllRecipeListContainer;
 // `;
 
 const StListWrap = styled.div`
-  width: 170px;
-  height: 280px;
+  width: 30vw;
+  /* width: 7rem; */
+  height: 200px;
   border-radius: 12px;
 
   margin: 0 auto;
   margin-top: 5px;
-  margin-left: 20px;
 
   display: flex;
   flex-flow: column;
@@ -54,7 +55,7 @@ const StListWrap = styled.div`
 `;
 
 const StListHead = styled.div`
-  height: 50px;
+  height: 25px;
 
   display: flex;
   flex-flow: row;
@@ -67,48 +68,70 @@ const StListHead = styled.div`
 `;
 
 const StListProfile = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
 
   border: 2px solid gray;
 
-  margin-left: 10px;
+  margin-left: 0.3rem;
 `;
 
 const StNickname = styled.div`
-  margin-left: 10px;
+  margin-left: 5px;
 
-  font-size: 13px;
+  font-size: 8px;
+  font-weight: bold;
+  padding-top: 0.5rem;
 `;
 
 const StListContent = styled.div`
-  height: 240px;
+  height: 150px;
 
   display: flex;
   flex-flow: column-reverse;
+  border-top: 2px solid #f8f7f8;
 `;
 
 const StListTitle = styled.div`
-  height: 30px;
+  height: 25px;
   border-radius: 12px;
 
-  padding-left: 5px;
-  padding-bottom: 20px;
+  padding-left: 0.5rem;
+  padding-bottom: 1rem;
+  padding-top: 0.7rem;
 
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+  align-items: center;
 
   background-color: #ffffff;
 
   border-bottom: 2px solid #e6e6e6;
 
-  font-size: 14px;
+  font-size: 12px;
+
+  .title {
+    font-size: 0.5rem;
+    font-weight: bold;
+  }
 `;
 
 const StItemSet = styled.div`
   display: flex;
   flex-flow: row;
+  justify-content: center;
+  /* align-items: center; */
+
   gap: 8px;
+
+  .talk_btn {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+  .like_btn {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
 `;
