@@ -13,7 +13,7 @@ const Mypage = () => {
 export default Mypage;
 
 const StWrap = styled.div`
-  width: 600px;
+  width: 100%;
   height: 100vh;
 
   margin: 0 auto;

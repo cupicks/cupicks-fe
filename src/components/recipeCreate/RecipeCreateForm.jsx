@@ -36,8 +36,11 @@ const RecipeCreateForm = () => {
   })
   const { level, finalLevel } = cupState;
 
+  console.log(cupState.isIcedTag);
+
   /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
+
     // console.log(data);
     data = setDataType(data);
     
