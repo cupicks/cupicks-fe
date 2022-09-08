@@ -6,8 +6,9 @@ const IngredientsContainer = (props) => {
 
   return (
     <StIngredientsContainer>
-      { lists.map( list => 
+      { lists.map( (list, i) => 
         <Ingredient 
+          key={i}
           list={list} 
           cupSize={cupSize} 
         />

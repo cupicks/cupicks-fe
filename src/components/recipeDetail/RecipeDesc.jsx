@@ -4,11 +4,11 @@ import styled from "styled-components";
 import RecipeDescBody from "./element/RecipeDescBody";
 
 const RecipeDesc = (props) => {
-  const { title, content } = props.recipe
+  const { title, content, ingredientList } = props.recipe
   return (
     <StRecipeDesc>
       <RecipeTitle title={title} />
-      <RecipeDescBody content={content} />
+      <RecipeDescBody content={content} ingredientList={ingredientList}/>
     </StRecipeDesc>
   )
 };

@@ -4,15 +4,15 @@ import styled from "styled-components";
 
 const RecipeCreate = () => {
   return (
-    <StRecipeCreate>
+    <StWrap>
       <RecipeCreateForm />
-    </StRecipeCreate>
+    </StWrap>
   );
 };
 
 export default RecipeCreate;
 
-const StRecipeCreate = styled.div`
+const StWrap = styled.div`
   flex: 1 1 auto;
   
   display: flex;
