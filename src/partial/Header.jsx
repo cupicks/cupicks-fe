@@ -1,47 +1,37 @@
 import React from "react";
 import styled from "styled-components";
+import logo from "../assets/svg/Logo_Cupick.svg";
 
 const Header = () => {
   return (
-    <Wrap>
-      <Logo></Logo>
-      <Title>
-        <Name>Cupick</Name>
-      </Title>
-    </Wrap>
+    <StWrap>
+      <StLogo src={logo}></StLogo>
+    </StWrap>
   );
 };
 
 export default Header;
 
-const Wrap = styled.div`
-  width: 500px;
+const StWrap = styled.header`
+  width: 100%;
   height: 80px;
-  flex-direction: row;
-  display: flex;
+
   margin: 0 auto;
-  margin-top: 20px;
-  align-items: center;
-`;
 
-const Logo = styled.div`
-  width: 80px;
-  height: 80px;
-  border: 2px solid black;
-  border-radius: 50%;
-`;
+  padding-left: 30px;
 
-const Title = styled.div`
-  width: 200px;
-  height: 100px;
-  margin-left: 15px;
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   align-items: center;
+
+  background-color: #ffffff;
 `;
 
-const Name = styled.div`
-  width: 200px;
-  height: 80px;
-  font-size: 45px;
+const StLogo = styled.img`
+  width: 100px;
+  height: 60px;
+
+  /* background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; */
 `;

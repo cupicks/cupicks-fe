@@ -81,7 +81,6 @@ const Register = () => {
       setLevel((prev) => prev - 1);
     }
   };
-
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>

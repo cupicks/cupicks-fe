@@ -1,78 +1,76 @@
 import RecipeIngredientNumber from "./RecipeIngredientNumber";
+import RecipeIngredientColorLists from "./RecipeIngredientColorLists";
 
 import styled from "styled-components";
 
-const RecipeIngredient = ({
-  idx, register, calcAmount, cutNumberByLength, setValue, sublevel, setSublevel, finalSublevel, watch
-}) => {
+const RecipeIngredient = (props) => {
+  const {
+    idx, register, calcAmount,
+    cutNumberByLength, setValue, cupState } = props;
+  const {sublevel, setSublevel, finalSublevel} = cupState;
 
-  const sublevelButtonNextClickHandler = () => {
-    switch (sublevel) {
-      case 0:
-        if(watch(`ingrediantList.${idx}.ingredientName`) === '') return;
-        break;
-      case 1:
-        if(isNaN(watch(`ingrediantList.${idx}.ingredientAmount`))) return;
-        break;
-      case 2:
-        if(watch(`ingrediantList.${idx}.ingredientColor`).length === 0) return;
-        break;
-      default: '';
-    }
-    sublevel < finalSublevel && setSublevel(prev => prev + 1);
-  }
-
-  const sublevelButtonPrevClickHandler = () => {
-    sublevel > 0 && setSublevel(prev => prev - 1);
-  }
-
+  // temp
+  const colorLists = [
+    [
+      '#ffffff','#000000','#3897ef','#7acffe','#c1e9ff','#b5f2bb','#92e172','#e8d0a3','#ae7948'
+    ],
+    [
+      '#fee484','#fecda8','#f29d50','#ee714a','#f33d3d','#ffb1c8','#e1a6db','#d076de','#a63bd9'
+    ],
+    [
+      '#262626','#353535','#555555','#737373','#999999','#b2b2b2','#c6c6c6','#d5d5d5','#ededed'
+    ]
+  ]
+  
   return (
     <StRecipeIngredient>
-      
-      {sublevel === 0 &&
-        <input 
-          type="text" 
-          placeholder={`재료 ${idx}`}
-          {...register(`ingrediantList.${idx}.ingredientName`)}
-        />
-      }
-
       {sublevel === 1 &&
-        <RecipeIngredientNumber
-          idx={idx}
-          register={register}
-          setValue={setValue}
-          
-          calcAmount={calcAmount}
-          cutNumberByLength={cutNumberByLength}
-        />
+        <>
+          <div className="info_box_center">
+            재료의 이름은 무엇인가요?
+          </div>
+          <input 
+            type="text" 
+            required={true}
+            placeholder={`재료`}
+            {...register(`ingredientList.${idx}.ingredientName`)}
+          />
+        </>
       }
 
       {sublevel === 2 &&
-        <select 
-          {...register(`ingrediantList.${idx}.ingredientColor`)}
-        >
-          <option value="#000000">옵션1</option>
-          <option value="#111111">옵션2</option>
-          <option value="#222222">옵션3</option>
-        </select>
+        <>
+          <div className="info_box_center">
+            재료량을 입력해주세요.
+          </div>
+          <div className="flex_box">
+            <RecipeIngredientNumber
+              idx={idx}
+              register={register}
+              setValue={setValue}
+              required={true}
+              
+              calcAmount={calcAmount}
+              // cutNumberByLength={cutNumberByLength}
+            />
+            ml
+          </div>
+        </>
       }
 
-      <StButtonBox>
-        <button onClick={()=>{
-          sublevelButtonNextClickHandler();
-        }}>
-          {sublevel === finalSublevel ? '재료 고르기 완료' : '다음'}
-        </button>
-
-        <button
-          onClick={()=>{
-            sublevelButtonPrevClickHandler();
-        }}> 
-          뒤로 가기
-        </button>
-      </StButtonBox>
-
+      {sublevel === 3 &&
+        <>
+          <div className="info_box_center">
+            재료색을 선택해주세요.
+          </div>
+          
+          <RecipeIngredientColorLists 
+            colorLists={colorLists}
+            idx={idx}
+            register={register}
+          />
+        </>
+      }
     </StRecipeIngredient>
 	)
 }
@@ -80,14 +78,47 @@ const RecipeIngredient = ({
 export default RecipeIngredient;
 
 const StRecipeIngredient = styled.div`
+  input, select {
+    all: unset;
+    width: 100%;
+
+    border-bottom: 2px solid #aaa;
+    color: #222;
+
+    font-size: 1.1em;
+    line-height: 40px;
+  }
 
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+
+  .flex_box {
+    display: flex;
+    gap: 20px;
+  }
 `
 
-const StButtonBox = styled.div`
+const StColorCircleBox = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-flow: wrap;
+
+  input {
+    position: absolute;
+    /* opacity: 0;
+    z-index: -9; */
+  }
+
+  label {
+    transition: all .2s;
+  }
   
+  input:checked + .colorLabel {
+    box-shadow: 0 2px 7px 3px rgba(45, 35, 53, 0.1);
+    transform: translateY(-2px) scale(1.1);
+  }
 `

@@ -6,20 +6,19 @@ import Header from "../partial/Header";
 import Footer from "../partial/Footer";
 
 const Layout = () => {
-  console.log(window.location.pathname);
   const [footer, setFooter] = useState(false);
   const [header, setHeader] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   //|| "/mypage" || "/profile/:userId/edit"
   useEffect(() => {
     const pathname = window.location.pathname;
-    console.log(pathname !== "/recipe");
+    // console.log(pathname !== "/recipe");
     if (
       pathname === "/recipe" ||
       pathname === "/mypage" ||
       pathname.indexOf("/profile") > -1
     ) {
       setFooter(true);
-      console.log("hi");
     } else {
       setFooter(false);
     }
@@ -28,13 +27,14 @@ const Layout = () => {
     } else {
       setHeader(false);
     }
-  }, []);
+    setLoaded(true);
+  }, [loaded]);
 
   return (
     <StLayout>
       {header && <Header />}
       <Router />
-      {footer && <Footer />}
+      {footer && <Footer setLoaded={setLoaded} />}
     </StLayout>
   );
 };
@@ -42,9 +42,16 @@ const Layout = () => {
 export default Layout;
 
 const StLayout = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
   max-width: 600px;
+  /* min-height: 100vh; */
+  height: 100vh;
+
   margin: 0 auto;
+
+  position: relative;
+
+  display: flex;
+  flex-flow: column;
+
+  overflow: hidden;
 `;

@@ -5,19 +5,18 @@ const RecipeListIngredient = (props) => {
   const { ingredientColor, ingredientAmount, ingredientName } =
     props.ingredients;
   return (
-    <IngredientWrap
+    <StIngredientWrap
       ingredientColor={ingredientColor}
       ingredientAmount={((ingredientAmount / props.cupSize) * 100).toFixed(1)}
-    >
-      {ingredientName}
-    </IngredientWrap>
+    ></StIngredientWrap>
   );
 };
 
 export default RecipeListIngredient;
 
-const IngredientWrap = styled.div`
-  background-color: ${(props) => props.ingredientColor};
+const StIngredientWrap = styled.div`
   height: ${(props) => props.ingredientAmount + "%"};
+
+  background-color: ${(props) => props.ingredientColor};
   color: white;
 `;
