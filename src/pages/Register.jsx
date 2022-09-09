@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Email from "../components/register/Email";
 import Nickname from "../components/register/Nickname";
@@ -15,15 +16,42 @@ const Register = () => {
     register,
     watch,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
   const [level, setLevel] = React.useState(0);
 
-  const onSubmit = (data) => {
-    if (level === 3) {
-      navigate("/signIn");
-      console.log(data);
+  const onSubmit = async () => {
+    const form = new FormData();
+    form.append(
+      "imageValue",
+      getValues("image") === undefined ? null : getValues("image")[0]
+    );
+    if (
+      level === 3 &&
+      getValues("emailVerifyToken") &&
+      getValues("nicknameVerifyToken")
+    ) {
+      try {
+        const res = await axios.post(
+          `http://3.38.250.115/api/auth/signup?nickname=${getValues(
+            "nickname"
+          )}&email=${getValues("email")}&password=${getValues(
+            "password"
+          )}&nicknameVerifyToken=${getValues(
+            "nicknameVerifyToken"
+          )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
+          form,
+          { headers: { "Content-Type": "multi-part/form-data" } }
+        );
+        console.log(res);
+        alert(res.data.message);
+        navigate("/signIn");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const next = () => {
@@ -40,10 +68,6 @@ const Register = () => {
       alert("비밀번호가 일치하지 않습니다");
       return;
     }
-    // if (errors.image && level === 2) {
-    //   alert("이미지를 추가해 주세요");
-    //   return;
-    // }
     if (errors.nickname && level === 3) {
       alert("닉네임을 제대로 입력해주세요");
       return;
@@ -64,17 +88,47 @@ const Register = () => {
           <StSpanLeft onClick={before}>&lt;</StSpanLeft>
           <StSpanCenter>회원가입</StSpanCenter>
         </StSpanBox>
-        {level === 0 && <Email register={register} errors={errors} />}
+        {level === 0 && (
+          <Email
+            register={register}
+            errors={errors}
+            watch={watch}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        )}
         {level === 1 && (
-          <Password register={register} errors={errors} watch={watch} />
+          <Password
+            register={register}
+            errors={errors}
+            watch={watch}
+            getValues={getValues}
+          />
         )}
         {level === 2 && (
-          <Image register={register} errors={errors} watch={watch} />
+          <Image
+            register={register}
+            errors={errors}
+            watch={watch}
+            getValues={getValues}
+          />
         )}
-        {level === 3 && <Nickname register={register} errors={errors} />}
+        {level === 3 && (
+          <Nickname
+            register={register}
+            errors={errors}
+            watch={watch}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        )}
         {level === 3 ? (
           <StButton
-            disabled={(level === 3 && watch("nickname") === "") || isSubmitting}
+            disabled={
+              (level === 3 && watch("nickname") === "") ||
+              (level === 3 && watch("nicknameVerifyToken") === undefined) ||
+              isSubmitting
+            }
           >
             완료
           </StButton>
@@ -84,11 +138,11 @@ const Register = () => {
             disabled={
               (level === 0 && watch("email") === undefined) ||
               (level === 0 && watch("email") === "") ||
+              (level === 0 && watch("emailVerifyToken") === undefined) ||
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "") ||
               (level === 2 && watch("image") === undefined) ||
-              (level === 2 && watch("image")?.length === 0) ||
-              (level === 3 && watch("nickname") === "")
+              (level === 2 && watch("image")?.length === 0)
             }
           >
             계속하기
