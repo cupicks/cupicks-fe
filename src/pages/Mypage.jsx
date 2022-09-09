@@ -1,11 +1,23 @@
-import React from "react";
+import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
+import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
+import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
+
 import styled from "styled-components";
-import MypageBody from "../components/recipeMypage/MypageBody";
 
 const Mypage = () => {
+  const userData = {
+    nickname: '닉네임',
+    imageUrl: 'image.png',
+    userId: 1234
+  }
+  // const [toggleBetween, setToggleBetween] = {}
+
   return (
     <StWrap>
-      <MypageBody />
+      <MypageMyInfo userData={userData} />
+      <MypageRecipeMyList on={true} />
+      <MypageRecipeLikeList />
+      <div></div>
     </StWrap>
   );
 };
@@ -13,12 +25,29 @@ const Mypage = () => {
 export default Mypage;
 
 const StWrap = styled.div`
-  width: 100%;
-  height: 100vh;
+  height: calc(100vh - 80px - 150px);
+  overflow-y: scroll;
 
-  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
 
-  border: 2px solid black;
-  /* flex-direction: column;
-  display: flex; */
+  background-color: #eee;
+  
+  .toggleContents {
+    width: 100%;
+    max-height: 0;
+
+    transition: all 1s;
+    overflow: hidden;
+  }
+
+  div.on + .toggleContents {
+    max-height: 100vh;
+  }
+  
+  & > div:last-child {
+    height: 100%;
+    background-color: #fff;
+  }
 `;
