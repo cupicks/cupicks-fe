@@ -1,32 +1,44 @@
-import React from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
-import createButton from "../assets/svg/cancel.svg";
-import myPageIcon from "../assets/svg/account.svg";
+
+import createIcon from "../assets/svg/cancel.svg";
 import mainIcon from "../assets/svg/language.svg";
+import myPageIcon from "../assets/svg/account.svg";
+
+import styled from "styled-components";
 
 const Footer = (props) => {
-  // const { pathname } = useLocation();
-  // console.log(pathname);
   const navigate = useNavigate();
-  const onCreate = () => {
+
+  const goToCreate = () => {
     navigate("/recipe/create");
     props.setLoaded(false);
   };
+
+  const goToMain = () => {
+    navigate("/recipe");
+    props.setLoaded(false);
+  };
+
+  const goToMypage = () => {
+    navigate("/mypage");
+    props.setLoaded(false);
+  };
+
   return (
     <StWrap>
-      <StButtonSet>
-        <StMyPageBtn>
-          <img className="mypageBtn" src={myPageIcon} />
-        </StMyPageBtn>
-        <CreateButton onClick={onCreate}>
-          <img className="createBtn" src={createButton} />
-        </CreateButton>
-        <StMainBtn>
-          <img className="mainBtn" src={mainIcon} />
-        </StMainBtn>
-      </StButtonSet>
+
+        <StButton onClick={goToMypage}>
+          <img src={myPageIcon} />
+        </StButton>
+
+        <StButtonGoToCreate onClick={goToCreate}>
+          <img src={createIcon} />
+        </StButtonGoToCreate>
+
+        <StButton onClick={goToMain}>
+          <img src={mainIcon} />
+        </StButton>
+
     </StWrap>
   );
 };
@@ -35,83 +47,51 @@ export default Footer;
 
 const StWrap = styled.footer`
   width: 100%;
-  height: 150px;
-  margin: 0 auto;
+  height: 90px;
 
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 
+  position: relative;
+`;
+
+const StButton = styled.button`
+  flex: 1 1 auto;
+
+  padding-top: 10px;
+  box-sizing: initial;
+  
+  display: flex;
+  justify-content: center;
+  
+  border: none;
   background-color: #eee;
+  
+  cursor: pointer;
 `;
 
-const StButtonSet = styled.div`
-  width: 100%;
-  height: 100px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-const StMyPageBtn = styled.button`
-  width: 40px;
-  height: 40px;
+const StButtonGoToCreate = styled.button`
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
   border: none;
-
+  background-color: transparent;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  
   cursor: pointer;
-
-  .mypageBtn {
-    width: 45px;
-    height: 45px;
-  }
-`;
-
-const CreateButton = styled.button`
-  width: 80px;
-  height: 80px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  transform: translateY(-80%);
-
-  padding-bottom: 5px;
-
-  border: none;
-
-  cursor: pointer;
-
-  .createBtn {
-    width: 120px;
-    height: 120px;
-    border: none;
-  }
-`;
-
-const StMainBtn = styled.button`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-
-  border: none;
-
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .mainBtn {
-    width: 45px;
-    height: 45px;
+  overflow: hidden;
+  
+  img {
+    width: 110px;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 `;

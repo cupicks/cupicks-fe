@@ -32,9 +32,15 @@ const Layout = () => {
 
   return (
     <StLayout>
+
       {header && <Header />}
-      <Router />
+
+      <div className="contents_area">
+        <Router />
+      </div>
+      
       {footer && <Footer setLoaded={setLoaded} />}
+
     </StLayout>
   );
 };
@@ -43,10 +49,7 @@ export default Layout;
 
 const StLayout = styled.div`
   max-width: 600px;
-  /* min-height: 100vh; */
   height: 100vh;
-
-  margin: 0 auto;
 
   position: relative;
 
@@ -54,4 +57,9 @@ const StLayout = styled.div`
   flex-flow: column;
 
   overflow: hidden;
+
+  .contents_area {
+    height: calc(100vh - 50px - 90px);
+    overflow-y: scroll;
+  }
 `;

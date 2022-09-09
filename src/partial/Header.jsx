@@ -1,11 +1,17 @@
-import React from "react";
-import styled from "styled-components";
 import logo from "../assets/svg/Logo_Cupick.svg";
 
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <StWrap>
-      <StLogo src={logo}></StLogo>
+      <StLogo 
+        src={logo}
+        onClick={()=>navigate('/')}
+      />
     </StWrap>
   );
 };
@@ -13,25 +19,18 @@ const Header = () => {
 export default Header;
 
 const StWrap = styled.header`
-  width: 100%;
-  height: 80px;
+  height: 50px;
 
-  margin: 0 auto;
-
-  padding-left: 30px;
+  padding: 0 20px;
 
   display: flex;
-  flex-flow: row;
-  align-items: center;
 
   background-color: #ffffff;
 `;
 
-const StLogo = styled.img`
-  width: 100px;
-  height: 60px;
-
-  /* background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat; */
+const StLogo = styled.div`
+  width: 120px;
+  height: 100%;
+  
+  background: url(${props=>props.src}) no-repeat center / contain;
 `;
