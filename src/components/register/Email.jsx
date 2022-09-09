@@ -4,14 +4,14 @@ import serverAxios from "../../server/server.axios";
 import axios from "axios";
 
 const Email = (props) => {
-  const { register, errors, watch, setValue, getValues } = props;
+  const { register, errors, setValue, getValues } = props;
 
   const confirmEmailVerifyCode = async () => {
     try {
       const res = await axios.get(
-        `http://3.38.250.115/api/auth/confirm-email?email=${watch(
+        `http://3.38.250.115/api/auth/confirm-email?email=${getValues(
           "email"
-        )}&email-verify-code=${watch("Number")}`,
+        )}&email-verify-code=${getValues("Number")}`,
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.emailVerifyToken;
@@ -27,7 +27,7 @@ const Email = (props) => {
   const sendEmailVerifyCode = async () => {
     try {
       const res = await axios.get(
-        `http://3.38.250.115/api/auth/send-email?email=${watch("email")}`,
+        `http://3.38.250.115/api/auth/send-email?email=${getValues("email")}`,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         }
@@ -36,6 +36,7 @@ const Email = (props) => {
       alert(res.data.message);
     } catch (err) {
       console.log(err);
+      alert(err.response.data.message);
     }
   };
   return (

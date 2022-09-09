@@ -22,8 +22,8 @@ const requestHandler = async (req) => {
         `/auth/token?refreshToken=${refreshToken}`
       );
 
-      localStorage.setItem("accessToken", response.data.result.accessToken);
-      req.headers.Authorization = `Bearer ${response.data.result.accessToken}`;
+      localStorage.setItem("accessToken", response.data.accessToken);
+      req.headers.Authorization = `Bearer ${response.data.accessToken}`;
       return req;
     } catch (error) {
       // 에러가뜬경우 (status가 4xx, 5xx인 경우)

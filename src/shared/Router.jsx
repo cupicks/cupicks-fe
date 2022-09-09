@@ -1,6 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Login from "../pages/Login";
+import Logout from "../pages/Logout";
 import Mypage from "../pages/Mypage";
 import Recipe from "../pages/Recipe";
 import RecipeCreate from "../pages/RecipeCreate";
@@ -12,6 +13,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Logout />} />
         <Route path="/recipe" element={<Recipe />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/recipe/create" element={<RecipeCreate />} />
