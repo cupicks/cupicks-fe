@@ -1,42 +1,49 @@
 import { useNavigate } from "react-router-dom";
 
 import createIcon from "../assets/svg/cancel.svg";
-import mainIcon from "../assets/svg/language.svg";
-import myPageIcon from "../assets/svg/account.svg";
+import {ReactComponent as MainIcon} from "../assets/svg/language.svg";
+import {ReactComponent as MyPageIcon} from "../assets/svg/account.svg";
 
 import styled from "styled-components";
 
-const Footer = (props) => {
+const Footer = ({pathname}) => {
   const navigate = useNavigate();
 
   const goToCreate = () => {
     navigate("/recipe/create");
-    props.setLoaded(false);
   };
 
   const goToMain = () => {
     navigate("/recipe");
-    props.setLoaded(false);
   };
 
   const goToMypage = () => {
     navigate("/mypage");
-    props.setLoaded(false);
   };
 
   return (
     <StWrap>
 
         <StButton onClick={goToMypage}>
-          <img src={myPageIcon} />
+          <div 
+            className={pathname === '/mypage'?"svg_box on":"svg_box"}
+          >
+            <MyPageIcon />
+          </div>
         </StButton>
 
         <StButtonGoToCreate onClick={goToCreate}>
-          <img src={createIcon} />
+          <img 
+            src={createIcon} 
+          />
         </StButtonGoToCreate>
 
         <StButton onClick={goToMain}>
-          <img src={mainIcon} />
+          <div 
+            className={pathname === '/recipe'?"svg_box on":"svg_box"}
+          >
+            <MainIcon />
+          </div>
         </StButton>
 
     </StWrap>
@@ -53,12 +60,20 @@ const StWrap = styled.footer`
   justify-content: space-between;
 
   position: relative;
+  
+  svg {
+    transition: all .3s;
+  }
+
+  .svg_box.on {
+    fill: #CDCDCD !important;
+  }
 `;
 
 const StButton = styled.button`
   flex: 1 1 auto;
 
-  padding-top: 10px;
+  padding-top: 12px;
   box-sizing: initial;
   
   display: flex;
