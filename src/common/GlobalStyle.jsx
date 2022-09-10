@@ -1,14 +1,29 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle=createGlobalStyle` 
-  
+  :root {
+    --button-color: #333;
+    --button-borderColor: #333;
+    --button-backgroundColor: #ddd;
+    --button-activeColor: #ddd;
+    --button-activeBorderColor: #333;
+    --button-activeBackgroundColor: #333;
+  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
   }
 
+  @media (max-width: 560px) {
+    body {
+      font-size: 14px
+    }
+  }
+  
   ul,
   ol,
   li {

@@ -91,7 +91,6 @@ const Register = () => {
       // console.log(getValues("emailVerifyToken"));
     }
   };
-
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>

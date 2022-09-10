@@ -9,113 +9,111 @@ import RecipeIngredientList from "./subpages/RecipeIngredientList";
 import { setDataType } from '../../util/recipeSetDataType'
 
 import styled from "styled-components";
+import RecipeVisualContainer from "./subpages/RecipeVisualContainer";
+import RecipeCreateNavigation from "./subpages/RecipeCreateNavigation";
+import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
 const RecipeCreateForm = () => {
-  const { register, handleSubmit, setValue, trigger, watch, control, formState: { errors } } = useForm();
-  const { fields, append, remove } = useFieldArray({ control, name: "ingrediantList" })
+  const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
+  const { fields, append, remove } = useFieldArray({ 
+    control, 
+    name: "ingredientList"
+  })
+  const formProps = {register, watch, setValue, getValues, errors, trigger}
+  const formArrayProps = {fields, append, remove}
 
-  const [level, setLevel] = useState(0)
-  const finalLevel = 3;
+  const [cupState, setCupState] = useState({
+    level: 0,
+    finalLevel: 3,
+    sublevel: 0,
+    finalSublevel: 4,
+    cupStyleHeight: 0,
+    isIcedTag: null,
+    isPublicTag: null,
+    currCupSize: null,
+    ingredientDeleteMode: false,
+    currIngredientList: []
+  })
+  const { level, finalLevel } = cupState;
 
-  const [sublevel, setSublevel] = useState(0);
-  const finalSublevel = 2;
+  console.log(cupState.isIcedTag);
 
   /** finalLevel일 때 onSumit 시, request 보내는 함수 */
   const onSubmit = data => {
-    data = setDataType(data);
 
+    // console.log(data);
+    data = setDataType(data);
+    
     // level === finalLevel일 때 request할 예정
-    if(level === finalLevel + 1){
+    if(level === finalLevel){
       console.log('request');
       console.log(data);
     }
   }
 
-  /** 이전 level */
-  const levelButtonPrevClickHandler = () => {
-    level > 0 && setLevel(prev => prev - 1);
-  }
-  
-  const caseDisabled = ''
-
-  /** 다음 level의 컴포넌트 랜더링 하기 전 조건 확인 */
-  const levelButtonNextClickHandler = () => {
-    switch (level) {
-      case 0:
-        if(watch('cupSize') === null) return;
-        break;
-      case 1:
-        if(watch('isIced') === null) return;
-        break;
-      case 2:
-        if(watch('ingrediantList').length === 0) return;
-        setSublevel(0)
-        break;
-      case 3:
-        if(watch('title').length === 0 || watch('content').length === 0 ) return;
-        setSublevel(0)
-        break;
-        default: '';
-      }
-    level < finalLevel + 1 ? setLevel(prev => prev + 1) : '';
-  }
-
   return (
     <StForm onSubmit={handleSubmit(onSubmit)}>
       
-      {level === 0 && 
-        <RecipeCupSize
-          register={register}
-          setValue={setValue}
-          errors={errors}
-          trigger={trigger}
+      <RecipeIngredientButtonContainer
+        cupState={cupState}
+        setCupState={setCupState}
+        formArrayProps={formArrayProps}
+      />
+
+      <RecipeCreateNavigation
+        cupState={cupState}
+        setCupState={setCupState}
+      />
+
+      {level !== 3 && 
+        <RecipeVisualContainer
+          cupState={cupState}
+          setCupState={setCupState}
+          formProps={formProps}
+          formArrayProps={formArrayProps}
         />
       }
 
-      {level === 1 &&
-        <RecipeIsIced 
-          register={register}
-          errors={errors}
-          watch={watch}
-          trigger={trigger}
-        />
-      }
+      {level !== 3 &&
+        <StRecipeOptContainer>
+          {level === 0 && 
+            <RecipeCupSize
+              cupState={cupState}   
+              setCupState={setCupState}
+              formProps={formProps}
+              formArrayProps={formArrayProps}
+              resetField={resetField}
+            />
+          }
 
-      {level === 2 && 
-        <RecipeIngredientList
-          register={register}
-          setValue={setValue}
-          fields={fields}
-          append={append}
-          remove={remove}
-          watch={watch}
-          sublevel={sublevel}
-          setSublevel={setSublevel}
-          finalSublevel={finalSublevel}
-        />
+          {level === 1 &&
+            <RecipeIsIced 
+              cupState={cupState}
+              setCupState={setCupState}
+              formProps={formProps}
+              resetField={resetField}
+              remove={remove}
+            />
+          }
+
+          {level === 2 && 
+            <RecipeIngredientList
+              cupState={cupState}
+              setCupState={setCupState}
+              formProps={formProps}
+              formArrayProps={formArrayProps}
+            />
+          }
+        </StRecipeOptContainer>
       }
 
       {level === 3 && 
         <RecipeTextValue
-          register={register}
-          errors={errors}
-          watch={watch}
+          cupState={cupState}
+          setCupState={setCupState}
+          formProps={formProps}
         />
       }
-
-      <StButtonBox>
-        <button onClick={()=>{
-          levelButtonNextClickHandler();
-        }}>
-          {level === finalLevel ? '작성' : '다음'}
-        </button>
-
-        <button onClick={()=>{
-          levelButtonPrevClickHandler();
-        }}> 
-          뒤로 가기
-        </button>
-      </StButtonBox>
       
     </StForm>
   )
@@ -124,12 +122,68 @@ const RecipeCreateForm = () => {
 export default RecipeCreateForm;
 
 const StForm = styled.form`
+  flex: 1 1 auto;
+  
   display: flex;
   flex-flow: column;
   text-align: center;
-  gap: 5px;
+
+  background-color: #eee;
+
+  h4 {
+    font-weight: 500;
+  }
 `
 
-const StButtonBox = styled.div`
+const StRecipeOptContainer = styled.div`
+  flex: 1 1 auto;
+  padding: 1rem 1.5rem;
   
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  
+  .info_box {
+    flex: 0 0 100%;
+    display: flex;
+    gap: 15px;
+    
+    color: #222;
+
+    text-align: left;
+  }
+
+  .error_box {
+    flex: 0 0 100%;
+    line-height: 1.6;
+
+    color: #888;
+  }
+
+  input[type="radio"] {
+    /* display: none; */
+    position: absolute;
+    z-index: -9;
+    opacity: 0;
+  }
+
+  input {
+    flex: 1 1 auto;
+  }
+  
+  label {
+    flex: 1 1 auto;
+    height: 40px;
+    border-radius: .5rem;
+
+    border: 1px solid var(--button-borderColor);
+
+    transition: all .2s;
+  }
+  
+  input:not(.colorLabel):checked + label {
+    background-color: var(--button-activeBackgroundColor);
+    color: var(--button-activeColor);
+  }
 `

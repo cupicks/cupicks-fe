@@ -1,8 +1,9 @@
-import styled from "styled-components";
 import IsIcedIcon from "../components/recipeDetail/element/IsIcedIcon";
 import IngredientsContainer from "../components/recipeDetail/IngredientsContainer";
 import RecipeDesc from "../components/recipeDetail/RecipeDesc";
 import Navigation from "../partial/Navigation";
+
+import styled from "styled-components";
 
 const RecipeDetail = () => {
   const recipe = {
@@ -49,6 +50,8 @@ const RecipeDetail = () => {
 export default RecipeDetail;
 
 const StRecipeDetail = styled.div`
+  height: 100%;
+  overflow-y: scroll;
 
   .icon_box {
     width: 40px;
