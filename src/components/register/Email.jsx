@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import serverAxios from "../../server/server.axios";
 import axios from "axios";
+import { useWatch } from "react-hook-form";
 
 const Email = (props) => {
-  const { register, errors, setValue, getValues } = props;
+  const { register, errors, setValue, watch, getValues } = props;
+  const [checkEmail, setCheckEmail] = React.useState(false);
+  const [checkNumber, setCheckNumber] = React.useState(false);
 
   const confirmEmailVerifyCode = async () => {
     try {
@@ -18,10 +21,12 @@ const Email = (props) => {
       console.log(token);
       setValue("emailVerifyToken", token);
       console.log(getValues("emailVerifyToken"));
+      setCheckNumber(true);
       alert(res.data.message);
     } catch (err) {
       console.log(err);
-      alert("이미 인증이 완료되었습니다");
+      // await new Promise((r) => setTimeout(r, 3000));
+      alert(err.response.data.message);
     }
   };
   const sendEmailVerifyCode = async () => {
@@ -33,17 +38,27 @@ const Email = (props) => {
         }
       );
       console.log(res.data.message);
+      setCheckEmail(true);
       alert(res.data.message);
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
     }
   };
+  // React.useEffect(() => {
+  //   if (watch("email") !== getValues("email")) {
+  //     setCheckEmail(false);
+  //   }
+  //   if (watch("Number") !== getValues("Number")) {
+  //     setCheckNumber(false);
+  //   }
+  // });
   return (
     <StDiv>
       <label>이메일 입력</label>
       <input
         type="text"
+        disabled={checkEmail === true}
         placeholder="이메일 주소를 입력해 주세요"
         autoComplete="off"
         maxLength={100}
@@ -60,8 +75,19 @@ const Email = (props) => {
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
       <button onClick={sendEmailVerifyCode}>이메일 인증번호 발송</button>
       <label>인증번호</label>
-      <input type="text" placeholder="인증번호" {...register("Number")} />
-      <button onClick={confirmEmailVerifyCode}>인증번호 확인</button>
+      <input
+        type="text"
+        disabled={checkNumber === true}
+        maxLength={6}
+        placeholder="인증번호"
+        {...register("Number")}
+      />
+      <button
+        onClick={confirmEmailVerifyCode}
+        disabled={watch("Number")?.length <= 5}
+      >
+        인증번호 확인
+      </button>
     </StDiv>
   );
 };
