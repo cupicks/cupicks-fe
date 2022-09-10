@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Comments = () => {
   return (
     <StRecipeComment>
-      <Navigation>
+      <Navigation className="change" isLoaded>
         <span className="title">댓글</span>
       </Navigation>
       <CommentBody />
@@ -21,9 +21,8 @@ export default Comments;
 const StRecipeComment = styled.div`
   /* flex: 1 1 auto;
   display: flex; */
-
   height: 100%;
-  overflow-y: scroll;
+  position: relative;
 
   /* .comment_title {
     width: 30px;
