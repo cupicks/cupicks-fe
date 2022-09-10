@@ -1,12 +1,15 @@
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import IsIcedIcon from "../components/recipeDetail/element/IsIcedIcon";
 import IngredientsContainer from "../components/recipeDetail/IngredientsContainer";
 import RecipeDesc from "../components/recipeDetail/RecipeDesc";
 import Navigation from "../partial/Navigation";
 
 import styled from "styled-components";
-import axios from "axios";
 
 const RecipeDetail = () => {
+  const recipeId = useParams();
 
   const data = new FormData();
   data.append("email", "workstation19961002.til@gmail.com")
@@ -40,28 +43,6 @@ const RecipeDetail = () => {
     }
     };
     sendEmailVerifyCode();
-  
-  // const temp = async () => {
-  //   console.log(data.get('email'));
-  //   try {
-  //     // const result = await axios.get('http://3.38.250.115/api/recipes/1', 
-  //     const result = await axios.get('http://3.38.250.115/api/profile',
-  //       // const result = await axios.post('http://3.38.250.115/api/auth/signin',
-  //       // queryString,
-  //       // {
-  //       //   headers: {
-  //           // 'content-type': "application/json"
-  //           // 'content-type': "multi-part/form-data; charset=utf-8"
-  //         //   'content-type': "application/x-www-form-urlencoded"
-  //         // }
-  //       // }
-  //     )
-  //     console.log(result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-  // temp();
 
   const recipe = {
     recipeId: 123456,
