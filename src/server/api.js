@@ -2,8 +2,7 @@ import axios from "axios";
 import TokenService from "./token.service";
 
 const customAxios = (contentType) => { 
-  // process.env.API
-  const API = "http://3.38.250.115/api"
+  const API = import.meta.env.VITE_SERVER_URL
   
   const instance = axios.create({
     baseURL: API,

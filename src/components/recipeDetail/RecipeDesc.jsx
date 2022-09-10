@@ -1,10 +1,11 @@
 import RecipeTitle from "./element/RecipeTitle";
+import RecipeDescBody from "./element/RecipeDescBody";
 
 import styled from "styled-components";
-import RecipeDescBody from "./element/RecipeDescBody";
 
 const RecipeDesc = (props) => {
   const { title, content, ingredientList } = props.recipe
+
   return (
     <StRecipeDesc>
       <RecipeTitle title={title} />
