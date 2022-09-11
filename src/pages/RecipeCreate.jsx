@@ -13,7 +13,5 @@ const RecipeCreate = () => {
 export default RecipeCreate;
 
 const StWrap = styled.div`
-  flex: 1 1 auto;
-  
-  display: flex;
+  height: 100%;
 `
