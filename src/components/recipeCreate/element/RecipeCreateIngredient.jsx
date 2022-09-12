@@ -4,19 +4,23 @@ const RecipeCreateIngredient = (props) => {
   const {cupState, subStep, formProps, onClick, 
     ingredient={
       ingredientName: "", 
-      ingredientColor: "#eee", 
+      ingredientColor: "#e4e4e4", 
       ingredientAmount: 20
     }
   } = props
-  const {currCupSize:cupSize} = cupState
+  let { isIcedTag, currCupSize:cupSize } = cupState
   const {ingredientName, ingredientColor, ingredientAmount} = ingredient
+
+  if(isIcedTag){
+    cupSize = cupSize - 200
+  } 
 
   const amountPercent = +(ingredientAmount / cupSize * 100).toFixed(1)
   const ingredientFixMode = subStep === 4;
 
   return (
     <StIngredient 
-      ingredientColor={ingredientColor?ingredientColor:"#eeeeee"}
+      ingredientColor={ingredientColor?ingredientColor:"#e4e4e4"}
       ingredientAmount={amountPercent?amountPercent : 10}
       onClick={ingredientFixMode ? onClick : null}
     >

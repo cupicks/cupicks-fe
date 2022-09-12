@@ -4,6 +4,10 @@ import IsIcedIcon from "./element/IsIcedIcon"
 import RecipeCreateIngredientsContainer from "./subpages/RecipeCreateIngredientsContainer";
 import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
+import ice355 from '../../assets/image/ice_background/355_ice.png'
+import ice473 from '../../assets/image/ice_background/473_ice.png'
+import ice591 from '../../assets/image/ice_background/591_ice.png'
+
 const RecipeVisualContainer = (props) => {
   const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
   
@@ -16,6 +20,15 @@ const RecipeVisualContainer = (props) => {
     e.target.classList.add('ingredientSelected')
   }
 
+  let iceImage; 
+  if(cupState.currCupSize === 355){
+    iceImage = ice355
+  } else if (cupState.currCupSize === 473) {
+    iceImage = ice473
+  } else {
+    iceImage = ice591
+  }
+  
   return (
     <StRecipeVisualContainer>
       
@@ -30,7 +43,11 @@ const RecipeVisualContainer = (props) => {
       }
 
       {/* 영역 대비 cupSize 높이 */}
-      <StRecipeVisual ingredient_height={cupStyleHeight}>
+      <StRecipeVisual 
+        ingredient_height={cupStyleHeight}
+        iceImage={isIcedTag?iceImage:null}
+        iceOpacity={isIcedTag?1:0}
+      >
         <div 
           className={
             cupStyleHeight === 0 ? "ingredient_outline fcc empty":
@@ -104,19 +121,42 @@ const StRecipeVisual = styled.div`
   height: 80%;
 
   margin: 0 auto;
+  padding-top: 20px;
   
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
 
   position: relative;
+  z-index: 9;
 
   border: 0.5em solid #ddd;
   border-top: 0;
 
+  &::before,
+  &::after {
+    content: '';
+    width: 100%;
+    height: ${props => 'calc('+(props.ingredient_height)+'% + 20px)'};
+
+    position: absolute;
+    bottom: 0;
+    z-index: -9;
+
+    background: url(${props => props.iceImage}) no-repeat center / contain;
+    opacity: ${props => props.iceOpacity};
+    transition: opacity .3s;
+  }
+  
+  &::before {
+    z-index: 9;
+    opacity: 0.3;
+  }
+
+  // cupSize Height
   .ingredient_outline {
     height: ${props => props.ingredient_height+ '%'};
-
+    
     position: relative;
 
     border: 3px dashed #555;
