@@ -7,14 +7,9 @@ import { setDataType } from '../../util/recipeSetDataType'
 
 import RecipeCreateNavigation from "./RecipeCreateNavigation";
 import RecipeVisualContainer from "./RecipeVisualContainer";
-
-import RecipeCupSize from "./subpages/RecipeCupSize";
-import RecipeIsIced from "./subpages/RecipeIsIced";
-import RecipeTextValue from "./subpages/RecipeTextValue";
-import RecipeIngredientList from "./subpages/RecipeIngredientList";
+import RecipeFormContainer from "./RecipeFormContainer";
 
 import styled from "styled-components";
-import RecipeFormContainer from "./RecipeFormContainer";
 
 const RecipeCreateForm = () => {
   const navigate = useNavigate();
@@ -24,6 +19,7 @@ const RecipeCreateForm = () => {
     control, 
     name: "ingredientList"
   })
+
   const formProps = {register, watch, setValue, getValues, errors, trigger}
   const formArrayProps = {fields, append, remove, resetField}
 
@@ -39,14 +35,18 @@ const RecipeCreateForm = () => {
     ingredientDeleteMode: false,
     currIngredientList: []
   })
-  const [step, setStep] = useState({
+
+  const [stepState, setStepState] = useState({
     step: 0,
     finalStep: 3,
     subStep: 0,
     finalSubStep: 4,
   })
 
-  const { level, finalLevel } = cupState;
+  const { step, finalStep } = stepState;
+
+  // state 리랜더 확인하는 곳
+  console.log('hi');
 
   /** 완성한 레피시를 등록하는 함수 */
   const RecipeCreating = async (newData) => {
@@ -65,15 +65,13 @@ const RecipeCreateForm = () => {
       console.log(err);
     }
   }
-
-  console.log('hi')
   
-  /** finalLevel일 때 onSumit 시 */
+  /** finalStep일 때 onSumit 시 */
   const onSubmit = data => {
     data = setDataType(data);
     
     console.log('req');
-    if(level === finalLevel){
+    if(step === finalStep){
       // RecipeCreating(data)
       console.log(data)
     }
@@ -85,12 +83,16 @@ const RecipeCreateForm = () => {
       <RecipeCreateNavigation
         cupState={cupState}
         setCupState={setCupState}
-      />
+        stepState={stepState}
+        setStepState={setStepState}
+        />
 
-      {level !== 3 && 
+      {step !== 3 && 
         <RecipeVisualContainer
           cupState={cupState}
           setCupState={setCupState}
+          stepState={stepState}
+          setStepState={setStepState}
           formProps={formProps}
           formArrayProps={formArrayProps}
         />
@@ -99,6 +101,8 @@ const RecipeCreateForm = () => {
       <RecipeFormContainer
         cupState={cupState}
         setCupState={setCupState}
+        stepState={stepState}
+        setStepState={setStepState}
         formProps={formProps}
         formArrayProps={formArrayProps}
       />

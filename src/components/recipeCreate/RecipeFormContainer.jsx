@@ -1,13 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm, useFieldArray } from "react-hook-form";
-
-import api from '../../server/api'
-import { setDataType } from '../../util/recipeSetDataType'
-
-import RecipeCreateNavigation from "./RecipeCreateNavigation";
-import RecipeVisualContainer from "./RecipeVisualContainer";
-
 import RecipeCupSize from "./subpages/RecipeCupSize";
 import RecipeIsIced from "./subpages/RecipeIsIced";
 import RecipeTextValue from "./subpages/RecipeTextValue";
@@ -16,40 +6,37 @@ import RecipeIngredientList from "./subpages/RecipeIngredientList";
 import styled from "styled-components";
 
 const RecipeFormContainer = (props) => {
-
-  const {cupState, setCupState, formProps, formArrayProps} = props;
-  const {level} = cupState;
-  const {remove, resetField} = formArrayProps
+  const {cupState, setCupState, stepState, setStepState, formProps, formArrayProps} = props;
+  const {step} = stepState
   
   return (
     <StRecipeFormContainer>
 
-      {level !== 3 &&
+      {step !== 3 &&
         <StRecipeOptContainer>
-          {level === 0 && 
+          {step === 0 && 
             <RecipeCupSize
               cupState={cupState}   
               setCupState={setCupState}
               formProps={formProps}
               formArrayProps={formArrayProps}
-              resetField={resetField}
             />
           }
 
-          {level === 1 &&
+          {step === 1 &&
             <RecipeIsIced 
               cupState={cupState}
               setCupState={setCupState}
               formProps={formProps}
-              resetField={resetField}
-              remove={remove}
+              formArrayProps={formArrayProps}
             />
           }
 
-          {level === 2 && 
+          {step === 2 && 
             <RecipeIngredientList
               cupState={cupState}
               setCupState={setCupState}
+              stepState={stepState}
               formProps={formProps}
               formArrayProps={formArrayProps}
             />
@@ -57,7 +44,7 @@ const RecipeFormContainer = (props) => {
         </StRecipeOptContainer>
       }
 
-      {level === 3 && 
+      {step === 3 && 
         <RecipeTextValue
           cupState={cupState}
           setCupState={setCupState}

@@ -5,12 +5,11 @@ import RecipeCreateIngredientsContainer from "./subpages/RecipeCreateIngredients
 import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
 const RecipeVisualContainer = (props) => {
-  const {cupState, setCupState, formProps, formArrayProps} = props;
-  const {sublevel, cupStyleHeight, isIcedTag} = cupState;
+  const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
+  
+  const {cupStyleHeight, isIcedTag} = cupState;
   const {fields} = formArrayProps
-  const {getValues} = formProps
-
-  const IngredientList = getValues('ingredientList');
+  const {step, subStep} = stepState
 
   const ingredientClickHandler = (e) => {
     setCupState(prev => ({...prev, ingredientDeleteMode: 1}))
@@ -19,13 +18,18 @@ const RecipeVisualContainer = (props) => {
 
   return (
     <StRecipeVisualContainer>
-    
-      <RecipeIngredientButtonContainer
-        cupState={cupState}
-        setCupState={setCupState}
-        formArrayProps={formArrayProps}
-      />
+      
+      { step === 2 &&
+        <RecipeIngredientButtonContainer
+          cupState={cupState}
+          setCupState={setCupState}
+          stepState={stepState}
+          setStepState={setStepState}
+          formArrayProps={formArrayProps}
+        />
+      }
 
+      {/* 영역 대비 cupSize 높이 */}
       <StRecipeVisual ingredient_height={cupStyleHeight}>
         <div 
           className={
@@ -33,26 +37,25 @@ const RecipeVisualContainer = (props) => {
           "ingredient_outline fcc"
           }
         >
-          {IngredientList !== undefined ?
-            <RecipeCreateIngredientsContainer 
-              cupSize = {cupState.currCupSize}
-              sublevel = {cupState.sublevel}
-              ingredientLists = {IngredientList}
-              onClick = {ingredientClickHandler}
-            />
-            :""
-          }
+          {/* 재료 리스트 */}
+          <RecipeCreateIngredientsContainer 
+            cupState = {cupState}
+            setCupState = {setCupState}
+            subStep = {stepState.subStep}
+            formProps = {formProps}
+            onClick = {ingredientClickHandler}
+          />
         </div>
         
       </StRecipeVisual>
 
-      { isIcedTag && sublevel !== 4 && 
+      { isIcedTag && subStep !== 4 && 
         <div className="info_box">
           ice 선택 시 전체량 중 200ml가 채워집니다.
         </div>
       }
       
-      { sublevel === 4 && fields.length > 0 &&
+      { subStep === 4 && fields.length > 0 &&
         <div className="info_box">
           채워진 재료를 누르면 제거 버튼이 나옵니다.
         </div>

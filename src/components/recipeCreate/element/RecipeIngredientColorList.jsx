@@ -20,6 +20,7 @@ const RecipeIngredientColorList = (
           <StColorCircle 
             className="colorLabel"
             htmlFor={ name+color }
+            name={ name+color }
             color={ color }
             onClick={ onClick } 
           />

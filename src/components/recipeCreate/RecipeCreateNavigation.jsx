@@ -2,22 +2,23 @@ import Navigation from "../../partial/Navigation";
 import NavButtonDone from "../elements/button/NavButtonDone";
 import NavButtonGoBack from "../elements/button/NavButtonGoBack";
 import NavButtonNextLevel from "../elements/button/NavButtonNextLevel";
-import NavButtonNextSublevel from "../elements/button/NavButtonNextSubLevel";
+import NavButtonNextSublevel from "../elements/button/NavButtonNextSublevel";
 import NavButtonPrevLevel from "../elements/button/NavButtonPrevLevel";
-import NavButtonPrevSubLevel from "../elements/button/NavButtonPrevSubLevel";
+import NavButtonPrevSublevel from "../elements/button/NavButtonPrevSublevel";
 
 const RecipeCreateNavigation = (props) => {
-	const { cupState, setCupState } = props;
-  const { level, finalLevel, sublevel, finalSublevel, ingredientDeleteMode } = cupState
+	const { cupState, setCupState, stepState, setStepState } = props;
+  const { ingredientDeleteMode } = cupState
+  const { step, finalStep, subStep, finalSubStep } = stepState
 
-  /** 이전 level */
-  const levelButtonPrevClickHandler = () => {
-    level > 0 && setCupState({...cupState, level: cupState.level - 1});
+  /** 이전 step으로 이동하는 버튼 */
+  const stepButtonPrevClickHandler = () => {
+    step > 0 && setStepState(prev => ({...prev, step: prev.step - 1}));
   }
 	
-  /** 다음 level의 컴포넌트 랜더링 하기 전 조건 확인 */
-  const levelButtonNextClickHandler = () => {
-    // switch (level) {
+  /** 다음 step의 컴포넌트 랜더링 하기 전 조건 확인 */
+  const stepButtonNextClickHandler = () => {
+    // switch (step) {
     //   case 0:
     //     if(watch('cupSize') === null) return;
     //     break;
@@ -26,25 +27,25 @@ const RecipeCreateNavigation = (props) => {
     //     break;
     //   case 2:
     //     if(watch('ingrediantList').length === 0) return;
-    //     setCupState({...cupState, sublevel: 0})
+    //     setCupState({...cupState, subStep: 0})
     //     break;
     //   case 3:
     //     if(watch('title').length === 0 || watch('content').length === 0 ) return;
-    //     setCupState({...cupState, sublevel: 0})
+    //     setCupState({...cupState, subStep: 0})
     //     break;
     //     default: '';
     //   }
-    level < finalLevel + 1 ? setCupState({...cupState, level: cupState.level + 1}) : '';
+    step < finalStep + 1 ? setStepState(prev => ({...prev, step: prev.step + 1})) : '';
   }
 
-  /** 이전 sublevel */
-  const sublevelButtonPrevClickHandler = () => {
-    sublevel > 0 && setCupState({...cupState, sublevel: cupState.sublevel - 1});
+  /** 이전 subStep */
+  const subStepButtonPrevClickHandler = () => {
+    subStep > 0 && setStepState(prev => ({...prev, subStep: prev.subStep - 1}));
   }
   
-  /** 다음 sublevel의 컴포넌트 랜더링 하기 전 조건 확인  */
-  const sublevelButtonNextClickHandler = () => {
-    // switch (sublevel) {
+  /** 다음 subStep의 컴포넌트 랜더링 하기 전 조건 확인  */
+  const subStepButtonNextClickHandler = () => {
+    // switch (subStep) {
     //   case 0:
     //     if(watch(`ingrediantList.${idx}.ingredientName`) === '') return;
     //     break;
@@ -56,43 +57,43 @@ const RecipeCreateNavigation = (props) => {
     //     break;
     //   default: '';
     // }
-    sublevel < finalSublevel && setCupState({...cupState, sublevel: cupState.sublevel + 1});
+    subStep < finalSubStep &&  setStepState(prev => ({...prev, subStep: prev.subStep + 1}));
   }
 
-  const lv0 = level === 0;
-  const lv2 = level === 2;
-  const lvEnd = level === finalLevel;
-  const sublv0 = sublevel === 0;
-  const sublvEnd = sublevel === finalSublevel;
+  const step0 = step === 0;
+  const step2 = step === 2;
+  const stepEnd = step === finalStep;
+  const subStep0 = subStep === 0;
+  const subStepEnd = subStep === finalSubStep;
 
 	return (
 		<Navigation empty={true}>
       {!ingredientDeleteMode && 
         <>
-          {lv0 &&
+          {step0 &&
             <NavButtonGoBack />
           }
 
-          {!lv0 &&
-            !(lv2 && !sublv0) &&
-            <NavButtonPrevLevel onClick={levelButtonPrevClickHandler} />
+          {!step0 &&
+            !(step2 && !subStep0) &&
+            <NavButtonPrevLevel onClick={stepButtonPrevClickHandler} />
           }
 
-          {(lv2 && !sublv0) &&
-            <NavButtonPrevSubLevel onClick={sublevelButtonPrevClickHandler} />
+          {(step2 && !subStep0) &&
+            <NavButtonPrevSublevel onClick={subStepButtonPrevClickHandler} />
           }
 
-          {lvEnd &&
+          {stepEnd &&
             <NavButtonDone />
           }
 
-          {!lvEnd &&
-            !(lv2 && !sublvEnd) &&
-            <NavButtonNextLevel onClick={levelButtonNextClickHandler} />
+          {!stepEnd &&
+            !(step2 && !subStepEnd) &&
+            <NavButtonNextLevel onClick={stepButtonNextClickHandler} />
           }
 
-          {(lv2 && !sublvEnd) &&
-            <NavButtonNextSublevel onClick={sublevelButtonNextClickHandler} />
+          {(step2 && !subStepEnd) &&
+            <NavButtonNextSublevel onClick={subStepButtonNextClickHandler} />
           }
 
           <h4 className="title">레시피 만들기</h4>

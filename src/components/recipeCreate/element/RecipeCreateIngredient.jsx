@@ -1,29 +1,27 @@
 import styled from "styled-components";
 
 const RecipeCreateIngredient = (props) => {
-  const {cupSize, sublevel, onClick} = props
-
-  // 재료 입력할 때 undefined 예외처리
-  let ingredientValues = {
-    ingredientName: "", 
-    ingredientColor: "#eee", 
-    ingredientAmount: 0
-  }
-  if(props.ingredientList !== undefined){
-    ingredientValues = {...ingredientValues, ...props.ingredientList}
-  }
-  const {ingredientName, ingredientColor, ingredientAmount} = ingredientValues
+  const {cupState, subStep, formProps, onClick, 
+    ingredient={
+      ingredientName: "", 
+      ingredientColor: "#eee", 
+      ingredientAmount: 20
+    }
+  } = props
+  const {currCupSize:cupSize} = cupState
+  const {ingredientName, ingredientColor, ingredientAmount} = ingredient
 
   const amountPercent = +(ingredientAmount / cupSize * 100).toFixed(1)
-  
+  const ingredientFixMode = subStep === 4;
+
   return (
     <StIngredient 
-      ingredientColor={ingredientColor?ingredientColor:""}
-      ingredientAmount={amountPercent}
-      onClick={sublevel === 4 ? onClick : null}
+      ingredientColor={ingredientColor?ingredientColor:"#eeeeee"}
+      ingredientAmount={amountPercent?amountPercent : 10}
+      onClick={ingredientFixMode ? onClick : null}
     >
       <span>
-        {ingredientName?ingredientName:""}
+        {ingredientName?ingredientName:"재료이름"}
       </span>
     </StIngredient>
   )
@@ -47,7 +45,7 @@ const StIngredient = styled.div`
   animation: fadein .3s forwards;
   
   span {
-    transform: translateY(-1rem);
+    transform: translateY(-4px);
   }
   
   &.ingredientSelected {

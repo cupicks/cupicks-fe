@@ -1,10 +1,11 @@
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeCupSize = (props) => {
-  const {cupState, setCupState, formProps, resetField, formArrayProps} = props
+  const {cupState, setCupState, formProps, formArrayProps} = props
+  
   const {isIcedTag} = cupState
   const {setValue, register, errors} = formProps
-  const {remove} = formArrayProps
+  const {remove, resetField} = formArrayProps
   
   const cupSizes = ['355ml', '473ml', '591ml']
 
@@ -18,7 +19,6 @@ const RecipeCupSize = (props) => {
     })
     
     setValue('cupSize', currCupSize)
-    resetField('ingredientList')
     
     if(isIcedTag){
       setValue('ingredientList.0', {
@@ -27,7 +27,7 @@ const RecipeCupSize = (props) => {
         ingredientName: "얼음"
       })
     } else {
-      remove(0)
+      remove()
     }
   }
 

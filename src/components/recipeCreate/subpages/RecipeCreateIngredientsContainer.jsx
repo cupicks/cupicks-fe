@@ -2,19 +2,28 @@ import styled from "styled-components";
 import RecipeCreateIngredient from "../element/RecipeCreateIngredient";
 
 const RecipeCreateIngredientsContainer = (props) => {
-  const { cupSize, sublevel, ingredientLists, onClick } = props;
+  const { cupState, setCupState, subStep, onClick, formProps } = props
+  const { watch } = formProps
+  const ingredientList = watch('ingredientList');
+
+  console.log(cupState.currIngredientList[1].ingredientColor);
 
   return (
     <StRecipeCreateIngredientsContainer>
-      { ingredientLists.length > 0 && ingredientLists.map( (ingredientList, idx) => 
+      
+      { ingredientList?.map((ingredient, idx) => 
         <RecipeCreateIngredient 
           key={idx}
-          ingredientList={ingredientList} 
-          cupSize={cupSize}
-          sublevel={sublevel} 
+          idx={idx}
+          ingredient={ingredient}
+          cupState={cupState}
+          setCupState={setCupState}
+          formProps={formProps}
+          subStep={subStep} 
           onClick={onClick}
         />
       ).reverse() }
+
     </StRecipeCreateIngredientsContainer>
   );
 };
