@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -12,35 +12,58 @@ const CommentInput = () => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+  // const imageupload = useRef();
 
   const [files, setFiles] = useState([]);
+  // const [picshow, setPicShow] = useState(false);
   //이미지 미리보기
   const image = watch("image");
-  const [imagePreview, setImagePreview] = useState([]);
+  const [imagePreview, setImagePreview] = useState("");
   console.log(imagePreview);
+
   React.useEffect(() => {
     if (image && image.length > 0) {
       const file = image[0];
       if (!file) return;
       setImagePreview(URL.createObjectURL(file));
     }
+    console.log(image);
   }, [image]);
 
-  const cancelImage = (fileIndex) => {
-    const dt = new DataTransfer();
-    Array.from(FileList)
-      .filter((file) => file !== fileIndex)
-      .foreach((file) => {
-        dt.items.add(file);
-        setFiles(dt.files);
-
-        setImagePreview(imagePreview.filter((i) => i !== fileIndex));
-      });
+  const cancelImage = () => {
+    if (image && image.length > 0) {
+      setImagePreview(URL.revokeObjectURL(image[0]));
+      setValue("image", null);
+    }
+    // setImagePreview("");
   };
+
+  // const cancelImage = (fileIndex) => {
+  //   const dt = new DataTransfer();
+  //   Array.from(FileList)
+  //     .filter((file) => file !== fileIndex)
+  //dt로하면 array형태인것을 다시 filelist객체로 만듬(하나의 객체로)
+  //drag & drop할때는 fileList형태
+  //multipart form data형식에는 file형태로 보내줘도 되는지 fileList형태로 보내줘도 되는지 알아봐야함
+  //     .foreach((file) => {
+  //       dt.items.add(file);
+  //       setFiles(dt.files);
+
+  //       setImagePreview(imagePreview.filter((i) => i !== fileIndex));
+  //     });
+  // };
+
+  // const picshowhandlr = () => {
+  //   setPicShow(true);
+  // }
+  // React.useEffect(() => {
+  //   cancelImage();
+  // }, []);
 
   // const [comments, setComments] = useState({
   //   content: "",
@@ -84,36 +107,35 @@ const CommentInput = () => {
             name="content"
             // value={comments.content || ""}
             // onChange={onChangeHandler}
+            {...register("comment")}
             placeholder="댓글을 입력해주세요"
           />
           <button className="comment_btn">확인</button>
         </div>
-        {imagePreview.map((image, i) => {
-          return (
-            <div className="img_preview" key={i}>
-              <label htmlFor="picture">
-                <StPicUpload src={image}></StPicUpload>
-                <DeletePreview
-                  src={editIcon}
-                  onClick={() => {
-                    cancelImage(i);
-                  }}
-                ></DeletePreview>
-              </label>
-            </div>
-          );
-        })}
+        {imagePreview ? (
+          <div className="img_preview">
+            <label htmlFor="picture">
+              <StPicUpload src={imagePreview}></StPicUpload>
+            </label>
+            <DeletePreview
+              src={editIcon}
+              onClick={() => {
+                cancelImage();
+              }}
+            ></DeletePreview>
+          </div>
+        ) : null}
+
         <div className="pic_wrap">
-          + 사진 업로드
           <input
-            className="pic_upload"
             type="file"
             id="picture"
             {...register("image", { required: true })}
             accept="image/*"
-          >
-            {/* + 사진 업로드 */}
-          </input>
+          ></input>
+          <label htmlFor="picture" className="pic_upload">
+            + 사진 업로드
+          </label>
         </div>
       </div>
     </StWrap>
@@ -127,8 +149,8 @@ const DeletePreview = styled.img`
   height: 15px;
 
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 34%;
+  left: 35%;
 `;
 
 const StPicUpload = styled.img`
@@ -148,9 +170,9 @@ const StWrap = styled.form`
   width: 100%;
   bottom: 0;
 
-  /* input[type="file"] {
+  input[type="file"] {
     display: none;
-  } */
+  }
 
   label {
     position: relative;
@@ -186,7 +208,7 @@ const StWrap = styled.form`
 
   .input_box {
     width: 90%;
-    height: 4vh;
+    height: 3.8vh;
     border: 1px solid #8f8b8b8a;
     border-radius: 20px;
     margin-bottom: 0.5rem;
@@ -227,5 +249,6 @@ const StWrap = styled.form`
     color: #4690f7;
 
     font-size: 0.8rem;
+    padding-bottom: 0.8rem;
   }
 `;

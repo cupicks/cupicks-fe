@@ -2,9 +2,10 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
 import AllRecipeListContainer from "./AllRecipeListContainer";
+import axios from "axios";
 
 const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
-  allRecipe = allRecipe.recipeList;
+  // allRecipe = allRecipe.recipeList;
   // const setTarget = useRef(null);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0);
@@ -45,14 +46,18 @@ const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
   //   if (entry.isIntersecting && !loadFinished)
   // }
 
-  const getItems = useCallback(() => {
+  const getItems = useCallback(async () => {
     setLoading(true);
-    setItems((prevState) => [...prevState, ...allRecipe]);
-    // await axios.get(`${serverUrl}/api/recipes?page=${page}&count=6`).then((res) => {
-    //   setItems(prevState => [...prevState, res])
-    // }). catch((err) => {
-    //   console.log(err)
-    // })
+    // setItems((prevState) => [...prevState, ...allRecipe]);
+    // await axios.get(`${serverUrl}/api/recipes?page=${page}&limit=6`).then((res) => {
+    await axios
+      .get(`https://picsum.photos/v2/list?page=${page}&limit=6`)
+      .then((res) => {
+        setItems((prevState) => [...prevState, ...res.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setLoading(false);
   }, [page]);
 
@@ -71,7 +76,7 @@ const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
   // console.log(items);
   // console.log(inView);
   // console.log(page);
-
+  console.log(items);
   return (
     <StAllListWrap>
       {items.map((allrecipes, index) => (

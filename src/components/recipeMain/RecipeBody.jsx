@@ -277,18 +277,16 @@ const RecipeBody = () => {
   const [allRecipe, setAllRecipe] = useState(start);
   const [AllRecipeOpen, setAllRecipeOpen] = useState(false);
 
-  const openAllRecipe = () => {
-    setAllRecipeOpen(!AllRecipeOpen);
-  };
+  // const openAllRecipe = () => {
+  //   setAllRecipeOpen(!AllRecipeOpen);
+  // };
 
   return (
     <StWrap>
       <StRecipeTitle>이번주 인기 레시피</StRecipeTitle>
       <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} />
-      <StAllRecipeTitle onClick={openAllRecipe}>최신순 ▼</StAllRecipeTitle>
-      {AllRecipeOpen == true ? (
-        <AllRecipeList allRecipe={allRecipe} setAllRecipe={setAllRecipe} />
-      ) : null}
+      <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
+      <AllRecipeList allRecipe={allRecipe} setAllRecipe={setAllRecipe} />
     </StWrap>
   );
 };
