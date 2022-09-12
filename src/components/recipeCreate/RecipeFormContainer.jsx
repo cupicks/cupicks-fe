@@ -1,96 +1,28 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 
 import api from '../../server/api'
+import { setDataType } from '../../util/recipeSetDataType'
+
+import RecipeCreateNavigation from "./RecipeCreateNavigation";
+import RecipeVisualContainer from "./RecipeVisualContainer";
 
 import RecipeCupSize from "./subpages/RecipeCupSize";
 import RecipeIsIced from "./subpages/RecipeIsIced";
 import RecipeTextValue from "./subpages/RecipeTextValue";
 import RecipeIngredientList from "./subpages/RecipeIngredientList";
-import RecipeVisualContainer from "./subpages/RecipeVisualContainer";
-import RecipeCreateNavigation from "./subpages/RecipeCreateNavigation";
-import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
 import styled from "styled-components";
 
-import { setDataType } from '../../util/recipeSetDataType'
-import { useNavigate } from "react-router-dom";
+const RecipeFormContainer = (props) => {
 
-const RecipeCreateForm = () => {
-  const navigate = useNavigate();
-
-  const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
-  const { fields, append, remove } = useFieldArray({ 
-    control, 
-    name: "ingredientList"
-  })
-  const formProps = {register, watch, setValue, getValues, errors, trigger}
-  const formArrayProps = {fields, append, remove}
-
-  const [cupState, setCupState] = useState({
-    level: 0,
-    finalLevel: 3,
-    sublevel: 0,
-    finalSublevel: 4,
-    cupStyleHeight: 0,
-    isIcedTag: null,
-    isPublicTag: null,
-    currCupSize: null,
-    ingredientDeleteMode: false,
-    currIngredientList: []
-  })
-  const { level, finalLevel } = cupState;
-
-  /** 완성한 레피시를 등록하는 함수 */
-  const RecipeCreating = async (newData) => {
-    let contentType = "application/json"
-
-    try {
-      const response = await api(contentType).post(
-        `/recipes`,
-        newData
-      ).then( res => {
-        const recipeId = res.data.recipeId
-        navigate(`/recipe/detail/${recipeId}`)
-      })
-      
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  /** finalLevel일 때 onSumit 시 */
-  const onSubmit = data => {
-    data = setDataType(data);
-    
-    if(level === finalLevel){
-      RecipeCreating(data)
-      console.log(data)
-    }
-  }
+  const {cupState, setCupState, formProps, formArrayProps} = props;
+  const {level} = cupState;
+  const {remove, resetField} = formArrayProps
   
   return (
-    <StForm onSubmit={handleSubmit(onSubmit)}>
-      
-      <RecipeIngredientButtonContainer
-        cupState={cupState}
-        setCupState={setCupState}
-        formArrayProps={formArrayProps}
-      />
-
-      <RecipeCreateNavigation
-        cupState={cupState}
-        setCupState={setCupState}
-      />
-
-      {level !== 3 && 
-        <RecipeVisualContainer
-          cupState={cupState}
-          setCupState={setCupState}
-          formProps={formProps}
-          formArrayProps={formArrayProps}
-        />
-      }
+    <StRecipeFormContainer>
 
       {level !== 3 &&
         <StRecipeOptContainer>
@@ -133,13 +65,13 @@ const RecipeCreateForm = () => {
         />
       }
       
-    </StForm>
+    </StRecipeFormContainer>
   )
 };
 
-export default RecipeCreateForm;
+export default RecipeFormContainer;
 
-const StForm = styled.form`
+const StRecipeFormContainer = styled.div`
   height: 100%;
 
   display: flex;

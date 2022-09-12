@@ -1,10 +1,10 @@
-import Navigation from "../../../partial/Navigation";
-import NavButtonDone from "../../elements/button/NavButtonDone";
-import NavButtonGoBack from "../../elements/button/NavButtonGoBack";
-import NavButtonNextLevel from "../../elements/button/NavButtonNextLevel";
-import NavButtonNextSublevel from "../../elements/button/NavButtonNextSubLevel";
-import NavButtonPrevLevel from "../../elements/button/NavButtonPrevLevel";
-import NavButtonPrevSubLevel from "../../elements/button/NavButtonPrevSubLevel";
+import Navigation from "../../partial/Navigation";
+import NavButtonDone from "../elements/button/NavButtonDone";
+import NavButtonGoBack from "../elements/button/NavButtonGoBack";
+import NavButtonNextLevel from "../elements/button/NavButtonNextLevel";
+import NavButtonNextSublevel from "../elements/button/NavButtonNextSubLevel";
+import NavButtonPrevLevel from "../elements/button/NavButtonPrevLevel";
+import NavButtonPrevSubLevel from "../elements/button/NavButtonPrevSubLevel";
 
 const RecipeCreateNavigation = (props) => {
 	const { cupState, setCupState } = props;

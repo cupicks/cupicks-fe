@@ -1,7 +1,8 @@
 import styled from "styled-components"
 
-import IsIcedIcon from "../element/IsIcedIcon"
-import RecipeCreateIngredientsContainer from "./RecipeCreateIngredientsContainer";
+import IsIcedIcon from "./element/IsIcedIcon"
+import RecipeCreateIngredientsContainer from "./subpages/RecipeCreateIngredientsContainer";
+import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
 const RecipeVisualContainer = (props) => {
   const {cupState, setCupState, formProps, formArrayProps} = props;
@@ -18,24 +19,30 @@ const RecipeVisualContainer = (props) => {
 
   return (
     <StRecipeVisualContainer>
+    
+      <RecipeIngredientButtonContainer
+        cupState={cupState}
+        setCupState={setCupState}
+        formArrayProps={formArrayProps}
+      />
 
-    <StRecipeVisual ingredient_height={cupStyleHeight}>
-      <div 
-        className={
-          cupStyleHeight === 0 ? "ingredient_outline fcc empty":
-        "ingredient_outline fcc"
-        }
-      >
-        {IngredientList !== undefined ?
-          <RecipeCreateIngredientsContainer 
-            cupSize = {cupState.currCupSize}
-            sublevel = {cupState.sublevel}
-            ingredientLists = {IngredientList}
-            onClick = {ingredientClickHandler}
-          />
-          :""
-        }
-      </div>
+      <StRecipeVisual ingredient_height={cupStyleHeight}>
+        <div 
+          className={
+            cupStyleHeight === 0 ? "ingredient_outline fcc empty":
+          "ingredient_outline fcc"
+          }
+        >
+          {IngredientList !== undefined ?
+            <RecipeCreateIngredientsContainer 
+              cupSize = {cupState.currCupSize}
+              sublevel = {cupState.sublevel}
+              ingredientLists = {IngredientList}
+              onClick = {ingredientClickHandler}
+            />
+            :""
+          }
+        </div>
         
       </StRecipeVisual>
 
