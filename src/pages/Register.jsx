@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import api from "../server/api";
+
 import Email from "../components/register/Email";
 import Nickname from "../components/register/Nickname";
 import Password from "../components/register/Password";
@@ -26,6 +28,7 @@ const Register = () => {
   const [level, setLevel] = React.useState(0);
 
   const onSubmit = async () => {
+    const contentType = "multi-part/form-data";
     //request(body)-> image 보내기
     const form = new FormData();
     form.append(
@@ -35,16 +38,14 @@ const Register = () => {
     //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
     if (level === 3) {
       try {
-        const res = await axios.post(
-          `http://3.38.250.115/api/auth/signup?nickname=${getValues(
-            "nickname"
-          )}&email=${getValues("email")}&password=${getValues(
+        const res = await api(contentType).post(
+          `/auth/signup?password=${getValues(
             "password"
           )}&nicknameVerifyToken=${getValues(
             "nicknameVerifyToken"
           )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
-          form,
-          { headers: { "Content-Type": "multi-part/form-data" } }
+          form
+          // { headers: { "Content-Type": "multi-part/form-data" } }
         );
         console.log(res);
         alert(res.data.message);
@@ -82,15 +83,21 @@ const Register = () => {
       // reset("emailVerifyToken");
       // reset("Number");
       // reset(getValues("email"));
-      setValue("emailVerifyToken", null);
+      reset({ emailVerifyToken: undefined });
+      // setValue("emailVerifyToken", undefined);
       // resetField("emailVerifyToken");
-      console.log(getValues("emailVerifyToken"));
+      // console.log(getValues("emailVerifyToken"));
       setLevel(0);
 
       // resetField(getValues("emailVerifyToken"));
       // console.log(getValues("emailVerifyToken"));
     }
   };
+  React.useEffect(() => {
+    if (level !== 0) {
+      before();
+    }
+  }, []);
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>

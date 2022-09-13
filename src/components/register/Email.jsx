@@ -4,18 +4,22 @@ import serverAxios from "../../server/server.axios";
 import axios from "axios";
 import { useWatch } from "react-hook-form";
 
+import api from "../../server/api";
+
 const Email = (props) => {
   const { register, errors, setValue, watch, getValues } = props;
   const [checkEmail, setCheckEmail] = React.useState(false);
   const [checkNumber, setCheckNumber] = React.useState(false);
 
+  const contentType = "application/x-www-form-urlencoded";
+
   const confirmEmailVerifyCode = async () => {
     try {
-      const res = await axios.get(
-        `http://3.38.250.115/api/auth/confirm-email?email=${getValues(
+      const res = await api(contentType).get(
+        `/auth/confirm-email?email=${getValues(
           "email"
-        )}&email-verify-code=${getValues("Number")}`,
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        )}&email-verify-code=${getValues("Number")}`
+        // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.emailVerifyToken;
       console.log(token);
@@ -31,11 +35,11 @@ const Email = (props) => {
   };
   const sendEmailVerifyCode = async () => {
     try {
-      const res = await axios.get(
-        `http://3.38.250.115/api/auth/send-email?email=${getValues("email")}`,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
+      const res = await api(contentType).get(
+        `/auth/send-email?email=${getValues("email")}`
+        // {
+        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        // }
       );
       console.log(res.data.message);
       setCheckEmail(true);
@@ -84,7 +88,9 @@ const Email = (props) => {
       />
       <button
         onClick={confirmEmailVerifyCode}
-        disabled={watch("Number")?.length <= 5}
+        disabled={
+          watch("Number")?.length <= 5 || getValues("Number") === undefined
+        }
       >
         인증번호 확인
       </button>
