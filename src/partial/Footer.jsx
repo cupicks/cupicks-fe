@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import createIcon from "../assets/svg/cancel.svg";
-import {ReactComponent as MainIcon} from "../assets/svg/language.svg";
+import createIcon from "../assets/svg/add.svg";
+import {ReactComponent as MainIcon} from "../assets/svg/community.svg";
 import {ReactComponent as MyPageIcon} from "../assets/svg/account.svg";
 
 import styled from "styled-components";

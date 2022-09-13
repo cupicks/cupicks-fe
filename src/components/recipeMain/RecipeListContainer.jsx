@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import RecipeListIngredient from "./RecipeListIngredient";
 import talk from "../../assets/svg/talk.svg";
-import like from "../../assets/svg/like.svg";
+import like from "../../assets/svg/like_m.svg";
 
 export const RecipeListContainer = (props) => {
   const { recipeId, ingredientList, title, cupSize } = props.recipes;

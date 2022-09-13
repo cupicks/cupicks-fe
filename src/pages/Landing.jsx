@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import logo from "../assets/svg/Logo_Cupick.svg";
+import logo from "../assets/image/logo/logo_Cupick.png";
 
 import styled from "styled-components";
 

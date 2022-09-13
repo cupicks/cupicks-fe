@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 
 import Comments from "../pages/Comments";
 import Login from "../pages/Login";
-import Logout from "../pages/Logout";
 import Landing from "../pages/Landing";
 import Mypage from "../pages/Mypage";
 import Recipe from "../pages/Recipe";

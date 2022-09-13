@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
+
 import talk from "../../assets/svg/talk.svg";
-import like from "../../assets/svg/like.svg";
+import like from "../../assets/svg/like_m.svg";
 
 const AllRecipeListContainer = (props) => {
   // const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
