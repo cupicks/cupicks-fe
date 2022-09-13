@@ -2,48 +2,67 @@ import React from "react";
 import styled from "styled-components";
 import serverAxios from "../../server/server.axios";
 import axios from "axios";
+import { useWatch } from "react-hook-form";
+
+import api from "../../server/api";
 
 const Email = (props) => {
-  const { register, errors, setValue, getValues } = props;
+  const { register, errors, setValue, watch, getValues } = props;
+  const [checkEmail, setCheckEmail] = React.useState(false);
+  const [checkNumber, setCheckNumber] = React.useState(false);
+
+  const contentType = "application/x-www-form-urlencoded";
 
   const confirmEmailVerifyCode = async () => {
     try {
-      const res = await axios.get(
-        `http://3.38.250.115/api/auth/confirm-email?email=${getValues(
+      const res = await api(contentType).get(
+        `/auth/confirm-email?email=${getValues(
           "email"
-        )}&email-verify-code=${getValues("Number")}`,
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        )}&email-verify-code=${getValues("Number")}`
+        // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.emailVerifyToken;
       console.log(token);
       setValue("emailVerifyToken", token);
       console.log(getValues("emailVerifyToken"));
+      setCheckNumber(true);
       alert(res.data.message);
     } catch (err) {
       console.log(err);
-      alert("이미 인증이 완료되었습니다");
+      // await new Promise((r) => setTimeout(r, 3000));
+      alert(err.response.data.message);
     }
   };
   const sendEmailVerifyCode = async () => {
     try {
-      const res = await axios.get(
-        `http://3.38.250.115/api/auth/send-email?email=${getValues("email")}`,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
+      const res = await api(contentType).get(
+        `/auth/send-email?email=${getValues("email")}`
+        // {
+        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        // }
       );
       console.log(res.data.message);
+      setCheckEmail(true);
       alert(res.data.message);
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
     }
   };
+  // React.useEffect(() => {
+  //   if (watch("email") !== getValues("email")) {
+  //     setCheckEmail(false);
+  //   }
+  //   if (watch("Number") !== getValues("Number")) {
+  //     setCheckNumber(false);
+  //   }
+  // });
   return (
     <StDiv>
       <label>이메일 입력</label>
       <input
         type="text"
+        disabled={checkEmail === true}
         placeholder="이메일 주소를 입력해 주세요"
         autoComplete="off"
         maxLength={100}
@@ -60,8 +79,21 @@ const Email = (props) => {
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
       <button onClick={sendEmailVerifyCode}>이메일 인증번호 발송</button>
       <label>인증번호</label>
-      <input type="text" placeholder="인증번호" {...register("Number")} />
-      <button onClick={confirmEmailVerifyCode}>인증번호 확인</button>
+      <input
+        type="text"
+        disabled={checkNumber === true}
+        maxLength={6}
+        placeholder="인증번호"
+        {...register("Number")}
+      />
+      <button
+        onClick={confirmEmailVerifyCode}
+        disabled={
+          watch("Number")?.length <= 5 || getValues("Number") === undefined
+        }
+      >
+        인증번호 확인
+      </button>
     </StDiv>
   );
 };
