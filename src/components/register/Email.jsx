@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import serverAxios from "../../server/server.axios";
 import axios from "axios";
 import { useWatch } from "react-hook-form";
 
 import api from "../../server/api";
+import Timer from "./Timer";
 
 const Email = (props) => {
   const { register, errors, setValue, watch, getValues } = props;
-  const [checkEmail, setCheckEmail] = React.useState(false);
-  const [checkNumber, setCheckNumber] = React.useState(false);
+  const [checkEmail, setCheckEmail] = useState(false);
+  const [checkNumber, setCheckNumber] = useState(false);
+  const [minutes, setMinutes] = useState(3);
+  const [seconds, setSeconds] = useState(0);
+  const [checkTimer, setCheckTimer] = useState(false);
 
   const contentType = "application/x-www-form-urlencoded";
 
@@ -44,6 +48,9 @@ const Email = (props) => {
       console.log(res.data.message);
       setCheckEmail(true);
       alert(res.data.message);
+      setMinutes(3);
+      setSeconds(0);
+      setCheckTimer(true);
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
@@ -94,6 +101,13 @@ const Email = (props) => {
       >
         인증번호 확인
       </button>
+      <Timer
+        minutes={minutes}
+        setMinutes={setMinutes}
+        seconds={seconds}
+        setSeconds={setSeconds}
+        checkTimer={checkTimer}
+      />
     </StDiv>
   );
 };
