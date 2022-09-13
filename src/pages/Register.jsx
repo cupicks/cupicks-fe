@@ -84,10 +84,12 @@ const Register = () => {
       // reset("Number");
       // reset(getValues("email"));
       reset({ emailVerifyToken: undefined });
+      reset({ nicknameVerifyToken: undefined });
       // setValue("emailVerifyToken", undefined);
       // resetField("emailVerifyToken");
       // console.log(getValues("emailVerifyToken"));
       setLevel(0);
+      alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
 
       // resetField(getValues("emailVerifyToken"));
       // console.log(getValues("emailVerifyToken"));
@@ -98,6 +100,7 @@ const Register = () => {
       before();
     }
   }, []);
+
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>
