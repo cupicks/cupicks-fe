@@ -1,38 +1,46 @@
 import styled from "styled-components"
 
 const RecipeIngredientButtonContainer = (props) => {
-  const {cupState, setCupState, formArrayProps} = props
-  const {level, sublevel, finalSublevel, ingredientDeleteMode} = cupState
-  const {fields, remove, append} = formArrayProps
+  const {cupState, setCupState, formArrayProps, stepState, setStepState} = props;
 
+  const {ingredientDeleteMode} = cupState
+  const {fields, remove, append} = formArrayProps
+  const {subStep, finalSubStep} = stepState
+
+  /** 마지막 재료를 지움 */
   const ingredientDeleteButtonClickHandler = (e) => {
     e.stopPropagation();
     remove(fields.length-1)
-    setCupState(prev => ({
-      ...prev, 
-      sublevel: 0,
+
+    setCupState(prev => ({ ...prev, 
       ingredientDeleteMode: 0
+    }))
+    setStepState(prev => ({ ...prev,
+      subStep: 0
     }))
   }
 
+  const buttonClickable = subStep === 0 || subStep === finalSubStep;
+  const addIngredientMode = ingredientDeleteMode === false
+
   return (
     <StRecipeIngredientButtonContainer>
-      {(level === 2 && ingredientDeleteMode !== 1) &&
+
+      { addIngredientMode &&
         <>
           <button
             type="button"
-            className={ 
-              sublevel === 0 || sublevel === finalSublevel ? "" : "disable"
-            }
+            className={ buttonClickable ? "" : "disable" }
             onClick={()=>{
               append()
-              setCupState(prev => ({...prev, sublevel: 1}))
+              setStepState(prev => ({...prev, subStep: 1}))
           }}>
             +
           </button>
         </>
       }
-      {level === 2 &&  ingredientDeleteMode === 1 &&
+
+      { ingredientDeleteMode &&
         <>
           <StModal
             onClick={()=>{

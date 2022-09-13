@@ -1,6 +1,7 @@
-const RecipeIngredientNumber = ({ 
-  idx, register, calcAmount, cutNumberByLength, setValue
-}) => {
+const RecipeIngredientNumber = (props) => {
+  const {idx, calcAmount, formProps} = props
+  const {register} = formProps
+
   return (
     <>
       <input 
@@ -8,7 +9,7 @@ const RecipeIngredientNumber = ({
         autoComplete="off"
         id={idx}
         max={1000}
-        min={0}
+        min={10}
         step={1}
 
         {...register(`ingredientList.${idx}.ingredientAmount`, {
@@ -21,10 +22,6 @@ const RecipeIngredientNumber = ({
         onBlur={(e)=>{
           calcAmount(e);
         }}
-        // onChange={(e)=>{
-        //   const currValue = cutNumberByLength(e);
-        //   setValue(`ingredientList.${idx}.ingredientAmount`, currValue)
-        // }}
       />
     </>
   )

@@ -4,27 +4,24 @@ import RecipeIngredientColorLists from "./RecipeIngredientColorLists";
 import styled from "styled-components";
 
 const RecipeIngredient = (props) => {
-  const {
-    idx, register, calcAmount,
-    cutNumberByLength, setValue, cupState } = props;
-  const {sublevel, setSublevel, finalSublevel} = cupState;
+  const { idx, calcAmount, cupState, setCupState, stepState, formProps } = props;
+  const {subStep} = stepState;
+  const {register, trigger} = formProps;
+    
+  const colorChangeHandler = (e) => {
+    const targetInfo = e.target.htmlFor.split('#')[0]
+    const currName = targetInfo[0]
+    const currColor = targetInfo[1]
 
-  // temp
-  const colorLists = [
-    [
-      '#ffffff','#000000','#3897ef','#7acffe','#c1e9ff','#b5f2bb','#92e172','#e8d0a3','#ae7948'
-    ],
-    [
-      '#fee484','#fecda8','#f29d50','#ee714a','#f33d3d','#ffb1c8','#e1a6db','#d076de','#a63bd9'
-    ],
-    [
-      '#262626','#353535','#555555','#737373','#999999','#b2b2b2','#c6c6c6','#d5d5d5','#ededed'
-    ]
-  ]
-  
+    // setCupState(prev => ({...prev, [currName]: 0}))
+    
+    console.log(cupState);
+    trigger('ingredientList')
+  }
+
   return (
     <StRecipeIngredient>
-      {sublevel === 1 &&
+      {subStep === 1 &&
         <>
           <div className="info_box_center">
             재료의 이름은 무엇인가요?
@@ -38,7 +35,7 @@ const RecipeIngredient = (props) => {
         </>
       }
 
-      {sublevel === 2 &&
+      {subStep === 2 &&
         <>
           <div className="info_box_center">
             재료량을 입력해주세요.
@@ -46,28 +43,24 @@ const RecipeIngredient = (props) => {
           <div className="flex_box">
             <RecipeIngredientNumber
               idx={idx}
-              register={register}
-              setValue={setValue}
-              required={true}
-              
+              formProps={formProps}    
               calcAmount={calcAmount}
-              // cutNumberByLength={cutNumberByLength}
             />
             ml
           </div>
         </>
       }
 
-      {sublevel === 3 &&
+      {subStep === 3 &&
         <>
           <div className="info_box_center">
             재료색을 선택해주세요.
           </div>
           
           <RecipeIngredientColorLists 
-            colorLists={colorLists}
             idx={idx}
-            register={register}
+            formProps={formProps}
+            onClick={colorChangeHandler}
           />
         </>
       }

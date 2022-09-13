@@ -16,6 +16,7 @@ const GlobalStyle=createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
+    word-break: keep-all;
   }
 
   @media (max-width: 560px) {
@@ -24,6 +25,11 @@ const GlobalStyle=createGlobalStyle`
     }
   }
   
+  @keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+  }
+
   ul,
   ol,
   li {
@@ -39,6 +45,7 @@ const GlobalStyle=createGlobalStyle`
   button {
     cursor: pointer;
   }
+
 
   /* .SignInWrapper {
     position: relative;

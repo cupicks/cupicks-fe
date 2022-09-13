@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import RecipeInput from "../element/RecipeInput";
 import RecipeTextarea from '../element/RecipeTextarea';
+import RecipeIngredientConform from './RecipeIngredientConform';
 
 const RecipeTextValue = (props) => {
   const { cupState, setCupState, formProps } = props;
@@ -31,6 +32,10 @@ const RecipeTextValue = (props) => {
         />
       </StTextInputContainer>
       
+      <RecipeIngredientConform 
+        formProps={formProps}
+      />
+
       <StTextInputContainer>
         <div className="info_box">
           상세설명
@@ -91,10 +96,21 @@ const StTextInputContainer = styled.div`
   text-align: left;
 
   background-color: #fff;
+  
+  input, textarea {
+    color: #393939;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+  }
 
   .info_box {
     color: #aaa;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
   }
 
   .error_box {
@@ -106,6 +122,10 @@ const StTextInputContainer = styled.div`
   &:last-child {
     flex: 1 1 auto;
   }
+  
+  *::placeholder {
+    color: #393939 !important;
+  }
 `
 
 const StIsPulicBox = styled.div`
@@ -113,6 +133,12 @@ const StIsPulicBox = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+
+  .info_box {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
 `
 
 const StRangeBar = styled.div`
@@ -151,10 +177,5 @@ const StRangeBar = styled.div`
   input {
     z-index: -9;
     opacity: 0;
-  }
-
-  *::placeholder {
-    color: #ccc;
-    font-size: 1.1rem;
   }
 `

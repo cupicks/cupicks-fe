@@ -3,12 +3,15 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import colorLists from '../../../util/recipeIngrediantColorList'
+
 import RecipeIngredientColorList from "./RecipeIngredientColorList";
 
 import styled from "styled-components";
 
 const RecipeIngredientColorLists = (props) => {
-  const {colorLists, idx, register} = props
+  const {idx, onClick, formProps} = props
+  const {register} = formProps
 
   const currFleidName = `ingredientList.${idx}.ingredientColor`
 
@@ -33,6 +36,7 @@ const RecipeIngredientColorLists = (props) => {
                 colorList={colorList}
                 name={currFleidName}
                 register={register}
+                onClick={onClick}
               />
             )
           })}

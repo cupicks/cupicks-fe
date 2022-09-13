@@ -1,17 +1,10 @@
-import RecipeCreateForm from "../components/recipeCreate/RecipeCreateForm";
+import RecipeCreateWrap from "../components/recipeCreate/RecipeCreateWrap";
 
-import styled from "styled-components";
 
 const RecipeCreate = () => {
   return (
-    <StWrap>
-      <RecipeCreateForm />
-    </StWrap>
+    <RecipeCreateWrap />
   );
 };
 
 export default RecipeCreate;
-
-const StWrap = styled.div`
-  height: 100%;
-`

@@ -4,7 +4,7 @@ import TokenService from "./token.service";
 
 const customAxios = (contentType) => { 
   const API = import.meta.env.VITE_SERVER_URL
-  
+
   const instance = axios.create({
     baseURL: API,
     headers: {

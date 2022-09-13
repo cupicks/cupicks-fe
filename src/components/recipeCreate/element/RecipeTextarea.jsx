@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const RecipeTextarea = ({ name, placeholder="", rows=10, register, config={}, onChange=null }) => {
+const RecipeTextarea = ({ name, placeholder="", rows=8, register, config={}, onChange=null }) => {
 	return (
     <StTextarea 
       type="textarea"

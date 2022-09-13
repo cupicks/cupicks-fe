@@ -1,0 +1,190 @@
+import styled from "styled-components"
+
+import IsIcedIcon from "./element/IsIcedIcon"
+import RecipeCreateIngredientsContainer from "./subpages/RecipeCreateIngredientsContainer";
+import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
+
+import ice355 from '../../assets/image/ice_background/355_ice.png'
+import ice473 from '../../assets/image/ice_background/473_ice.png'
+import ice591 from '../../assets/image/ice_background/591_ice.png'
+import ProgressIconBar from "./element/ProgressIconBar";
+
+const RecipeVisualContainer = (props) => {
+  const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
+  
+  const {cupStyleHeight, isIcedTag} = cupState;
+  const {fields} = formArrayProps
+  const {step, subStep} = stepState
+
+  const ingredientClickHandler = (e) => {
+    setCupState(prev => ({...prev, ingredientDeleteMode: 1}))
+    e.target.classList.add('ingredientSelected')
+  }
+
+  let iceImage; 
+  if(cupState.currCupSize === 355){
+    iceImage = ice355
+  } else if (cupState.currCupSize === 473) {
+    iceImage = ice473
+  } else {
+    iceImage = ice591
+  }
+  
+  return (
+    <StRecipeVisualContainer>
+
+      <ProgressIconBar stepState={stepState} />
+      
+      { step === 2 &&
+        <RecipeIngredientButtonContainer
+          cupState={cupState}
+          setCupState={setCupState}
+          stepState={stepState}
+          setStepState={setStepState}
+          formArrayProps={formArrayProps}
+        />
+      }
+
+      {/* 영역 대비 cupSize 높이 */}
+      <StRecipeVisual 
+        ingredient_height={cupStyleHeight}
+        iceImage={isIcedTag?iceImage:null}
+        iceOpacity={isIcedTag?1:0}
+      >
+        <div 
+          className={
+            cupStyleHeight === 0 ? "ingredient_outline fcc empty":
+          "ingredient_outline fcc"
+          }
+        >
+          {/* 재료 리스트 */}
+          <RecipeCreateIngredientsContainer 
+            cupState = {cupState}
+            setCupState = {setCupState}
+            subStep = {stepState.subStep}
+            formProps = {formProps}
+            onClick = {ingredientClickHandler}
+          />
+        </div>
+        
+      </StRecipeVisual>
+
+      { isIcedTag && subStep !== 4 && 
+        <div className="info_box">
+          ice 선택 시 전체량 중 200ml가 채워집니다.
+        </div>
+      }
+      
+      { subStep === 4 && fields.length > 0 &&
+        <div className="info_box">
+          채워진 재료를 누르면 제거 버튼이 나옵니다.
+        </div>
+      }
+      
+      {isIcedTag !== null && (isIcedTag ?
+        <StIsIcedIconBox>
+          <IsIcedIcon isIced={true} />
+        </StIsIcedIconBox>
+        :
+        <StIsIcedIconBox>
+          <IsIcedIcon isIced={false} />
+        </StIsIcedIconBox>
+      )}
+    </StRecipeVisualContainer>
+  )
+}
+
+export default RecipeVisualContainer;
+
+const StRecipeVisualContainer = styled.div`
+  /* 전체 높이에서 헤더와 하단 영역 제외 */
+  height: calc(100vh - 60px - 150px);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  
+  position: relative;
+
+  background-color: #fff;
+
+  .info_box {
+    position: absolute;
+    bottom: 3%;
+
+    color: #888;
+
+    font-size: 14px;
+  }
+`
+
+const StRecipeVisual = styled.div`
+  width: 70%;
+  height: 80%;
+
+  margin: 0 auto;
+  padding-top: 20px;
+  
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+
+  position: relative;
+  z-index: 9;
+
+  border: 0.5em solid #ddd;
+  border-top: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    width: 100%;
+    height: ${props => 'calc('+(props.ingredient_height)+'% + 20px)'};
+
+    position: absolute;
+    bottom: 0;
+    z-index: -9;
+
+    background: url(${props => props.iceImage}) no-repeat center / contain;
+    opacity: ${props => props.iceOpacity};
+    transition: opacity .3s;
+  }
+  
+  &::before {
+    z-index: 9;
+    opacity: 0.3;
+  }
+
+  // cupSize Height
+  .ingredient_outline {
+    height: ${props => props.ingredient_height+ '%'};
+    
+    position: relative;
+
+    border: 3px dashed #555;
+
+    transition: all .5s;
+  }
+  .empty {
+    height: 50%;
+    opacity: 0;
+  }
+`
+
+const StIsIcedIconBox = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 5px;
+  right: 1.5rem;
+
+  background-color: #444;
+  color: #fff;
+`
