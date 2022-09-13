@@ -3,16 +3,21 @@ import Ingredient from "./element/Ingredient";
 
 const IngredientsContainer = (props) => {
   const { cupSize, ingredientList: lists } = props.recipe
+  const amountPercent = ( cupSize / 591 * 100).toFixed() ;
 
   return (
     <StIngredientsContainer>
-      { lists.map( (list, i) => 
-        <Ingredient 
-          key={i}
-          list={list} 
-          cupSize={cupSize} 
-        />
-      ).reverse() }
+
+      <StCupHeight amountPercent={amountPercent}>
+        { lists.map( (list, i) => 
+          <Ingredient 
+            key={i}
+            list={list} 
+            cupSize={cupSize} 
+          />
+        ).reverse() }
+      </StCupHeight>
+      
     </StIngredientsContainer>
   );
 };
@@ -26,4 +31,8 @@ const StIngredientsContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
+`
+
+const StCupHeight = styled.div`
+  height: ${props => props.amountPercent + "%"};
 `

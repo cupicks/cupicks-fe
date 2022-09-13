@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 
+import api from '../../server/api'
+
 import RecipeCupSize from "./subpages/RecipeCupSize";
 import RecipeIsIced from "./subpages/RecipeIsIced";
 import RecipeTextValue from "./subpages/RecipeTextValue";
 import RecipeIngredientList from "./subpages/RecipeIngredientList";
-
-import { setDataType } from '../../util/recipeSetDataType'
-
-import styled from "styled-components";
 import RecipeVisualContainer from "./subpages/RecipeVisualContainer";
 import RecipeCreateNavigation from "./subpages/RecipeCreateNavigation";
 import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonContainer";
 
+import styled from "styled-components";
+
+import { setDataType } from '../../util/recipeSetDataType'
+import { useNavigate } from "react-router-dom";
+
 const RecipeCreateForm = () => {
+  const navigate = useNavigate();
+
   const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({ 
     control, 
@@ -36,21 +41,34 @@ const RecipeCreateForm = () => {
   })
   const { level, finalLevel } = cupState;
 
-  console.log(cupState.isIcedTag);
+  /** 완성한 레피시를 등록하는 함수 */
+  const RecipeCreating = async (newData) => {
+    let contentType = "application/json"
 
-  /** finalLevel일 때 onSumit 시, request 보내는 함수 */
-  const onSubmit = data => {
-
-    // console.log(data);
-    data = setDataType(data);
-    
-    // level === finalLevel일 때 request할 예정
-    if(level === finalLevel){
-      console.log('request');
-      console.log(data);
+    try {
+      const response = await api(contentType).post(
+        `/recipes`,
+        newData
+      ).then( res => {
+        const recipeId = res.data.recipeId
+        navigate(`/recipe/detail/${recipeId}`)
+      })
+      
+    } catch (err) {
+      console.log(err);
     }
   }
 
+  /** finalLevel일 때 onSumit 시 */
+  const onSubmit = data => {
+    data = setDataType(data);
+    
+    if(level === finalLevel){
+      RecipeCreating(data)
+      console.log(data)
+    }
+  }
+  
   return (
     <StForm onSubmit={handleSubmit(onSubmit)}>
       
@@ -122,8 +140,8 @@ const RecipeCreateForm = () => {
 export default RecipeCreateForm;
 
 const StForm = styled.form`
-  flex: 1 1 auto;
-  
+  height: 100%;
+
   display: flex;
   flex-flow: column;
   text-align: center;

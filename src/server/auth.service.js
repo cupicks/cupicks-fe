@@ -5,7 +5,7 @@ const register = (username, email, password) => {
   return api.post("/auth/signup", {
     username,
     email,
-    password,
+    password
   });
 };
 
@@ -13,7 +13,7 @@ const login = (username, password) => {
   return api
     .post("/auth/signin", {
       username,
-      password,
+      password
     })
     .then((response) => {
       if (response.data.accessToken) {
