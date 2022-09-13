@@ -58,6 +58,10 @@ const StNav = styled.nav`
   .title {
     position: absolute;
     left: 50%;
+
     transform: translateX(-50%);
+
+    font-weight: 400;
+    font-size: 18px;
   }
 `;
