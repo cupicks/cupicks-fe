@@ -24,14 +24,11 @@ const RecipeCreateForm = () => {
   const formArrayProps = {fields, append, remove, resetField}
 
   const [cupState, setCupState] = useState({
-    level: 0,
-    finalLevel: 3,
-    sublevel: 0,
-    finalSublevel: 4,
     cupStyleHeight: 0,
     isIcedTag: null,
     isPublicTag: null,
     currCupSize: null,
+    cupFull: false,
     ingredientDeleteMode: false,
     currIngredientList: []
   })
@@ -45,8 +42,19 @@ const RecipeCreateForm = () => {
 
   const { step, finalStep } = stepState;
 
-  // state 리랜더 확인하는 곳
-  console.log('리랜더');
+  // state 리랜더 확인하는 곳----------------
+  console.log('리랜더');      
+  const colorChangeHandler = (e) => {
+    // const targetInfo = e.target.htmlFor.split('#')[0]
+    // const currName = targetInfo[0]
+    // const currColor = targetInfo[1]
+
+    // // setCupState(prev => ({...prev, [currName]: 0}))
+    
+    // console.log(cupState);
+    trigger('ingredientList')
+  }
+  // ---------------------------------------
 
   /** 완성한 레피시를 등록하는 함수 */
   const RecipeCreating = async (newData) => {
@@ -85,6 +93,7 @@ const RecipeCreateForm = () => {
         setCupState={setCupState}
         stepState={stepState}
         setStepState={setStepState}
+        formProps={formProps}
         />
 
       {step !== 3 && 
@@ -105,6 +114,7 @@ const RecipeCreateForm = () => {
         setStepState={setStepState}
         formProps={formProps}
         formArrayProps={formArrayProps}
+        colorChangeHandler={colorChangeHandler}
       />
 
     </StForm>

@@ -3,7 +3,7 @@ import styled from "styled-components"
 const RecipeIngredientButtonContainer = (props) => {
   const {cupState, setCupState, formArrayProps, stepState, setStepState} = props;
 
-  const {ingredientDeleteMode} = cupState
+  const {ingredientDeleteMode, cupFull} = cupState
   const {fields, remove, append} = formArrayProps
   const {subStep, finalSubStep} = stepState
 
@@ -20,13 +20,15 @@ const RecipeIngredientButtonContainer = (props) => {
     }))
   }
 
+  // 재료 추가 버튼 상태
   const buttonClickable = subStep === 0 || subStep === finalSubStep;
   const addIngredientMode = ingredientDeleteMode === false
+  const cupIsFull = cupState.cupFull
 
   return (
     <StRecipeIngredientButtonContainer>
 
-      { addIngredientMode &&
+      { (addIngredientMode && !cupIsFull) &&
         <>
           <button
             type="button"

@@ -1,12 +1,12 @@
 import RecipeCupSize from "./subpages/RecipeCupSize";
 import RecipeIsIced from "./subpages/RecipeIsIced";
 import RecipeTextValue from "./subpages/RecipeTextValue";
-import RecipeIngredientList from "./subpages/RecipeIngredientList";
+import RecipeIngredientForm from "./subpages/RecipeIngredientForm";
 
 import styled from "styled-components";
 
 const RecipeFormContainer = (props) => {
-  const {cupState, setCupState, stepState, setStepState, formProps, formArrayProps} = props;
+  const {cupState, setCupState, stepState, setStepState, formProps, formArrayProps, colorChangeHandler:onClick} = props;
   const {step} = stepState
   
   return (
@@ -33,12 +33,13 @@ const RecipeFormContainer = (props) => {
           }
 
           {step === 2 && 
-            <RecipeIngredientList
+            <RecipeIngredientForm
               cupState={cupState}
               setCupState={setCupState}
               stepState={stepState}
               formProps={formProps}
               formArrayProps={formArrayProps}
+              onClick={onClick}
             />
           }
         </StRecipeOptContainer>

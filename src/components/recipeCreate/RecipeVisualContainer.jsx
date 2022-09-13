@@ -12,7 +12,7 @@ import ProgressIconBar from "./element/ProgressIconBar";
 const RecipeVisualContainer = (props) => {
   const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
   
-  const {cupStyleHeight, isIcedTag} = cupState;
+  const {cupStyleHeight, isIcedTag, cupFull} = cupState;
   const {fields} = formArrayProps
   const {step, subStep} = stepState
 
@@ -21,6 +21,7 @@ const RecipeVisualContainer = (props) => {
     e.target.classList.add('ingredientSelected')
   }
 
+  // UI 관련 코드
   let iceImage; 
   if(cupState.currCupSize === 355){
     iceImage = ice355
@@ -29,7 +30,8 @@ const RecipeVisualContainer = (props) => {
   } else {
     iceImage = ice591
   }
-  
+  const borderColor = cupFull ? '#E64A3A' : '#000000'
+
   return (
     <StRecipeVisualContainer>
 
@@ -50,6 +52,7 @@ const RecipeVisualContainer = (props) => {
         ingredient_height={cupStyleHeight}
         iceImage={isIcedTag?iceImage:null}
         iceOpacity={isIcedTag?1:0}
+        borderColor={borderColor}
       >
         <div 
           className={
@@ -162,7 +165,7 @@ const StRecipeVisual = styled.div`
     
     position: relative;
 
-    border: 3px dashed #555;
+    border: 3px dashed ${props => props.borderColor};
 
     transition: all .5s;
   }
