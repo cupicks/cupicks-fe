@@ -7,6 +7,7 @@ import RecipeIngredientButtonContainer from "./subpages/RecipeIngredientButtonCo
 import ice355 from '../../assets/image/ice_background/355_ice.png'
 import ice473 from '../../assets/image/ice_background/473_ice.png'
 import ice591 from '../../assets/image/ice_background/591_ice.png'
+import ProgressIconBar from "./element/ProgressIconBar";
 
 const RecipeVisualContainer = (props) => {
   const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
@@ -31,6 +32,8 @@ const RecipeVisualContainer = (props) => {
   
   return (
     <StRecipeVisualContainer>
+
+      <ProgressIconBar stepState={stepState} />
       
       { step === 2 &&
         <RecipeIngredientButtonContainer

@@ -46,7 +46,7 @@ const RecipeCreateForm = () => {
   const { step, finalStep } = stepState;
 
   // state 리랜더 확인하는 곳
-  console.log('hi');
+  console.log('리랜더');
 
   /** 완성한 레피시를 등록하는 함수 */
   const RecipeCreating = async (newData) => {
