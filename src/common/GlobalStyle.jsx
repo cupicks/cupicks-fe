@@ -24,6 +24,11 @@ const GlobalStyle=createGlobalStyle`
     }
   }
   
+  @keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+  }
+
   ul,
   ol,
   li {
@@ -39,6 +44,7 @@ const GlobalStyle=createGlobalStyle`
   button {
     cursor: pointer;
   }
+
 
   /* .SignInWrapper {
     position: relative;
