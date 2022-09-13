@@ -1,24 +1,28 @@
 import React from "react";
 import axios from "axios";
 
+import api from "../../server/api";
+
 import styled from "styled-components";
 
 const Nickname = (props) => {
   const { register, errors, setValue, getValues } = props;
+  const [checkNickname, setCheckNickname] = React.useState(false);
 
   const confirmNicknameVerifyCode = async () => {
+    const contentType = "application/x-www-form-urlencoded";
     try {
-      const res = await axios.get(
-        `http://13.125.231.146/api/auth/confirm-nickname?email=${getValues(
-          "email"
-        )}
-        &nickname=${getValues("nickname")}`,
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      const res = await api(contentType).get(
+        `/auth/confirm-nickname?emailVerifyToken=${getValues(
+          "emailVerifyToken"
+        )}&nickname=${getValues("nickname")}`
+        // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.nicknameVerifyToken;
-      console.log(token);
+      console.log(res);
       setValue("nicknameVerifyToken", token);
       console.log(getValues("nicknameVerifyToken"));
+      // setCheckNickname(true);
       alert(res.data.message);
     } catch (err) {
       console.log(err);
@@ -33,6 +37,7 @@ const Nickname = (props) => {
         placeholder="닉네임을 입력해 주세요"
         minLength={2}
         maxLength={10}
+        // disabled={checkNickname}
         {...register("nickname", {
           required: true,
           pattern: {

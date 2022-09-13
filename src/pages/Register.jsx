@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import api from "../server/api";
+
 import Email from "../components/register/Email";
 import Nickname from "../components/register/Nickname";
 import Password from "../components/register/Password";
@@ -18,33 +20,32 @@ const Register = () => {
     handleSubmit,
     setValue,
     getValues,
+    reset,
+    resetField,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
   const [level, setLevel] = React.useState(0);
 
   const onSubmit = async () => {
+    const contentType = "multi-part/form-data";
+    //request(body)-> image 보내기
     const form = new FormData();
     form.append(
       "imageValue",
       getValues("image") === undefined ? null : getValues("image")[0]
     );
-    if (
-      level === 3 &&
-      getValues("emailVerifyToken") &&
-      getValues("nicknameVerifyToken")
-    ) {
+    //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
+    if (level === 3) {
       try {
-        const res = await axios.post(
-          `http://13.125.231.146/api/auth/signup?nickname=${getValues(
-            "nickname"
-          )}&email=${getValues("email")}&password=${getValues(
+        const res = await api(contentType).post(
+          `/auth/signup?password=${getValues(
             "password"
           )}&nicknameVerifyToken=${getValues(
             "nicknameVerifyToken"
           )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
-          form,
-          { headers: { "Content-Type": "multi-part/form-data" } }
+          form
+          // { headers: { "Content-Type": "multi-part/form-data" } }
         );
         console.log(res);
         alert(res.data.message);
@@ -68,7 +69,7 @@ const Register = () => {
       alert("비밀번호가 일치하지 않습니다");
       return;
     }
-    if (errors.nickname && level === 3) {
+    if (errors.nickname && level === 2) {
       alert("닉네임을 제대로 입력해주세요");
       return;
     }
@@ -78,9 +79,28 @@ const Register = () => {
     if (level === 0) {
       navigate("/signIn");
     } else {
-      setLevel((prev) => prev - 1);
+      // const emailToken = getValues("emailVerifyToken");
+      // reset("emailVerifyToken");
+      // reset("Number");
+      // reset(getValues("email"));
+      reset({ emailVerifyToken: undefined });
+      reset({ nicknameVerifyToken: undefined });
+      // setValue("emailVerifyToken", undefined);
+      // resetField("emailVerifyToken");
+      // console.log(getValues("emailVerifyToken"));
+      setLevel(0);
+      alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
+
+      // resetField(getValues("emailVerifyToken"));
+      // console.log(getValues("emailVerifyToken"));
     }
   };
+  React.useEffect(() => {
+    if (level !== 0) {
+      before();
+    }
+  }, []);
+
   return (
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>
@@ -106,14 +126,6 @@ const Register = () => {
           />
         )}
         {level === 2 && (
-          <Image
-            register={register}
-            errors={errors}
-            watch={watch}
-            getValues={getValues}
-          />
-        )}
-        {level === 3 && (
           <Nickname
             register={register}
             errors={errors}
@@ -122,11 +134,19 @@ const Register = () => {
             getValues={getValues}
           />
         )}
+        {level === 3 && (
+          <Image
+            register={register}
+            errors={errors}
+            watch={watch}
+            getValues={getValues}
+          />
+        )}
         {level === 3 ? (
           <StButton
             disabled={
-              (level === 3 && watch("nickname") === "") ||
-              (level === 3 && watch("nicknameVerifyToken") === undefined) ||
+              (level === 3 && watch("image") === undefined) ||
+              (level === 3 && watch("image")?.length === 0) ||
               isSubmitting
             }
           >
@@ -141,8 +161,8 @@ const Register = () => {
               (level === 0 && watch("emailVerifyToken") === undefined) ||
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "") ||
-              (level === 2 && watch("image") === undefined) ||
-              (level === 2 && watch("image")?.length === 0)
+              (level === 2 && watch("nickname") === "") ||
+              (level === 2 && watch("nicknameVerifyToken") === undefined)
             }
           >
             계속하기

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import serverAxios from "../server/server.axios";
 import axios from "axios";
 
+import api from "../server/api";
+
 import styled from "styled-components";
 
 const Login = () => {
@@ -22,13 +24,14 @@ const Login = () => {
       .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
       .join("&");
     console.log(queryStringData);
+    const contentType = "application/x-www-form-urlencoded";
     try {
-      const res = await axios.post(
-        "http://13.125.231.146/api/auth/signin",
-        queryStringData,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
+      const res = await api(contentType).post(
+        "/auth/signin",
+        queryStringData
+        // {
+        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        // }
       );
       console.log(res);
       console.log(res.data.accessToken);
