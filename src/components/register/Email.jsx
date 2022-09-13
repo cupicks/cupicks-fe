@@ -9,7 +9,7 @@ const Email = (props) => {
   const confirmEmailVerifyCode = async () => {
     try {
       const res = await axios.get(
-        `http://3.38.250.115/api/auth/confirm-email?email=${getValues(
+        `http://13.125.231.146/api/auth/confirm-email?email=${getValues(
           "email"
         )}&email-verify-code=${getValues("Number")}`,
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
@@ -27,7 +27,7 @@ const Email = (props) => {
   const sendEmailVerifyCode = async () => {
     try {
       const res = await axios.get(
-        `http://3.38.250.115/api/auth/send-email?email=${getValues("email")}`,
+        `http://13.125.231.146/api/auth/send-email?email=${getValues("email")}`,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         }

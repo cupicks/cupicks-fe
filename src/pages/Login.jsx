@@ -24,7 +24,7 @@ const Login = () => {
     console.log(queryStringData);
     try {
       const res = await axios.post(
-        "http://3.38.250.115/api/auth/signin",
+        "http://13.125.231.146/api/auth/signin",
         queryStringData,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },

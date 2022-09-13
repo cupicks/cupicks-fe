@@ -9,7 +9,7 @@ const Nickname = (props) => {
   const confirmNicknameVerifyCode = async () => {
     try {
       const res = await axios.get(
-        `http://3.38.250.115/api/auth/confirm-nickname?email=${getValues(
+        `http://13.125.231.146/api/auth/confirm-nickname?email=${getValues(
           "email"
         )}
         &nickname=${getValues("nickname")}`,

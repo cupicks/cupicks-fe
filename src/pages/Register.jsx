@@ -36,7 +36,7 @@ const Register = () => {
     ) {
       try {
         const res = await axios.post(
-          `http://3.38.250.115/api/auth/signup?nickname=${getValues(
+          `http://13.125.231.146/api/auth/signup?nickname=${getValues(
             "nickname"
           )}&email=${getValues("email")}&password=${getValues(
             "password"
