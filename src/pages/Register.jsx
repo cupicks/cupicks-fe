@@ -12,6 +12,8 @@ import Image from "../components/register/Image";
 
 import styled from "styled-components";
 
+import arrowBack from "../assets/svg/arrow_back.svg";
+
 const Register = () => {
   const navigate = useNavigate();
   const {
@@ -48,6 +50,7 @@ const Register = () => {
         );
         console.log(res);
         alert(res.data.message);
+        navigate("/signUp/complete");
       } catch (err) {
         console.log(err);
       }
@@ -72,9 +75,6 @@ const Register = () => {
       return;
     }
     setLevel((prev) => prev + 1);
-    if (level === 3) {
-      navigate("/signUp/complete");
-    }
   };
   const before = () => {
     if (level === 0) {
@@ -106,7 +106,7 @@ const Register = () => {
     <StDiv>
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <StSpanBox>
-          <StSpanLeft onClick={before}>&lt;</StSpanLeft>
+          <StArrowBack src={arrowBack} alt="뒤로가기" onClick={before} />
           <StSpanCenter>회원가입</StSpanCenter>
         </StSpanBox>
         {level === 0 && (
@@ -143,23 +143,32 @@ const Register = () => {
             getValues={getValues}
           />
         )}
-        <StButton
-          onClick={next}
-          disabled={
-            (level === 0 && watch("email") === undefined) ||
-            (level === 0 && watch("email") === "") ||
-            (level === 0 && watch("emailVerifyToken") === undefined) ||
-            (level === 1 && watch("password") === "") ||
-            (level === 1 && watch("password_confirm") === "") ||
-            (level === 2 && watch("nickname") === "") ||
-            (level === 2 && watch("nicknameVerifyToken") === undefined) ||
-            (level === 3 && watch("image") === undefined) ||
-            (level === 3 && watch("image")?.length === 0) ||
-            isSubmitting
-          }
-        >
-          계속하기
-        </StButton>
+        {level === 3 ? (
+          <StButton
+            disabled={
+              (level === 3 && watch("image") === undefined) ||
+              (level === 3 && watch("image")?.length === 0) ||
+              isSubmitting
+            }
+          >
+            계속하기
+          </StButton>
+        ) : (
+          <StButton
+            onClick={next}
+            disabled={
+              (level === 0 && watch("email") === undefined) ||
+              (level === 0 && watch("email") === "") ||
+              (level === 0 && watch("emailVerifyToken") === undefined) ||
+              (level === 1 && watch("password") === "") ||
+              (level === 1 && watch("password_confirm") === "") ||
+              (level === 2 && watch("nickname") === "") ||
+              (level === 2 && watch("nicknameVerifyToken") === undefined)
+            }
+          >
+            계속하기
+          </StButton>
+        )}
       </StForm>
     </StDiv>
   );
@@ -170,9 +179,11 @@ export default Register;
 const StDiv = styled.div``;
 const StSpanBox = styled.div`
   display: flex;
+  padding-top: 30px;
 `;
-const StSpanLeft = styled.span`
-  font-size: 50px;
+const StArrowBack = styled.img`
+  width: 30px;
+  height: 30px;
 
   cursor: pointer;
 `;
@@ -201,8 +212,7 @@ const StForm = styled.form`
 
     font-size: 20px;
     :hover,
-    :focus,
-    :active {
+    :focus {
       outline: none;
       border-bottom-color: #000;
     }

@@ -9,6 +9,7 @@ import RecipeCreate from "../pages/RecipeCreate";
 import RecipeDetail from "../pages/RecipeDetail";
 import Register from "../pages/Register";
 import RegisterComplete from "../pages/RegisterComplete";
+import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
 
@@ -23,6 +24,7 @@ const Router = () => {
       <Route path="/recipe/detail/:recipeId" element={<RecipeDetail />} />
       <Route path="/signUp" element={<Register />} />
       <Route path="/signUp/complete" element={<RegisterComplete />} />
+      <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/profile/:userId/edit" element={<ProfileEdit />} />
       <Route path="*" element={<NotFound />} />
