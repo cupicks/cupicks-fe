@@ -2,11 +2,11 @@ import React from "react";
 
 import styled from "styled-components";
 
+import profile from "../../assets/svg/profile.svg";
+
 const Image = (props) => {
   const { register, errors, watch, getValues } = props;
-  const [imagePreview, setImagePreview] = React.useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
+  const [imagePreview, setImagePreview] = React.useState("");
 
   const image = watch("image");
 
@@ -21,7 +21,11 @@ const Image = (props) => {
   return (
     <StDiv>
       <label>프로필 이미지</label>
-      <StImg src={imagePreview} />
+      {imagePreview === "" ? (
+        <StImg src={profile} alt="프로필 이미지" />
+      ) : (
+        <StImg src={imagePreview} />
+      )}
       <input
         type="file"
         id="picture"
@@ -44,8 +48,8 @@ const StDiv = styled.div`
   flex-direction: column;
 `;
 const StImg = styled.img`
-  width: 250px;
-  height: 250px;
+  width: 130px;
+  height: 130px;
 
   margin: 50px auto;
   border-radius: 50%;
