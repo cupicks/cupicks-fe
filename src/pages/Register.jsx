@@ -21,7 +21,6 @@ const Register = () => {
     setValue,
     getValues,
     reset,
-    resetField,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
@@ -49,7 +48,6 @@ const Register = () => {
         );
         console.log(res);
         alert(res.data.message);
-        navigate("/signIn");
       } catch (err) {
         console.log(err);
       }
@@ -74,6 +72,9 @@ const Register = () => {
       return;
     }
     setLevel((prev) => prev + 1);
+    if (level === 3) {
+      navigate("/signUp/complete");
+    }
   };
   const before = () => {
     if (level === 0) {
@@ -142,34 +143,24 @@ const Register = () => {
             getValues={getValues}
           />
         )}
-        {level === 3 ? (
-          <StButton
-            disabled={
-              (level === 3 && watch("image") === undefined) ||
-              (level === 3 && watch("image")?.length === 0) ||
-              isSubmitting
-            }
-          >
-            완료
-          </StButton>
-        ) : (
-          <StButton
-            onClick={next}
-            disabled={
-              (level === 0 && watch("email") === undefined) ||
-              (level === 0 && watch("email") === "") ||
-              (level === 0 && watch("emailVerifyToken") === undefined) ||
-              (level === 1 && watch("password") === "") ||
-              (level === 1 && watch("password_confirm") === "") ||
-              (level === 2 && watch("nickname") === "") ||
-              (level === 2 && watch("nicknameVerifyToken") === undefined)
-            }
-          >
-            계속하기
-          </StButton>
-        )}
+        <StButton
+          onClick={next}
+          disabled={
+            (level === 0 && watch("email") === undefined) ||
+            (level === 0 && watch("email") === "") ||
+            (level === 0 && watch("emailVerifyToken") === undefined) ||
+            (level === 1 && watch("password") === "") ||
+            (level === 1 && watch("password_confirm") === "") ||
+            (level === 2 && watch("nickname") === "") ||
+            (level === 2 && watch("nicknameVerifyToken") === undefined) ||
+            (level === 3 && watch("image") === undefined) ||
+            (level === 3 && watch("image")?.length === 0) ||
+            isSubmitting
+          }
+        >
+          계속하기
+        </StButton>
       </StForm>
-      {/* <button onClick={() => navigate("/signIn")}>취소</button> */}
     </StDiv>
   );
 };

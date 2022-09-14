@@ -19,7 +19,7 @@ const Nickname = (props) => {
         // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.nicknameVerifyToken;
-      console.log(res);
+      // console.log(res);
       setValue("nicknameVerifyToken", token);
       console.log(getValues("nicknameVerifyToken"));
       // setCheckNickname(true);

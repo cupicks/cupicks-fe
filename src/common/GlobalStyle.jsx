@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle=createGlobalStyle` 
+const GlobalStyle = createGlobalStyle` 
   :root {
     --button-color: #333;
     --button-borderColor: #333;
@@ -15,7 +15,6 @@ const GlobalStyle=createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
     word-break: keep-all;
   }
 
