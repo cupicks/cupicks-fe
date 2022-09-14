@@ -12,26 +12,26 @@ import RecipeFormContainer from "./RecipeFormContainer";
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
+
   const navigate = useNavigate();
 
-  const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
+  const { register, watch, setValue, getValues, trigger, reset, resetField, handleSubmit, setError, clearErrors, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({ 
     control, 
     name: "ingredientList"
   })
 
-  const formProps = {register, watch, setValue, getValues, errors, trigger}
+  const formProps = {register, watch, setValue, getValues, reset, errors, trigger, clearErrors, setError}
   const formArrayProps = {fields, append, remove, resetField}
 
   const [cupState, setCupState] = useState({
-    level: 0,
-    finalLevel: 3,
-    sublevel: 0,
-    finalSublevel: 4,
     cupStyleHeight: 0,
     isIcedTag: null,
     isPublicTag: null,
     currCupSize: null,
+    cupFull: false,
+    cupZero: false,
+    cupLeft: null,
     ingredientDeleteMode: false,
     currIngredientList: []
   })
@@ -44,9 +44,6 @@ const RecipeCreateForm = () => {
   })
 
   const { step, finalStep } = stepState;
-
-  // state 리랜더 확인하는 곳
-  console.log('리랜더');
 
   /** 완성한 레피시를 등록하는 함수 */
   const RecipeCreating = async (newData) => {
@@ -79,12 +76,13 @@ const RecipeCreateForm = () => {
   
   return (
     <StForm onSubmit={handleSubmit(onSubmit)}>
-
       <RecipeCreateNavigation
         cupState={cupState}
         setCupState={setCupState}
         stepState={stepState}
         setStepState={setStepState}
+        formProps={formProps}
+        formArrayProps={formArrayProps}
         />
 
       {step !== 3 && 
@@ -124,5 +122,11 @@ const StForm = styled.form`
 
   h4 {
     font-weight: 500;
+  }
+  button {
+    transition: all .3s;
+  }
+  button:disabled {
+    opacity: .6;
   }
 `

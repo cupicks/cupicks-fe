@@ -1,32 +1,39 @@
+import { useWatch } from "react-hook-form";
 import styled from "styled-components"
+import RecipeCreateModal from "../element/RecipeCreateModal";
 
 const RecipeIngredientButtonContainer = (props) => {
-  const {cupState, setCupState, formArrayProps, stepState, setStepState} = props;
-
+  const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
+  
   const {ingredientDeleteMode} = cupState
-  const {fields, remove, append} = formArrayProps
+  const {getValues} = formProps
+  const {remove, append} = formArrayProps
   const {subStep, finalSubStep} = stepState
 
-  /** 마지막 재료를 지움 */
+  /** idx 재료를 지움 */
   const ingredientDeleteButtonClickHandler = (e) => {
     e.stopPropagation();
-    remove(fields.length-1)
+    const idx = document.querySelector('.ingredientSelected')?.id.split('.')[1]
+
+    if(idx >= 0){
+      remove(idx)
+    }
 
     setCupState(prev => ({ ...prev, 
-      ingredientDeleteMode: 0
-    }))
-    setStepState(prev => ({ ...prev,
-      subStep: 0
+      ingredientDeleteMode: false,
+      cupFull: false
     }))
   }
 
+  // 재료 추가 버튼 상태
   const buttonClickable = subStep === 0 || subStep === finalSubStep;
   const addIngredientMode = ingredientDeleteMode === false
+  const cupIsFull = cupState.cupFull
 
   return (
     <StRecipeIngredientButtonContainer>
 
-      { addIngredientMode &&
+      { (addIngredientMode && !cupIsFull) &&
         <>
           <button
             type="button"
@@ -41,28 +48,11 @@ const RecipeIngredientButtonContainer = (props) => {
       }
 
       { ingredientDeleteMode &&
-        <>
-          <StModal
-            onClick={()=>{
-              setCupState(prev => ({...prev, ingredientDeleteMode: 0}))
-              document.querySelector('.ingredientSelected').classList.remove('ingredientSelected')
-            }}
-          >
-            <span 
-              className="button_close"
-            >
-              취소
-            </span>
-            <button
-              type="button" 
-              onClick={
-                ingredientDeleteButtonClickHandler
-              }
-            >
-              x
-            </button>
-          </StModal>
-        </>
+        <RecipeCreateModal 
+          onClick={ingredientDeleteButtonClickHandler}
+          setCupState={setCupState}
+          formArrayProps={formArrayProps}
+        />
       }
     </StRecipeIngredientButtonContainer>
   )
@@ -98,32 +88,4 @@ const StRecipeIngredientButtonContainer = styled.div`
     pointer-events: none;
     opacity: 0.3;
   }
-`
-
-const StModal = styled.div`
-  width: 100%;
-  height: 100%;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  
-  background: rgba(0, 0, 0, 0.3);
-  
-  .button_close {
-    position: absolute;
-    top: 1.2rem;
-    left: 1.5rem;
-  
-    color: #fff;
-    
-    font-size: 1.4rem;
-    font-weight: 700;
-  }
-  
 `

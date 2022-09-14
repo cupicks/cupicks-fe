@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 const NavButtonGoBack = () => {
   const navigate = useNavigate();
   return (
-    <button onClick={()=>{
-      navigate(-1);
-    }}> 
+    <button 
+      type="button" 
+      onClick={()=>{
+        navigate(-1);
+      }}
+    > 
       취소
     </button>
   )

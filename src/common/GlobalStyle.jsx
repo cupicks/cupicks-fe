@@ -45,7 +45,6 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-
   /* .SignInWrapper {
     position: relative;
     left: 0;

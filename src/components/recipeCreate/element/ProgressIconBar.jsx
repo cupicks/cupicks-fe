@@ -5,7 +5,7 @@ import progress3 from '../../../assets/svg/makerecipe_third.svg'
 
 const ProgressIconBar = (props) => {
   const {stepState} = props
-
+  
   const isOnProgess1 = stepState.step === 0 ? 'on' : ''
   const isOnProgess2 = stepState.step === 1 ? 'on' : ''
   const isOnProgess3 = stepState.step === 2 ? 'on' : ''
@@ -44,11 +44,13 @@ const StWrap = styled.div`
     border-radius: 50%;
 
     background-color: #cdcdcd;
+    opacity: 0.26;
     
     transition: background-color .2s;
   }
   
   .progress.on {
     background-color: #393939;
+    opacity: 1;
   }
 `
