@@ -274,7 +274,6 @@ const RecipeBody = () => {
   };
 
   const [favRecipe, setFavRecipe] = useState(start);
-  const [allRecipe, setAllRecipe] = useState(start);
   const [AllRecipeOpen, setAllRecipeOpen] = useState(false);
 
   // const openAllRecipe = () => {
@@ -286,7 +285,7 @@ const RecipeBody = () => {
       <StRecipeTitle>이번주 인기 레시피</StRecipeTitle>
       <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} />
       <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
-      <AllRecipeList allRecipe={allRecipe} setAllRecipe={setAllRecipe} />
+      <AllRecipeList />
     </StWrap>
   );
 };

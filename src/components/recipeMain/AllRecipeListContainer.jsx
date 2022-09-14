@@ -5,27 +5,26 @@ import talk from "../../assets/svg/talk.svg";
 import like from "../../assets/svg/like.svg";
 
 const AllRecipeListContainer = (props) => {
-  // const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
-  const { id, author } = props.allrecipes;
+  const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
   return (
-    <div key={id}>
+    <div key={recipeId}>
       <StListWrap>
         <StListHead>
           <StListProfile></StListProfile>
           <StNickname>닉네임</StNickname>
         </StListHead>
         <StListContent>
-          {/* {ingredientList.map((ingredients) => (
+          {ingredientList.map((ingredients) => (
             <AllRecipeListIngredient
               ingredients={ingredients}
               cupSize={cupSize}
             />
-          ))} */}
+          ))}
         </StListContent>
         <StListTitle>
-          <div className="title">{author}</div>
+          <div className="title">{title}</div>
           <StItemSet>
             <img className="talk_btn" src={talk} />
             <img className="like_btn" src={like} />
