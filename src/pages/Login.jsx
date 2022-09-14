@@ -85,6 +85,9 @@ const Login = () => {
           계속하기
         </StButton>
       </StForm>
+      <StPass onClick={() => navigate("/resetPassword")}>
+        비밀번호를 잊으셨나요?
+      </StPass>
       <StLink>
         <StP onClick={() => navigate("/signUp")}>
           Cupick이 처음이세요? 회원가입
@@ -111,7 +114,7 @@ export default Login;
 const StDiv = styled.div``;
 const StTitle = styled.div`
   width: 200px;
-  
+
   margin-top: 70px;
 `;
 const StForm = styled.form`
@@ -156,8 +159,7 @@ const StButton = styled.button`
   font-size: 18px;
   text-align: center;
   :hover,
-  :focus,
-  :active {
+  :focus {
     background-color: #000;
     border: none;
     color: #fff;
@@ -228,4 +230,9 @@ const StCtn = styled.div`
   color: #cac8c8;
 
   text-align: center;
+`;
+const StPass = styled.p`
+  color: #9e9e9e;
+  float: right;
+  cursor: pointer;
 `;
