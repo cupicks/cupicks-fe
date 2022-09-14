@@ -12,7 +12,7 @@ import ProgressIconBar from "./element/ProgressIconBar";
 const RecipeVisualContainer = (props) => {
   const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
   
-  const {cupStyleHeight, isIcedTag, cupFull} = cupState;
+  const {cupStyleHeight, isIcedTag, cupFull, cupLeft} = cupState;
   const {fields} = formArrayProps
   const {step, subStep} = stepState
 
@@ -72,17 +72,26 @@ const RecipeVisualContainer = (props) => {
         
       </StRecipeVisual>
 
-      { isIcedTag && subStep !== 4 && 
-        <div className="info_box">
-          ice 선택 시 전체량 중 200ml가 채워집니다.
-        </div>
-      }
+
+
+      <div className="info_box">
+
+        { isIcedTag && subStep !== 4 && 
+          `ice 선택 시 전체량 중 200ml가 채워집니다.`
+        }
+
+        { subStep === 4 && fields.length > 0 &&
+          `채워진 재료를 누르면 제거 버튼이 나옵니다.`
+        }
+        { cupLeft > 0 && cupLeft !== null &&
+          <>
+            <br /> 
+            {cupLeft}ml 남았습니다.
+          </>
+        }
+
+      </div>
       
-      { subStep === 4 && fields.length > 0 &&
-        <div className="info_box">
-          채워진 재료를 누르면 제거 버튼이 나옵니다.
-        </div>
-      }
       
       {isIcedTag !== null && (isIcedTag ?
         <StIsIcedIconBox>

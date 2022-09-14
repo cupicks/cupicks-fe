@@ -5,22 +5,25 @@ import styled from "styled-components"
 import RecipeIngredient from '../element/RecipeIngredient'
 
 const RecipeIngredientForm = (props) => {
-  const {cupState, setCupState, stepState, formProps, onClick} = props
+  const {cupState, setCupState, stepState, formProps} = props
 
-  const {currCupSize, cupFull, isIceTag} = cupState
+  const {currCupSize, isIceTag} = cupState
   const {subStep, finalSubStep} = stepState
   const {watch, setValue, getValues} = formProps
-
-  let newFields = watch('ingredientList');
-  useEffect(()=>{
-    console.log(newFields);
-  }, [newFields])
   
+  let newFields = watch('ingredientList');
+
+  const cupIsFull = cupState.cupFull
+  const addNewIngredientMode = (subStep === 0 || subStep === finalSubStep)
+
   /** cupSize보다 넘치는 값 자르는 함수 */
   const calcAmount = (e) => {
+    // 값 가져오기
     const currValue = e.target.value;
     const currTargetName = e.target.name;
     const newList = getValues('ingredientList');
+    
+    // 아이스음료
     const newCupSize = +(""+currCupSize).split('ml')[0];
     isIceTag?newCupSize-200:''
 
@@ -37,8 +40,12 @@ const RecipeIngredientForm = (props) => {
     // newCupSize에서 prevSum을 뺀 만큼이 max입니다.
     // 컵 용량보다 currValue가 크다면(용량이 넘치면) 현재 용량으로 고정
     const maxValue = newCupSize - prevSum;
+    
+    // 남은 재료량
+    setCupState(prev => ({...prev, cupLeft: newCupSize-totalSum}))
 
-    if(maxValue < currValue){
+    // cup full
+    if(maxValue <= currValue){
       e.target.value = maxValue;
       setValue(currTargetName, maxValue)
       setCupState(prev => ({...prev, cupFull: true}))
@@ -47,10 +54,16 @@ const RecipeIngredientForm = (props) => {
     } else {
       setCupState(prev => ({...prev, cupFull: false}))
     }
+    
+    // 값이 0
+    if(+currValue === 0){
+      e.target.value = null;
+      setCupState(prev => ({...prev, cupZero: true}))
+      return
+    } else {
+      setCupState(prev => ({...prev, cupZero: false}))
+    }
   }
-
-  const cupIsFull = cupState.cupFull
-  const addNewIngredientMode = (subStep === 0 || subStep === finalSubStep)
 
   return ( 
     <StWrap>
@@ -80,7 +93,6 @@ const RecipeIngredientForm = (props) => {
             setCupState={setCupState}
             stepState={stepState}
             formProps={formProps}
-            onClick={onClick}
             calcAmount={calcAmount}
           />
         )

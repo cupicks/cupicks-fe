@@ -4,13 +4,13 @@ const RecipeCupSize = (props) => {
   const {cupState, setCupState, formProps, formArrayProps} = props
   
   const {isIcedTag} = cupState
-  const {setValue, register, errors} = formProps
-  const {remove, resetField} = formArrayProps
+  const {setValue, register, errors, clearErrors} = formProps
+  const {remove, append} = formArrayProps
   
   const cupSizes = ['355ml', '473ml', '591ml']
 
   /** 'cupSize' radio에 props drilling로 넘겨준 onClick함수 */
-  const onClickCupSize = (e) => {
+  const cupSizeClickHandler = (e) => {
     const currCupSize = +(""+e.target.textContent).split('ml')[0];
     setCupState({
       ...cupState, 
@@ -19,13 +19,18 @@ const RecipeCupSize = (props) => {
     })
     
     setValue('cupSize', currCupSize)
+    clearErrors()
     
     if(isIcedTag){
-      setValue('ingredientList.0', {
+      remove()
+      const ice = {
+        id:'default_id',
         ingredientAmount: 200,
         ingredientColor: "#c1e9ff",
         ingredientName: "얼음"
-      })
+      }
+      append(ice);
+      
     } else {
       remove()
     }
@@ -43,7 +48,7 @@ const RecipeCupSize = (props) => {
           label={'cupSize'}
           value={value}
           register={register}
-          onClick={onClickCupSize}
+          onClick={cupSizeClickHandler}
           config={{
             required: {
               value: 'required',
@@ -54,7 +59,7 @@ const RecipeCupSize = (props) => {
       ))}
 
       <div className="error_box">
-        {errors.cupSize?.type === 'required' ? errors.cupSize.message : "" }
+        {errors.cupSize? errors.cupSize.message : "" }
       </div>
     </>
   )

@@ -1,6 +1,10 @@
 const RecipeIngredientNumber = (props) => {
-  const {idx, calcAmount, formProps} = props
+  const {idx, calcAmount, formProps, onChange=null} = props
   const {register} = formProps
+
+  const cutNaN = (e) => {
+    console.log(e.target.value);
+  }
 
   return (
     <>

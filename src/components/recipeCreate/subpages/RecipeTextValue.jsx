@@ -8,12 +8,13 @@ import RecipeIngredientConform from './RecipeIngredientConform';
 const RecipeTextValue = (props) => {
   const { cupState, setCupState, formProps } = props;
   const { isPublicTag } = cupState;
-  const { register, errors } = formProps
+  const { register, errors, watch } = formProps
 
-  /** isPublic를 watch해서 'isPublicResult' state를 set하는 함수 */ 
-  const isPublicSelectHandler = (e) => {
-    setCupState({...cupState, isPublicTag: !e.target.checked});
-  }
+  // /** isPublic를 watch해서 'isPublicResult' state를 set하는 함수 */ 
+  // const isPublicSelectHandler = (e) => {
+  //   setCupState({...cupState, isPublicTag: !e.target.checked});
+  // }
+  console.log(watch('isPublic'));
 
   return ( 
     <>
@@ -67,7 +68,7 @@ const RecipeTextValue = (props) => {
               id='publicCheckbox'
               value={ true }
               {...register('isPublic')}
-              onChange={ isPublicSelectHandler } 
+              // onChange={ isPublicSelectHandler } 
               />
             <label 
               htmlFor='publicCheckbox'
