@@ -1,19 +1,19 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useInView } from "react-intersection-observer";
 import AllRecipeListContainer from "./AllRecipeListContainer";
-import axios from "axios";
+import api from "../../server/api";
+import Logo from "../../assets/svg/Logo_Cupick.svg";
 
-const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
+const AllRecipeList = () => {
   // allRecipe = allRecipe.recipeList;
   // const setTarget = useRef(null);
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   // const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView({
-    threshold: 0.5,
-    // triggerOnce: true,
+    threshold: 0.8,
   });
   //threshold
 
@@ -46,43 +46,57 @@ const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
   //   if (entry.isIntersecting && !loadFinished)
   // }
 
-  const getItems = useCallback(async () => {
-    setLoading(true);
-    // setItems((prevState) => [...prevState, ...allRecipe]);
-    // await axios.get(`${serverUrl}/api/recipes?page=${page}&limit=6`).then((res) => {
-    await axios
-      .get(`https://picsum.photos/v2/list?page=${page}&limit=6`)
-      .then((res) => {
-        setItems((prevState) => [...prevState, ...res.data]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setLoading(false);
-  }, [page]);
+  // const getItems = useCallback(async () => {
+  //   let contentType = "application/json";
+  //   setLoading(true);
+  //   await api(contentType)
+  //     .get(`/recipes?page=${page}&count=12`)
+  //     .then((res) => {
+  //       setItems((prevState) => [...prevState, ...res.data.recipeList]);
+  //     });
+  //   setLoading(false);
+  // }, [page]);
 
+  //useCallback(함수, 배열) -> 첫번째 인자로 넘어온 함수를, 두번째 인자로 넘어온 배열 내의 값이 변경될때까지
+  //저장해놓고 재사용할수 있게 해준다
   useEffect(() => {
-    getItems();
-  }, [getItems]);
-
-  useEffect(() => {
+    //마지막 요소를 보고 로딩중이 아니라면
     if (inView && !loading) {
-      setPage((prevState) => prevState + 1);
+      setTimeout(() => {
+        setPage(page + 1);
+      }, 1500);
       // page.current += 1;
     }
   }, [inView, loading]);
 
-  // console.log(ref);
-  // console.log(items);
-  // console.log(inView);
-  // console.log(page);
+  //서버에서 Item Get!
+
+  const getItems = useCallback(async () => {
+    let contentType = "application/json";
+    setLoading(true);
+    await api(contentType)
+      .get(`/recipes?page=${page}&count=12`)
+      .then((res) => {
+        setItems([...items, ...res.data.recipeList]);
+      });
+    setLoading(false);
+  }, [page]);
+
+  //getItems method가 바뀔때마다 함수실행
+  useEffect(() => {
+    getItems();
+  }, [getItems]);
+
   console.log(items);
+  console.log(page);
+  console.log(inView);
   return (
     <StAllListWrap>
-      {items.map((allrecipes, index) => (
+      {items?.map((allrecipes, index) => (
         <React.Fragment key={index}>
           {items.length - 1 == index ? (
             <div ref={ref}>
+              {loading ? <Loading src={Logo} /> : null}
               <AllRecipeListContainer allrecipes={allrecipes} />
             </div>
           ) : (
@@ -97,6 +111,39 @@ const AllRecipeList = ({ allRecipe, setAllRecipe }) => {
 };
 
 export default AllRecipeList;
+
+const fade = keyframes`
+/* from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+} */
+0% {
+  opacity: 1;
+}
+50% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}
+  
+`;
+const Loading = styled.img`
+  width: 60px;
+  height: 60px;
+  animation: ${fade} 0.5s 0s forwards;
+  border: 1px solid rgba(255, 204, 204, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+  margin: 10px;
+  overflow: hidden;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100px;
+`;
 
 const StAllListWrap = styled.div`
   width: 100%;
