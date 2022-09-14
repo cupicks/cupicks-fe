@@ -6,7 +6,7 @@ import styled from "styled-components";
 const RecipeIngredient = (props) => {
   const { idx, calcAmount, cupState, setCupState, stepState, formProps } = props;
   const {subStep} = stepState;
-  const {register, trigger} = formProps;
+  const {register, watch} = formProps;
 
   return (
     <StRecipeIngredient>

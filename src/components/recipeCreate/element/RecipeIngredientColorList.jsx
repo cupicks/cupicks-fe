@@ -6,9 +6,8 @@ const RecipeIngredientColorList = (props) => {
     <StRecipeIngredientColorList>
     {colorList.map((color, i)=>{
       return(
-        <>
+        <span key={i}>
           <input 
-            key = {"colorInput"+i}
             className="colorLabel"
             id={ name+color }
             type="radio" 
@@ -17,14 +16,13 @@ const RecipeIngredientColorList = (props) => {
           />
           
           <StColorCircle 
-            key = {"colorLabel"+i}
             className="colorLabel"
             htmlFor={ name+color }
             name={ name+color }
             color={ color }
             onClick={ onClick } 
           />
-        </>
+        </span>
       )
     })}
     </StRecipeIngredientColorList>

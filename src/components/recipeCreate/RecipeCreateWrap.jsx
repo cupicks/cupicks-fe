@@ -12,15 +12,16 @@ import RecipeFormContainer from "./RecipeFormContainer";
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
+
   const navigate = useNavigate();
 
-  const { register, watch, setValue, getValues, trigger, reset, resetField, handleSubmit, clearErrors, control, formState: { errors } } = useForm();
+  const { register, watch, setValue, getValues, trigger, reset, resetField, handleSubmit, setError, clearErrors, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({ 
     control, 
     name: "ingredientList"
   })
 
-  const formProps = {register, watch, setValue, getValues, reset, errors, trigger, clearErrors}
+  const formProps = {register, watch, setValue, getValues, reset, errors, trigger, clearErrors, setError}
   const formArrayProps = {fields, append, remove, resetField}
 
   const [cupState, setCupState] = useState({
@@ -75,7 +76,6 @@ const RecipeCreateForm = () => {
   
   return (
     <StForm onSubmit={handleSubmit(onSubmit)}>
-
       <RecipeCreateNavigation
         cupState={cupState}
         setCupState={setCupState}

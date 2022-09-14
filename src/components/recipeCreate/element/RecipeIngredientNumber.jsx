@@ -1,28 +1,20 @@
 const RecipeIngredientNumber = (props) => {
-  const {idx, calcAmount, formProps, onChange=null} = props
+  const {idx, calcAmount, formProps} = props
   const {register} = formProps
-
-  const cutNaN = (e) => {
-    console.log(e.target.value);
-  }
 
   return (
     <>
       <input 
-        type="number"
+        type="text"
         autoComplete="off"
         id={idx}
-        max={1000}
-        min={10}
-        step={1}
+        maxLength={3}
 
-        {...register(`ingredientList.${idx}.ingredientAmount`, {
-          max: {
-            value: 1000,
-            message: "1000이하로 입력"
-          }
-        })}
+        {...register(`ingredientList.${idx}.ingredientAmount`)}
 
+        onKeyUp={(e)=>{
+          e.target.value = e.target.value.replace(/[^0-9]/g,'')
+        }}
         onBlur={(e)=>{
           calcAmount(e);
         }}

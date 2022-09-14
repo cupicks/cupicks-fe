@@ -50,7 +50,7 @@ const RecipeIngredientForm = (props) => {
       setValue(currTargetName, maxValue)
       setCupState(prev => ({...prev, cupFull: true}))
       
-      alert('재료가 모두 찼습니다.')
+      console.log('재료가 모두 찼습니다.');
     } else {
       setCupState(prev => ({...prev, cupFull: false}))
     }

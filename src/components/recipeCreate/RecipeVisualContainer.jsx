@@ -37,12 +37,13 @@ const RecipeVisualContainer = (props) => {
 
       <ProgressIconBar stepState={stepState} />
       
-      { step === 2 &&
+      { (step === 2) &&
         <RecipeIngredientButtonContainer
           cupState={cupState}
           setCupState={setCupState}
           stepState={stepState}
           setStepState={setStepState}
+          formProps = {formProps}
           formArrayProps={formArrayProps}
         />
       }
@@ -71,8 +72,6 @@ const RecipeVisualContainer = (props) => {
         </div>
         
       </StRecipeVisual>
-
-
 
       <div className="info_box">
 
@@ -165,7 +164,8 @@ const StRecipeVisual = styled.div`
   
   &::before {
     z-index: 9;
-    opacity: 0.3;
+    opacity: 0.2;
+    pointer-events: none;
   }
 
   // cupSize Height

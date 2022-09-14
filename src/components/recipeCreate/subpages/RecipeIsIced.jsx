@@ -20,6 +20,7 @@ const RecipeIsIced = (props) => {
       isIcedTag: isIced
     }))
     clearErrors();
+    remove()
     
     if(isIced){
       const ice = {
@@ -30,8 +31,6 @@ const RecipeIsIced = (props) => {
       }
       append(ice);
       
-    } else {
-      remove()
     }
   }
   

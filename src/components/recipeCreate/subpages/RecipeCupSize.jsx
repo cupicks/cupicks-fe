@@ -20,20 +20,6 @@ const RecipeCupSize = (props) => {
     
     setValue('cupSize', currCupSize)
     clearErrors()
-    
-    if(isIcedTag){
-      remove()
-      const ice = {
-        id:'default_id',
-        ingredientAmount: 200,
-        ingredientColor: "#c1e9ff",
-        ingredientName: "얼음"
-      }
-      append(ice);
-      
-    } else {
-      remove()
-    }
   }
 
   return ( 

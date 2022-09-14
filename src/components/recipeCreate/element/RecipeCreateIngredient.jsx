@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const RecipeCreateIngredient = (props) => {
-  const {cupState, subStep, formProps, onClick, 
+  const {idx, cupState, subStep, formProps, onClick, 
     ingredient={
       ingredientName: "", 
       ingredientColor: "#e4e4e4", 
@@ -14,12 +14,16 @@ const RecipeCreateIngredient = (props) => {
   if(isIcedTag){
     cupSize = cupSize - 200
   } 
+  
+  let amountMl = ingredientAmount ? +ingredientAmount : 20
+  let amountPercent = +(amountMl / cupSize * 100).toFixed(1);
+  if(amountPercent >= 100) amountPercent = 100
 
-  const amountPercent = +(ingredientAmount / cupSize * 100).toFixed(1)
   const ingredientFixMode = subStep === 4;
 
   return (
     <StIngredient 
+      id={'ingredient.'+idx}
       ingredientColor={ingredientColor?ingredientColor:"#e4e4e4"}
       ingredientAmount={amountPercent?amountPercent : 10}
       onClick={ingredientFixMode ? onClick : null}

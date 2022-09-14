@@ -6,7 +6,7 @@ import RecipeIngredientForm from "./subpages/RecipeIngredientForm";
 import styled from "styled-components";
 
 const RecipeFormContainer = (props) => {
-  const {cupState, setCupState, stepState, setStepState, formProps, formArrayProps} = props;
+  const {cupState, setCupState, stepState, formProps, formArrayProps} = props;
   const {step} = stepState
   
   return (

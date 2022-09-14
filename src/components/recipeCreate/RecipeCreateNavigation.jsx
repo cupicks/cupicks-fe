@@ -10,7 +10,13 @@ const RecipeCreateNavigation = (props) => {
 	const { cupState, setCupState, stepState, setStepState, formProps, formArrayProps} = props;
   const { ingredientDeleteMode, cupFull, currCupSize:cupSize, isIcedTag} = cupState
   const { step, finalStep, subStep, finalSubStep } = stepState
-  const { watch, getValues, reset } = formProps
+  const { watch, getValues, reset, setError } = formProps
+
+  window.addEventListener('keydown', ()=>{
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+  })
 
   // State 초기화할 때 사용합니다.
   const initialCupState = {
