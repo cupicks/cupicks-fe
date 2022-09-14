@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { useInView } from "react-intersection-observer";
 import AllRecipeListContainer from "./AllRecipeListContainer";
 import api from "../../server/api";
-import Logo from "../../assets/svg/Logo_Cupick.svg";
+import Logo from "../../assets//image/logo/Logo_Cupick.png";
 
 const AllRecipeList = () => {
   // allRecipe = allRecipe.recipeList;
