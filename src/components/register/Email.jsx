@@ -18,10 +18,6 @@ const Email = (props) => {
   const contentType = "application/x-www-form-urlencoded";
 
   const confirmEmailVerifyCode = async () => {
-    // if (errors.email) {
-    //   alert(errors.email.message);
-    //   return;
-    // }
     try {
       const res = await api(contentType).get(
         `/auth/confirm-email?email=${getValues(
@@ -42,6 +38,10 @@ const Email = (props) => {
     }
   };
   const sendEmailVerifyCode = async () => {
+    if (errors.email) {
+      alert(errors.email.message);
+      return;
+    }
     try {
       const res = await api(contentType).get(
         `/auth/send-email?email=${getValues("email")}`
