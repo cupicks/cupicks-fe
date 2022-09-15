@@ -1,12 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
 import serverAxios from "../server/server.axios";
 import axios from "axios";
 
 import api from "../server/api";
 
 import styled from "styled-components";
+
+import kakaoIcon from '../assets/svg/talk.svg'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,6 +52,7 @@ const Login = () => {
       <StTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StTitle>
+
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
         <StInput
@@ -85,80 +89,113 @@ const Login = () => {
           계속하기
         </StButton>
       </StForm>
-      <StPass onClick={() => navigate("/resetPassword")}>
-        비밀번호를 잊으셨나요?
-      </StPass>
-      <StLink>
-        <StP onClick={() => navigate("/signUp")}>
-          Cupick이 처음이세요? 회원가입
-        </StP>
-      </StLink>
+
+      <StFlexBox>
+        <StPass onClick={() => navigate("/resetPassword")}>
+          비밀번호를 잊으셨나요?
+        </StPass>
+      </StFlexBox>
+
+      <StFlexEmptySpace />
+
       <StLineBox>
-        <StLineLeft></StLineLeft>
         <span>간편 로그인</span>
-        <StLineRight></StLineRight>
       </StLineBox>
+
       <StKakaoBox>
-        <StImg src="https://t1.daumcdn.net/cfile/tistory/992DA6415B743DB62B" />
+        <img src={kakaoIcon} />
         카카오로 시작하기
       </StKakaoBox>
+
       <StCtn>
         회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
       </StCtn>
+
+      <StLink onClick={() => navigate("/signUp")}>
+          Cupick이 처음이세요? 회원가입
+      </StLink>
     </StDiv>
   );
 };
 
 export default Login;
 
-const StDiv = styled.div``;
+const StDiv = styled.div`
+  padding: 0 25px;
+  
+  display: flex;
+  flex-flow: column;
+
+  overflow-y: scroll;
+  
+  color: #393939;
+  
+  line-height: 150%;
+`;
+
 const StTitle = styled.div`
   width: 200px;
   
-  margin-top: 70px;
+  margin-top: 60px;
+
+  h1 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 150%;
+  }
 `;
 
 const StForm = styled.form`
-  margin-top: 70px;
+  margin-top: 47px;
 
   display: flex;
   flex-direction: column;
+
   & p {
     color: #bf1650;
   }
   & label {
-    color: #686666;
+    font-weight: 700;
+    font-size: 13px;
+    color: #9E9E9E;
   }
 `;
+
 const StInput = styled.input`
-  margin-top: 20px;
-  margin-bottom: 20px;
+  all: unset;
+  margin-bottom: 25px;
+  padding: 10px 0;
 
-  border: none;
-  border-bottom: 3px solid #b4b3b3;
+  border-bottom: 2px solid #CDCDCD;
 
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 150%;
+
+  transition: all .3s;
+
   :hover,
   :focus,
   :active {
-    outline: none;
-    border-bottom-color: #000;
+    border-bottom-color: #9E9E9E;
   }
   ::placeholder {
-    color: #ddd;
+    color: #cdcdcd;
   }
 `;
+
 const StButton = styled.button`
+  all: unset;
+  padding: 15px;
   border-radius: 10px;
 
-  padding: 15px;
+  border: 1px solid #CDCDCD;
+  color: #cdcdcd;
 
-  background-color: #fff;
-  border: 3px solid #eee;
-  color: #a3a2a2;
-
+  font-weight: 700;
   font-size: 18px;
   text-align: center;
+
   :hover,
   :focus {
     background-color: #000;
@@ -166,11 +203,24 @@ const StButton = styled.button`
     color: #fff;
   }
 `;
-const StLink = styled.div`
-  margin: 50px;
 
-  text-align: center;
+const StFlexBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+const StPass = styled.p`
+  margin-top: 10px;
+
+  align-self: flex-end;
+
+  color: #9e9e9e;
+  
+  text-align: right;
+
+  cursor: pointer;
 `;
+
 const StP = styled.p`
   color: #636262;
 
@@ -178,62 +228,82 @@ const StP = styled.p`
 
   cursor: pointer;
 `;
+
+const StFlexEmptySpace = styled.div`
+  width: 100%;
+  flex: 1 1 auto;
+`
+
 const StLineBox = styled.div`
   width: 100%;
-
+  height: 1px;
   position: relative;
 
-  text-align: center;
-  & span {
+  margin-top: 30%;
+  margin-bottom: 35px;
+
+  ::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+
+    position: absolute;
+    
+    background-color: #eee;
+  }
+
+  span {
+    font-weight: 400;
+    font-size: 14px;
+
+    background-color: #fff;
     color: #ddd;
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
-const StLineLeft = styled.div`
-  width: 34%;
-  left: 0;
-  top: 11px;
 
-  position: absolute;
-
-  border-top: 3px solid #ddd;
-`;
-const StLineRight = styled.div`
-  width: 34%;
-  right: 0;
-  bottom: 11px;
-
-  position: absolute;
-
-  border-top: 3px solid #bbbaba;
-`;
 const StKakaoBox = styled.div`
-  height: 70px;
+  padding: 16px 0;
   border-radius: 10px;
 
-  margin: 30px auto;
+  margin-bottom: 17px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   background-color: #fff115;
-  color: #4a4a4a;
+  color: #000000;
 
-  font-size: 20px;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 150%;
 
   cursor: pointer;
+
+  img {
+    margin-right: 9px;
+  }
 `;
-const StImg = styled.img`
-  background-size: cover;
-`;
+
 const StCtn = styled.div`
   color: #cac8c8;
 
+  font-size: 12px;
+  font-weight: 400;
   text-align: center;
 `;
-const StPass = styled.p`
+
+const StLink = styled.div`
+  margin-top: 35px;
+  
+  font-weight: 700;
+  font-size: 14px;
+
   color: #9e9e9e;
-  float: right;
-  cursor: pointer;
+
+  text-align: center;
 `;
