@@ -58,6 +58,8 @@ const Email = (props) => {
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
+      setCheckEmail(false);
+      setCheckTimer(false);
     }
   };
   // React.useEffect(() => {
