@@ -88,7 +88,12 @@ const Email = (props) => {
       />
       {errors?.email?.types?.required && <p>{errors.email.message}</p>}
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
-      <button onClick={sendEmailVerifyCode}>이메일 인증번호 발송</button>
+      <button
+        onClick={sendEmailVerifyCode}
+        disabled={watch("email") === undefined || watch("email") === ""}
+      >
+        이메일 인증번호 발송
+      </button>
       <label>인증번호</label>
       <input
         type="text"

@@ -1,61 +1,61 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import buttonIcon from '../../../assets/svg/cancel_modal.svg'
+import buttonIcon from "../../../assets/svg/cancel_modal.svg";
 
 const ConfirmBox = (props) => {
-  const {text="", imageUrl="", confirmButtonText="", backgroundShadow=false, timer=100, onComfirmed, onDenied} = props;
+  const {
+    text = "",
+    imageUrl = "",
+    confirmButtonText = "",
+    backgroundShadow = false,
+    timer = 100,
+    onComfirmed,
+    onDenied,
+  } = props;
   const [modalShow, setModalShow] = useState(true);
   const modalContents = useRef();
 
-  const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : ""
+  const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : "";
 
   return (
     <>
-      { modalShow &&
+      {modalShow && (
         <StModal
           backgroundColor={backgroundColor}
           timer={timer * 0.001}
-          onClick={()=>{
-            modalContents.current.className='contents fade_out'
-            setTimeout(()=>{
-              setModalShow(false)
-            }, 1000)
+          onClick={() => {
+            modalContents.current.className = "contents fade_out";
+            setTimeout(() => {
+              setModalShow(false);
+            }, 1000);
           }}
         >
-
-          <div 
-            className="contents"
-            ref={modalContents}
-          >
-            <img 
-              className="button_close" 
-              src={buttonIcon} 
-              alt="닫기 버튼" 
+          <div className="contents" ref={modalContents}>
+            <img
+              className="button_close"
+              src={buttonIcon}
+              alt="닫기 버튼"
               onClick={onDenied}
             />
 
-            {imageUrl && 
-              <img 
+            {imageUrl && (
+              <img
                 className="illust"
-                src={imageUrl} 
-                alt="일러스트레이션 이미지" 
+                src={imageUrl}
+                alt="일러스트레이션 이미지"
               />
-            }
+            )}
 
             {text}
 
-            <button
-              type="button"
-              onClick={onComfirmed}
-            >
+            <button type="button" onClick={onComfirmed}>
               {confirmButtonText}
             </button>
           </div>
-
         </StModal>
-      }
+      )}
     </>
-  )
+  );
 };
 
 export default ConfirmBox;
@@ -63,24 +63,24 @@ export default ConfirmBox;
 const StModal = styled.div`
   width: 100vw;
   height: 100vh;
-  
+
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  
+
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999999;
-  
+
   font-size: 18px;
   font-weight: 600;
   line-height: 150%;
   text-align: center;
-  
-  background-color: ${props=>props.backgroundColor};
-  
+
+  background-color: ${(props) => props.backgroundColor};
+
   .contents {
     display: flex;
     flex-flow: column;
@@ -92,14 +92,14 @@ const StModal = styled.div`
     border-radius: 15px;
 
     padding: 35px 0 22px;
-    
+
     position: relative;
 
     background-color: #fff;
     color: #393939;
     border: 1px solid #393939;
     box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25);
-    
+
     font-size: 18px;
     font-weight: 700;
 
@@ -109,7 +109,7 @@ const StModal = styled.div`
 
   .fade_out {
     opacity: 0;
-    transition: opacity ${props=>props.timer}s;
+    transition: opacity ${(props) => props.timer}s;
   }
 
   .button_close {
@@ -130,4 +130,4 @@ const StModal = styled.div`
   img.illust {
     width: 80%;
   }
-`
+`;
