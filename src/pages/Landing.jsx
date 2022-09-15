@@ -13,17 +13,16 @@ const Landing = () => {
     return [accessToken, refreshToken]
   }
 
-  const tokens = getTokens();
-  
-  if(tokens){
-    setTimeout(()=>{
+  const tokens = getTokens()
+  const timer = 10
+
+  setTimeout(()=>{
+    if(tokens[0]){
       navigate("/recipe")
-    }, 2000)
-  } else {
-    setTimeout(()=>{
+    } else {
       navigate("/signIn")
-    }, 2000)
-  }
+    }
+  }, timer)
   
   return (
     <StWrap>
@@ -41,4 +40,8 @@ const StWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  img {
+    width: 50%;
+  }
 `

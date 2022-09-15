@@ -114,9 +114,10 @@ export default Login;
 const StDiv = styled.div``;
 const StTitle = styled.div`
   width: 200px;
-
+  
   margin-top: 70px;
 `;
+
 const StForm = styled.form`
   margin-top: 70px;
 
