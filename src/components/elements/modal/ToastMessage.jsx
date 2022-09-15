@@ -85,6 +85,7 @@ const StModal = styled.div`
     padding: 35px 0;
     
     position: relative;
+    transform: translateY(-150px);
 
     background-color: #fff;
     color: #393939;

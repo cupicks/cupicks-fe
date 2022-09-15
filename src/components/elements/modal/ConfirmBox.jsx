@@ -3,7 +3,7 @@ import styled from "styled-components";
 import buttonIcon from '../../../assets/svg/cancel_modal.svg'
 
 const ConfirmBox = (props) => {
-  const {text="", imageUrl="", confirmButtonText="", backgroundShadow=false, timer=100, onComfirmed, onDenied} = props;
+  const {text="", imageUrl="", confirmButtonText="", backgroundShadow=false, timer=600, onComfirmed, onDenied} = props;
   const [modalShow, setModalShow] = useState(true);
   const modalContents = useRef();
 
@@ -23,7 +23,7 @@ const ConfirmBox = (props) => {
               modalContents.current.className='contents fade_out'
               setTimeout(()=>{
                 setModalShow(false)
-              }, 1000)
+              }, timer/3)
             }}
           />
 
@@ -107,6 +107,7 @@ const StModal = styled.div`
     padding: 35px 0 22px;
     
     position: relative;
+    transform: translateY(-60%);
 
     background-color: #fff;
     color: #393939;
