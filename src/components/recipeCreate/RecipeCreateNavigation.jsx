@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Navigation from "../../partial/Navigation";
 import NavButtonDone from "../elements/button/NavButtonDone";
 import NavButtonGoBack from "../elements/button/NavButtonGoBack";
@@ -6,11 +8,17 @@ import NavButtonNextSublevel from "../elements/button/NavButtonNextSublevel";
 import NavButtonPrevLevel from "../elements/button/NavButtonPrevLevel";
 import NavButtonPrevSublevel from "../elements/button/NavButtonPrevSublevel";
 
+import ToastMessage from "../elements/modal/ToastMessage";
+import ConfirmBox from "../elements/modal/ConfirmBox";
+
 const RecipeCreateNavigation = (props) => {
 	const { cupState, setCupState, stepState, setStepState, formProps, formArrayProps} = props;
   const { ingredientDeleteMode, cupFull, currCupSize:cupSize, isIcedTag} = cupState
   const { step, finalStep, subStep, finalSubStep } = stepState
   const { watch, getValues, reset, setError } = formProps
+
+  const [modalCupFullRequired, setModalCupFullRequired] = useState(false)
+  const [showComfirmBox, setShowComfirmBox] = useState(false)
 
   window.addEventListener('keydown', ()=>{
     if (event.keyCode === 13) {
@@ -60,9 +68,22 @@ const RecipeCreateNavigation = (props) => {
     if(ingredientAmountExist) amountRequired = true
   }
 
+  // 컨펌박스 Confirmed 또는 Denied
+  const goFirstConfirmed = () => {
+    setShowComfirmBox(false)
+    setTimeout(()=>{
+      reset()
+      setCupState(initialCupState)
+      setStepState(prev => ({...prev, ...initialStepState}))
+    }, 100)
+  }
+
+  const goFirstDenied = () => {
+    setShowComfirmBox(false)
+  }
+
   // 버튼 비활성화
   const buttonDisableCaseObj = {
-    cupNotFull: subStepEnd && !cupFull,
     cupSizeRequired: step0 && cupSize === null,
     cupTypeRequired: step === 1 && isIcedTag === null,
     subStep0: step2 && subStep0 ? true : '',
@@ -74,6 +95,8 @@ const RecipeCreateNavigation = (props) => {
   for (const x in buttonDisableCaseObj){
     buttonDisableCaseObj[x] ? nextDisabled = true : '';
   }
+  // cupNotFull: 버튼 css 비활성화처럼 보이게하는 상태 
+  let buttonDisableStyle = step === 2 && !(subStepEnd && cupFull)
 
   //*********************************//
   //***  Step 이동하는 함수: 총 4개 ***//
@@ -104,12 +127,7 @@ const RecipeCreateNavigation = (props) => {
   const stepButtonPrevClickHandler = () => {
     switch (step) {
       case 2:
-        confirm('재료 선택 후 이전 버튼을 누를 시 전체량 선택부터 새로 하셔야 합니다.')
-        // 확인 누르면
-        reset()
-        setCupState(initialCupState)
-        setStepState(prev => ({...prev, ...initialStepState}))
-
+        setShowComfirmBox(true)
         return null;
       default: '';
     }
@@ -121,7 +139,10 @@ const RecipeCreateNavigation = (props) => {
     switch (step) {
       case 2:
         if(!cupFull) {
-          alert('재료를 전부 채우지 않으면 \n 다음 단계로 넘어갈 수 없어요!')
+          setModalCupFullRequired(true)
+          setTimeout(()=>{
+            setModalCupFullRequired(false)
+          }, 2000)
           return;
         } 
         break;
@@ -167,14 +188,36 @@ const RecipeCreateNavigation = (props) => {
 
           {!stepEnd &&
             !(step2 && !subStepEnd) &&
-            <NavButtonNextLevel disabled={nextDisabled} onClick={stepButtonNextClickHandler} />
+            <NavButtonNextLevel 
+              disabled={nextDisabled} 
+              onClick={stepButtonNextClickHandler} 
+              disableStyle={buttonDisableStyle}
+            />
           }
 
           {(step2 && !subStepEnd) &&
-            <NavButtonNextSublevel disabled={nextDisabled} onClick={subStepButtonNextClickHandler} />
+            <NavButtonNextSublevel 
+              disabled={nextDisabled} 
+              onClick={subStepButtonNextClickHandler} 
+            />
           }
 
           <h4 className="title">레시피 만들기</h4>
+
+          {/* 모달 리스트 */}
+          {modalCupFullRequired && 
+            <ToastMessage
+              text={'재료를 전부 채우지 않으면\n다음 단계로 넘어갈 수 없어요!'}
+            />  
+          }
+          {showComfirmBox && 
+            <ConfirmBox
+              text={'이전 버튼을 누를 시\n전체량 선택부터 새로 하셔야 합니다.'}
+              confirmButtonText={'새로하기'}
+              onComfirmed={goFirstConfirmed}
+              onDenied={goFirstDenied}
+            />
+          }
         </>
       }
       

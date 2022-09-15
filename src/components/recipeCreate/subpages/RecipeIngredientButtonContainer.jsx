@@ -81,7 +81,7 @@ const StRecipeIngredientButtonContainer = styled.div`
     line-height: 50px;
     
     transition: all .2s;
-    z-index: 99999999999;
+    z-index: 99;
   }
 
   .disable {
