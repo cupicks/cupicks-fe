@@ -96,8 +96,6 @@ const Login = () => {
         </StPass>
       </StFlexBox>
 
-      <StFlexEmptySpace />
-
       <StLineBox>
         <span>간편 로그인</span>
       </StLineBox>
@@ -121,6 +119,7 @@ const Login = () => {
 export default Login;
 
 const StDiv = styled.div`
+  height: 100vh;
   padding: 0 25px;
   
   display: flex;
@@ -152,7 +151,8 @@ const StForm = styled.form`
   flex-direction: column;
 
   & p {
-    color: #bf1650;
+    color: #E64A3A;
+;
   }
   & label {
     font-weight: 700;
@@ -189,17 +189,18 @@ const StButton = styled.button`
   padding: 15px;
   border-radius: 10px;
 
-  border: 1px solid #CDCDCD;
+  border: 1px solid #cdcdcd;
   color: #cdcdcd;
 
   font-weight: 700;
   font-size: 18px;
   text-align: center;
 
-  :hover,
-  :focus {
-    background-color: #000;
-    border: none;
+  transition: all .2s;
+  box-sizing: border-box;
+
+  :hover {
+    background-color: #393939;
     color: #fff;
   }
 `;
@@ -217,22 +218,15 @@ const StPass = styled.p`
   color: #9e9e9e;
   
   text-align: right;
+  font-weight: 700;
 
   cursor: pointer;
+  transition: all .2s;
+
+  :hover {
+    color: #393939;
+  }
 `;
-
-const StP = styled.p`
-  color: #636262;
-
-  font-size: 20px;
-
-  cursor: pointer;
-`;
-
-const StFlexEmptySpace = styled.div`
-  width: 100%;
-  flex: 1 1 auto;
-`
 
 const StLineBox = styled.div`
   width: 100%;
@@ -299,6 +293,7 @@ const StCtn = styled.div`
 
 const StLink = styled.div`
   margin-top: 35px;
+  margin-bottom: 40px;
   
   font-weight: 700;
   font-size: 14px;
