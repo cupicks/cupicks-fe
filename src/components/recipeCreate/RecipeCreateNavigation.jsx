@@ -75,11 +75,13 @@ const RecipeCreateNavigation = (props) => {
       reset()
       setCupState(initialCupState)
       setStepState(prev => ({...prev, ...initialStepState}))
-    }, 100)
+    }, 1000)
   }
 
   const goFirstDenied = () => {
-    setShowComfirmBox(false)
+    setTimeout(()=>{
+      setShowComfirmBox(false)
+    }, 1000)
   }
 
   // 버튼 비활성화

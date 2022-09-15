@@ -8,23 +8,24 @@ const ConfirmBox = (props) => {
   const modalContents = useRef();
 
   const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : ""
-
-  console.log(onDenied);
-
+  
   return (
     <>
       { modalShow &&
         <StModal
-          backgroundColor={backgroundColor}
           timer={timer * 0.001}
-          onMouseDown={onDenied}
-          onClick={()=>{
-            modalContents.current.className='contents fade_out'
-            setTimeout(()=>{
-              setModalShow(false)
-            }, 1000)
-          }}
         >
+
+          <StBackground
+            backgroundColor={backgroundColor}
+            onMouseDown={onDenied}
+            onClick={()=>{
+              modalContents.current.className='contents fade_out'
+              setTimeout(()=>{
+                setModalShow(false)
+              }, 1000)
+            }}
+          />
 
           <div 
             className="contents"
@@ -63,6 +64,17 @@ const ConfirmBox = (props) => {
 
 export default ConfirmBox;
 
+const StBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  background-color: ${props=>props.backgroundColor};
+`
+
 const StModal = styled.div`
   width: 100vw;
   height: 100vh;
@@ -81,9 +93,7 @@ const StModal = styled.div`
   font-weight: 600;
   line-height: 150%;
   text-align: center;
-  
-  background-color: ${props=>props.backgroundColor};
-  
+
   .contents {
     display: flex;
     flex-flow: column;
