@@ -102,6 +102,8 @@ const StModal = styled.div`
     position: absolute;
     top: 11px;
     right: 15px;
+    
+    cursor: pointer;
   }
 
   button {
@@ -111,6 +113,8 @@ const StModal = styled.div`
     background: #101010;
     color: #fff;
     border-radius: 10px;
+    
+    cursor: pointer;
   }
 
   img.illust {

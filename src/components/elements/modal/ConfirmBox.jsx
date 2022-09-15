@@ -9,12 +9,15 @@ const ConfirmBox = (props) => {
 
   const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : ""
 
+  console.log(onDenied);
+
   return (
     <>
       { modalShow &&
         <StModal
           backgroundColor={backgroundColor}
           timer={timer * 0.001}
+          onMouseDown={onDenied}
           onClick={()=>{
             modalContents.current.className='contents fade_out'
             setTimeout(()=>{
@@ -116,6 +119,8 @@ const StModal = styled.div`
     position: absolute;
     top: 11px;
     right: 15px;
+    
+    cursor: pointer;
   }
 
   button {
@@ -125,6 +130,8 @@ const StModal = styled.div`
     background: #101010;
     color: #fff;
     border-radius: 10px;
+    
+    cursor: pointer;
   }
 
   img.illust {
