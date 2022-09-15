@@ -44,7 +44,7 @@ const RecipeCreateNavigation = (props) => {
 
   // 재료 리스트 validation 상태 관리 변수
   const newList = getValues('ingredientList')
-  const newListExist = newList !== undefined && newList !== []
+  const newListExist = newList !== undefined
 
   let nameRequired = false;
   let amountRequired = false;
