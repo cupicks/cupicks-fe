@@ -8,7 +8,7 @@ const ConfirmBox = (props) => {
     imageUrl = "",
     confirmButtonText = "",
     backgroundShadow = false,
-    timer = 100,
+    timer = 600,
     onComfirmed,
     onDenied,
   } = props;
@@ -20,16 +20,18 @@ const ConfirmBox = (props) => {
   return (
     <>
       {modalShow && (
-        <StModal
-          backgroundColor={backgroundColor}
-          timer={timer * 0.001}
-          onClick={() => {
-            modalContents.current.className = "contents fade_out";
-            setTimeout(() => {
-              setModalShow(false);
-            }, 1000);
-          }}
-        >
+        <StModal timer={timer * 0.001}>
+          <StBackground
+            backgroundColor={backgroundColor}
+            onMouseDown={onDenied}
+            onClick={() => {
+              modalContents.current.className = "contents fade_out";
+              setTimeout(() => {
+                setModalShow(false);
+              }, timer / 3);
+            }}
+          />
+
           <div className="contents" ref={modalContents}>
             <img
               className="button_close"
@@ -60,6 +62,17 @@ const ConfirmBox = (props) => {
 
 export default ConfirmBox;
 
+const StBackground = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: ${(props) => props.backgroundColor};
+`;
+
 const StModal = styled.div`
   width: 100vw;
   height: 100vh;
@@ -79,8 +92,6 @@ const StModal = styled.div`
   line-height: 150%;
   text-align: center;
 
-  background-color: ${(props) => props.backgroundColor};
-
   .contents {
     display: flex;
     flex-flow: column;
@@ -94,6 +105,7 @@ const StModal = styled.div`
     padding: 35px 0 22px;
 
     position: relative;
+    transform: translateY(-60%);
 
     background-color: #fff;
     color: #393939;
@@ -116,6 +128,8 @@ const StModal = styled.div`
     position: absolute;
     top: 11px;
     right: 15px;
+
+    cursor: pointer;
   }
 
   button {
@@ -125,6 +139,8 @@ const StModal = styled.div`
     background: #101010;
     color: #fff;
     border-radius: 10px;
+
+    cursor: pointer;
   }
 
   img.illust {

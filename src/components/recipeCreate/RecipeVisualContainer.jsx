@@ -109,7 +109,7 @@ export default RecipeVisualContainer;
 
 const StRecipeVisualContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
-  height: calc(100vh - 60px - 150px);
+  flex: 0 0 calc(100vh - 60px - 150px);
   
   display: flex;
   justify-content: center;

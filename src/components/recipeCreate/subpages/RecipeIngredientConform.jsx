@@ -74,10 +74,12 @@ const StTextInputContainer = styled.div`
   }
 `
 
-const StTable = styled.div`
+const StTable = styled.table`
   color: #B6B6B6;
 ;
-
+  tr {
+    display: flex;
+  }
   .title {
     padding-right: 4px;
   }
