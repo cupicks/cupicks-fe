@@ -61,6 +61,8 @@ const RecipeFormContainer = (props) => {
 export default RecipeFormContainer;
 
 const StRecipeFormContainer = styled.div`
+  height: 100%;
+
   display: flex;
   flex-flow: column;
   text-align: center;

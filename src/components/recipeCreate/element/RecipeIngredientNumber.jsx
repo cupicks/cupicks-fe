@@ -8,7 +8,7 @@ const RecipeIngredientNumber = (props) => {
         type="text"
         autoComplete="off"
         id={idx}
-        maxLength={3}
+        maxLength={4}
 
         {...register(`ingredientList.${idx}.ingredientAmount`)}
 
