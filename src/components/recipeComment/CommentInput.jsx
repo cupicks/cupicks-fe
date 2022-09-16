@@ -2,29 +2,36 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import commentPicSrc from "../../assets/svg/profile.svg";
-import editIcon from "../../assets/svg/edit.svg";
+import api from "../../server/api";
+import { useJwt } from "react-jwt";
+import editIcon from "../../assets/svg/cancel_photo.svg";
 
-const CommentInput = () => {
+const CommentInput = ({ getComments }) => {
   const { recipeId } = useParams();
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const token = localStorage.getItem("refreshToken");
+
+  const { decodedToken, isExpired } = useJwt(token);
+  // const myDecodedToken = decodeToken(accessToken);
+  // console.log(decodedToken.imageUrl);
+  // const onSubmit = (data) => console.log(data);
   // const imageupload = useRef();
 
   const [files, setFiles] = useState([]);
   // const [picshow, setPicShow] = useState(false);
   //이미지 미리보기
   const image = watch("image");
+  const comment = watch("comment");
+
   const [imagePreview, setImagePreview] = useState("");
-  console.log(imagePreview);
 
   React.useEffect(() => {
     if (image && image.length > 0) {
@@ -77,27 +84,36 @@ const CommentInput = () => {
   //   });
   // };
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (comments === "") {
-  //     return alert("댓글을 입력해주세요");
-  //   }
-  //   await axios
-  //     .post(
-  //       `url/api/comments?recipeId=${recipeId}&comment=${comments}`,
-  //       comments
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  //   fetchComments();
-  //   setComments("");
-  // };
-  // console.log(newcomments);
+  const fileSubmit = async (data) => {
+    if (comment === "") {
+      return alert("댓글을 입력해주세요");
+    }
+    let contentType = "multi-part/form-data";
+    const form = new FormData();
+    form.append(
+      "imageValue",
+      getValues("image") === undefined ? null : getValues("image")[0]
+    );
+
+    await api(contentType)
+      .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
+      .then((res) => {
+        console.log(res);
+      });
+    setValue("comment", null);
+    setImagePreview(URL.revokeObjectURL(image[0]));
+    setValue("image", null);
+    getComments();
+  };
+
   return (
-    <StWrap onSubmit={handleSubmit(onSubmit)}>
+    <StWrap onSubmit={handleSubmit(fileSubmit)}>
       <div className="input_profile">
-        <div className="profile_image"></div>
+        <div className="profile_image">
+          {decodedToken !== null && (
+            <StInputProfile src={decodedToken.imageUrl}></StInputProfile>
+          )}
+        </div>
       </div>
       <div className="input_wrap fcc">
         <div className="input_box">
@@ -132,6 +148,7 @@ const CommentInput = () => {
             id="picture"
             {...register("image", { required: true })}
             accept="image/*"
+            getValues={getValues}
           ></input>
           <label htmlFor="picture" className="pic_upload">
             + 사진 업로드
@@ -144,13 +161,19 @@ const CommentInput = () => {
 
 export default CommentInput;
 
+const StInputProfile = styled.img`
+  object-fit: cover;
+  max-width: 40px;
+  max-height: 40px;
+`;
+
 const DeletePreview = styled.img`
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
 
   position: absolute;
-  top: 34%;
-  left: 35%;
+  top: 25%;
+  left: 36%;
 `;
 
 const StPicUpload = styled.img`
@@ -187,13 +210,14 @@ const StWrap = styled.form`
   .input_profile {
     width: 20%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 5px;
     justify-content: flex-end;
   }
 
   .profile_image {
-    width: 2.5rem;
-    height: 2.5rem;
+    max-width: 40px;
+    max-height: 40px;
     border-radius: 50%;
     margin-bottom: 1.5rem;
 

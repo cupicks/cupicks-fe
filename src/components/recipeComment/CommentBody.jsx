@@ -2,276 +2,163 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import talk_edit from "../../assets/svg/talk_edit.svg";
 import CommentOption from "./CommentOption";
-import axios from "axios";
+import api from "../../server/api";
+import { useParams } from "react-router-dom";
+import { useJwt } from "react-jwt";
+import CommentInput from "./CommentInput";
 
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menubackground = useRef();
-  // const [comment, setComment] = useState([]);
-  // const fetchComment = async () => {
-  //   const data = await axios.get(`url/api/comments`).then((res) => {
-  //     console.log(res)
-  //   });
-  //   setComment(data.data.commentList);
-  // }
+  // const menubackground = useRef();
 
-  // useEffect(() => {
-  //   fetchComment();
-  // }, []);
-  const start = {
-    isSuccess: true,
-    message: "댓글 전체 조회에 성공했습니다.",
-    commentList: [
-      {
-        userId: 1,
-        nickname: "이민석",
-        recipeId: 1,
-        commentId: 1,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "이 레시피 너무 좋은데요?",
-        createdAt: "30분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-      {
-        userId: 2,
-        nickname: "두선아",
-        recipeId: 1,
-        commentId: 2,
-        imageUrl: "",
-        recizedUrl: "",
-        comment: "ㅇㅈㅇㅈ",
-        createdAt: "25분전", // Date 양식
-        updatedAt: "5분전", // Date 양식
-      },
-    ],
+  const { recipeId } = useParams();
+  let [comments, setComments] = useState([]);
+  const [editCommentId, setEditCommentId] = useState();
+
+  const token = localStorage.getItem("refreshToken");
+  const { decodedToken, isExpired } = useJwt(token);
+
+  // console.log(decodedToken);
+  // console.log(comments);
+
+  const getComments = async () => {
+    let contentType = "application/json";
+    const data = await api(contentType)
+      .get(`/comments?recipeId=${recipeId}&page=1&count=10`)
+      .then((res) => {
+        console.log(res);
+        setComments([...res.data.commentList]);
+      });
   };
-  let [comments, setComments] = useState(start);
-  comments = comments.commentList;
+  console.log(comments);
 
-  console.log(menubackground);
+  const getTimegap = (createdAt) => {
+    const myDate = new Date(createdAt);
+    const result = myDate.getTime();
+    const msdiff = Date.now() - result;
+    const seconds = msdiff / 1000;
+
+    if (seconds < 60) return `방금 전`;
+    const minutes = seconds / 60;
+    if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+    const hours = minutes / 60;
+    if (hours < 24) return `${Math.floor(hours)}시간 전`;
+    const days = hours / 24;
+    if (days < 7) return `${Math.floor(days)}일 전`;
+    const weeks = days / 7;
+    if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+    const months = days / 30;
+    if (months < 12) return `${Math.floor(months)}개월 전`;
+    const years = days / 365;
+    return `${Math.floor(years)}년 전`;
+    // const minute = Math.floor(msdiff / 60000);
+    // const hour = Math.floor(msdiff / 360000);
+
+    // if (msdiff < 0) {
+    //   return <p>0분전</p>;
+    // }
+    // if (minute > 60) {
+    //   return <p>{hour}시간 전</p>;
+    // } else {
+    //   return <p>{minute}분 전</p>;
+    // }
+  };
+
+  useEffect(() => {
+    getComments();
+  }, []);
+
   return (
-    <StListWrap>
-      {comments.map((comment, recipeId) => (
-        <React.Fragment key={recipeId}>
-          <StCommentWrap>
-            <StProfile>
-              <div className="profile_pic"></div>
-            </StProfile>
-            <StContent>
-              <div className="content_top">
-                <div className="nickname">{comment.nickname}</div>
-                <div className="create_time">{comment.createdAt}</div>
-              </div>
-              <div className="content_bottom">{comment.comment}</div>
-            </StContent>
-            <StOption
-              onClick={() => {
-                setMenuOpen(true);
-              }}
-            >
-              <img src={talk_edit} />
-            </StOption>
-            {menuOpen == true ? (
-              <ModalBack
-                ref={menubackground}
-                onClick={(e) => {
-                  if (menubackground.current === e.target) {
-                    setMenuOpen(false);
-                  }
-                  e.stopPropagation();
+    <>
+      <StListWrap>
+        {comments.map((comment, recipeId) => (
+          <React.Fragment key={recipeId}>
+            <StCommentWrap>
+              <StProfile>
+                <div className="profile_pic">
+                  <StCommentProfile
+                    src={decodedToken.imageUrl}
+                  ></StCommentProfile>
+                </div>
+              </StProfile>
+              <StContent>
+                <div className="content_top">
+                  <div className="nickname">{comment.nickname}</div>
+                  <div className="create_time">
+                    {getTimegap(comment.createdAt)}
+                  </div>
+                </div>
+                <div className="content_bottom">{comment.comment}</div>
+                {comment.imageUrl == null ? null : (
+                  <div className="content_picContainer">
+                    <img className="content_pic" src={comment.imageUrl} />
+                  </div>
+                )}
+              </StContent>
+              <StOption
+                onClick={() => {
+                  setMenuOpen(true);
+                  setEditCommentId(comment.commentId);
                 }}
               >
-                <CommentOption setMenuOpen={setMenuOpen} />
-              </ModalBack>
-            ) : null}
-          </StCommentWrap>
-        </React.Fragment>
-      ))}
-    </StListWrap>
+                <img src={talk_edit} />
+              </StOption>
+
+              {/* {menuOpen == true ? (
+                <ModalBack
+                  ref={menubackground}
+                  onClick={(e) => {
+                    if (menubackground.current === e.target) {
+                      setMenuOpen(false);
+                    }
+                    e.stopPropagation();
+                  }}
+                >
+                  <CommentOption
+                    comments={comments}
+                    setComments={setComments}
+                    editCommentId={editCommentId}
+                    setMenuOpen={setMenuOpen}
+                  />
+                </ModalBack>
+              ) : null} */}
+            </StCommentWrap>
+          </React.Fragment>
+        ))}
+        <CommentOption
+          comments={comments}
+          setComments={setComments}
+          editCommentId={editCommentId}
+          setMenuOpen={setMenuOpen}
+          menuOpen={menuOpen}
+        />
+      </StListWrap>
+      <CommentInput getComments={getComments} />
+    </>
   );
 };
 
 export default CommentBody;
 
-const ModalBack = styled.div`
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.25);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 2.5rem;
-  box-sizing: border-box;
+// const ModalBack = styled.div`
+//   position: fixed;
+//   z-index: 1000;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   background-color: rgba(0, 0, 0, 0.05);
+//   display: flex;
+//   justify-content: center;
+//   align-items: flex-end;
+//   padding-bottom: 2.5rem;
+//   box-sizing: border-box;
+// `;
+
+const StCommentProfile = styled.img`
+  object-fit: cover;
+  max-width: 50px;
+  max-height: 50px;
 `;
 
 const StListWrap = styled.div`
@@ -286,7 +173,7 @@ const StListWrap = styled.div`
 `;
 const StCommentWrap = styled.div`
   width: 100%;
-  height: 10vh;
+  min-height: 10vh;
 
   border-bottom: 0.5px solid #8f8b8b8a;
   padding-top: 1rem;
@@ -300,12 +187,12 @@ const StProfile = styled.div`
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 auto;
 
   .profile_pic {
-    width: 5vh;
-    height: 5vh;
+    max-width: 50px;
+    max-height: 50px;
 
     margin-bottom: 2.2rem;
 
@@ -347,6 +234,18 @@ const StContent = styled.div`
 
     display: flex;
     align-items: center;
+  }
+
+  .content_picContainer {
+    max-width: 300px;
+    max-height: 300px;
+    margin-bottom: 15px;
+  }
+
+  .content_pic {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
   }
 `;
 
