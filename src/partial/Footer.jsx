@@ -26,7 +26,7 @@ const Footer = ({pathname}) => {
 
         <StButton onClick={goToMypage}>
           <div 
-            className={pathname === '/mypage'?"svg_box on":"svg_box"}
+            className={(pathname === '/mypage' || pathname === '/profile/edit')?"svg_box on":"svg_box"}
           >
             <MyPageIcon />
           </div>

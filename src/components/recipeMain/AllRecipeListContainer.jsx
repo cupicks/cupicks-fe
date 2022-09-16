@@ -10,18 +10,24 @@ import like from "../../assets/svg/like_m.svg";
 import { useNavigate } from "react-router-dom";
 
 const AllRecipeListContainer = (props) => {
-  const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
+  const { recipeId, ingredientList, title, cupSize, nickname, resizedUrl, imageUrl } = props.allrecipes;
   const navigate = useNavigate();
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
 
   const cupHeight = (cupSize / 591 * 100).toFixed()
+  // 추후 resizeUrl로 변경
+  const profileImage = imageUrl
 
   return (
     <>
       <StListHead>
-        <StListProfile></StListProfile>
-        <StNickname>닉네임</StNickname>
+        <StListProfile 
+          profileImage={profileImage}
+        />
+        <StNickname>
+          {nickname}
+        </StNickname>
       </StListHead>
 
       <StListContent
@@ -78,6 +84,7 @@ const StListProfile = styled.div`
   border-radius: 50%;
 
   border: 1px solid #b6b6b6;
+  background:#eee url(${props => props.profileImage}) no-repeat center / cover;
 `;
 
 const StNickname = styled.div`

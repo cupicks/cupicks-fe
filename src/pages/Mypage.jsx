@@ -16,22 +16,11 @@ const Mypage = () => {
   const {decodedToken} = useJwt(token);
   let userData = decodedToken;
   
-  // 유저정보
-  // const {getUser} = TokenService
-  useEffect(()=>{
-    // setLoaded(false);
-    // const fetchDecodedToken = async () => {
-    //   userData = await getUser();
-    // }
-    // fetchDecodedToken()
-    setLoaded(true);
-  }, [])
-
   return (
     <StWrap>
-      {loaded &&
+      {userData !== null &&
         <>
-          <MypageMyInfo userData={userData} />
+          <MypageMyInfo token={token} userData={userData} />
           <MypageRecipeMyList on={true} />
           
           {/* 좋아요 리스트: MVP이후 작업 */}

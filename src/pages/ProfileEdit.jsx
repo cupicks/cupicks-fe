@@ -2,13 +2,18 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useJwt } from 'react-jwt'
 
+import api from '../server/api'
+
 import Navigation from "../partial/Navigation";
 import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
-
-import styled from "styled-components";
 import ProfileEditBody from "../components/profileEdit/profileEditBody";
 
+import styled from "styled-components";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const ProfileEdit = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,35 +21,68 @@ const ProfileEdit = () => {
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
 
-    console.log(data);
+  const onSubmit = async (data) => {
+    const contentType = "application/json";
+
+    const newNickname = data.nickname;
+    const newPassword = data.password;
+    let params = `profile?nickname=${newNickname}`
+
+    if(newPassword !== undefined && newPassword !== ''){
+      params += `&password=${newPassword}`
+    }
+
+    const form = new FormData();
+    form.append(
+      "imageValue",
+      data.imageValue === undefined ? null : data.imageValue[0]
+    );
+
+    try {
+      const res = await api(contentType).patch(params, form);
+      navigate('/mypage')
+      console.log(res);
+
+    } catch (err) {
+      console.log(err);
+    }
   }
-  
+
   const token = localStorage.getItem('refreshToken')
   const {decodedToken} = useJwt(token);
-  let userData = decodedToken
-  console.log(userData);
+  let userData = decodedToken;
 
   return (
     <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
+
       <Navigation>
         <span className="title">
           개인 정보 편집
         </span>
-        <button>저장</button>
+        <button 
+          type="submit"
+        >
+          저장
+        </button>
       </Navigation>
 
-      <ProfileEditHeader 
-        watch={watch}
-        register={register}
-      />
-      
-      <ProfileEditBody
-        watch={watch}
-        register={register}
-        errors={errors}
-      />
+      {userData !== null &&
+        <>
+          <ProfileEditHeader 
+            watch={watch}
+            register={register}
+            userData={userData}
+          />
+          
+          <ProfileEditBody
+            watch={watch}
+            register={register}
+            errors={errors}
+            userData={userData}
+          />
+        </>
+      }
 
       <div></div>
     </StProfileEdit>
