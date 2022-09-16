@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,7 @@ import Email from "../components/register/Email";
 import Nickname from "../components/register/Nickname";
 import Password from "../components/register/Password";
 import Image from "../components/register/Image";
+import ConfirmBox from "../components/elements/modal/ConfirmBox";
 
 import styled from "styled-components";
 
@@ -26,7 +27,8 @@ const Register = () => {
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
-  const [level, setLevel] = React.useState(0);
+  const [level, setLevel] = useState(0);
+  const [modal, setModal] = useState(false);
 
   const onSubmit = async () => {
     const contentType = "multi-part/form-data";
@@ -84,26 +86,52 @@ const Register = () => {
       // reset("emailVerifyToken");
       // reset("Number");
       // reset(getValues("email"));
-      reset({ emailVerifyToken: undefined });
-      reset({ nicknameVerifyToken: undefined });
+      // reset({ emailVerifyToken: undefined });
+      // reset({ nicknameVerifyToken: undefined });
       // setValue("emailVerifyToken", undefined);
       // resetField("emailVerifyToken");
       // console.log(getValues("emailVerifyToken"));
-      setLevel(0);
-      alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
+      // setLevel(0);
+      setModal(true);
+      // alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
 
       // resetField(getValues("emailVerifyToken"));
       // console.log(getValues("emailVerifyToken"));
     }
   };
-  React.useEffect(() => {
-    if (level !== 0) {
-      before();
-    }
-  }, []);
+  const resetRegister = () => {
+    setTimeout(() => {
+      reset({ emailVerifyToken: undefined });
+      reset({ nicknameVerifyToken: undefined });
+      setLevel(0);
+      setModal(false);
+    }, 1000);
+  };
+  const cancelModal = () => {
+    setTimeout(() => {
+      setModal(false);
+    }, 1000);
+  };
+  // React.useEffect(() => {
+  //   if (level !== 0) {
+  //     before();
+  //   }
+  // }, []);
+  // React.useEffect(() => {
+  //   resetRegister();
+  // }, []);
 
   return (
     <StDiv>
+      {modal && (
+        <ConfirmBox
+          text={"뒤로가기 버튼을 누를시\n이메일 인증부터 새로 하셔야 합니다."}
+          confirmButtonText={"새로하기"}
+          backgroundShadow={true}
+          onComfirmed={resetRegister}
+          onDenied={cancelModal}
+        />
+      )}
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <StSpanBox>
           <StArrowBack src={arrowBack} alt="뒤로가기" onClick={before} />
