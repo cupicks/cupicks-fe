@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+
 import RecipeList from "./RecipeList";
 import AllRecipeList from "./AllRecipeList";
+
+import styled from "styled-components";
 
 const RecipeBody = () => {
   // const colorLists = [
@@ -282,9 +284,13 @@ const RecipeBody = () => {
 
   return (
     <StWrap>
-      <StRecipeTitle>이번주 인기 레시피</StRecipeTitle>
+      {/* <StRecipeTitle>이번주 인기 레시피</StRecipeTitle>
       <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} />
-      <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
+      <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle> */}
+
+      {/* 임시 타이틀 */}
+      <StRecipeTitle>전체 레시피</StRecipeTitle>
+      
       <AllRecipeList />
     </StWrap>
   );
@@ -302,30 +308,25 @@ const StWrap = styled.div`
   overflow: auto;
 `;
 
-const StAllRecipeTitle = styled.div`
-  height: 50px;
+// const StAllRecipeTitle = styled.div`
+//   height: 50px;
 
-  margin-left: 45px;
-  margin-top: 30px;
+//   margin-left: 45px;
+//   margin-top: 30px;
 
-  display: flex;
-  align-items: center;
+//   display: flex;
+//   align-items: center;
 
-  font-size: 18px;
-  font-weight: bold;
+//   font-size: 18px;
+//   font-weight: bold;
 
-  cursor: pointer;
-`;
+//   cursor: pointer;
+// `;
 
 const StRecipeTitle = styled.div`
-  /* width: 600px; */
-  height: 100px;
+  padding: 10px 25px 0;
 
-  margin-left: 45px;
-
-  display: flex;
-  align-items: center;
-
-  font-size: 25px;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 150%;
 `;

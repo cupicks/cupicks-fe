@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import styled, { keyframes } from "styled-components";
 import { useInView } from "react-intersection-observer";
+
 import AllRecipeListContainer from "./AllRecipeListContainer";
+
 import api from "../../server/api";
 import Logo from "../../assets//image/logo/Logo_Cupick.png";
+
+import styled, { keyframes } from "styled-components";
 
 const AllRecipeList = () => {
   // allRecipe = allRecipe.recipeList;
@@ -64,8 +67,15 @@ const AllRecipeList = () => {
     if (inView && !loading) {
       setTimeout(() => {
         setPage(page + 1);
-      }, 1500);
+      }, 10);
       // page.current += 1;
+      
+      // 기존코드
+      // if (inView && !loading) {
+      //   setTimeout(() => {
+      //     setPage(page + 1);
+      //   }, 1500);
+      // }
     }
   }, [inView, loading]);
 
@@ -87,25 +97,31 @@ const AllRecipeList = () => {
     getItems();
   }, [getItems]);
 
-  console.log(items);
-  console.log(page);
-  console.log(inView);
+  //-----하단 console.log 3개 주석처리할게요! -by선아
+  // console.log(items);
+  // console.log(page);
+  // console.log(inView);
   return (
     <StAllListWrap>
+
       {items?.map((allrecipes, index) => (
-        <React.Fragment key={index}>
+        <StListWrap key={"allRecipeList"+index}>
+
           {items.length - 1 == index ? (
-            <div ref={ref}>
-              {loading ? <Loading src={Logo} /> : null}
+            <div className="flex_box" ref={ref}>
+              {/* 스피너 이미지 비율이 깨지는 것 같습니다 -by선아 */}
+              {/* {loading ? <Loading src={Logo} /> : null} */}
               <AllRecipeListContainer allrecipes={allrecipes} />
             </div>
           ) : (
-            <div>
+            <div className="flex_box">
               <AllRecipeListContainer allrecipes={allrecipes} />
             </div>
           )}
-        </React.Fragment>
+
+        </StListWrap>
       ))}
+
     </StAllListWrap>
   );
 };
@@ -119,42 +135,71 @@ const fade = keyframes`
 to {
   transform: rotate(360deg);
 } */
-0% {
-  opacity: 1;
-}
-50% {
-  opacity: 0;
-}
-100% {
-  opacity: 1;
-}
-  
-`;
-const Loading = styled.img`
-  width: 60px;
-  height: 60px;
-  animation: ${fade} 0.5s 0s forwards;
-  border: 1px solid rgba(255, 204, 204, 0.5);
-  border-radius: 50%;
-  padding: 10px;
-  margin: 10px;
-  overflow: hidden;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 100px;
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 `;
 
-const StAllListWrap = styled.div`
+// const Loading = styled.img`
+//   width: 60px;
+//   height: 60px;
+//   animation: ${fade} 0.5s 0s forwards;
+//   border: 1px solid rgba(255, 204, 204, 0.5);
+//   border-radius: 50%;
+//   padding: 10px;
+//   margin: 10px;
+//   overflow: hidden;
+//   position: fixed;
+//   left: 50%;
+//   transform: translateX(-50%);
+//   bottom: 100px;
+// `;
+
+const StAllListWrap = styled.ul`
   width: 100%;
-  /* height: 220px; */
-  border-radius: 12px;
 
-  /* margin: 0 auto; */
-  margin-top: 30px;
+  margin-top: 20px;
+  padding: 0 20px;
 
   display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  flex-flow: wrap;
+  gap: 9px;
+  
+  @media (max-width: 360px) {
+    gap: 10px;
+  }
+`;
+
+const StListWrap = styled.li`
+  flex: 0 0 calc((100% - (9px * 2)) / 3);
+  height: 25vh;
+  max-height: 500px;
+  border-radius: 9px;
+  
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+  
+  transition: all .3s;
+  overflow: hidden;
+
+  @media (max-width: 360px) {
+    flex: 0 0 calc((100% - (10px * 1)) / 2);
+  }
+  
+  :hover {
+    transform: translateY(-4px);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  & > .flex_box {
+    height: 100%;
+
+    display: flex;
+    flex-flow: column;
+  }
 `;
