@@ -18,19 +18,17 @@ const CompleteOne = () => {
 export default CompleteOne;
 
 const StDiv = styled.div`
-  position: relative;
   .box {
     width: 140px;
-    position: absolute;
-    top: 102px;
-    left: 24px;
+    margin-top: 60px;
   }
 `;
 
 const StImg = styled.img`
-  width: 338px;
-  height: 340px;
-  position: absolute;
-  top: 227px;
-  left: 130px;
+  width: 100%;
+  max-width: 450px;
+
+  margin: 40px auto 0;
+
+  display: block;
 `;

@@ -47,4 +47,8 @@ export default Password;
 const StDiv = styled.div`
   display: flex;
   flex-direction: column;
+
+  & p {
+    transform: translateY(-28px) !important;
+  }
 `;

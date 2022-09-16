@@ -190,19 +190,25 @@ const StButton = styled.button`
   padding: 15px;
   border-radius: 10px;
 
-  border: 1px solid #cdcdcd;
-  color: #cdcdcd;
-
+  border: var(--input-border-bottom);
+  color: var(--input-font-color);
+  
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-
+  
   transition: all 0.2s;
   box-sizing: border-box;
 
+  cursor: pointer;
+  
   :hover {
-    background-color: #393939;
+    background-color: var(--button-activeBackgroundColor);
+    border-color: var(--button-activeBorderColor);
     color: #fff;
+  }
+  :disabled {
+    pointer-events: none;
   }
 `;
 

@@ -33,6 +33,7 @@ const StNav = styled.nav`
   top: 0;
 
   background-color: #fff;
+  color: #393939;
 
   min-height: 60px;
   line-height: 60px;
@@ -65,9 +66,7 @@ const StNav = styled.nav`
 
     transform: translateX(-50%);
 
-    font-weight: 400;
     font-size: 17px;
-    line-height: 150%;
   }
 
   img {

@@ -31,7 +31,7 @@ const Image = (props) => {
         id="picture"
         {...register("image", { required: true })}
         accept="image/*"
-        hidden
+        hidden='hidden'
       />
       {/* {errors.image && <p>이미지를 추가해 주세요</p>} */}
       <StLabelButton>
@@ -46,16 +46,52 @@ export default Image;
 const StDiv = styled.div`
   display: flex;
   flex-direction: column;
+
+  input[type="file"]{
+    display: none;
+  }
 `;
+
 const StImg = styled.img`
   width: 130px;
   height: 130px;
 
-  margin: 50px auto;
+  margin: 30px auto 40px;
   border-radius: 50%;
 `;
+
 const StLabelButton = styled.div`
-  width: 100%;
+  all: unset;
+  height: 55px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  background-color: var(--button-activeBackgroundColor);
+  border: 2px solid var(--button-activeBorderColor);
+
+  color: #ffffff;
+  
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  
+  transition: all 0.2s;
+  box-sizing: border-box;
+
+  cursor: pointer;
+  overflow: hidden;
+  
+  :hover {
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+  }
+  :disabled {
+    pointer-events: none;
+  }
+  /* width: 100%;
   height: 60px;
   border: 3px solid #eee;
   border-radius: 10px;
@@ -68,17 +104,18 @@ const StLabelButton = styled.div`
   margin-bottom: -200px;
   :hover {
     border-color: #000;
-  }
+  } */
 `;
+
 const StLabel = styled.label`
-  cursor: pointer;
   width: 100%;
-  height: 100%;
-  padding-top: 15px;
+  line-height: 55px;
+
   font-size: 18px;
-  color: #a3a2a2;
+
+  cursor: pointer;
+
   :hover {
-    background-color: #000;
     color: #fff;
   }
 `;
