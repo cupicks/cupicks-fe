@@ -1,140 +1,135 @@
 import React from "react";
+
 import styled from "styled-components";
+
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
 
 import talk from "../../assets/svg/talk.svg";
 import like from "../../assets/svg/like_m.svg";
 
+import { useNavigate } from "react-router-dom";
+
 const AllRecipeListContainer = (props) => {
   const { recipeId, ingredientList, title, cupSize } = props.allrecipes;
+  const navigate = useNavigate();
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
+
+  const cupHeight = (cupSize / 591 * 100).toFixed()
+
   return (
-    <div key={recipeId}>
-      <StListWrap>
-        <StListHead>
-          <StListProfile></StListProfile>
-          <StNickname>닉네임</StNickname>
-        </StListHead>
-        <StListContent>
-          {ingredientList.map((ingredients) => (
+    <>
+      <StListHead>
+        <StListProfile></StListProfile>
+        <StNickname>닉네임</StNickname>
+      </StListHead>
+
+      <StListContent
+        onClick={()=>{
+          navigate(`${recipeId}/detail`)
+        }}
+      >
+        <StCupHeight cupHeight={cupHeight}>
+          {ingredientList.map((ingredients, idx) => (
             <AllRecipeListIngredient
               ingredients={ingredients}
               cupSize={cupSize}
+              key={'allRecipeListIngredient'+idx}
             />
           ))}
-        </StListContent>
-        <StListTitle>
-          <div className="title">{title}</div>
-          <StItemSet>
-            <img className="talk_btn" src={talk} />
-            <img className="like_btn" src={like} />
-          </StItemSet>
-        </StListTitle>
-      </StListWrap>
-    </div>
+        </StCupHeight>
+      </StListContent>
+
+      <StListDesc>
+
+        <div className="title">{title}</div>
+        <StIconSet>
+          <img 
+            className="talk_btn" 
+            src={talk} 
+            onClick={()=>{
+              navigate(`${recipeId}/comment`)
+            }}
+          />
+          {/* <img className="like_btn" src={like} /> */}
+        </StIconSet>
+
+      </StListDesc>
+    </>
   );
 };
 
 export default AllRecipeListContainer;
 
-// const StList = styled.div`
-//   background-color: #fff;
-// `;
-
-const StListWrap = styled.div`
-  width: 30vw;
-  /* width: 7rem; */
-  height: 200px;
-  border-radius: 12px;
-
-  margin: 0 auto;
-  margin-top: 5px;
-
-  display: flex;
-  flex-flow: column;
-
-  box-shadow: rgb(0 0 0 / 10%) 0px 1px 20px 0px;
-`;
-
 const StListHead = styled.div`
-  height: 25px;
+  height: 23px;
+  padding: 0 5px;
 
   display: flex;
-  flex-flow: row;
   align-items: center;
-
-  background-color: #ffffff;
-
-  border-radius: 12px;
-  /* border-top: 2px solid #e6e6e6; */
+  gap: 5px;
+  
+  box-shadow: 0 2px 0 #eeeeee;
 `;
 
 const StListProfile = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
 
-  border: 2px solid gray;
-
-  margin-left: 0.3rem;
+  border: 1px solid #b6b6b6;
 `;
 
 const StNickname = styled.div`
-  margin-left: 5px;
-
-  font-size: 8px;
-  font-weight: bold;
-  padding-top: 0.5rem;
-`;
+  color: #101010;
+  
+  font-weight: 600;
+  font-size: 6.5px;
+  `;
 
 const StListContent = styled.div`
-  height: 150px;
+  flex: 1 1 auto;
 
   display: flex;
   flex-flow: column-reverse;
+  
   border-top: 2px solid #f8f7f8;
 `;
 
-const StListTitle = styled.div`
-  height: 25px;
-  border-radius: 12px;
-
-  padding-left: 0.5rem;
-  padding-bottom: 1rem;
-  padding-top: 0.7rem;
+const StCupHeight = styled.div`
+  height: ${props=>props.cupHeight+"%"};
 
   display: flex;
-  flex-flow: row;
+  flex-flow: column-reverse;
+`
+
+const StListDesc = styled.div`
+  min-height: 20px;
+  padding: 4px 5.5px 5px;
+
+  display: flex;
   justify-content: space-between;
   align-items: center;
 
   background-color: #ffffff;
 
-  border-bottom: 2px solid #e6e6e6;
-
-  font-size: 12px;
-
   .title {
-    font-size: 0.5rem;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 7px;
+    line-height: 150%;
   }
 `;
 
-const StItemSet = styled.div`
+const StIconSet = styled.div`
   display: flex;
-  flex-flow: row;
-  justify-content: center;
-  /* align-items: center; */
-
-  gap: 8px;
+  gap: 4px;
 
   .talk_btn {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 9px;
+    cursor: pointer;
   }
   .like_btn {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 11px;
+    cursor: pointer;
   }
 `;
