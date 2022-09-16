@@ -143,7 +143,10 @@ const Email = (props) => {
         인증번호 확인
       </button> */}
           <StTimer>
-            <StReNumber onClick={sendEmailVerifyCode}>
+            <StReNumber
+              disabled={checkNumberCode === true}
+              onClick={sendEmailVerifyCode}
+            >
               인증번호 재전송
             </StReNumber>
             <Timer
@@ -170,7 +173,13 @@ const StTimer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const StReNumber = styled.div`
+const StReNumber = styled.button`
+  border: none;
+  background: none;
   color: #3897f0;
+  :disabled {
+    pointer-events: none;
+    color: #cdcdcd;
+  }
   cursor: pointer;
 `;

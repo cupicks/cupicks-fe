@@ -67,7 +67,7 @@ const Register = () => {
       }
     }
   };
-  const next = () => {
+  const next = async () => {
     //에러가 날 경우 알림띄우기
     if (errors.email && level === 0) {
       alert("이메일을 제대로 입력해주세요!");
@@ -84,6 +84,28 @@ const Register = () => {
     if (errors.nickname && level === 2) {
       alert("닉네임을 제대로 입력해주세요");
       return;
+    }
+    //닉네임 중복확인
+    if (level === 2) {
+      const contentType = "application/x-www-form-urlencoded";
+      try {
+        const res = await api(contentType).get(
+          `/auth/confirm-nickname?emailVerifyToken=${getValues(
+            "emailVerifyToken"
+          )}&nickname=${getValues("nickname")}`
+          // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        );
+        const token = res.data.nicknameVerifyToken;
+        // console.log(res);
+        setValue("nicknameVerifyToken", token);
+        console.log(getValues("nicknameVerifyToken"));
+        // setCheckNickname(true);
+        alert(res.data.message);
+      } catch (err) {
+        console.log(err);
+        alert(err.response.data.message);
+        return;
+      }
     }
     setLevel((prev) => prev + 1);
   };
@@ -288,9 +310,9 @@ const Register = () => {
               (level === 0 && watch("email") === "") ||
               (level === 0 && watch("emailVerifyToken") === undefined) ||
               (level === 1 && watch("password") === "") ||
-              (level === 1 && watch("password_confirm") === "") ||
-              (level === 2 && watch("nickname") === "") ||
-              (level === 2 && watch("nicknameVerifyToken") === undefined)
+              (level === 1 && watch("password_confirm") === "")
+              // (level === 2 && watch("nickname") === "") ||
+              // (level === 2 && watch("nicknameVerifyToken") === undefined)
             }
           >
             계속하기
