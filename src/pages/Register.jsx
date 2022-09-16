@@ -107,7 +107,7 @@ const Register = () => {
       setModal(false);
     }, 1000);
   };
-  const cancleModal = () => {
+  const cancelModal = () => {
     setTimeout(() => {
       setModal(false);
     }, 1000);
@@ -129,7 +129,7 @@ const Register = () => {
           confirmButtonText={"새로하기"}
           backgroundShadow={true}
           onComfirmed={resetRegister}
-          onDenied={cancleModal}
+          onDenied={cancelModal}
         />
       )}
       <StForm onSubmit={handleSubmit(onSubmit)}>

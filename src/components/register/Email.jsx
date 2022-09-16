@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import serverAxios from "../../server/server.axios";
 import axios from "axios";
@@ -7,6 +7,8 @@ import { useWatch } from "react-hook-form";
 import api from "../../server/api";
 import Timer from "./Timer";
 
+import ToastMessage from "../../components/elements/modal/ToastMessage";
+
 const Email = (props) => {
   const { register, errors, setValue, watch, getValues } = props;
   const [checkEmail, setCheckEmail] = useState(false);
@@ -14,6 +16,7 @@ const Email = (props) => {
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
   const [checkTimer, setCheckTimer] = useState(false);
+  const [toast, setToast] = useState(false);
 
   const contentType = "application/x-www-form-urlencoded";
 
@@ -39,7 +42,10 @@ const Email = (props) => {
   };
   const sendEmailVerifyCode = async () => {
     if (errors.email) {
-      alert(errors.email.message);
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1000);
       return;
     }
     try {
@@ -72,6 +78,7 @@ const Email = (props) => {
   // });
   return (
     <StDiv>
+      {toast && <ToastMessage text={errors.email.message} timer={1000} />}
       <label>이메일 입력</label>
       <input
         type="text"
