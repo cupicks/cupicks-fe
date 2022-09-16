@@ -61,12 +61,14 @@ const StWrap = styled.footer`
 
   position: relative;
   
+  fill: #cccccc;
+  
   svg {
     transition: all .3s;
   }
 
   .svg_box.on {
-    fill: #CDCDCD !important;
+    fill: #393939;
   }
 `;
 
