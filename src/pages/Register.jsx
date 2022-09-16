@@ -281,7 +281,7 @@ const Register = () => {
             onClick={sendEmailVerifyCode}
             disabled={watch("email") === undefined || watch("email") === ""}
           >
-            이메일 인증번호 발송
+            인증번호 발송
           </StButton>
         ) : !checkEmailCode ? (
           <StButton

@@ -10,6 +10,7 @@ import api from "../server/api";
 import styled from "styled-components";
 
 import kakaoIcon from "../assets/svg/talk.svg";
+import kakao from "../assets/image/logo/kakao.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ const Login = () => {
       </StLineBox>
 
       <StKakaoBox>
-        <img src={kakaoIcon} />
+        <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox>
 
@@ -279,6 +280,9 @@ const StKakaoBox = styled.div`
   cursor: pointer;
 
   img {
+    width: 20px;
+    height: 20px;
+
     margin-right: 9px;
   }
 `;
