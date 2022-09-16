@@ -10,14 +10,14 @@ const ProfileEditHeader = (props) => {
   const {watch, register, userData} = props
   const [imagePreview, setImagePreview] = React.useState(prfilePicSrc);
 
-  const image = watch("image");
+  const image = watch("imageValue");
   
   React.useEffect(() => {
-    if(userData.imageUrl !== null) setImagePreview(userData.imageUrl)
-    
     if (image && image.length > 0) {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
+    } else {
+      if(userData.imageUrl !== null) setImagePreview(userData.imageUrl)
     }
   }, [image]);
 

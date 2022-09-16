@@ -5,12 +5,14 @@ import lockIcon from '../../assets/svg/lock.svg'
 
 const ProfileEditBody = (props) => {
   const {register, errors, userData} = props
+  console.log();
 
   return (
     <StProfileEditBody>
       {/* RegisterInputName */}
       <div className="register_input_box">
         <label>
+          닉네임
           <img 
             className="input_label_icon" 
             src={editIcon} 
@@ -20,10 +22,10 @@ const ProfileEditBody = (props) => {
         <input
           defaultValue={userData.nickname}
           {...register("nickname", {
-            // minLength: {
-            //   value: 2,
-            //   message: "2자 이상 입력해주세요",
-            // },
+            minLength: {
+              value: 2,
+              message: "2자 이상 입력해주세요",
+            },
             maxLength: {
               value: 10,
               message: "10자 이하로 입력해주세요",
@@ -61,10 +63,10 @@ const ProfileEditBody = (props) => {
         </label>
         <input
           {...register("password", {
-            // minLength: {
-            //   value: 8,
-            //   message: "8자 이상 써주세요",
-            // },
+            minLength: {
+              value: 8,
+              message: "8자 이상 써주세요",
+            },
             maxLength: {
               value: 15,
               message: "15자 이하로 써주세요",
@@ -90,6 +92,14 @@ export default ProfileEditBody;
 
 const StProfileEditBody = styled.div`
   padding: 15px 20px;
+
+  label {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 150%;
+    
+    color: #9E9E9E;
+  }
 
   .register_input_box {
     position: relative;
