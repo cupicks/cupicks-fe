@@ -22,7 +22,7 @@ const Navigation = (props) => {
 export default Navigation;
 
 const StNav = styled.nav`
-  padding: 0 5px;
+  padding: 0 24px;
 
   display: flex;
   align-items: center;
@@ -49,7 +49,6 @@ const StNav = styled.nav`
   }
 
   .button_goBack {
-    margin-left: 16px;
     cursor: pointer;
   }
 
@@ -69,5 +68,9 @@ const StNav = styled.nav`
     font-weight: 400;
     font-size: 17px;
     line-height: 150%;
+  }
+
+  img {
+    margin-top: 3px;
   }
 `;

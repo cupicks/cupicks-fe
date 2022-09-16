@@ -14,6 +14,7 @@ const AllRecipeListContainer = (props) => {
   const navigate = useNavigate();
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
+  console.log(props.allrecipes);
 
   const cupHeight = (cupSize / 591 * 100).toFixed()
   // 추후 resizeUrl로 변경
