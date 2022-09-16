@@ -26,7 +26,7 @@ const Router = () => {
       <Route path="/signUp/complete" element={<RegisterComplete />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/mypage" element={<Mypage />} />
-      <Route path="/profile/:userId/edit" element={<ProfileEdit />} />
+      <Route path="/profile/edit" element={<ProfileEdit />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -62,7 +62,7 @@ const RecipeCreateForm = () => {
         
         setRecipeCreated(true)
         setTimeout(()=>{
-          navigate(`/recipe/detail/${recipeId}`)
+          navigate(`/recipe/${recipeId}/detail/`)
           setRecipeCreated(false)
         }, 2000)
       })

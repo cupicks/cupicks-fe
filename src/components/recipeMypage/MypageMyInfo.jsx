@@ -1,28 +1,39 @@
 import { useNavigate } from "react-router-dom";
 
-import prfilePicSrc from '../../assets/svg/profile.svg'
-import dropDownIcon from '../../assets/svg/arrow_down.svg'
+import profilePlaceholder from '../../assets/svg/profile.svg'
+import slideDownIcon from '../../assets/svg/arrow_down.svg'
+import dropDownMenuIcon from '../../assets/svg/change.svg'
+import showMore from '../../assets/svg/profile_edit.svg'
 
 import styled from "styled-components";
 
 const MypageMyInfo = (props) => {
   const navigate = useNavigate();
+  // if(props.userData === null) return null
+  
   const {nickname, imageUrl, userId} = props.userData
+  console.log(props.userData);
 
   const onClickGoToProfileEdit = () => {
-    navigate(`/profile/${userId}/edit`)
+    navigate(`/profile/edit`)
   }
+  
+  const ProfileImageSrc = imageUrl?imageUrl:profilePlaceholder
+
+  // let nick = new TextDecoder(nickname)
+  // console.log(nick);
 
   return (
     <StMypageMyInfo>
       
       <div className="left">
-        <StProfilePic prfilePicSrc={prfilePicSrc} />
+        <StProfilePic ProfileImageSrc={ProfileImageSrc} />
         <span>
           {nickname}
         </span>
         <img 
-          src={dropDownIcon} 
+          className="dropdown_menu_icon"
+          src={dropDownMenuIcon} 
           alt="프로필 수정"
           onClick={onClickGoToProfileEdit}
         />
@@ -31,7 +42,11 @@ const MypageMyInfo = (props) => {
       <div className="right"
         onClick={onClickGoToProfileEdit}
       >
-        □
+        <img 
+          className="show_more_icon"
+          src={showMore} 
+          alt="프로필 수정"
+        />
       </div>
       
     </StMypageMyInfo>
@@ -56,8 +71,15 @@ const StMypageMyInfo = styled.div`
     gap: 8px;
   }
   
-  img {
-    width: 14px;
+  img.dropdown_menu_icon {
+    width: 12px;
+    margin-top: 4px;
+  }
+  
+  img.show_more_icon {
+    max-height: 16px;
+    position: relative;
+    right: -10px;
   }
   
   .right {
@@ -75,12 +97,11 @@ const StProfilePic = styled.div`
 
   position: relative;
 
-  background:#eee url(${props => props.prfilePicSrc}) no-repeat center / cover;
+  background:#eee url(${props => props.ProfileImageSrc}) no-repeat center / cover;
 
   img {
     position: absolute;
     right: 0;
     bottom: 0;
   }
-
 `;
