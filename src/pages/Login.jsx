@@ -9,7 +9,7 @@ import api from "../server/api";
 
 import styled from "styled-components";
 
-import kakaoIcon from '../assets/svg/talk.svg'
+import kakaoIcon from "../assets/svg/talk.svg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -110,7 +110,7 @@ const Login = () => {
       </StCtn>
 
       <StLink onClick={() => navigate("/signUp")}>
-          Cupick이 처음이세요? 회원가입
+        Cupick이 처음이세요? 회원가입
       </StLink>
     </StDiv>
   );
@@ -121,20 +121,20 @@ export default Login;
 const StDiv = styled.div`
   height: 100vh;
   padding: 0 25px;
-  
+
   display: flex;
   flex-flow: column;
 
   overflow-y: scroll;
-  
+
   color: #393939;
-  
+
   line-height: 150%;
 `;
 
 const StTitle = styled.div`
   width: 200px;
-  
+
   margin-top: 60px;
 
   h1 {
@@ -151,13 +151,12 @@ const StForm = styled.form`
   flex-direction: column;
 
   & p {
-    color: #E64A3A;
-;
+    color: #e64a3a;
   }
   & label {
     font-weight: 700;
     font-size: 13px;
-    color: #9E9E9E;
+    color: #9e9e9e;
   }
 `;
 
@@ -166,18 +165,18 @@ const StInput = styled.input`
   margin-bottom: 25px;
   padding: 10px 0;
 
-  border-bottom: 2px solid #CDCDCD;
+  border-bottom: 2px solid #cdcdcd;
 
   font-weight: 400;
   font-size: 17px;
   line-height: 150%;
 
-  transition: all .3s;
+  transition: all 0.3s;
 
   :hover,
   :focus,
   :active {
-    border-bottom-color: #9E9E9E;
+    border-bottom-color: #9e9e9e;
   }
   ::placeholder {
     color: #cdcdcd;
@@ -196,7 +195,7 @@ const StButton = styled.button`
   font-size: 18px;
   text-align: center;
 
-  transition: all .2s;
+  transition: all 0.2s;
   box-sizing: border-box;
 
   :hover {
@@ -208,7 +207,7 @@ const StButton = styled.button`
 const StFlexBox = styled.div`
   display: flex;
   justify-content: flex-end;
-`
+`;
 
 const StPass = styled.p`
   margin-top: 10px;
@@ -216,12 +215,12 @@ const StPass = styled.p`
   align-self: flex-end;
 
   color: #9e9e9e;
-  
+
   text-align: right;
   font-weight: 700;
 
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
 
   :hover {
     color: #393939;
@@ -237,12 +236,12 @@ const StLineBox = styled.div`
   margin-bottom: 35px;
 
   ::before {
-    content: '';
+    content: "";
     width: 100%;
     height: 1px;
 
     position: absolute;
-    
+
     background-color: #eee;
   }
 
@@ -294,11 +293,13 @@ const StCtn = styled.div`
 const StLink = styled.div`
   margin-top: 35px;
   margin-bottom: 40px;
-  
+
   font-weight: 700;
   font-size: 14px;
 
   color: #9e9e9e;
 
   text-align: center;
+
+  cursor: pointer;
 `;
