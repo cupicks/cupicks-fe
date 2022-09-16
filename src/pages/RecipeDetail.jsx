@@ -8,6 +8,7 @@ import IngredientsContainer from "../components/recipeDetail/IngredientsContaine
 import RecipeDesc from "../components/recipeDetail/RecipeDesc";
 import Navigation from "../partial/Navigation";
 
+
 import styled from "styled-components";
 
 const RecipeDetail = () => {
@@ -20,6 +21,7 @@ const RecipeDetail = () => {
     try {
       const response = await api(contentType).get(`/recipes/${recipeId}`)
       setRecipe(response.data.recipe)
+      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -31,11 +33,10 @@ const RecipeDetail = () => {
 
   return (
     <StWrap>
-      
       {recipe &&
         <>
           <Navigation>
-            <div className="icon_box fcc">
+            <div className="fcc">
               <IsIcedIcon isIced={recipe.isIced} />
             </div>
           </Navigation>

@@ -15,13 +15,17 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
+    line-height: 150%;
     font-family: 'Noto Sans KR', sans-serif;
     word-break: keep-all;
-    
+  }
+
+  /* 스크롤바 지우는 코드입니다. */
+  * {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-  
   *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }

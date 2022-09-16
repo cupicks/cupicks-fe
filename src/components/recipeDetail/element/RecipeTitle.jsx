@@ -1,9 +1,26 @@
+import { useNavigate } from 'react-router-dom';
+
+import talk from '../../../assets/svg/talk.svg'
+
 import styled from "styled-components";
 
 const RecipeTitle = (props) => {
+  const navigate = useNavigate();
+  const {title, recipeId} = props
+
   return (
     <StRecipeTitle>
-      {props.title}
+      <span>
+        {title}
+      </span>
+
+      <img 
+        src={talk} 
+        alt="댓글 보러가기" 
+        onClick={()=>
+          navigate(`/recipe/${recipeId}/comment`)
+        }
+      />
     </StRecipeTitle>
   )
 };
@@ -11,16 +28,18 @@ const RecipeTitle = (props) => {
 export default RecipeTitle;
 
 const StRecipeTitle = styled.div`  
-  padding: 12px 15px 13px;
-  border-radius: 15px;
+  padding: 17px 0 40px;
 
   font-weight: 700;
-  font-size: 14px;
-  line-height: 150%;
+  font-size: 18px;
 
   color: #393939;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  img {
+    width: 26px;
+  }
 `
