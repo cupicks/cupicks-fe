@@ -88,6 +88,7 @@ const AllRecipeList = () => {
       .get(`/recipes?page=${page}&count=12`)
       .then((res) => {
         setItems([...items, ...res.data.recipeList]);
+        console.log(res);
       });
     setLoading(false);
   }, [page]);

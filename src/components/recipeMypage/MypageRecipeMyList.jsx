@@ -1,91 +1,37 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
 import RecipeSilder from "./element/RecipeSilder";
 import RecipeListToggle from "./element/RecipeListToggle";
 
+import api from '../../server/api'
+
 const MypageRecipeMyList = (props) => {
   const {on} = props
   const [recipeList, setRecipeList] = useState();
   const [loaded, setLoaded] = useState(false);
+  
+  // 페이지네이션 재료
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(3);
 
-  const response = {
-    isSuccess: true,
-    message: '레시피 조회에성공하셨습니다.',
-    recipeList: [
-      {
-        recipeId: 0,
-        title: '레시피 이름',
-        content:  '레시피 본문',
-        isIced: true,
-        cupSize: 355,
-        createdAt: '2022-~~',
-        updatedAt: '2022-~~',
-        ingredientList: [
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: '#123456',
-            ingredientAmount: 300
-          },
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: 'tan',
-            ingredientAmount: 55
-          }
-        ]
-      },
-      
-      {
-        recipeId: 1,
-        title: '레시피 이름',
-        content:  '레시피 본문',
-        isIced: true,
-        cupSize: 355,
-        createdAt: '2022-~~',
-        updatedAt: '2022-~~',
-        ingredientList: [
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: '#039432',
-            ingredientAmount: 100
-          },
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: 'pink',
-            ingredientAmount: 150
-          }
-        ]
-      },
-      
-      {
-        recipeId: 3,
-        title: '레시피 이름',
-        content:  '레시피 본문',
-        isIced: true,
-        cupSize: 355,
-        createdAt: '2022-~~',
-        updatedAt: '2022-~~',
-        ingredientList: [
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: '#fefe33',
-            ingredientAmount: 50
-          },
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: 'skyblue',
-            ingredientAmount: 20
-          }
-        ]
-      }
-    ]
-  };
+  const Recipefetching = async () => {
+    let contentType = "application/json"
 
+    try {
+      const response = await api(contentType).get(`/profile/my-recipe?page=1&count=3`)
+      setRecipeList(response.data.recipeList)
+      setLoaded(true)
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   useEffect(()=>{
-    setRecipeList(response.recipeList)
-    setLoaded(true)
-  },[])
+    Recipefetching()
+  }, [])
 
   return (
     <>
@@ -95,7 +41,10 @@ const MypageRecipeMyList = (props) => {
             내가 만든 레시피
           </RecipeListToggle>
           <div className="toggleContents">
-            <RecipeSilder recipeList={recipeList} setRecipeList={setRecipeList}/>
+            <RecipeSilder 
+              recipeList={recipeList} 
+              setRecipeList={setRecipeList}
+            />
           </div>
         </StMypageRecipeWrap>
       }

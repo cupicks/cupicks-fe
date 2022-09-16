@@ -1,8 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 
 import IngredientList from "./IngredientList";
 import RecipeTitle from "../../recipeDetail/element/RecipeTitle";
@@ -10,7 +11,9 @@ import prfilePicSrc from '../../../assets/svg/profile.svg'
 
 import styled from "styled-components";
 
-const RecipeList = ({ recipeList, header=false }) => {
+const RecipeList = (props) => {
+  const {recipeList, header=false} = props
+  const navigate = useNavigate();
   const settings = {
     centerMode: true,
     infinite: false,
@@ -26,7 +29,11 @@ const RecipeList = ({ recipeList, header=false }) => {
         {recipeList.map((recipe, i) => (
 
           // Slider의 자식은 inline-block
-          <div className="slick_box"> 
+          <div 
+            className="slick_box" 
+            key={'slick_box'+i}
+            onClick={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
+          > 
             {header &&
               <StRecipeUserInfo>
                 <StProfilePic prfilePicSrc={prfilePicSrc} />
@@ -67,11 +74,10 @@ background-color: #fff;
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
-
     
     overflow: hidden;
     
-    box-shadow: 0px 0px 5px #ddd;
+    box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1), 3px 3px 8px rgba(0, 0, 0, 0.1);
   }
 
   .flex_box {

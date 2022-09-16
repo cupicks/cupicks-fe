@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useJwt } from 'react-jwt'
 
 import Navigation from "../partial/Navigation";
 import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
@@ -12,9 +13,18 @@ const ProfileEdit = () => {
     register,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+
+    console.log(data);
+  }
+  
+  const token = localStorage.getItem('refreshToken')
+  const {decodedToken} = useJwt(token);
+  let userData = decodedToken
+  console.log(userData);
 
   return (
     <StProfileEdit onSubmit={handleSubmit(onSubmit)}>

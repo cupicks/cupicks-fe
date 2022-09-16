@@ -7,8 +7,9 @@ const IngredientList = (props) => {
 
   return (
     <StIngredientList>
-      {ingredientList.map((ingredient) => (
+      {ingredientList.map((ingredient, i) => (
         <Ingredient 
+          key={'mypage_my_list_ingredient'+i}
           ingredient={ingredient} 
           cupSize={cupSize} 
         />
