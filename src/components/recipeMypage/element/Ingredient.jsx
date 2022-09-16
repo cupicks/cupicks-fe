@@ -5,13 +5,17 @@ const Ingredient = (props) => {
     ingredientColor="#fff", 
     ingredientAmount=0
   } = props.ingredient;
-  const {cupSize} = props
-  const amountPercent = (ingredientAmount / cupSize * 100).toFixed(1)
+  const {cupSize, isIced} = props
+
+  // 얼음이면 총량에서 200ml뺍니다.
+  const iceAmount = 200 
+  const noIceCupSize = isIced ? cupSize - iceAmount : cupSize;
+  const ingredientHeight = (ingredientAmount / noIceCupSize * 100).toFixed()
 
   return (
     <StIngredient 
       ingredientColor={ingredientColor}
-      ingredientAmount={amountPercent}
+      ingredientHeight={ingredientHeight}
     />
   )
 };
@@ -20,7 +24,7 @@ export default Ingredient;
 
 const StIngredient = styled.div`
   background-color: ${props => props.ingredientColor};
-  height: ${props => props.ingredientAmount + "%"};
+  height: ${props => props.ingredientHeight + "%"};
 
   padding: 1rem;
   display: flex;
