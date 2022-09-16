@@ -26,36 +26,42 @@ const RecipeList = (props) => {
   return (
     <>
       <StSlider {...settings}>
-        {recipeList.map((recipe, i) => (
+        {recipeList.map((recipe, i) => {
+          return (
+            // Slider의 자식은 inline-block
+            <div 
+              className="slick_box" 
+              key={'slick_box'+i}
+              onMouseUp={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
+              ontouchend={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
+            > 
+              {header &&
+                <StRecipeUserInfo>
+                  <StProfilePic prfilePicSrc={prfilePicSrc} />
+                  이름
+                </StRecipeUserInfo>
+              }
 
-          // Slider의 자식은 inline-block
-          <div 
-            className="slick_box" 
-            key={'slick_box'+i}
-            onClick={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
-          > 
-            {header &&
-              <StRecipeUserInfo>
-                <StProfilePic prfilePicSrc={prfilePicSrc} />
-                이름
-              </StRecipeUserInfo>
-            }
-
-            <div className="flex_box">
-              <StCupHeight 
-                cupHeight={(recipe.cupSize / 591 * 100).toFixed(1)}
-              >
-                <IngredientList 
-                  key={i}
-                  recipe={recipe} 
-                />
-              </StCupHeight>
-
-              <RecipeTitle title={recipe.title} />
+              <div className="flex_box">
+                <StCupHeight 
+                  cupHeight={(recipe.cupSize / 591 * 100).toFixed(1)}
+                >
+                  <IngredientList 
+                    key={i}
+                    recipe={recipe} 
+                  />
+                </StCupHeight>
+                <div className="padding_box">
+                  <RecipeTitle title={recipe.title} />
+                </div>
+              </div>
             </div>
-          </div>
+          )
+        })}
+        
 
-        ))}
+
+        
       </StSlider>
     </>
   );
@@ -85,6 +91,20 @@ background-color: #fff;
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
+  }
+
+  .padding_box {
+    padding: 11px 20px 12px;
+    
+    & * {
+      font-weight: 700;
+      font-size: 14px;
+      padding: 0;
+    }
+
+    img {
+      width: 18px;
+    }
   }
 
   .slick-list {
