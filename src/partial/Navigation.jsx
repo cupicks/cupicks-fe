@@ -37,10 +37,15 @@ const StNav = styled.nav`
   min-height: 60px;
   line-height: 60px;
   z-index: 999;
+  
 
   button {
     all: unset;
     padding: 0 16px;
+    
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 150%;
   }
 
   .button_goBack {
@@ -62,6 +67,7 @@ const StNav = styled.nav`
     transform: translateX(-50%);
 
     font-weight: 400;
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 150%;
   }
 `;

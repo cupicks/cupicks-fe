@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     --button-activeColor: #ddd;
     --button-activeBorderColor: #333;
     --button-activeBackgroundColor: #333;
+    --input-border-bottom: 2px solid #cdcdcd;
   }
 
   * {

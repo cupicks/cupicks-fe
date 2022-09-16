@@ -9,7 +9,6 @@ import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
 import ProfileEditBody from "../components/profileEdit/profileEditBody";
 
 import styled from "styled-components";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
@@ -18,10 +17,10 @@ const ProfileEdit = () => {
     register,
     handleSubmit,
     watch,
-    getValues,
     formState: { errors },
   } = useForm();
 
+  /** 프로필 수정 request */ 
   const onSubmit = async (data) => {
     const contentType = "application/json";
 
@@ -49,6 +48,7 @@ const ProfileEdit = () => {
     }
   }
 
+  // 유저 정보 토큰
   const token = localStorage.getItem('refreshToken')
   const {decodedToken} = useJwt(token);
   let userData = decodedToken;
@@ -126,7 +126,7 @@ const StProfileEdit = styled.form`
 
     margin-bottom: 5px;
 
-    border-bottom: 3px solid #ddd;
+    border-bottom: var(--input-border-bottom);
 
     font-size: 20px;
   }

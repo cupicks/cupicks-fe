@@ -1,7 +1,6 @@
 import axios from "axios";
 import TokenService from "./token.service";
 
-
 const customAxios = (contentType) => { 
   const API = import.meta.env.VITE_SERVER_URL
 
