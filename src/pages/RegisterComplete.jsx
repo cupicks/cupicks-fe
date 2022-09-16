@@ -18,7 +18,7 @@ const RegisterComplete = () => {
   };
 
   return (
-    <div>
+    <StDiv>
       {level === 0 && <CompleteOne />}
       {level === 1 && <CompleteTwo />}
       {level === 2 && <CompleteThree />}
@@ -44,33 +44,42 @@ const RegisterComplete = () => {
       ) : (
         <StBtn onClick={clickLevel}>시작하기</StBtn>
       )}
-    </div>
+    </StDiv>
   );
 };
 
 export default RegisterComplete;
 
+const StDiv = styled.div`
+  padding: 0 25px;
+`
+
+const StCounts = styled.div`
+  margin-top: 40px;
+
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+`;
+
+const StCount = styled.div`
+  background: ${(props) => props.color};
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+`;
+
 const StBtn = styled.button`
-  position: absolute;
-  width: 90%;
+  width: 100%;
   height: 59px;
-  top: 689px;
+
+  margin-top: 10vh;
+  
   color: #eee;
   background: #101010;
   border: 1px solid #101010;
   border-radius: 10px;
-  left: 5%;
-`;
-const StCounts = styled.div`
-  display: flex;
-  position: absolute;
-  top: 600px;
-  left: 240px;
-  gap: 30px;
-`;
-const StCount = styled.div`
-  background: ${(props) => props.color};
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  
+  font-weight: 700;
+  font-size: 18px;
 `;

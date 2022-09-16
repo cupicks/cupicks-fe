@@ -14,6 +14,7 @@ import ConfirmBox from "../components/elements/modal/ConfirmBox";
 import styled from "styled-components";
 
 import arrowBack from "../assets/svg/arrow_back.svg";
+import Navigation from "../partial/Navigation";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -223,11 +224,22 @@ const Register = () => {
           onDenied={cancelModal}
         />
       )}
+
       <StForm onSubmit={handleSubmit(onSubmit)}>
-        <StSpanBox>
-          <StArrowBack src={arrowBack} alt="뒤로가기" onClick={before} />
-          <StSpanCenter>회원가입</StSpanCenter>
-        </StSpanBox>
+
+        <Navigation empty={true}>
+          <StArrowBack>
+            <img 
+              src={arrowBack}
+              onClick={before} 
+              alt="뒤로 가기" 
+            />
+          </StArrowBack> 
+          <div className="title">
+            회원가입
+          </div>
+        </Navigation>
+
         {level === 0 && (
           <Email
             register={register}
@@ -251,6 +263,7 @@ const Register = () => {
             sendEmailVerifyCode={sendEmailVerifyCode}
           />
         )}
+
         {level === 1 && (
           <Password
             register={register}
@@ -259,6 +272,7 @@ const Register = () => {
             getValues={getValues}
           />
         )}
+
         {level === 2 && (
           <Nickname
             register={register}
@@ -351,70 +365,88 @@ const Register = () => {
 
 export default Register;
 
-const StDiv = styled.div``;
-const StSpanBox = styled.div`
-  display: flex;
-  padding-top: 30px;
+const StDiv = styled.div`
+  padding: 0 25px;
+
+  & nav {
+    padding: 0;
+  }
 `;
-const StArrowBack = styled.img`
-  width: 30px;
-  height: 30px;
+
+const StArrowBack = styled.div`
+  padding: 5px 10px;
+  margin-left: -10px;
 
   cursor: pointer;
 `;
-const StSpanCenter = styled.span`
-  margin: auto;
-  font-size: 20px;
-`;
+
 const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
+
   & > div > label {
-    margin-top: 20px;
+    margin-top: 10px;
 
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700;
+    
+    color: var(--font-color-dark);
   }
+
   & p {
-    color: #bf1650;
+    height: 0;
+
+    position: relative;
+    transform: translateY(-10px);
+    
+    font-size: 13px;
+    color: var(--font-color-alert);
   }
+
   & input {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    all: unset;
 
-    border: none;
-    border-bottom: 3px solid #b4b3b3;
-
-    font-size: 20px;
-    :hover,
+    margin-bottom: 30px;
+    
+    border-bottom: var(--input-border-bottom);
+    font-size: var(--input-font-size);
+    padding: var(--input-padding);
+    
+    transition: all .2s;
+    
     :focus {
-      outline: none;
-      border-bottom-color: #000;
+      border-bottom: var(--input-activeBorder-bottom);
     }
     ::placeholder {
       color: #ddd;
     }
   }
 `;
+
 const StButton = styled.button`
+  all: unset;
+  width: calc(100vw - 50px);
   border-radius: 10px;
 
-  margin-top: 250px;
   padding: 15px;
+  margin: 10px 0;
 
-  background-color: #fff;
-  border: 3px solid #eee;
-  color: #a3a2a2;
-
+  border: var(--input-border-bottom);
+  color: var(--input-font-color);
+  
+  font-weight: 700;
   font-size: 18px;
   text-align: center;
+  
+  transition: all 0.2s;
+  box-sizing: border-box;
 
+  cursor: pointer;
+  
+  :hover {
+    background-color: var(--button-activeBackgroundColor);
+    border-color: var(--button-activeBorderColor);
+    color: #fff;
+  }
   :disabled {
     pointer-events: none;
-  }
-  :hover {
-    background-color: #000;
-    border: none;
-    color: #fff;
   }
 `;

@@ -125,7 +125,7 @@ const Email = (props) => {
       </button> */}
       {checkNumber && (
         <>
-          <label>인증번호</label>
+          <label>이메일 인증번호 입력</label>
           <input
             type="text"
             disabled={checkNumberCode === true}
@@ -168,15 +168,26 @@ export default Email;
 const StDiv = styled.div`
   display: flex;
   flex-direction: column;
+  
+  .unactive {
+    color: var(--font-color-light);
+  }
 `;
+
 const StTimer = styled.div`
   display: flex;
   justify-content: space-between;
+
+  transform: translateY(-10px);
 `;
+
 const StReNumber = styled.button`
   border: none;
   background: none;
   color: #3897f0;
+  
+  transform: translateY(-10px);
+
   :disabled {
     pointer-events: none;
     color: #cdcdcd;
