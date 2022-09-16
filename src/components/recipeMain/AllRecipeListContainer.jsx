@@ -10,15 +10,16 @@ import like from "../../assets/svg/like_m.svg";
 import { useNavigate } from "react-router-dom";
 
 const AllRecipeListContainer = (props) => {
-  const { recipeId, ingredientList, title, cupSize, nickname, resizedUrl, imageUrl } = props.allrecipes;
+  const { allrecipes } = props
+  const { recipeId, ingredientList, title, cupSize, isIced, nickname, resizedUrl, imageUrl } = allrecipes;
   const navigate = useNavigate();
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
-  console.log(props.allrecipes);
 
   const cupHeight = (cupSize / 591 * 100).toFixed()
+  
   // 추후 resizeUrl로 변경
-  const profileImage = imageUrl
+  const profileImage = resizedUrl
 
   return (
     <>
@@ -37,13 +38,19 @@ const AllRecipeListContainer = (props) => {
         }}
       >
         <StCupHeight cupHeight={cupHeight}>
-          {ingredientList.map((ingredients, idx) => (
-            <AllRecipeListIngredient
-              ingredients={ingredients}
-              cupSize={cupSize}
-              key={'allRecipeListIngredient'+idx}
-            />
-          ))}
+          {ingredientList.map((ingredients, idx) => {
+            // 재료가 얼음일 때를 제외합니다.
+            if(isIced && idx === 0) return null
+            return (
+              <AllRecipeListIngredient
+                ingredients={ingredients}
+                cupSize={cupSize}
+                isIced={isIced}
+                key={'allRecipeListIngredient'+idx}
+              />
+            )
+          })}
+          
         </StCupHeight>
       </StListContent>
 
