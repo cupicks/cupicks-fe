@@ -4,19 +4,23 @@ import { useInView } from "react-intersection-observer";
 import AllRecipeListContainer from "./AllRecipeListContainer";
 
 import api from "../../server/api";
-import Logo from "../../assets//image/logo/Logo_Cupick.png";
+
+import Logo from "../../assets/image/logo/Logo_Cupick.png";
 
 import styled, { keyframes } from "styled-components";
+
 
 const AllRecipeList = () => {
   // allRecipe = allRecipe.recipeList;
   // const setTarget = useRef(null);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
+  const [counting, setCounting] = useState(0);
   // const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.8,
+    // skip: true,
   });
   //threshold
 
@@ -64,10 +68,12 @@ const AllRecipeList = () => {
   //저장해놓고 재사용할수 있게 해준다
   useEffect(() => {
     //마지막 요소를 보고 로딩중이 아니라면
-    if (inView && !loading) {
+    if (inView && !loading && items.length >= counting) {
       setTimeout(() => {
         setPage(page + 1);
+        setCounting(counting + 6);
       }, 10);
+
       // page.current += 1;
       
       // 기존코드
@@ -85,7 +91,7 @@ const AllRecipeList = () => {
     let contentType = "application/json";
     setLoading(true);
     await api(contentType)
-      .get(`/recipes?page=${page}&count=12`)
+      .get(`/recipes?page=${page}&count=6`)
       .then((res) => {
         setItems([...items, ...res.data.recipeList]);
       });

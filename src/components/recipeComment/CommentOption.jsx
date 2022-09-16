@@ -1,34 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import CommentEdit from "./CommentEdit";
 import CommentDelete from "./CommentDelete";
 
-const CommentOption = ({ setMenuOpen }) => {
+const CommentOption = ({
+  menuOpen,
+  setMenuOpen,
+  getComments,
+  comments,
+  setComments,
+  editCommentId,
+}) => {
   const [edit, setEdit] = useState(false);
+  const menubackground = useRef();
 
   const onEditModal = (e) => {
     // setMenuOpen(false);
     // setMenuOpen(false);
     setEdit(true);
   };
+
   return (
     <React.Fragment>
-      {edit ? (
-        <CommentEdit setMenuOpen={setMenuOpen} edit={edit} setEdit={setEdit} />
-      ) : (
-        <MenuPage>
-          <button className="edit_btn" onClick={onEditModal}>
-            수 정
-          </button>
-          <CommentDelete setMenuOpen={setMenuOpen} />
-        </MenuPage>
-      )}
+      {menuOpen == true ? (
+        <ModalBack
+          ref={menubackground}
+          onClick={(e) => {
+            if (menubackground.current === e.target) {
+              setMenuOpen(false);
+              setEdit(false);
+            }
+            e.stopPropagation();
+          }}
+        >
+          {edit ? (
+            <CommentEdit
+              setMenuOpen={setMenuOpen}
+              editCommentId={editCommentId}
+              edit={edit}
+              setEdit={setEdit}
+              comments={comments}
+              setComments={setComments}
+            />
+          ) : (
+            <MenuPage>
+              <button className="edit_btn" onClick={onEditModal}>
+                수 정
+              </button>
+              <CommentDelete
+                comments={comments}
+                setComments={setComments}
+                editCommentId={editCommentId}
+                setMenuOpen={setMenuOpen}
+              />
+            </MenuPage>
+          )}
+        </ModalBack>
+      ) : null}
     </React.Fragment>
   );
 };
 
 export default CommentOption;
+
+const ModalBack = styled.div`
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 2.5rem;
+  box-sizing: border-box;
+`;
 
 const MenuPage = styled.div`
   background-color: #0f100f;
