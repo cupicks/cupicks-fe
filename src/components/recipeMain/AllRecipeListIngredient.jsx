@@ -2,9 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const AllRecipeListIngredient = (props) => {
-  const { ingredientColor, ingredientAmount, ingredientName } = props.ingredients;
-
-  const ingredientHeight = ((ingredientAmount / props.cupSize) * 100).toFixed()
+  const { isIced, ingredients, cupSize } = props
+  const { ingredientColor, ingredientAmount, ingredientName } = ingredients;
+  
+  // 얼음이면 총량에서 200ml뺍니다.
+  const iceAmount = 200
+  const noIceCupSize = isIced ? cupSize - iceAmount : cupSize;
+  const ingredientHeight = (ingredientAmount / noIceCupSize * 100).toFixed()
   
   return (
     <StIngredientWrap
