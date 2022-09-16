@@ -12,7 +12,7 @@ import ProgressIconBar from "./element/ProgressIconBar";
 const RecipeVisualContainer = (props) => {
   const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
   
-  const {cupStyleHeight, isIcedTag} = cupState;
+  const {cupStyleHeight, isIcedTag, cupFull, cupLeft} = cupState;
   const {fields} = formArrayProps
   const {step, subStep} = stepState
 
@@ -21,6 +21,7 @@ const RecipeVisualContainer = (props) => {
     e.target.classList.add('ingredientSelected')
   }
 
+  // UI 관련 코드
   let iceImage; 
   if(cupState.currCupSize === 355){
     iceImage = ice355
@@ -29,18 +30,20 @@ const RecipeVisualContainer = (props) => {
   } else {
     iceImage = ice591
   }
-  
+  const borderColor = cupFull ? '#E64A3A' : '#000000'
+
   return (
     <StRecipeVisualContainer>
 
       <ProgressIconBar stepState={stepState} />
       
-      { step === 2 &&
+      { (step === 2) &&
         <RecipeIngredientButtonContainer
           cupState={cupState}
           setCupState={setCupState}
           stepState={stepState}
           setStepState={setStepState}
+          formProps = {formProps}
           formArrayProps={formArrayProps}
         />
       }
@@ -50,6 +53,7 @@ const RecipeVisualContainer = (props) => {
         ingredient_height={cupStyleHeight}
         iceImage={isIcedTag?iceImage:null}
         iceOpacity={isIcedTag?1:0}
+        borderColor={borderColor}
       >
         <div 
           className={
@@ -69,17 +73,24 @@ const RecipeVisualContainer = (props) => {
         
       </StRecipeVisual>
 
-      { isIcedTag && subStep !== 4 && 
-        <div className="info_box">
-          ice 선택 시 전체량 중 200ml가 채워집니다.
-        </div>
-      }
+      <div className="info_box">
+
+        { isIcedTag && subStep !== 4 && 
+          `ice 선택 시 전체량 중 200ml가 채워집니다.`
+        }
+
+        { subStep === 4 && fields.length > 0 &&
+          `채워진 재료를 누르면 제거 버튼이 나옵니다.`
+        }
+        { cupLeft > 0 && cupLeft !== null &&
+          <>
+            <br /> 
+            {cupLeft}ml 남았습니다.
+          </>
+        }
+
+      </div>
       
-      { subStep === 4 && fields.length > 0 &&
-        <div className="info_box">
-          채워진 재료를 누르면 제거 버튼이 나옵니다.
-        </div>
-      }
       
       {isIcedTag !== null && (isIcedTag ?
         <StIsIcedIconBox>
@@ -98,7 +109,7 @@ export default RecipeVisualContainer;
 
 const StRecipeVisualContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
-  height: calc(100vh - 60px - 150px);
+  flex: 0 0 calc(100vh - 60px - 150px);
   
   display: flex;
   justify-content: center;
@@ -153,7 +164,8 @@ const StRecipeVisual = styled.div`
   
   &::before {
     z-index: 9;
-    opacity: 0.3;
+    opacity: 0.2;
+    pointer-events: none;
   }
 
   // cupSize Height
@@ -162,7 +174,7 @@ const StRecipeVisual = styled.div`
     
     position: relative;
 
-    border: 3px dashed #555;
+    border: 3px dashed ${props => props.borderColor};
 
     transition: all .5s;
   }

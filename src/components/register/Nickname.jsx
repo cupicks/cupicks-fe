@@ -9,26 +9,26 @@ const Nickname = (props) => {
   const { register, errors, setValue, getValues } = props;
   const [checkNickname, setCheckNickname] = React.useState(false);
 
-  const confirmNicknameVerifyCode = async () => {
-    const contentType = "application/x-www-form-urlencoded";
-    try {
-      const res = await api(contentType).get(
-        `/auth/confirm-nickname?emailVerifyToken=${getValues(
-          "emailVerifyToken"
-        )}&nickname=${getValues("nickname")}`
-        // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-      );
-      const token = res.data.nicknameVerifyToken;
-      console.log(res);
-      setValue("nicknameVerifyToken", token);
-      console.log(getValues("nicknameVerifyToken"));
-      // setCheckNickname(true);
-      alert(res.data.message);
-    } catch (err) {
-      console.log(err);
-      alert(err.response.data.message);
-    }
-  };
+  // const confirmNicknameVerifyCode = async () => {
+  //   const contentType = "application/x-www-form-urlencoded";
+  //   try {
+  //     const res = await api(contentType).get(
+  //       `/auth/confirm-nickname?emailVerifyToken=${getValues(
+  //         "emailVerifyToken"
+  //       )}&nickname=${getValues("nickname")}`
+  //       // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+  //     );
+  //     const token = res.data.nicknameVerifyToken;
+  //     // console.log(res);
+  //     setValue("nicknameVerifyToken", token);
+  //     console.log(getValues("nicknameVerifyToken"));
+  //     // setCheckNickname(true);
+  //     alert(res.data.message);
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert(err.response.data.message);
+  //   }
+  // };
 
   return (
     <StDiv>
@@ -47,7 +47,7 @@ const Nickname = (props) => {
         })}
       />
       {errors.nickname && <p>{errors.nickname.message}</p>}
-      <button onClick={confirmNicknameVerifyCode}>닉네임 중복확인</button>
+      {/* <button onClick={confirmNicknameVerifyCode}>닉네임 중복확인</button> */}
     </StDiv>
   );
 };

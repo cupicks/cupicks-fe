@@ -1,24 +1,26 @@
+import { useEffect } from "react";
 import RecipeRadio from "../element/RecipeRadio";
 
 const RecipeIsIced = (props) => {
-  const {cupState, setCupState, formProps, formArrayProps} = props
+  const {setCupState, formProps, formArrayProps, step} = props
   
-  const {register, trigger, setValue, getValues} = formProps
-  const {append, remove, resetField} = formArrayProps
+  const {register, errors, clearErrors} = formProps
+  const {append, remove} = formArrayProps
   
   const recipeTypes = ['hot', 'ice']
 
   /** watch('isIced')해서 'isIcedResult' state변경
    * ice음료는 true, hot음료는 false */ 
-  const isIcedSelectHandler = (e) => {
-    const currValue = e.target.value; 
+  const isIcedClickHandler = (e) => {
+    const currValue = e.target.textContent; 
     const isIced = currValue === "ice";
 
     setCupState(prev => ({
       ...prev, 
       isIcedTag: isIced
     }))
-    trigger('isIced')
+    clearErrors();
+    remove()
     
     if(isIced){
       const ice = {
@@ -29,8 +31,6 @@ const RecipeIsIced = (props) => {
       }
       append(ice);
       
-    } else {
-      remove()
     }
   }
   
@@ -46,12 +46,19 @@ const RecipeIsIced = (props) => {
           label={'isIced'}
           value={value}
           register={register}
+          onClick={isIcedClickHandler}    
           config={{
-            required: true
+            required: {
+              value: 'required',
+              message: "음료 타입을 선택해주세요."
+            }
           }}
-          onChange={isIcedSelectHandler}
         />
       ))}
+
+      <div className="error_box">
+        {/* {step === 1 && errors.isIced? errors.isIced.message : "" } */}
+      </div>
     </>
   )
 }

@@ -1,20 +1,18 @@
 import styled from "styled-components";
 
-const RecipeIngredientColorList = (
-  { colorList, name, register, config={}, onChange=null, onClick=null }
-) => {
+const RecipeIngredientColorList = (props) => {
+  const { colorList, name, register, config={}, onClick=null } = props
 	return (
     <StRecipeIngredientColorList>
     {colorList.map((color, i)=>{
       return(
-        <>
+        <span key={i}>
           <input 
             className="colorLabel"
             id={ name+color }
             type="radio" 
             value={ color }
             {...register( name, config )}
-            onChange={ onChange } 
           />
           
           <StColorCircle 
@@ -24,7 +22,7 @@ const RecipeIngredientColorList = (
             color={ color }
             onClick={ onClick } 
           />
-        </>
+        </span>
       )
     })}
     </StRecipeIngredientColorList>

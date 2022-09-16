@@ -1,23 +1,34 @@
+import { useEffect, useState } from "react";
+import { useJwt } from 'react-jwt'
+
 import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
 import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
 import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
 
+// import TokenService from '../server/token.service'
+
 import styled from "styled-components";
 
 const Mypage = () => {
-  const userData = {
-    nickname: '닉네임',
-    imageUrl: 'image.png',
-    userId: 1234
-  }
-  // const [toggleBetween, setToggleBetween] = {}
+  const [loaded, setLoaded] = useState(false)
 
+  const token = localStorage.getItem('refreshToken')
+  const {decodedToken} = useJwt(token);
+  let userData = decodedToken;
+  
   return (
     <StWrap>
-      <MypageMyInfo userData={userData} />
-      <MypageRecipeMyList on={true} />
-      <MypageRecipeLikeList />
-      <div></div>
+      {userData !== null &&
+        <>
+          <MypageMyInfo token={token} userData={userData} />
+          <MypageRecipeMyList on={true} />
+          
+          {/* 좋아요 리스트: MVP이후 작업 */}
+          {/* <MypageRecipeLikeList />  */}
+          {/* ************************* */}
+          <div></div>
+        </>
+      }
     </StWrap>
   );
 };

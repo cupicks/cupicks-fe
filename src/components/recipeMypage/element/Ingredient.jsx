@@ -2,14 +2,11 @@ import styled from "styled-components";
 
 const Ingredient = (props) => {
   const {
-    ingredientName="", 
     ingredientColor="#fff", 
     ingredientAmount=0
   } = props.ingredient;
   const {cupSize} = props
   const amountPercent = (ingredientAmount / cupSize * 100).toFixed(1)
-
-  console.log(props);
 
   return (
     <StIngredient 

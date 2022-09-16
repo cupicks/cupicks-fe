@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,8 +9,11 @@ import Email from "../components/register/Email";
 import Nickname from "../components/register/Nickname";
 import Password from "../components/register/Password";
 import Image from "../components/register/Image";
+import ConfirmBox from "../components/elements/modal/ConfirmBox";
 
 import styled from "styled-components";
+
+import arrowBack from "../assets/svg/arrow_back.svg";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,14 +24,23 @@ const Register = () => {
     setValue,
     getValues,
     reset,
-    resetField,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
-  const [level, setLevel] = React.useState(0);
+  const [level, setLevel] = useState(0);
+  const [modal, setModal] = useState(false);
+  const [checkNumber, setCheckNumber] = useState(false);
+  const [checkNumberCode, setCheckNumberCode] = useState(false);
+  const [checkEmailCode, setCheckEmailCode] = useState(false);
+  const [toast, setToast] = useState(false);
+  const [checkTimer, setCheckTimer] = useState(false);
+  const [minutes, setMinutes] = useState(3);
+  const [seconds, setSeconds] = useState(0);
+  const [checkEmail, setCheckEmail] = useState(false);
+  // const [checkNumber, setCheckNumber] = useState(false);
 
   const onSubmit = async () => {
-    const contentType = "multi-part/form-data";
+    let contentType = "multi-part/form-data";
     //request(body)-> image 보내기
     const form = new FormData();
     form.append(
@@ -49,13 +61,13 @@ const Register = () => {
         );
         console.log(res);
         alert(res.data.message);
-        navigate("/signIn");
+        navigate("/signUp/complete");
       } catch (err) {
         console.log(err);
       }
     }
   };
-  const next = () => {
+  const next = async () => {
     //에러가 날 경우 알림띄우기
     if (errors.email && level === 0) {
       alert("이메일을 제대로 입력해주세요!");
@@ -73,6 +85,28 @@ const Register = () => {
       alert("닉네임을 제대로 입력해주세요");
       return;
     }
+    //닉네임 중복확인
+    if (level === 2) {
+      const contentType = "application/x-www-form-urlencoded";
+      try {
+        const res = await api(contentType).get(
+          `/auth/confirm-nickname?emailVerifyToken=${getValues(
+            "emailVerifyToken"
+          )}&nickname=${getValues("nickname")}`
+          // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        );
+        const token = res.data.nicknameVerifyToken;
+        // console.log(res);
+        setValue("nicknameVerifyToken", token);
+        console.log(getValues("nicknameVerifyToken"));
+        // setCheckNickname(true);
+        alert(res.data.message);
+      } catch (err) {
+        console.log(err);
+        alert(err.response.data.message);
+        return;
+      }
+    }
     setLevel((prev) => prev + 1);
   };
   const before = () => {
@@ -83,29 +117,115 @@ const Register = () => {
       // reset("emailVerifyToken");
       // reset("Number");
       // reset(getValues("email"));
-      reset({ emailVerifyToken: undefined });
-      reset({ nicknameVerifyToken: undefined });
+      // reset({ emailVerifyToken: undefined });
+      // reset({ nicknameVerifyToken: undefined });
       // setValue("emailVerifyToken", undefined);
       // resetField("emailVerifyToken");
       // console.log(getValues("emailVerifyToken"));
-      setLevel(0);
-      alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
+      // setLevel(0);
+      setModal(true);
+      setCheckEmail(false);
+      setCheckEmailCode(false);
+      setCheckNumber(false);
+      setCheckNumberCode(false);
+      // alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
 
       // resetField(getValues("emailVerifyToken"));
       // console.log(getValues("emailVerifyToken"));
     }
   };
-  React.useEffect(() => {
-    if (level !== 0) {
-      before();
+  const resetRegister = () => {
+    setTimeout(() => {
+      reset({ emailVerifyToken: undefined });
+      reset({ nicknameVerifyToken: undefined });
+      setLevel(0);
+      setModal(false);
+    }, 1000);
+  };
+  const cancelModal = () => {
+    setTimeout(() => {
+      setModal(false);
+    }, 1000);
+  };
+  //인증번호 발송
+  const sendEmailVerifyCode = async () => {
+    let contentType = "application/x-www-form-urlencoded";
+    if (errors.email) {
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1000);
+      return;
     }
-  }, []);
+    try {
+      const res = await api(contentType).get(
+        `/auth/send-email?email=${getValues("email")}`
+        // {
+        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        // }
+      );
+      console.log(res.data.message);
+      setCheckEmail(true);
+      alert(res.data.message);
+      setCheckNumber(true);
+      setMinutes(3);
+      setSeconds(0);
+      setCheckTimer(true);
+    } catch (err) {
+      console.log(err);
+      alert(err.response.data.message);
+      setCheckEmail(false);
+      setCheckTimer(false);
+      setCheckNumber(false);
+    }
+  };
+  //입력번호 확인
+  const confirmEmailVerifyCode = async () => {
+    let contentType = "application/x-www-form-urlencoded";
+    try {
+      const res = await api(contentType).get(
+        `/auth/confirm-email?email=${getValues(
+          "email"
+        )}&email-verify-code=${getValues("Number")}`
+        // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      );
+      const token = res.data.emailVerifyToken;
+      console.log(token);
+      setValue("emailVerifyToken", token);
+      console.log(getValues("emailVerifyToken"));
+      setCheckEmailCode(true);
+      setCheckNumberCode(true);
+      alert(res.data.message);
+    } catch (err) {
+      console.log(err);
+      // await new Promise((r) => setTimeout(r, 3000));
+      alert(err.response.data.message);
+      setCheckNumberCode(false);
+    }
+  };
+  // React.useEffect(() => {
+  //   if (level !== 0) {
+  //     before();
+  //   }
+  // }, []);
+  // React.useEffect(() => {
+  //   resetRegister();
+  // }, []);
 
   return (
     <StDiv>
+      {modal && (
+        <ConfirmBox
+          text={"뒤로가기 버튼을 누를시\n이메일 인증부터 새로 하셔야 합니다."}
+          confirmButtonText={"새로하기"}
+          backgroundShadow={true}
+          onComfirmed={resetRegister}
+          onDenied={cancelModal}
+        />
+      )}
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <StSpanBox>
-          <StSpanLeft onClick={before}>&lt;</StSpanLeft>
+          <StArrowBack src={arrowBack} alt="뒤로가기" onClick={before} />
           <StSpanCenter>회원가입</StSpanCenter>
         </StSpanBox>
         {level === 0 && (
@@ -115,6 +235,20 @@ const Register = () => {
             watch={watch}
             setValue={setValue}
             getValues={getValues}
+            checkNumber={checkNumber}
+            setCheckNumber={setCheckNumber}
+            minutes={minutes}
+            setMinutes={setMinutes}
+            seconds={seconds}
+            setSeconds={setSeconds}
+            checkEmail={checkEmail}
+            setCheckEmail={setCheckEmail}
+            checkTimer={checkTimer}
+            setCheckTimer={setCheckTimer}
+            toast={toast}
+            setToast={setToast}
+            checkNumberCode={checkNumberCode}
+            sendEmailVerifyCode={sendEmailVerifyCode}
           />
         )}
         {level === 1 && (
@@ -142,7 +276,23 @@ const Register = () => {
             getValues={getValues}
           />
         )}
-        {level === 3 ? (
+        {!checkNumber ? (
+          <StButton
+            onClick={sendEmailVerifyCode}
+            disabled={watch("email") === undefined || watch("email") === ""}
+          >
+            이메일 인증번호 발송
+          </StButton>
+        ) : !checkEmailCode ? (
+          <StButton
+            onClick={confirmEmailVerifyCode}
+            disabled={
+              watch("Number")?.length <= 5 || getValues("Number") === undefined
+            }
+          >
+            인증번호 확인
+          </StButton>
+        ) : level === 3 ? (
           <StButton
             disabled={
               (level === 3 && watch("image") === undefined) ||
@@ -150,7 +300,7 @@ const Register = () => {
               isSubmitting
             }
           >
-            완료
+            계속하기
           </StButton>
         ) : (
           <StButton
@@ -160,16 +310,41 @@ const Register = () => {
               (level === 0 && watch("email") === "") ||
               (level === 0 && watch("emailVerifyToken") === undefined) ||
               (level === 1 && watch("password") === "") ||
-              (level === 1 && watch("password_confirm") === "") ||
-              (level === 2 && watch("nickname") === "") ||
-              (level === 2 && watch("nicknameVerifyToken") === undefined)
+              (level === 1 && watch("password_confirm") === "")
+              // (level === 2 && watch("nickname") === "") ||
+              // (level === 2 && watch("nicknameVerifyToken") === undefined)
             }
           >
             계속하기
           </StButton>
         )}
+        {/* {level === 3 ? (
+           <StButton
+             disabled={
+               (level === 3 && watch("image") === undefined) ||
+               (level === 3 && watch("image")?.length === 0) ||
+               isSubmitting
+             }
+           >
+             계속하기
+           </StButton>
+         ) : (
+           <StButton
+             onClick={next}
+             disabled={
+               (level === 0 && watch("email") === undefined) ||
+               (level === 0 && watch("email") === "") ||
+               (level === 0 && watch("emailVerifyToken") === undefined) ||
+               (level === 1 && watch("password") === "") ||
+               (level === 1 && watch("password_confirm") === "") ||
+               (level === 2 && watch("nickname") === "") ||
+               (level === 2 && watch("nicknameVerifyToken") === undefined)
+             }
+           >
+             계속하기
+           </StButton>
+         )} */}
       </StForm>
-      {/* <button onClick={() => navigate("/signIn")}>취소</button> */}
     </StDiv>
   );
 };
@@ -179,9 +354,11 @@ export default Register;
 const StDiv = styled.div``;
 const StSpanBox = styled.div`
   display: flex;
+  padding-top: 30px;
 `;
-const StSpanLeft = styled.span`
-  font-size: 50px;
+const StArrowBack = styled.img`
+  width: 30px;
+  height: 30px;
 
   cursor: pointer;
 `;
@@ -210,8 +387,7 @@ const StForm = styled.form`
 
     font-size: 20px;
     :hover,
-    :focus,
-    :active {
+    :focus {
       outline: none;
       border-bottom-color: #000;
     }

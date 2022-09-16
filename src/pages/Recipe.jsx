@@ -14,6 +14,6 @@ export default Recipe;
 
 const StWrap = styled.div`
   height: calc(100vh - 50px - 90px);
-  margin: 0 auto;
+  
   overflow: hidden;
 `;

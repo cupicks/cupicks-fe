@@ -35,15 +35,20 @@ const StRecipeListToggle = styled.div`
   .toggleButton {
     width: 100%;
     
-    padding: 18px 20px;
+    padding: 18px 25px;
     
     display: flex;
     justify-content: space-between;
     align-items: center;
     
-    background-color: #fff;
+    background-color: #ffffff;
+    color: #393939;
     
     pointer-events: none;
+
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 150%;
   }
 
   .drop_down_icon {

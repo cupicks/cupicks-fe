@@ -6,18 +6,7 @@ import styled from "styled-components";
 const RecipeIngredient = (props) => {
   const { idx, calcAmount, cupState, setCupState, stepState, formProps } = props;
   const {subStep} = stepState;
-  const {register, trigger} = formProps;
-    
-  const colorChangeHandler = (e) => {
-    const targetInfo = e.target.htmlFor.split('#')[0]
-    const currName = targetInfo[0]
-    const currColor = targetInfo[1]
-
-    // setCupState(prev => ({...prev, [currName]: 0}))
-    
-    console.log(cupState);
-    trigger('ingredientList')
-  }
+  const {register, watch} = formProps;
 
   return (
     <StRecipeIngredient>
@@ -38,14 +27,14 @@ const RecipeIngredient = (props) => {
       {subStep === 2 &&
         <>
           <div className="info_box_center">
-            재료량을 입력해주세요.
+            재료량을 입력해주세요.(최소 10ml)
           </div>
           <div className="flex_box">
             <RecipeIngredientNumber
               idx={idx}
               formProps={formProps}    
               calcAmount={calcAmount}
-            />
+              />
             ml
           </div>
         </>
@@ -60,7 +49,6 @@ const RecipeIngredient = (props) => {
           <RecipeIngredientColorLists 
             idx={idx}
             formProps={formProps}
-            onClick={colorChangeHandler}
           />
         </>
       }

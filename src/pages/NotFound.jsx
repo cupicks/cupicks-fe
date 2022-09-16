@@ -13,21 +13,20 @@ const NotFound = () => {
     return [accessToken, refreshToken]
   }
 
-  const tokens = getTokens();
-  
-  if(tokens){
-    setTimeout(()=>{
-      navigate("/recipe")
-    }, 1500)
-  } else {
-    setTimeout(()=>{
-      navigate("/signIn")
-    }, 1500)
-  }
+  const tokens = getTokens()
+  const timer = 1000
 
+  setTimeout(()=>{
+    if(tokens[0]){
+      navigate("/recipe")
+    } else {
+      navigate("/signIn")
+    }
+  }, timer)
+  
   return (
     <StWrap>
-      <img src={logo} alt="커픽 로고"/>
+      <img src={logo} alt="커픽"/>
       <h4>
         페이지를 찾을 수 없습니다.
       </h4>
@@ -49,4 +48,9 @@ const StWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+
+  img {
+    width: 50%;
+    margin-bottom: 20px;
+  }
 `

@@ -26,7 +26,7 @@ const Footer = ({pathname}) => {
 
         <StButton onClick={goToMypage}>
           <div 
-            className={pathname === '/mypage'?"svg_box on":"svg_box"}
+            className={(pathname === '/mypage' || pathname === '/profile/edit')?"svg_box on":"svg_box"}
           >
             <MyPageIcon />
           </div>
@@ -61,12 +61,14 @@ const StWrap = styled.footer`
 
   position: relative;
   
+  fill: #cccccc;
+  
   svg {
     transition: all .3s;
   }
 
   .svg_box.on {
-    fill: #CDCDCD !important;
+    fill: #393939;
   }
 `;
 

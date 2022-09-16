@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle=createGlobalStyle` 
+const GlobalStyle = createGlobalStyle` 
   :root {
     --button-color: #333;
     --button-borderColor: #333;
@@ -15,8 +15,14 @@ const GlobalStyle=createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
     word-break: keep-all;
+    
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
   }
 
   @media (max-width: 560px) {
@@ -45,7 +51,6 @@ const GlobalStyle=createGlobalStyle`
   button {
     cursor: pointer;
   }
-
 
   /* .SignInWrapper {
     position: relative;

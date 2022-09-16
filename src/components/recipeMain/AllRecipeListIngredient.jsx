@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const AllRecipeListIngredient = (props) => {
-  const { ingredientColor, ingredientAmount, ingredientName } =
-    props.ingredients;
+  const { ingredientColor, ingredientAmount, ingredientName } = props.ingredients;
+
+  const ingredientHeight = ((ingredientAmount / props.cupSize) * 100).toFixed()
+  
   return (
     <StIngredientWrap
       ingredientColor={ingredientColor}
-      ingredientAmount={((ingredientAmount / props.cupSize) * 100).toFixed(1)}
+      ingredientHeight={ingredientHeight}
     ></StIngredientWrap>
   );
 };
@@ -15,8 +17,6 @@ const AllRecipeListIngredient = (props) => {
 export default AllRecipeListIngredient;
 
 const StIngredientWrap = styled.div`
-  height: ${(props) => props.ingredientAmount + "%"};
-
+  flex: 1 1 ${(props) => props.ingredientHeight + "%"};
   background-color: ${(props) => props.ingredientColor};
-  color: white;
 `;

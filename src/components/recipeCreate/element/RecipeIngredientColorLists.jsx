@@ -10,7 +10,7 @@ import RecipeIngredientColorList from "./RecipeIngredientColorList";
 import styled from "styled-components";
 
 const RecipeIngredientColorLists = (props) => {
-  const {idx, onClick, formProps} = props
+  const {idx, formProps} = props
   const {register} = formProps
 
   const currFleidName = `ingredientList.${idx}.ingredientColor`
@@ -36,7 +36,6 @@ const RecipeIngredientColorLists = (props) => {
                 colorList={colorList}
                 name={currFleidName}
                 register={register}
-                onClick={onClick}
               />
             )
           })}

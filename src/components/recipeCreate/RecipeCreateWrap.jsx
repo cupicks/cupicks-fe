@@ -9,29 +9,32 @@ import RecipeCreateNavigation from "./RecipeCreateNavigation";
 import RecipeVisualContainer from "./RecipeVisualContainer";
 import RecipeFormContainer from "./RecipeFormContainer";
 
+import ToastMessage from "../elements/modal/ToastMessage";
+import imageUrl from '../../assets/image/illustration/illustration04.png'
+
 import styled from "styled-components";
 
 const RecipeCreateForm = () => {
+
   const navigate = useNavigate();
 
-  const { register, watch, setValue, getValues, trigger, resetField, handleSubmit, control, formState: { errors } } = useForm();
+  const { register, watch, setValue, getValues, trigger, reset, resetField, handleSubmit, setError, clearErrors, control, formState: { errors } } = useForm();
   const { fields, append, remove } = useFieldArray({ 
     control, 
     name: "ingredientList"
   })
 
-  const formProps = {register, watch, setValue, getValues, errors, trigger}
+  const formProps = {register, watch, setValue, getValues, reset, errors, trigger, clearErrors, setError}
   const formArrayProps = {fields, append, remove, resetField}
 
   const [cupState, setCupState] = useState({
-    level: 0,
-    finalLevel: 3,
-    sublevel: 0,
-    finalSublevel: 4,
     cupStyleHeight: 0,
     isIcedTag: null,
     isPublicTag: null,
     currCupSize: null,
+    cupFull: false,
+    cupZero: false,
+    cupLeft: null,
     ingredientDeleteMode: false,
     currIngredientList: []
   })
@@ -42,11 +45,9 @@ const RecipeCreateForm = () => {
     subStep: 0,
     finalSubStep: 4,
   })
-
+  
+  const [recipeCreated, setRecipeCreated] = useState(false)
   const { step, finalStep } = stepState;
-
-  // state 리랜더 확인하는 곳
-  console.log('리랜더');
 
   /** 완성한 레피시를 등록하는 함수 */
   const RecipeCreating = async (newData) => {
@@ -58,7 +59,12 @@ const RecipeCreateForm = () => {
         newData
       ).then( res => {
         const recipeId = res.data.recipeId
-        navigate(`/recipe/detail/${recipeId}`)
+        
+        setRecipeCreated(true)
+        setTimeout(()=>{
+          navigate(`/recipe/${recipeId}/detail/`)
+          setRecipeCreated(false)
+        }, 2000)
       })
       
     } catch (err) {
@@ -70,21 +76,20 @@ const RecipeCreateForm = () => {
   const onSubmit = data => {
     data = setDataType(data);
     
-    console.log('req');
     if(step === finalStep){
-      // RecipeCreating(data)
-      console.log(data)
+      RecipeCreating(data)
     }
   }
   
   return (
     <StForm onSubmit={handleSubmit(onSubmit)}>
-
       <RecipeCreateNavigation
         cupState={cupState}
         setCupState={setCupState}
         stepState={stepState}
         setStepState={setStepState}
+        formProps={formProps}
+        formArrayProps={formArrayProps}
         />
 
       {step !== 3 && 
@@ -107,6 +112,14 @@ const RecipeCreateForm = () => {
         formArrayProps={formArrayProps}
       />
 
+      {/* 모달 리스트 */}
+      {recipeCreated && 
+        <ToastMessage
+          text={'축하합니다!\n레시피를 완성하였습니다!'}
+          imageUrl={imageUrl}
+        />
+      }
+
     </StForm>
   )
 };
@@ -124,5 +137,12 @@ const StForm = styled.form`
 
   h4 {
     font-weight: 500;
+  }
+  button {
+    transition: all .3s;
+  }
+  .disable,
+  button:disabled {
+    opacity: .6;
   }
 `

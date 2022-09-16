@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as reactJwt from "react-jwt";
 const serverAxios = axios.create({
-  baseURL: "http://3.38.250.115/api",
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 /** @param { Request } req */
 const requestHandler = async (req) => {

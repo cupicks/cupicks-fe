@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import styled from 'styled-components';
 
 import RecipeInput from "../element/RecipeInput";
@@ -6,14 +5,8 @@ import RecipeTextarea from '../element/RecipeTextarea';
 import RecipeIngredientConform from './RecipeIngredientConform';
 
 const RecipeTextValue = (props) => {
-  const { cupState, setCupState, formProps } = props;
-  const { isPublicTag } = cupState;
-  const { register, errors } = formProps
-
-  /** isPublic를 watch해서 'isPublicResult' state를 set하는 함수 */ 
-  const isPublicSelectHandler = (e) => {
-    setCupState({...cupState, isPublicTag: !e.target.checked});
-  }
+  const { formProps } = props;
+  const { register, errors, watch } = formProps
 
   return ( 
     <>
@@ -61,21 +54,19 @@ const RecipeTextValue = (props) => {
             커뮤니티에 공유하기
           </div>
           
-          <StRangeBar isPublic={isPublicTag}>
+          <StRangeBar isPublic={watch('isPublic')}>
             <input 
               type="checkbox" 
               id='publicCheckbox'
               value={ true }
               {...register('isPublic')}
-              onChange={ isPublicSelectHandler } 
               />
             <label 
               htmlFor='publicCheckbox'
+              aria-details='커뮤니티에 공유하기'
             >
             </label>
           </StRangeBar>
-
-          {isPublicTag === "1" && "공유"}
         </StIsPulicBox>
       </StTextInputContainer>
 
@@ -85,6 +76,10 @@ const RecipeTextValue = (props) => {
 }
 
 export default RecipeTextValue;
+
+const StWrap = styled.div`
+  height: 100%;
+`
 
 const StTextInputContainer = styled.div`
   display: flex;
@@ -164,7 +159,7 @@ const StRangeBar = styled.div`
     border-radius: 15px;
 
     position: absolute;
-    left: ${props => props.isPublic?'0':'50%'};
+    left: ${props => props.isPublic?'50%':'0'};
     right: 0;
 
     background-color: #fff;

@@ -1,17 +1,20 @@
 import React from "react";
+import { useJwt } from 'react-jwt'
+
 import styled from "styled-components";
 
 import editIcon from '../../assets/svg/edit.svg'
 import prfilePicSrc from '../../assets/svg/profile.svg'
 
 const ProfileEditHeader = (props) => {
-  const {watch, register} = props
-  
+  const {watch, register, userData} = props
   const [imagePreview, setImagePreview] = React.useState(prfilePicSrc);
 
   const image = watch("image");
-
+  
   React.useEffect(() => {
+    if(userData.imageUrl !== null) setImagePreview(userData.imageUrl)
+    
     if (image && image.length > 0) {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
@@ -30,7 +33,7 @@ const ProfileEditHeader = (props) => {
       <input
         type="file"
         id="picture"
-        {...register("image", { required: true })}
+        {...register("imageValue")}
         accept="image/*"
       />
     </StProfileEditHeader>
