@@ -155,10 +155,12 @@ export default CommentBody;
 //   box-sizing: border-box;
 // `;
 
-const StCommentProfile = styled.img`
+const StCommentProfile = styled.div`
   object-fit: cover;
-  max-width: 50px;
-  max-height: 50px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  background: #eee no-repeat url(${(props) => props.src}) center / cover;
 `;
 
 const StListWrap = styled.div`

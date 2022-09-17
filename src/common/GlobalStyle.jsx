@@ -39,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
   *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  
 
   @media (max-width: 560px) {
     body {
