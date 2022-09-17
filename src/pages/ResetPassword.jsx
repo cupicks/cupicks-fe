@@ -5,14 +5,16 @@ import { useNavigate } from "react-router-dom";
 import api from "../server/api";
 
 import CheckEmail from "../components/resetPassword/CheckEmail";
+import Navigation from "../partial/Navigation";
 
 import styled from "styled-components";
 
 import arrowBack from "../assets/svg/arrow_back.svg";
 
 const ResetPassword = () => {
-  const contentType = "application/x-www-form-urlencoded";
   const navigate = useNavigate();
+  const contentType = "application/x-www-form-urlencoded";
+
   const {
     register,
     watch,
@@ -30,22 +32,34 @@ const ResetPassword = () => {
       alert(res.data.message);
       navigate("/signIn");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       alert(err.response.data.message);
     }
   };
+
   const before = () => {
     navigate("/signIn");
   };
 
   return (
-    <div>
-      <StForm onSubmit={handleSubmit(onSubmit)}>
-        <StSpanBox>
-          <StArrowBack src={arrowBack} alt="뒤로가기" onClick={before} />
-          <StSpanCenter>비밀번호 찾기</StSpanCenter>
-        </StSpanBox>
+    <StForm onSubmit={handleSubmit(onSubmit)}>
+
+      <Navigation empty={true}>
+        <StArrowBack>
+          <img 
+            src={arrowBack}
+            onClick={before} 
+            alt="뒤로 가기" 
+          />
+        </StArrowBack> 
+        <label className="title">
+          비밀번호 찾기
+        </label>
+      </Navigation>
+
+      <div className="padding_box">
         <CheckEmail register={register} errors={errors} />
+
         <StButton
           disabled={
             watch("email") === undefined ||
@@ -55,76 +69,95 @@ const ResetPassword = () => {
         >
           계속하기
         </StButton>
-      </StForm>
-    </div>
+      </div>
+    </StForm>
   );
 };
 
 export default ResetPassword;
 
-const StSpanBox = styled.div`
-  display: flex;
-  padding-top: 20px;
-`;
-const StArrowBack = styled.img`
-  width: 25px;
-  height: 25px;
+const StArrowBack = styled.div`
+  padding: 5px 10px;
+  margin-left: -10px;
 
   cursor: pointer;
 `;
-const StSpanCenter = styled.span`
-  margin: auto;
-  font-size: 20px;
-`;
+
 const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  & > div > label {
-    margin-top: 20px;
 
-    font-size: 30px;
-    font-weight: bold;
+  .padding_box {
+    padding: 0 25px;
   }
+
+  & div label {
+    margin-top: 10px;
+
+    font-size: 28px;
+    font-weight: 700;
+    
+    color: var(--font-color-dark);
+  }
+
   & p {
-    color: #bf1650;
+    height: 0;
+
+    position: relative;
+    transform: translateY(-28px);
+    
+    font-size: 13px;
+    color: var(--font-color-alert);
   }
+
+  & p.margin {
+    transform: translateY(-10px);
+  }
+
   & input {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    all: unset;
 
-    border: none;
-    border-bottom: 3px solid #b4b3b3;
-
-    font-size: 20px;
-    :hover,
+    margin-bottom: 30px;
+    
+    border-bottom: var(--input-border-bottom);
+    font-size: var(--input-font-size);
+    padding: var(--input-padding);
+    
+    transition: all .2s;
+    
     :focus {
-      outline: none;
-      border-bottom-color: #000;
+      border-bottom: var(--input-activeBorder-bottom);
     }
     ::placeholder {
       color: #ddd;
     }
   }
 `;
+
 const StButton = styled.button`
+  all: unset;
+  width: 100%;
   border-radius: 10px;
 
-  margin-top: 250px;
   padding: 15px;
+  margin: 200px 0;
 
-  background-color: #fff;
-  border: 3px solid #eee;
-  color: #a3a2a2;
-
+  border: var(--input-border-bottom);
+  color: var(--input-font-color);
+  
+  font-weight: 700;
   font-size: 18px;
   text-align: center;
+  
+  transition: all 0.2s;
+  box-sizing: border-box;
 
+  cursor: pointer;
+  
+  :hover {
+    background-color: var(--button-activeBackgroundColor);
+    border-color: var(--button-activeBorderColor);
+    color: #fff;
+  }
   :disabled {
     pointer-events: none;
-  }
-  :hover {
-    background-color: #000;
-    border: none;
-    color: #fff;
   }
 `;
