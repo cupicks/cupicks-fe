@@ -20,9 +20,7 @@
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
-    "sweetalert2": "^11.4.29",
-    "vite-plugin-svgr": "^2.2.1",
-    "yup": "^0.32.11"
+    "vite-plugin-svgr": "^2.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
