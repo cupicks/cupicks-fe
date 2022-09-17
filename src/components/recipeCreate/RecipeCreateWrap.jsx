@@ -78,7 +78,7 @@ const RecipeCreateForm = () => {
     console.log('hi');
 
     if(step === finalStep){
-      // RecipeCreating(data)
+      RecipeCreating(data)
     }
   }
   
