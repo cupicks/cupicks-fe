@@ -5,16 +5,21 @@ import styled from "styled-components";
 import arrowBackIcon from "../assets/svg/arrow_back.svg";
 
 const Navigation = (props) => {
-  const { empty = false } = props;
+  const { empty = false, goto="/" } = props;
   const navigate = useNavigate();
+
   return (
     <StNav>
       {!empty && (
-        <div className="button_goBack fcc" onClick={() => navigate('/')}>
+        <div 
+          className="button_goBack fcc" 
+          onClick={() => navigate(goto)}
+        >
           <img src={arrowBackIcon} alt="뒤로 가기 버튼" />
         </div>
       )}
       {props.children}
+
     </StNav>
   );
 };
