@@ -71,7 +71,7 @@ const AllRecipeList = () => {
       setTimeout(() => {
         setPage(page + 1);
         setCounting(counting + 6);
-      }, 10);
+      }, 1500);
 
       // page.current += 1;
 
