@@ -12,33 +12,36 @@ const RecipeIngredientConform = (props) => {
       </div>
 
       <StTable>
-        <tr>
-          <td className='title' colSpan={2}>
-            전체량 - {cupSize}
-          </td>
-        </tr>
+        <tbody>
 
-        <tr>
-          <td className='title' colSpan={2}>
-            온도 타입 - {isIced}
-          </td>
-        </tr>
+          <tr>
+            <td className='title' colSpan={2}>
+              전체량 - {cupSize}
+            </td>
+          </tr>
 
-        <tr>
-          <td className='title'>
-            선택재료 -  
-          </td>
-          <td>
-            {ingredientList?.map((ingredient, idx) => {
-              return (
-                <span key={idx}>
-                  {`${ingredient.ingredientName} : 
-                  ${ingredient.ingredientAmount}ml`}
-                </span>
-              )
-            })}
-          </td>
-        </tr>
+          <tr>
+            <td className='title' colSpan={2}>
+              온도 타입 - {isIced}
+            </td>
+          </tr>
+
+          <tr>
+            <td className='title'>
+              선택재료 -  
+            </td>
+            <td>
+              {ingredientList?.map((ingredient, idx) => {
+                return (
+                  <span key={idx}>
+                    {`${ingredient.ingredientName} : 
+                    ${ingredient.ingredientAmount}ml`}
+                  </span>
+                )
+              })}
+            </td>
+          </tr>
+        </tbody>
       </StTable>
     
     </StTextInputContainer>

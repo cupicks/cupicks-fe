@@ -92,15 +92,9 @@ const RecipeVisualContainer = (props) => {
       </div>
       
       
-      {isIcedTag !== null && (isIcedTag ?
-        <StIsIcedIconBox>
-          <IsIcedIcon isIced={true} />
-        </StIsIcedIconBox>
-        :
-        <StIsIcedIconBox>
-          <IsIcedIcon isIced={false} />
-        </StIsIcedIconBox>
-      )}
+      {isIcedTag !== null && 
+        <IsIcedIcon isIced={isIcedTag} />
+      }
     </StRecipeVisualContainer>
   )
 }
@@ -127,6 +121,13 @@ const StRecipeVisualContainer = styled.div`
     color: #888;
 
     font-size: 14px;
+  }
+
+  .is_iced_icon_box {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    z-index: 999;
   }
 `
 

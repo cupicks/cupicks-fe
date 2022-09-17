@@ -146,10 +146,10 @@ const CommentInput = ({ getComments }) => {
           <input
             type="file"
             id="picture"
-            {...register("image", { required: true })}
+            {...register("image")}
             accept="image/*"
             getValues={getValues}
-          ></input>
+          />
           <label htmlFor="picture" className="pic_upload">
             + 사진 업로드
           </label>

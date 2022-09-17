@@ -1,13 +1,15 @@
-const IsIcedIcon = (props) => {
-  let result = null;
-  if(props.isIced!==null){
-    result = props.isIced?"ice":"hot";
-  }
+import iceIcon from '../../../assets/svg/ice.svg'
+import hotIcon from '../../../assets/svg/hot.svg'
 
+const IsIcedIcon = (props) => {
   return (
-    <>
-      {result}
-    </>
+    <div className='is_iced_icon_box'>
+      {props.isIced?
+        <img src={iceIcon} />
+        :
+        <img src={hotIcon} />
+      }
+    </div>
   )
 };
 
