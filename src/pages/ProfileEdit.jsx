@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useJwt } from 'react-jwt'
+import { useJwt } from "react-jwt";
 
-import api from '../server/api'
+import api from "../server/api";
 
 import Navigation from "../partial/Navigation";
 import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
@@ -17,19 +17,21 @@ const ProfileEdit = () => {
     register,
     handleSubmit,
     watch,
+    getValues,
+    setFocus,
     formState: { errors },
-  } = useForm();
+  } = useForm({ criteriaMode: "all", mode: "onChange" });
 
-  /** 프로필 수정 request */ 
+  /** 프로필 수정 request */
   const onSubmit = async (data) => {
     const contentType = "application/json";
 
     const newNickname = data.nickname;
     const newPassword = data.password;
-    let params = `profile?nickname=${newNickname}`
+    let params = `profile?nickname=${newNickname}`;
 
-    if(newPassword !== undefined && newPassword !== ''){
-      params += `&password=${newPassword}`
+    if (newPassword !== undefined && newPassword !== "") {
+      params += `&password=${newPassword}`;
     }
 
     const form = new FormData();
@@ -40,49 +42,43 @@ const ProfileEdit = () => {
 
     try {
       const res = await api(contentType).patch(params, form);
-      navigate('/mypage')
+      navigate("/mypage");
       console.log(res);
-
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   // 유저 정보 토큰
-  const token = localStorage.getItem('refreshToken')
-  const {decodedToken} = useJwt(token);
+  const token = localStorage.getItem("refreshToken");
+  const { decodedToken } = useJwt(token);
   let userData = decodedToken;
 
   return (
     <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
-
       <Navigation>
-        <span className="title">
-          개인 정보 편집
-        </span>
-        <button 
-          type="submit"
-        >
-          저장
-        </button>
+        <span className="title">개인 정보 편집</span>
+        <button type="submit">저장</button>
       </Navigation>
 
-      {userData !== null &&
+      {userData !== null && (
         <>
-          <ProfileEditHeader 
+          <ProfileEditHeader
             watch={watch}
             register={register}
             userData={userData}
           />
-          
+
           <ProfileEditBody
             watch={watch}
             register={register}
+            getValues={getValues}
+            setFocus={setFocus}
             errors={errors}
             userData={userData}
           />
         </>
-      }
+      )}
 
       <div></div>
     </StProfileEdit>
@@ -93,21 +89,21 @@ export default ProfileEdit;
 
 const StProfileEdit = styled.form`
   height: calc(100vh - 50px - 90px);
-  
+
   display: flex;
   flex-flow: column;
   gap: 10px;
-  
+
   background-color: #eee;
-  
+
   overflow-y: auto;
-  
+
   .warning {
     min-height: 20px;
     color: #ffb593;
     font-size: 14px;
   }
-  
+
   label {
     width: 100%;
 
@@ -139,4 +135,3 @@ const StProfileEdit = styled.form`
     flex: 1 1 auto;
   }
 `;
-

@@ -38,7 +38,6 @@ const Login = () => {
         // }
       );
       console.log(res);
-      console.log(res.data.accessToken);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       alert(res.data.message);
