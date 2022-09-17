@@ -17,13 +17,16 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     word-break: keep-all;
     
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; 
+    /* IE and Edge */
+    scrollbar-width: none; 
+    /* Firefox */
   }
   
   *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  
 
   @media (max-width: 560px) {
     body {

@@ -161,10 +161,11 @@ const CommentInput = ({ getComments }) => {
 
 export default CommentInput;
 
-const StInputProfile = styled.img`
-  object-fit: cover;
-  max-width: 40px;
-  max-height: 40px;
+const StInputProfile = styled.div`
+  width: 35px;
+  height: 35px;
+  background: #eee no-repeat url(${(props) => props.src}) center / cover;
+  border-radius: 50%;
 `;
 
 const DeletePreview = styled.img`

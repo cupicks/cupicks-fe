@@ -172,8 +172,9 @@ export default CommentEdit;
 
 const StInputProfile = styled.img`
   object-fit: cover;
-  max-width: 40px;
-  max-height: 40px;
+  border-radius: 50%;
+  max-width: 35px;
+  max-height: 35px;
 `;
 
 const DeletePreview = styled.img`
