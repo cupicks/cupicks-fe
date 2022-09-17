@@ -10,7 +10,7 @@ const Navigation = (props) => {
   return (
     <StNav>
       {!empty && (
-        <div className="button_goBack fcc" onClick={() => navigate(-1)}>
+        <div className="button_goBack fcc" onClick={() => navigate('/')}>
           <img src={arrowBackIcon} alt="뒤로 가기 버튼" />
         </div>
       )}

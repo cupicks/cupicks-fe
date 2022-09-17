@@ -23,7 +23,7 @@ const Timer = ({ minutes, setMinutes, seconds, setSeconds, checkTimer }) => {
   return (
     <div>
       <p className={
-        (minutes + seconds === 0)?"unactive":"active"
+        (minutes + seconds === 0)?"unactive margin":"active margin"
       }>
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </p>

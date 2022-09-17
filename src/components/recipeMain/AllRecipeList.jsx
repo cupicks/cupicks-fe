@@ -179,7 +179,7 @@ const StAllListWrap = styled.ul`
 
 const StListWrap = styled.li`
   flex: 0 0 calc((100% - (9px * 2)) / 3);
-  height: 25vh;
+  height: 26vh;
   max-height: 500px;
   border-radius: 9px;
 

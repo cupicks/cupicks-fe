@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Navigation from "../../partial/Navigation";
 import NavButtonDone from "../elements/button/NavButtonDone";
-import NavButtonGoBack from "../elements/button/NavButtonGoBack";
+import NavButtonGoMain from "../elements/button/NavButtonGoMain";
 import NavButtonNextLevel from "../elements/button/NavButtonNextLevel";
 import NavButtonNextSublevel from "../elements/button/NavButtonNextSublevel";
 import NavButtonPrevLevel from "../elements/button/NavButtonPrevLevel";
@@ -159,6 +159,12 @@ const RecipeCreateNavigation = (props) => {
   
   /** 이전 subStep 버튼 클릭 핸들러 */
   const subStepButtonPrevClickHandler = () => {
+    switch (subStep) {
+      case 1:
+        setShowComfirmBox(true)
+        return null
+      default: ''
+    }
     goPrevSubStep();
   }
   
@@ -172,7 +178,7 @@ const RecipeCreateNavigation = (props) => {
       {!ingredientDeleteMode && 
         <>
           {step0 &&
-            <NavButtonGoBack />
+            <NavButtonGoMain />
           }
 
           {!step0 &&
@@ -185,7 +191,9 @@ const RecipeCreateNavigation = (props) => {
           }
 
           {stepEnd &&
-            <NavButtonDone />
+            <NavButtonDone
+              disabledStyle={showComfirmBox}
+            />
           }
 
           {!stepEnd &&

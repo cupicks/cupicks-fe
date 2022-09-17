@@ -395,10 +395,14 @@ const StForm = styled.form`
     height: 0;
 
     position: relative;
-    transform: translateY(-10px);
+    transform: translateY(-28px);
     
     font-size: 13px;
     color: var(--font-color-alert);
+  }
+
+  & p.margin {
+    transform: translateY(-10px);
   }
 
   & input {
@@ -423,7 +427,7 @@ const StForm = styled.form`
 
 const StButton = styled.button`
   all: unset;
-  width: calc(100vw - 50px);
+  width: 100%;
   border-radius: 10px;
 
   padding: 15px;
