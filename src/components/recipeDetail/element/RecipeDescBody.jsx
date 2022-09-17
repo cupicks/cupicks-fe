@@ -1,28 +1,59 @@
 import styled from "styled-components";
 
 const RecipeDescBody = (props) => {
-  const { content, ingredientList } = props
+  const { recipe } = props
+  const { content, ingredientList, updatedAt, resizedUrl, imageUrl, nickname } = recipe
+  
+  // 프로필 이미지
+  const profileImageUrl = imageUrl
+  // const profileImageUrl = resizedUrl
+
+  // updatedAt => 00월 00일
+  const td = new Date(updatedAt).toISOString().slice(5, 10).split('-');
+
+  const month = td[0];
+  const date = td[1]
+  const today =`${month}월 ${date}일`
+
   return (
     <StRecipeDescBody>
-      <div>
+
+      <ul className="text_desc">
         {ingredientList.map((list, i) => (
-          <div key={i}>
+
+          <li key={'text_desc'+i}>
             {list.ingredientName} : {list.ingredientAmount}ml
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
+
       <div>
-          {content}
+        {content}
       </div>
-      <div className="name">
-        <strong>
-          By 
-        </strong>
-        <div className="profile_img"></div>
-        <span>
-          사용자 이름
-        </span>
+
+      <div className="user_info">
+
+        <div className="left">
+          <StProfileImage 
+            profileImageUrl={profileImageUrl} 
+          />
+          <span className="nickname">
+            {nickname}
+          </span>
+          <span className="dot">
+            •
+          </span>
+          <span className="updatedAt">
+            {today}
+          </span>
+        </div>
+        
+        <div className="right">
+          수정
+        </div>
+      
       </div>
+
     </StRecipeDescBody>
   )
 };
@@ -30,24 +61,55 @@ const RecipeDescBody = (props) => {
 export default RecipeDescBody;
 
 const StRecipeDescBody=styled.div`
-  padding: .8rem 1rem;
-
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 25px;
   
-  .name {
+  font-size: 12px;
+  
+  .user_info {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-  }
+    justify-content: space-between;
+    gap: 11px;
 
-  .profile_img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    margin-bottom: 20px;
+    
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      font-size: 12px;
+      
+      span {
+        color:#606060;
+      }
+      
+      .nickname {
+        font-weight: 700;
+      }
+    }
 
-    background-color: #aaa;
+    .dot {
+      font-size: 10px;
+    }
+
+    .right {
+      font-weight: 700;
+      font-size: 14px;
+
+      color: #3897F0;
+    }
   }
+`
+
+const StProfileImage = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  margin-right: 2px;
+
+  background: #ccc url(${props=>props.profileImageUrl}) no-repeat center / cover;
 `

@@ -1,15 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useJwt } from 'react-jwt'
+import { useJwt } from "react-jwt";
 
-import api from '../server/api'
+import api from "../server/api";
 
 import Navigation from "../partial/Navigation";
 import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
 import ProfileEditBody from "../components/profileEdit/profileEditBody";
 
 import styled from "styled-components";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
@@ -19,18 +18,20 @@ const ProfileEdit = () => {
     handleSubmit,
     watch,
     getValues,
+    setFocus,
     formState: { errors },
-  } = useForm();
+  } = useForm({ criteriaMode: "all", mode: "onChange" });
 
+  /** 프로필 수정 request */
   const onSubmit = async (data) => {
     const contentType = "application/json";
 
     const newNickname = data.nickname;
     const newPassword = data.password;
-    let params = `profile?nickname=${newNickname}`
+    let params = `profile?nickname=${newNickname}`;
 
-    if(newPassword !== undefined && newPassword !== ''){
-      params += `&password=${newPassword}`
+    if (newPassword !== undefined && newPassword !== "") {
+      params += `&password=${newPassword}`;
     }
 
     const form = new FormData();
@@ -41,48 +42,43 @@ const ProfileEdit = () => {
 
     try {
       const res = await api(contentType).patch(params, form);
-      navigate('/mypage')
+      navigate("/mypage");
       console.log(res);
-
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
-  const token = localStorage.getItem('refreshToken')
-  const {decodedToken} = useJwt(token);
+  // 유저 정보 토큰
+  const token = localStorage.getItem("refreshToken");
+  const { decodedToken } = useJwt(token);
   let userData = decodedToken;
 
   return (
     <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
-
       <Navigation>
-        <span className="title">
-          개인 정보 편집
-        </span>
-        <button 
-          type="submit"
-        >
-          저장
-        </button>
+        <span className="title">개인 정보 편집</span>
+        <button type="submit">저장</button>
       </Navigation>
 
-      {userData !== null &&
+      {userData !== null && (
         <>
-          <ProfileEditHeader 
+          <ProfileEditHeader
             watch={watch}
             register={register}
             userData={userData}
           />
-          
+
           <ProfileEditBody
             watch={watch}
             register={register}
+            getValues={getValues}
+            setFocus={setFocus}
             errors={errors}
             userData={userData}
           />
         </>
-      }
+      )}
 
       <div></div>
     </StProfileEdit>
@@ -93,21 +89,21 @@ export default ProfileEdit;
 
 const StProfileEdit = styled.form`
   height: calc(100vh - 50px - 90px);
-  
+
   display: flex;
   flex-flow: column;
   gap: 10px;
-  
+
   background-color: #eee;
-  
+
   overflow-y: auto;
-  
+
   .warning {
     min-height: 20px;
     color: #ffb593;
     font-size: 14px;
   }
-  
+
   label {
     width: 100%;
 
@@ -126,7 +122,7 @@ const StProfileEdit = styled.form`
 
     margin-bottom: 5px;
 
-    border-bottom: 3px solid #ddd;
+    border-bottom: var(--input-border-bottom);
 
     font-size: 20px;
   }
@@ -139,4 +135,3 @@ const StProfileEdit = styled.form`
     flex: 1 1 auto;
   }
 `;
-

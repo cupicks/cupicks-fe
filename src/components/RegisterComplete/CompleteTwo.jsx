@@ -18,20 +18,17 @@ const CompleteTwo = () => {
 export default CompleteTwo;
 
 const StDiv = styled.div`
-  position: relative;
   .box {
-    width: 300px;
-    height: 84px;
-    position: absolute;
-    top: 102px;
-    left: 24px;
+    width: 70%;
+    margin-top: 60px;
   }
 `;
 
 const StImg = styled.img`
-  width: 338px;
-  height: 340px;
-  position: absolute;
-  top: 227px;
-  left: 130px;
+  width: 90%;
+  max-width: 450px;
+
+  margin: 40px auto 0;
+  
+  display: block;
 `;

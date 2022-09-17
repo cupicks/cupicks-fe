@@ -9,7 +9,6 @@ import Logo from "../../assets/image/logo/Logo_Cupick.png";
 
 import styled, { keyframes } from "styled-components";
 
-
 const AllRecipeList = () => {
   // allRecipe = allRecipe.recipeList;
   // const setTarget = useRef(null);
@@ -75,7 +74,7 @@ const AllRecipeList = () => {
       }, 10);
 
       // page.current += 1;
-      
+
       // 기존코드
       // if (inView && !loading) {
       //   setTimeout(() => {
@@ -109,10 +108,8 @@ const AllRecipeList = () => {
   // console.log(inView);
   return (
     <StAllListWrap>
-
       {items?.map((allrecipes, index) => (
-        <StListWrap key={"allRecipeList"+index}>
-
+        <StListWrap key={"allRecipeList" + index}>
           {items.length - 1 == index ? (
             <div className="flex_box" ref={ref}>
               {/* 스피너 이미지 비율이 깨지는 것 같습니다 -by선아 */}
@@ -124,10 +121,8 @@ const AllRecipeList = () => {
               <AllRecipeListContainer allrecipes={allrecipes} />
             </div>
           )}
-
         </StListWrap>
       ))}
-
     </StAllListWrap>
   );
 };
@@ -176,7 +171,7 @@ const StAllListWrap = styled.ul`
   display: flex;
   flex-flow: wrap;
   gap: 9px;
-  
+
   @media (max-width: 360px) {
     gap: 10px;
   }
@@ -187,16 +182,16 @@ const StListWrap = styled.li`
   height: 25vh;
   max-height: 500px;
   border-radius: 9px;
-  
+
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
-  
-  transition: all .3s;
+
+  transition: all 0.3s;
   overflow: hidden;
 
   @media (max-width: 360px) {
     flex: 0 0 calc((100% - (10px * 1)) / 2);
   }
-  
+
   :hover {
     transform: translateY(-4px);
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);

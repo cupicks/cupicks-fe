@@ -22,7 +22,7 @@ const Navigation = (props) => {
 export default Navigation;
 
 const StNav = styled.nav`
-  padding: 0 5px;
+  padding: 0 24px;
 
   display: flex;
   align-items: center;
@@ -33,18 +33,23 @@ const StNav = styled.nav`
   top: 0;
 
   background-color: #fff;
+  color: #393939;
 
   min-height: 60px;
   line-height: 60px;
   z-index: 999;
+  
 
   button {
     all: unset;
     padding: 0 16px;
+    
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 150%;
   }
 
   .button_goBack {
-    margin-left: 16px;
     cursor: pointer;
   }
 
@@ -61,7 +66,10 @@ const StNav = styled.nav`
 
     transform: translateX(-50%);
 
-    font-weight: 400;
-    font-size: 18px;
+    font-size: 17px;
+  }
+
+  img {
+    margin-top: 3px;
   }
 `;

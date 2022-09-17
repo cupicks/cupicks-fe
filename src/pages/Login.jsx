@@ -10,6 +10,7 @@ import api from "../server/api";
 import styled from "styled-components";
 
 import kakaoIcon from "../assets/svg/talk.svg";
+import kakao from "../assets/image/logo/kakao.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,7 +38,6 @@ const Login = () => {
         // }
       );
       console.log(res);
-      console.log(res.data.accessToken);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       alert(res.data.message);
@@ -102,7 +102,7 @@ const Login = () => {
       </StLineBox>
 
       <StKakaoBox>
-        <img src={kakaoIcon} />
+        <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox>
 
@@ -189,19 +189,25 @@ const StButton = styled.button`
   padding: 15px;
   border-radius: 10px;
 
-  border: 1px solid #cdcdcd;
-  color: #cdcdcd;
-
+  border: var(--input-border-bottom);
+  color: var(--input-font-color);
+  
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-
+  
   transition: all 0.2s;
   box-sizing: border-box;
 
+  cursor: pointer;
+  
   :hover {
-    background-color: #393939;
+    background-color: var(--button-activeBackgroundColor);
+    border-color: var(--button-activeBorderColor);
     color: #fff;
+  }
+  :disabled {
+    pointer-events: none;
   }
 `;
 
@@ -279,6 +285,9 @@ const StKakaoBox = styled.div`
   cursor: pointer;
 
   img {
+    width: 20px;
+    height: 20px;
+
     margin-right: 9px;
   }
 `;
