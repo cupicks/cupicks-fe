@@ -1,6 +1,7 @@
 /** 마지막 레벨일 때 */
-const NavButtonDone = ({onClick, disabledStyle}) => {
-  const disabled = disabledStyle ? 'disabled' : ''
+const NavButtonDone = ({onClick, isDisabled}) => {
+  const disabled = isDisabled ? 'disabled' : ''
+  console.log(isDisabled);
   return (
     <button 
       disabled={disabled}

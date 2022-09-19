@@ -10,4 +10,12 @@ const recipeIngredientColorList = [
   ]
 ]
 
-export default recipeIngredientColorList
+const recipeDarkIngredientColorList = [
+  '#000000', '#3897ef', '#ae7948',
+  '#f29d50','#ee714a','#f33d3d',
+  '#d076de', '#a63bd9','#262626',
+  '#353535','#555555','#737373',
+  '#999999', '#ee714a'
+]
+
+export {recipeIngredientColorList, recipeDarkIngredientColorList}
