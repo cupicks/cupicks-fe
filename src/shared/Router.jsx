@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Comments from "../pages/Comments";
@@ -13,21 +14,44 @@ import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
 
+import TokenService from "../server/token.service";
+
 const Router = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(()=>{
+    if(localStorage.getItem('accessToken')){
+      setLoggedIn(true)
+    } else {
+      setLoggedIn(false)
+    }
+  }, [])
+
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/signIn" element={<Login />} />
       <Route path="/recipe" element={<Recipe />} />
       <Route path="/recipe/:recipeId/comment" element={<Comments />} />
-      <Route path="/recipe/create" element={<RecipeCreate />} />
       <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
-      <Route path="/signUp" element={<Register />} />
-      <Route path="/signUp/complete" element={<RegisterComplete />} />
-      <Route path="/resetPassword" element={<ResetPassword />} />
-      <Route path="/mypage" element={<Mypage />} />
-      <Route path="/profile/edit" element={<ProfileEdit />} />
+
+      {!loggedIn && 
+        <>
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-up/complete" element={<RegisterComplete />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+        </>
+      }
+
+      {loggedIn &&
+        <>
+          <Route path="/recipe/create" element={<RecipeCreate />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/profile/edit" element={<ProfileEdit />} />
+        </>
+      }
+
       <Route path="*" element={<NotFound />} />
+    
     </Routes>
   );
 };
