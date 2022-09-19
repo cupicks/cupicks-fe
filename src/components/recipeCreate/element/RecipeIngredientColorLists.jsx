@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import colorLists from '../../../util/recipeIngrediantColorList'
+import {recipeIngredientColorList} from '../../../util/recipeIngrediantColorList'
 
 import RecipeIngredientColorList from "./RecipeIngredientColorList";
 
@@ -29,7 +29,7 @@ const RecipeIngredientColorLists = (props) => {
     <div className="container">
       <StSlick>
         <Slider {...settings}>
-          {colorLists.map((colorList, i)=>{
+          {recipeIngredientColorList.map((colorList, i)=>{
             return (
               <RecipeIngredientColorList
                 key={i}

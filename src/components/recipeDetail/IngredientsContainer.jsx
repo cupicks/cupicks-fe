@@ -19,7 +19,6 @@ const IngredientsContainer = (props) => {
   } else {
     iceImage = ice591
   }
-  console.log(isIced, iceImage);
 
   return (
     <StIngredientsContainer>
