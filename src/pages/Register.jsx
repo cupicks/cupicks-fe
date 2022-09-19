@@ -62,7 +62,7 @@ const Register = () => {
         );
         console.log(res);
         alert(res.data.message);
-        navigate("/signUp/complete");
+        navigate("/sign-up/complete");
       } catch (err) {
         console.log(err);
       }
@@ -112,7 +112,7 @@ const Register = () => {
   };
   const before = () => {
     if (level === 0) {
-      navigate("/signIn");
+      navigate("/sign-in");
     } else {
       // const emailToken = getValues("emailVerifyToken");
       // reset("emailVerifyToken");

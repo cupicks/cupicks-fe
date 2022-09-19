@@ -20,7 +20,7 @@ const NotFound = () => {
     if(tokens[0]){
       navigate("/recipe")
     } else {
-      navigate("/signIn")
+      navigate("/sign-in")
     }
   }, timer)
   
