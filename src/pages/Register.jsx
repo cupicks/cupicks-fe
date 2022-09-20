@@ -10,6 +10,7 @@ import Nickname from "../components/register/Nickname";
 import Password from "../components/register/Password";
 import Image from "../components/register/Image";
 import ConfirmBox from "../components/elements/modal/ConfirmBox";
+import ToastMessage from "../components/elements/modal/ToastMessage";
 
 import styled from "styled-components";
 
@@ -24,9 +25,14 @@ const Register = () => {
     handleSubmit,
     setValue,
     getValues,
+    setError,
     reset,
+    resetField,
     formState: { errors, isSubmitting },
-  } = useForm({ criteriaMode: "all", mode: "onChange" });
+  } = useForm({
+    criteriaMode: "all",
+    mode: "onChange",
+  });
 
   const [level, setLevel] = useState(0);
   const [modal, setModal] = useState(false);
@@ -38,7 +44,14 @@ const Register = () => {
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
   const [checkEmail, setCheckEmail] = useState(false);
-  // const [checkNumber, setCheckNumber] = useState(false);
+  const [failure, setFailure] = useState(false);
+  const [emailSuccess, setEmailSuccess] = useState(false);
+  const [numberSuccess, setNumberSuccess] = useState(false);
+  const [numberFailure, setNumberFailure] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordCfError, setPasswordCfError] = useState(false);
+  const [completion, setCompletion] = useState(false);
+  const [nicknameFailure, setNicknameFailure] = useState(false);
 
   const onSubmit = async () => {
     let contentType = "multi-part/form-data";
@@ -62,6 +75,7 @@ const Register = () => {
         );
         console.log(res);
         alert(res.data.message);
+        // setCompletion(true);
         navigate("/signUp/complete");
       } catch (err) {
         console.log(err);
@@ -75,15 +89,27 @@ const Register = () => {
       return;
     }
     if (errors.password && level === 1) {
-      alert("비밀번호를 제대로 입력해주세요");
+      // alert("비밀번호를 제대로 입력해주세요");
+      setPasswordError(true);
+      setTimeout(() => {
+        setPasswordError(false);
+      }, 1000);
       return;
     }
     if (errors.password_confirm && level === 1) {
-      alert("비밀번호가 일치하지 않습니다");
+      //   alert("비밀번호가 일치하지 않습니다");
+      setPasswordCfError(true);
+      setTimeout(() => {
+        setPasswordCfError(false);
+      }, 1000);
       return;
     }
     if (errors.nickname && level === 2) {
-      alert("닉네임을 제대로 입력해주세요");
+      // alert("닉네임을 제대로 입력해주세요");
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 1000);
       return;
     }
     //닉네임 중복확인
@@ -101,14 +127,20 @@ const Register = () => {
         setValue("nicknameVerifyToken", token);
         console.log(getValues("nicknameVerifyToken"));
         // setCheckNickname(true);
-        alert(res.data.message);
+        // alert(res.data.message);
       } catch (err) {
         console.log(err);
-        alert(err.response.data.message);
+        // alert(err.response.data.message);
+        setError("nicknameError", { message: err.response.data.message });
+        setNicknameFailure(true);
+        setTimeout(() => {
+          setNicknameFailure(false);
+        }, 1000);
         return;
       }
     }
     setLevel((prev) => prev + 1);
+    return;
   };
   const before = () => {
     if (level === 0) {
@@ -167,19 +199,36 @@ const Register = () => {
       );
       console.log(res.data.message);
       setCheckEmail(true);
-      alert(res.data.message);
+      // alert(res.data.message);
       setCheckNumber(true);
       setMinutes(3);
       setSeconds(0);
       setCheckTimer(true);
+      setEmailSuccess(true);
+      setTimeout(() => {
+        setEmailSuccess(false);
+      }, 1000);
+      return;
     } catch (err) {
       console.log(err);
-      alert(err.response.data.message);
+      // alert(err.response.data.message);
       setCheckEmail(false);
       setCheckTimer(false);
       setCheckNumber(false);
+
+      setError("emailError", { message: err.response.data.message });
+
+      // setValue("emailError", err.response.data.message);
+      // console.log(setError);
+      setFailure(true);
+      setTimeout(() => {
+        setFailure(false);
+      }, 2000);
+      return;
     }
   };
+  // console.log(getValues("emailError"));
+
   //입력번호 확인
   const confirmEmailVerifyCode = async () => {
     let contentType = "application/x-www-form-urlencoded";
@@ -196,12 +245,18 @@ const Register = () => {
       console.log(getValues("emailVerifyToken"));
       setCheckEmailCode(true);
       setCheckNumberCode(true);
-      alert(res.data.message);
+      // alert(res.data.message);
     } catch (err) {
       console.log(err);
       // await new Promise((r) => setTimeout(r, 3000));
-      alert(err.response.data.message);
+      // alert(err.response.data.message);
       setCheckNumberCode(false);
+      resetField("Number");
+      setError("numberError", { message: err.response.data.message });
+      setNumberFailure(true);
+      setTimeout(() => {
+        setNumberFailure(false);
+      }, 1000);
     }
   };
   // React.useEffect(() => {
@@ -212,7 +267,9 @@ const Register = () => {
   // React.useEffect(() => {
   //   resetRegister();
   // }, []);
-
+  // React.useEffect(() => {
+  //   next();
+  // }, {});
   return (
     <StDiv>
       {modal && (
@@ -226,18 +283,14 @@ const Register = () => {
       )}
 
       <StForm onSubmit={handleSubmit(onSubmit)}>
-
+        {/* {completion && (
+          <ToastMessage text={"회원가입에 성공하셨습니다."} timer={1000} />
+        )} */}
         <Navigation empty={true}>
           <StArrowBack>
-            <img 
-              src={arrowBack}
-              onClick={before} 
-              alt="뒤로 가기" 
-            />
-          </StArrowBack> 
-          <div className="title">
-            회원가입
-          </div>
+            <img src={arrowBack} onClick={before} alt="뒤로 가기" />
+          </StArrowBack>
+          <div className="title">회원가입</div>
         </Navigation>
 
         {level === 0 && (
@@ -247,6 +300,7 @@ const Register = () => {
             watch={watch}
             setValue={setValue}
             getValues={getValues}
+            setError={setError}
             checkNumber={checkNumber}
             setCheckNumber={setCheckNumber}
             minutes={minutes}
@@ -261,6 +315,9 @@ const Register = () => {
             setToast={setToast}
             checkNumberCode={checkNumberCode}
             sendEmailVerifyCode={sendEmailVerifyCode}
+            failure={failure}
+            emailSuccess={emailSuccess}
+            numberFailure={numberFailure}
           />
         )}
 
@@ -270,6 +327,8 @@ const Register = () => {
             errors={errors}
             watch={watch}
             getValues={getValues}
+            passwordError={passwordError}
+            passwordCfError={passwordCfError}
           />
         )}
 
@@ -280,6 +339,8 @@ const Register = () => {
             watch={watch}
             setValue={setValue}
             getValues={getValues}
+            toast={toast}
+            nicknameFailure={nicknameFailure}
           />
         )}
         {level === 3 && (
@@ -381,13 +442,12 @@ const StArrowBack = styled.div`
 `;
 
 const StForm = styled.form`
-
   & > div > label {
     margin-top: 10px;
 
     font-size: 28px;
     font-weight: 700;
-    
+
     color: var(--font-color-dark);
   }
 
@@ -396,7 +456,7 @@ const StForm = styled.form`
 
     position: relative;
     transform: translateY(-28px);
-    
+
     font-size: 13px;
     color: var(--font-color-alert);
   }
@@ -409,13 +469,13 @@ const StForm = styled.form`
     all: unset;
 
     margin-bottom: 30px;
-    
+
     border-bottom: var(--input-border-bottom);
     font-size: var(--input-font-size);
     padding: var(--input-padding);
-    
-    transition: all .2s;
-    
+
+    transition: all 0.2s;
+
     :focus {
       border-bottom: var(--input-activeBorder-bottom);
     }
@@ -435,16 +495,16 @@ const StButton = styled.button`
 
   border: var(--input-border-bottom);
   color: var(--input-font-color);
-  
+
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-  
+
   transition: all 0.2s;
   box-sizing: border-box;
 
   cursor: pointer;
-  
+
   :hover {
     background-color: var(--button-activeBackgroundColor);
     border-color: var(--button-activeBorderColor);
