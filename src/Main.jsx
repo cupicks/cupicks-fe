@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/config/configStore";
 
-import './util/windowInnerHeightSet'
+import "./util/windowInnerHeightSet";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
