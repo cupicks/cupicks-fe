@@ -33,11 +33,13 @@ const RecipeList = (props) => {
               className="slick_box" 
               key={'slick_box'+i}
               onMouseUp={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
-              ontouchend={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
+              onTouchEnd={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
             > 
               {header &&
                 <StRecipeUserInfo>
-                  <StProfilePic prfilePicSrc={prfilePicSrc} />
+                  <StProfilePic 
+                    prfilePicSrc={prfilePicSrc} 
+                  />
                   이름
                 </StRecipeUserInfo>
               }

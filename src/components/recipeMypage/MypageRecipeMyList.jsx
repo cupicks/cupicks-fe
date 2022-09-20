@@ -21,7 +21,6 @@ const MypageRecipeMyList = (props) => {
 
     try {
       const response = await api(contentType).get(`/profile/my-recipe?page=1&count=3`)
-      setRecipeList(response.data.recipeList)
       setLoaded(true)
 
     } catch (err) {
