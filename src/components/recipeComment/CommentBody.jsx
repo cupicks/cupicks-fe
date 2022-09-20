@@ -30,7 +30,6 @@ const CommentBody = () => {
         setComments([...res.data.commentList]);
       });
   };
-  console.log(comments);
 
   const getTimegap = (createdAt) => {
     const myDate = new Date(createdAt);
@@ -63,9 +62,18 @@ const CommentBody = () => {
     //   return <p>{minute}분 전</p>;
     // }
   };
+  const onErrorImg = (e) => {
+    if (e.target.src === undefined) {
+      setTimeout(() => {
+        getComments();
+      }, 2950);
+    }
+  };
 
   useEffect(() => {
+    // setTimeout(() => {
     getComments();
+    // }, 2900);
   }, []);
 
   return (
@@ -77,7 +85,9 @@ const CommentBody = () => {
               <StProfile>
                 <div className="profile_pic">
                   <StCommentProfile
-                    src={decodedToken.imageUrl}
+                    // src={decodedToken.imageUrl}
+                    src={comment.userImageUrl}
+                    onError={(e) => (e.target.src = comment.userResizedUrl)}
                   ></StCommentProfile>
                 </div>
               </StProfile>
@@ -89,11 +99,15 @@ const CommentBody = () => {
                   </div>
                 </div>
                 <div className="content_bottom">{comment.comment}</div>
-                {comment.imageUrl == null ? null : (
-                  <div className="content_picContainer">
-                    <img className="content_pic" src={comment.imageUrl} />
-                  </div>
-                )}
+                {/* {comment.imageUrl == null ? null : ( */}
+                <div className="content_picContainer">
+                  <img
+                    className="content_pic"
+                    src={comment.resizedUrl}
+                    onError={(e) => (e.target.src = comment.imageUrl)}
+                  />
+                </div>
+                {/* )} */}
               </StContent>
               <StOption
                 onClick={() => {
