@@ -269,7 +269,7 @@ const RecipeCreateNavigation = (props) => {
           }
           {showComfirmBox && 
             <ConfirmBox
-              text={'이전 버튼을 누를 시\n전체량 선택부터 새로 하셔야 합니다.'}
+              text={'지금 이전 버튼을 누를 시\n전체량 선택부터 새로 하셔야 합니다.'}
               confirmButtonText={'새로하기'}
               onComfirmed={goFirstConfirmed}
               onDenied={goFirstDenied}

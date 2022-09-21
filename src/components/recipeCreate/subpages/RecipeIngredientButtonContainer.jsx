@@ -1,12 +1,12 @@
-import { useWatch } from "react-hook-form";
 import styled from "styled-components"
 import RecipeCreateModal from "../element/RecipeCreateModal";
 
+import cancel from '../../../assets/svg/cancel_ingredient.svg'
+
 const RecipeIngredientButtonContainer = (props) => {
-  const {cupState, setCupState, formProps, formArrayProps, stepState, setStepState} = props;
+  const {cupState, setCupState, formArrayProps, stepState, setStepState} = props;
   
   const {ingredientDeleteMode} = cupState
-  const {getValues} = formProps
   const {remove, append} = formArrayProps
   const {subStep, finalSubStep} = stepState
 
@@ -35,15 +35,15 @@ const RecipeIngredientButtonContainer = (props) => {
 
       { (addIngredientMode && !cupIsFull) &&
         <>
-          <button
-            type="button"
-            className={ buttonClickable ? "" : "disable" }
+          <img 
+            src={cancel}  
+            alt="새 재료 추가 버튼" 
+            className={ buttonClickable ? "ingredient_button" : "ingredient_button disable" }
             onClick={()=>{
               append()
               setStepState(prev => ({...prev, subStep: 1}))
-          }}>
-            +
-          </button>
+            }}
+          />
         </>
       }
 
@@ -61,31 +61,30 @@ const RecipeIngredientButtonContainer = (props) => {
 export default RecipeIngredientButtonContainer
 
 const StRecipeIngredientButtonContainer = styled.div`
-  button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-
+  .ingredient_button {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(45deg);
     
-    background: var(--button-activeBackgroundColor);
-    border: none;
-    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.3);
-    color: var(--button-activeColor);
-    outline: none;
-    
-    font-size: 50px;
-    line-height: 50px;
-    
-    transition: all .2s;
+    transform-origin: 48% 48%;
     z-index: 99;
+    animation: blink .6s alternate infinite;
+  }
+  
+  @keyframes blink {
+    0% {opacity: 0.8}
+    100% {opacity: 1}
+  }
+  
+  @keyframes fadeOut {
+    0% {opacity: 0.8}
+    100% {opacity: 0.4}
   }
 
   .disable {
+    transform: translate(-50%, -50%) rotate(45deg);
     pointer-events: none;
-    opacity: 0.3;
+    animation: fadeOut .3s forwards;
   }
 `
