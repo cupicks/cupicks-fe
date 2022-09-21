@@ -79,9 +79,12 @@ const RecipeVisualContainer = (props) => {
           `ice 선택 시 전체량 중 200ml가 채워집니다.`
         }
 
-        { subStep === 4 && fields.length > 0 &&
-          `채워진 재료를 누르면 제거 버튼이 나옵니다.`
-        }
+        <strong>
+          { subStep === 4 && fields.length > 0 &&
+            `채워진 재료를 누르면 제거 버튼이 나옵니다.`
+          }
+        </strong>
+        
         { cupLeft > 0 && cupLeft !== null &&
           <>
             <br /> 
@@ -116,11 +119,18 @@ const StRecipeVisualContainer = styled.div`
 
   .info_box {
     position: absolute;
-    bottom: 3%;
+    bottom: 2%;
+    z-index: 99;
+    background-color: rgba(255, 255, 255, 0.5);
 
     color: #888;
-
-    font-size: 14px;
+    
+    font-size: 13px;
+    
+    strong {
+      color: #777;
+      font-weight: 500;
+    }
   }
 
   .is_iced_icon_box {
@@ -133,7 +143,7 @@ const StRecipeVisualContainer = styled.div`
 
 const StRecipeVisual = styled.div`
   width: 70%;
-  height: 80%;
+  height: 78%;
 
   margin: 0 auto;
   padding-top: 20px;
@@ -183,21 +193,4 @@ const StRecipeVisual = styled.div`
     height: 50%;
     opacity: 0;
   }
-`
-
-const StIsIcedIconBox = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  top: 5px;
-  right: 1.5rem;
-
-  background-color: #444;
-  color: #fff;
 `
