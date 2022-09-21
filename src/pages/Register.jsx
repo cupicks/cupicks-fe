@@ -53,7 +53,37 @@ const Register = () => {
   const [completion, setCompletion] = useState(false);
   const [nicknameFailure, setNicknameFailure] = useState(false);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    console.log(data);
+    // let contentType = "multi-part/form-data";
+    // //request(body)-> image 보내기
+    // const form = new FormData();
+    // form.append(
+    //   "imageValue",
+    //   getValues("image") === undefined ? null : getValues("image")[0]
+    // );
+    // //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
+    // if (level === 3) {
+    //   try {
+    //     const res = await api(contentType).post(
+    //       `/auth/signup?password=${getValues(
+    //         "password"
+    //       )}&nicknameVerifyToken=${getValues(
+    //         "nicknameVerifyToken"
+    //       )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
+    //       form
+    //       // { headers: { "Content-Type": "multi-part/form-data" } }
+    //     );
+    //     console.log(res);
+    //     alert(res.data.message);
+    //     // setCompletion(true);
+    //     navigate("/signUp/complete");
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+  };
+  const completionRegister = async () => {
     let contentType = "multi-part/form-data";
     //request(body)-> image 보내기
     const form = new FormData();
@@ -62,24 +92,25 @@ const Register = () => {
       getValues("image") === undefined ? null : getValues("image")[0]
     );
     //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
-    if (level === 3) {
-      try {
-        const res = await api(contentType).post(
-          `/auth/signup?password=${getValues(
-            "password"
-          )}&nicknameVerifyToken=${getValues(
-            "nicknameVerifyToken"
-          )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
-          form
-          // { headers: { "Content-Type": "multi-part/form-data" } }
-        );
-        console.log(res);
-        alert(res.data.message);
-        // setCompletion(true);
+
+    try {
+      const res = await api(contentType).post(
+        `/auth/signup?password=${getValues(
+          "password"
+        )}&nicknameVerifyToken=${getValues(
+          "nicknameVerifyToken"
+        )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
+        form
+        // { headers: { "Content-Type": "multi-part/form-data" } }
+      );
+      console.log(res);
+      // alert(res.data.message);
+      setCompletion(true);
+      setTimeout(() => {
         navigate("/signUp/complete");
-      } catch (err) {
-        console.log(err);
-      }
+      }, 1000);
+    } catch (err) {
+      console.log(err);
     }
   };
   const next = async () => {
@@ -140,7 +171,6 @@ const Register = () => {
       }
     }
     setLevel((prev) => prev + 1);
-    return;
   };
   const before = () => {
     if (level === 0) {
@@ -281,11 +311,10 @@ const Register = () => {
           onDenied={cancelModal}
         />
       )}
-
+      {completion && (
+        <ToastMessage text={"회원가입에 성공하셨습니다."} timer={1000} />
+      )}
       <StForm onSubmit={handleSubmit(onSubmit)}>
-        {/* {completion && (
-          <ToastMessage text={"회원가입에 성공하셨습니다."} timer={1000} />
-        )} */}
         <Navigation empty={true}>
           <StArrowBack>
             <img src={arrowBack} onClick={before} alt="뒤로 가기" />
@@ -369,10 +398,12 @@ const Register = () => {
           </StButton>
         ) : level === 3 ? (
           <StButton
+            onClick={completionRegister}
             disabled={
               (level === 3 && watch("image") === undefined) ||
               (level === 3 && watch("image")?.length === 0) ||
-              isSubmitting
+              isSubmitting ||
+              completion
             }
           >
             계속하기
