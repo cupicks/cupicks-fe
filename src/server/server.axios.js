@@ -1,45 +1,57 @@
 import axios from "axios";
-import * as reactJwt from "react-jwt";
+import { isExpired } from "react-jwt";
+
 const serverAxios = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
 });
+
 /** @param { Request } req */
+
 const requestHandler = async (req) => {
-  //   const accessToken = getToken().accessToken;
-  //   request.headers.Authorization = `Bearer ${accessToken}`;
   const accessToken = localStorage.getItem("accessToken");
+  const isExpiredAccessTkn = isExpired(accessToken);
 
-  const isExpiredTkn = reactJwt.isExpired(accessToken);
-  if (isExpiredTkn === true) {
-    //True인 경우
-    // 1. 토큰이 만료된 경우
-    // 2. 토큰이 없거나 이상한것이 들어있을 경우
-    const refreshToken = localStorage.getItem("refreshToken");
-    try {
-      //성공한 경우
-      // 1. 만료되지 않은 올바른 refreshToken이 도착해서 새accessToken을 반환하는 경우
-      const response = await serverAxios.get(
-        `/auth/token?refreshToken=${refreshToken}`
-      );
+  const refreshToken = localStorage.getItem("refreshToken");
+  const isExpiredRefreshTkn = isExpired(refreshToken);
 
-      localStorage.setItem("accessToken", response.data.accessToken);
-      req.headers.Authorization = `Bearer ${response.data.accessToken}`;
-      return req;
-    } catch (error) {
-      // 에러가뜬경우 (status가 4xx, 5xx인 경우)
-      // 1. 토큰이 아닌게 왔을 경우
-      // 2. 다른사람이 만든 토큰이 왔을 경우
-      // 3. 만료된 refreshToken이 왔을 경우
-      // 4. 알 수 없는 에러
-      localStorage.clear();
-      return req;
-    }
+  // 토큰 만료 로직 => 이슈에 정리
+  // https://github.com/cupicks/cupicks-fe/issues/117
+  if (isExpiredRefreshTkn) {
+    // console.log("로그아웃 상태");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   } else {
-    req.headers.Authorization = `Bearer ${accessToken}`;
+    // console.log("로그인 상태");
 
-    return req;
+    if (isExpiredAccessTkn) {
+      // console.log("액세스 토큰이 만료되었습니다.");
+
+      try {
+        const response = await serverAxios.get(
+          `/auth/token?refreshToken=${refreshToken}`
+        );
+        const newAccessToken = response.data.accessToken;
+
+        localStorage.setItem("accessToken", newAccessToken);
+        req.headers.Authorization = `Bearer ${newAccessToken}`;
+
+        // console.log("액세스 토큰이 재발행 되었습니다.");
+        return req;
+      } catch (error) {
+        console.log(error);
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
+
+        return req;
+      }
+    } else {
+      // console.log("액세스 토큰이 만료되지 않았습니다.");
+      return null;
+    }
   }
 };
+
+requestHandler();
 
 serverAxios.interceptors.request.use((request) => requestHandler(request));
 

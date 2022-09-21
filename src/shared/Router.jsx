@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import Comments from "../pages/Comments";
 import Login from "../pages/Login";
@@ -14,17 +14,31 @@ import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
 
-import TokenService from "../server/token.service";
-
 const Router = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(()=>{
-    if(localStorage.getItem('accessToken')){
-      setLoggedIn(true)
-    } else {
-      setLoggedIn(false)
+
+  const pathname = location.pathname;
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  console.log(pathname);
+
+  useEffect(() => {
+    if (pathname !== "/" && pathname !== "/sigin-in") {
+      if (!refreshToken) {
+        // navigate("/sign-in");
+        loggedIn ? setLoggedIn(false) : "";
+
+        console.log(loggedIn);
+      } else {
+        setLoggedIn(true);
+
+        console.log(loggedIn);
+      }
     }
-  }, [])
+  }, [pathname]);
 
   return (
     <Routes>
@@ -33,25 +47,34 @@ const Router = () => {
       <Route path="/recipe/:recipeId/comment" element={<Comments />} />
       <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
 
-      {!loggedIn && 
+      {!loggedIn ? (
         <>
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-up/complete" element={<RegisterComplete />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
         </>
-      }
+      ) : (
+        <Route
+          path="*"
+          element={<NotFound message={"로그아웃이 필요한 페이지입니다."} />}
+        />
+      )}
 
-      {loggedIn &&
+      {loggedIn ? (
         <>
           <Route path="/recipe/create" element={<RecipeCreate />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
         </>
-      }
+      ) : (
+        <Route
+          path="*"
+          element={<NotFound message={"로그인이 필요한 페이지입니다."} />}
+        />
+      )}
 
       <Route path="*" element={<NotFound />} />
-    
     </Routes>
   );
 };
