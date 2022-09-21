@@ -1,4 +1,17 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "parserOptions": { "ecmaVersion": 2018, "sourceType": "module" }
+  "plugins": ["react"],
+  "extends": ["eslint:all", "plugin:react/all"],
+  "env": {
+    "browser": true,
+    "es2017": true,
+    "node": true
+  },
+  "rules": {
+    "no-console": "off"
+  },
+  "root": true,
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  }
 }
