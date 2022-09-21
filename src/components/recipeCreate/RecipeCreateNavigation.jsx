@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import Navigation from "../../partial/Navigation";
 import NavButtonDone from "../elements/button/NavButtonDone";
@@ -12,20 +12,23 @@ import ToastMessage from "../elements/modal/ToastMessage";
 import ConfirmBox from "../elements/modal/ConfirmBox";
 
 const RecipeCreateNavigation = (props) => {
-	const { cupState, setCupState, stepState, setStepState, formProps, formArrayProps} = props;
+	const { cupState, setCupState, stepState, setStepState, formProps} = props;
   const { ingredientDeleteMode, cupFull, currCupSize:cupSize, isIcedTag} = cupState
   const { step, finalStep, subStep, finalSubStep } = stepState
-  const { watch, getValues, reset, setError } = formProps
+  const { watch, getValues, reset } = formProps
+  
+  const buttonDone = useRef();
 
   const [modalCupFullRequired, setModalCupFullRequired] = useState(false)
   const [showComfirmBox, setShowComfirmBox] = useState(false)
+  const [showCompleteRequireBox, setShowCompleteRequireBox] = useState(false)
 
   window.addEventListener('keydown', ()=>{
     if (event.keyCode === 13) {
       event.preventDefault();
     }
   })
-
+  
   // State 초기화할 때 사용합니다.
   const initialCupState = {
     cupStyleHeight: 0,
@@ -43,14 +46,18 @@ const RecipeCreateNavigation = (props) => {
     subStep: 0
   }
 
-  // 레시피 만들기 step 상태 관리 변수
+  /***********************************/
+  /* 레시피 만들기 step 상태 관리 변수 */
+  /***********************************/
   const step0 = step === 0;
   const step2 = step === 2;
   const stepEnd = step === finalStep;
   const subStep0 = subStep === 0;
   const subStepEnd = subStep === finalSubStep;
-
-  // 재료 리스트 validation 상태 관리 변수
+  
+  /**********************************/
+  /* 재료 리스트 validation 상태 관리 */
+  /**********************************/
   const newList = getValues('ingredientList')
   const newListExist = newList !== undefined
 
@@ -68,7 +75,21 @@ const RecipeCreateNavigation = (props) => {
     if(ingredientAmountExist) amountRequired = true
   }
 
-  // 컨펌박스 Confirmed 또는 Denied
+  /****************************************/
+  /**** "레시피 텍스트 value 입력 확인"  ****/ 
+  /****************************************/
+  const newInput = watch();
+  let recipeCompletedRequired = true
+  if(newInput.title?.length > 0 && newInput.content?.length >0){
+    recipeCompletedRequired ? recipeCompletedRequired = false : '';
+  } else {
+    !recipeCompletedRequired ? recipeCompletedRequired = true : '';
+  }
+  console.log(newInput);
+
+  /*********************************/
+  /**** "재료 처음부터 추가하기"  ****/ 
+  /** 재료 처음부터 만들기 Confirmed */
   const goFirstConfirmed = () => {
     setShowComfirmBox(false)
     setTimeout(()=>{
@@ -77,14 +98,17 @@ const RecipeCreateNavigation = (props) => {
       setStepState(prev => ({...prev, ...initialStepState}))
     }, 1000)
   }
-
+ 
+  /** 재료 처음부터 만들기 Denied */
   const goFirstDenied = () => {
     setTimeout(()=>{
       setShowComfirmBox(false)
     }, 1000)
   }
 
-  // 버튼 비활성화
+  /*************************/
+  /** 버튼 비활성화 config **/
+  /*************************/
   const buttonDisableCaseObj = {
     cupSizeRequired: step0 && cupSize === null,
     cupTypeRequired: step === 1 && isIcedTag === null,
@@ -172,6 +196,22 @@ const RecipeCreateNavigation = (props) => {
   const subStepButtonNextClickHandler = () => {
     goNextSubStep()
   }
+  
+  /** 완료 Done 버튼 클릭 핸들러  */
+  const doneButtonNextClickHandler = () => {
+
+    if(recipeCompletedRequired){
+      setShowCompleteRequireBox(true)
+      setTimeout(()=>{
+        setShowCompleteRequireBox(false)
+      }, 2000)
+    }
+
+    buttonDone.current.disabled = true;
+    setTimeout(()=>{
+      buttonDone.current.disabled = false
+    }, 2000)
+  }
 
 	return (
 		<Navigation empty={true}>
@@ -192,7 +232,9 @@ const RecipeCreateNavigation = (props) => {
 
           {stepEnd &&
             <NavButtonDone
-              disabledStyle={showComfirmBox}
+              disabledStyle={recipeCompletedRequired}
+              ref={buttonDone}
+              onClick={doneButtonNextClickHandler}
             />
           }
 
@@ -218,6 +260,11 @@ const RecipeCreateNavigation = (props) => {
           {modalCupFullRequired && 
             <ToastMessage
               text={'재료를 전부 채우지 않으면\n다음 단계로 넘어갈 수 없어요!'}
+            />  
+          }
+          {showCompleteRequireBox && 
+            <ToastMessage
+              text={'레시피 내용을\n완성해주세요!'}
             />  
           }
           {showComfirmBox && 

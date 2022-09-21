@@ -77,7 +77,8 @@ const RecipeCreateForm = () => {
     data = setDataType(data);
     
     if(step === finalStep){
-      RecipeCreating(data)
+      console.log(data);
+      // RecipeCreating(data)
     }
   }
   
