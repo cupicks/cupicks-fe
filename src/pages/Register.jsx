@@ -174,7 +174,7 @@ const Register = () => {
   };
   const before = () => {
     if (level === 0) {
-      navigate("/signIn");
+      navigate("/sign-in");
     } else {
       // const emailToken = getValues("emailVerifyToken");
       // reset("emailVerifyToken");
