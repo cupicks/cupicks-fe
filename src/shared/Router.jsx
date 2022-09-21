@@ -29,6 +29,7 @@ const Router = () => {
     if (pathname !== "/" && pathname !== "/sigin-in") {
       if (!refreshToken) {
         // navigate("/sign-in");
+        // test
         loggedIn ? setLoggedIn(false) : "";
 
         console.log(loggedIn);

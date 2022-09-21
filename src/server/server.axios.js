@@ -28,7 +28,7 @@ const requestHandler = async (req) => {
 
       try {
         const response = await serverAxios.get(
-          `/auth/token?refreshToken=${refreshToken}`
+          `/auth/token?refreshToken=${refreshToken}`,
         );
         const newAccessToken = response.data.accessToken;
 

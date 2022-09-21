@@ -68,10 +68,8 @@ const AllRecipeList = () => {
   useEffect(() => {
     //마지막 요소를 보고 로딩중이 아니라면
     if (inView && !loading && items.length >= counting) {
-      setTimeout(() => {
-        setPage(page + 1);
-        setCounting(counting + 6);
-      }, 1500);
+      setPage(page + 1);
+      setCounting(counting + 6);
 
       // page.current += 1;
 

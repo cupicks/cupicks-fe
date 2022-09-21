@@ -142,7 +142,7 @@ const CommentEdit = ({
           <input
             type="file"
             id="picture"
-            {...register("image", { required: true })}
+            {...register("image")}
             accept="image/*"
             getValues={getValues}
           ></input>
