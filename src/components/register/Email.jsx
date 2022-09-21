@@ -1,32 +1,19 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import serverAxios from "../../server/server.axios";
-import axios from "axios";
-import { useWatch } from "react-hook-form";
-
-import api from "../../server/api";
+import React from "react";
 import Timer from "./Timer";
-
 import ToastMessage from "../../components/elements/modal/ToastMessage";
-
+import styled from "styled-components";
+/*eslint max-lines-per-function: ["error", {"max": 300, "skipBlankLines": true}]*/
 const Email = (props) => {
   const {
     register,
     errors,
-    setValue,
-    watch,
-    getValues,
-    setError,
     checkNumber,
-    setCheckNumber,
     minutes,
     setMinutes,
     seconds,
     setSeconds,
     checkEmail,
-    setCheckEmail,
     checkTimer,
-    setCheckTimer,
     toast,
     setToast,
     checkNumberCode,
@@ -35,72 +22,7 @@ const Email = (props) => {
     emailSuccess,
     numberFailure,
   } = props;
-  // const [checkEmail, setCheckEmail] = useState(false);
-  // const [checkNumber, setCheckNumber] = useState(false);
-  // const [minutes, setMinutes] = useState(3);
-  // const [seconds, setSeconds] = useState(0);
-  // const [checkTimer, setCheckTimer] = useState(false);
-  // const [toast, setToast] = useState(false);
 
-  // const contentType = "application/x-www-form-urlencoded";
-
-  // const confirmEmailVerifyCode = async () => {
-  //   try {
-  //     const res = await api(contentType).get(
-  //       `/auth/confirm-email?email=${getValues(
-  //         "email"
-  //       )}&email-verify-code=${getValues("Number")}`
-  //       // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-  //     );
-  //     const token = res.data.emailVerifyToken;
-  //     console.log(token);
-  //     setValue("emailVerifyToken", token);
-  //     console.log(getValues("emailVerifyToken"));
-  //     setCheckNumber(true);
-  //     alert(res.data.message);
-  //   } catch (err) {
-  //     console.log(err);
-  //     // await new Promise((r) => setTimeout(r, 3000));
-  //     alert(err.response.data.message);
-  //   }
-  // };
-  // const sendEmailVerifyCode = async () => {
-  //   if (errors.email) {
-  //     setToast(true);
-  //     setTimeout(() => {
-  //       setToast(false);
-  //     }, 1000);
-  //     return;
-  //   }
-  //   try {
-  //     const res = await api(contentType).get(
-  //       `/auth/send-email?email=${getValues("email")}`
-  //       // {
-  //       //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //       // }
-  //     );
-  //     console.log(res.data.message);
-  //     setCheckEmail(true);
-  //     alert(res.data.message);
-  //     setMinutes(3);
-  //     setSeconds(0);
-  //     setCheckTimer(true);
-  //   } catch (err) {
-  //     console.log(err);
-  //     alert(err.response.data.message);
-  //     setCheckEmail(false);
-  //     setCheckTimer(false);
-  //   }
-  // };
-  // React.useEffect(() => {
-  //   if (watch("email") !== getValues("email")) {
-  //     setCheckEmail(false);
-  //   }
-  //   if (watch("Number") !== getValues("Number")) {
-  //     setCheckNumber(false);
-  //   }
-  // });
-  // console.log(errors.emailError?.message);
   return (
     <StDiv>
       {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
@@ -140,12 +62,6 @@ const Email = (props) => {
       />
       {errors?.email?.types?.required && <p>{errors.email.message}</p>}
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
-      {/* <button
-        onClick={sendEmailVerifyCode}
-        disabled={watch("email") === undefined || watch("email") === ""}
-      >
-        이메일 인증번호 발송
-      </button> */}
       {checkNumber && (
         <>
           <label>이메일 인증번호 입력</label>
@@ -156,15 +72,6 @@ const Email = (props) => {
             placeholder="인증번호"
             {...register("Number")}
           />
-
-          {/* <button
-        onClick={confirmEmailVerifyCode}
-        disabled={
-          watch("Number")?.length <= 5 || getValues("Number") === undefined
-        }
-      >
-        인증번호 확인
-      </button> */}
           <StTimer>
             <StReNumber
               disabled={checkNumberCode === true}
