@@ -32,8 +32,8 @@ const NotFound = (props) => {
 export default NotFound;
 
 const StWrap = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   display: flex;
   flex-flow: column;
@@ -42,7 +42,7 @@ const StWrap = styled.div`
   gap: 10px;
 
   img {
-    width: 50%;
+    width: 45%;
     margin-bottom: 20px;
   }
 `;
