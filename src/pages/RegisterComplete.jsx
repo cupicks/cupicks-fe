@@ -13,7 +13,7 @@ const RegisterComplete = () => {
   const clickLevel = () => {
     setLevel((prev) => prev + 1);
     if (level === 2) {
-      navigate("/signIn");
+      navigate("/sign-in");
     }
   };
 

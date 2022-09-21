@@ -30,7 +30,7 @@ const ResetPassword = () => {
       );
       console.log(res);
       alert(res.data.message);
-      navigate("/signIn");
+      navigate("/sign-in");
     } catch (err) {
       // console.log(err);
       alert(err.response.data.message);
@@ -38,7 +38,7 @@ const ResetPassword = () => {
   };
 
   const before = () => {
-    navigate("/signIn");
+    navigate("/sign-in");
   };
 
   return (

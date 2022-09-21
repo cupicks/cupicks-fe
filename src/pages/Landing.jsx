@@ -6,30 +6,23 @@ import styled from "styled-components";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const getTokens = () => {
-    const accessToken = localStorage.getItem("accessToken")
-    const refreshToken = localStorage.getItem("refreshToken")
-    
-    return [accessToken, refreshToken]
-  }
+  const refreshToken = localStorage.getItem("refreshToken");
+  const timer = 10;
 
-  const tokens = getTokens()
-  const timer = 10
-
-  setTimeout(()=>{
-    if(tokens[0]){
-      navigate("/recipe")
+  setTimeout(() => {
+    if (refreshToken) {
+      navigate("/recipe");
     } else {
-      navigate("/signIn")
+      navigate("/sign-in");
     }
-  }, timer)
-  
+  }, timer);
+
   return (
     <StWrap>
-      <img src={logo} alt="커픽"/>
+      <img src={logo} alt="커픽" />
     </StWrap>
-  )
-}
+  );
+};
 
 export default Landing;
 
@@ -44,4 +37,4 @@ const StWrap = styled.div`
   img {
     width: 50%;
   }
-`
+`;

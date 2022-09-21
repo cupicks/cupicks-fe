@@ -110,7 +110,7 @@ const Login = () => {
         회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
       </StCtn>
 
-      <StLink onClick={() => navigate("/signUp")}>
+      <StLink onClick={() => navigate("/sign-up")}>
         Cupick이 처음이세요? 회원가입
       </StLink>
     </StDiv>

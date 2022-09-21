@@ -1,21 +1,21 @@
 import axios from "axios";
 import TokenService from "./token.service";
 
-const customAxios = (contentType) => { 
-  const API = import.meta.env.VITE_SERVER_URL
+const customAxios = (contentType) => {
+  const API = import.meta.env.VITE_SERVER_URL;
 
   const instance = axios.create({
     baseURL: API,
     headers: {
-      "Content-Type": contentType
-    }
+      "Content-Type": contentType,
+    },
   });
-  
+
   instance.interceptors.request.use(
     (config) => {
       const token = TokenService.getLocalAccessToken();
       if (token) {
-        config.headers["Authorization"] = 'Bearer ' + token;
+        config.headers["Authorization"] = "Bearer " + token;
       }
       return config;
     },
@@ -38,10 +38,12 @@ const customAxios = (contentType) => {
 
           try {
             const refreshToken = TokenService.getLocalRefreshToken();
-            const rs = await instance.get(`/auth/token?refreshToken=${refreshToken}`);
-  
+            const rs = await instance.get(
+              `/auth/token?refreshToken=${refreshToken}`
+            );
+
             console.log(rs);
-  
+
             const { accessToken } = rs.data;
             TokenService.updateLocalAccessToken(accessToken);
 
@@ -51,12 +53,12 @@ const customAxios = (contentType) => {
           }
         }
       }
-  
+
       return Promise.reject(err);
     }
   );
-  
+
   return instance;
-}
+};
 
 export default customAxios;

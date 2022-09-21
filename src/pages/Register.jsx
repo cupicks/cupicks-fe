@@ -92,6 +92,25 @@ const Register = () => {
       getValues("image") === undefined ? null : getValues("image")[0]
     );
     //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
+<<<<<<< HEAD
+    if (level === 3) {
+      try {
+        const res = await api(contentType).post(
+          `/auth/signup?password=${getValues(
+            "password"
+          )}&nicknameVerifyToken=${getValues(
+            "nicknameVerifyToken"
+          )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
+          form
+          // { headers: { "Content-Type": "multi-part/form-data" } }
+        );
+        console.log(res);
+        alert(res.data.message);
+        navigate("/sign-up/complete");
+      } catch (err) {
+        console.log(err);
+      }
+=======
 
     try {
       const res = await api(contentType).post(
@@ -111,6 +130,7 @@ const Register = () => {
       }, 1000);
     } catch (err) {
       console.log(err);
+>>>>>>> 152134fb0dab9d41be6825a17499dfcff3ee38d2
     }
   };
   const next = async () => {
@@ -174,7 +194,7 @@ const Register = () => {
   };
   const before = () => {
     if (level === 0) {
-      navigate("/signIn");
+      navigate("/sign-in");
     } else {
       // const emailToken = getValues("emailVerifyToken");
       // reset("emailVerifyToken");
