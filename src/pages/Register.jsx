@@ -107,7 +107,7 @@ const Register = () => {
       // alert(res.data.message);
       setCompletion(true);
       setTimeout(() => {
-        navigate("/signUp/complete");
+        navigate("/sign-up/complete");
       }, 1000);
     } catch (err) {
       console.log(err);
