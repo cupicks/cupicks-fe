@@ -2,12 +2,21 @@ import React from "react";
 
 import styled from "styled-components";
 
+import ToastMessage from "../../components/elements/modal/ToastMessage";
+
 const Password = (props) => {
-  const { register, errors, watch, getValues } = props;
+  const { register, errors, watch, getValues, passwordError, passwordCfError } =
+    props;
   const password = React.useRef();
   password.current = watch("password");
   return (
     <StDiv>
+      {passwordError && (
+        <ToastMessage text={errors?.password?.message} timer={1000} />
+      )}
+      {passwordCfError && (
+        <ToastMessage text={"비밀번호가 일치하지 않습니다."} timer={1000} />
+      )}
       <label>비밀번호</label>
       <input
         type="password"

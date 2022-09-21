@@ -16,6 +16,7 @@ const Email = (props) => {
     setValue,
     watch,
     getValues,
+    setError,
     checkNumber,
     setCheckNumber,
     minutes,
@@ -30,6 +31,9 @@ const Email = (props) => {
     setToast,
     checkNumberCode,
     sendEmailVerifyCode,
+    failure,
+    emailSuccess,
+    numberFailure,
   } = props;
   // const [checkEmail, setCheckEmail] = useState(false);
   // const [checkNumber, setCheckNumber] = useState(false);
@@ -96,9 +100,28 @@ const Email = (props) => {
   //     setCheckNumber(false);
   //   }
   // });
+  // console.log(errors.emailError?.message);
   return (
     <StDiv>
-      {toast && <ToastMessage text={errors.email.message} timer={1000} />}
+      {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
+      {failure && (
+        <ToastMessage text={errors?.emailError?.message} timer={2000} />
+      )}
+      {emailSuccess && (
+        <ToastMessage
+          text={"사용자 이메일로 6자리 숫자가 발송되었어요!"}
+          timer={1000}
+        />
+      )}
+      {numberFailure && (
+        <ToastMessage text={errors?.numberError?.message} timer={1000} />
+      )}
+      {checkNumberCode && (
+        <ToastMessage
+          text={"사용자 이메일 인증이 완료되었습니다."}
+          timer={1000}
+        />
+      )}
       <label>이메일 입력</label>
       <input
         type="text"
@@ -128,7 +151,7 @@ const Email = (props) => {
           <label>이메일 인증번호 입력</label>
           <input
             type="text"
-            disabled={checkNumberCode === true}
+            disabled={checkNumberCode === true || minutes + seconds === 0}
             maxLength={6}
             placeholder="인증번호"
             {...register("Number")}
@@ -168,7 +191,7 @@ export default Email;
 const StDiv = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   .unactive {
     color: var(--font-color-light);
   }
@@ -185,7 +208,7 @@ const StReNumber = styled.button`
   border: none;
   background: none;
   color: #3897f0;
-  
+
   transform: translateY(-10px);
 
   :disabled {
