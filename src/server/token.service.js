@@ -1,4 +1,4 @@
-import { useJwt } from 'react-jwt'
+import { useJwt } from "react-jwt";
 
 /** 로컬 스토리지에서 refreshToken 꺼내기 */
 const getLocalRefreshToken = () => {
@@ -19,9 +19,9 @@ const updateLocalAccessToken = (token) => {
 
 /** (추후 구현)토큰에서 유저 정보 꺼내기 */
 const getUser = () => {
-  const token = localStorage.getItem('refreshToken')
-  const {decodedToken} = useJwt(token);
-  
+  const token = localStorage.getItem("refreshToken");
+  const { decodedToken } = useJwt(token);
+
   return decodedToken;
 };
 

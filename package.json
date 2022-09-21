@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "prepare": "husky install"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
@@ -36,5 +35,6 @@
     "*.{js,jsx}": [
       "prettier --write"
     ]
+    "vite": "^3.0.7"
   }
 }
