@@ -1,6 +1,6 @@
 const recipeIngredientColorList = [
   [
-    "#ffffff",
+    "#fffffe",
     "#000000",
     "#3897ef",
     "#7acffe",
