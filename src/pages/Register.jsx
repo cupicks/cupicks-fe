@@ -89,18 +89,18 @@ const Register = () => {
     const form = new FormData();
     form.append(
       "imageValue",
-      getValues("image") === undefined ? null : getValues("image")[0]
+      getValues("image") === undefined ? null : getValues("image")[0],
     );
     //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
 
     try {
       const res = await api(contentType).post(
         `/auth/signup?password=${getValues(
-          "password"
+          "password",
         )}&nicknameVerifyToken=${getValues(
-          "nicknameVerifyToken"
+          "nicknameVerifyToken",
         )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
-        form
+        form,
         // { headers: { "Content-Type": "multi-part/form-data" } }
       );
       console.log(res);
@@ -149,8 +149,8 @@ const Register = () => {
       try {
         const res = await api(contentType).get(
           `/auth/confirm-nickname?emailVerifyToken=${getValues(
-            "emailVerifyToken"
-          )}&nickname=${getValues("nickname")}`
+            "emailVerifyToken",
+          )}&nickname=${getValues("nickname")}`,
           // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         );
         const token = res.data.nicknameVerifyToken;
@@ -222,7 +222,7 @@ const Register = () => {
     }
     try {
       const res = await api(contentType).get(
-        `/auth/send-email?email=${getValues("email")}`
+        `/auth/send-email?email=${getValues("email")}`,
         // {
         //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
         // }
@@ -265,8 +265,8 @@ const Register = () => {
     try {
       const res = await api(contentType).get(
         `/auth/confirm-email?email=${getValues(
-          "email"
-        )}&email-verify-code=${getValues("Number")}`
+          "email",
+        )}&email-verify-code=${getValues("Number")}`,
         // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.emailVerifyToken;
