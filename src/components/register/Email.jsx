@@ -15,14 +15,12 @@ const Email = (props) => {
     checkEmail,
     checkTimer,
     toast,
-    setToast,
     checkNumberCode,
     sendEmailVerifyCode,
     failure,
     emailSuccess,
     numberFailure,
   } = props;
-
   return (
     <StDiv>
       {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
