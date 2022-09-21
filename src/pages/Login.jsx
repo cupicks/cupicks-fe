@@ -1,19 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-
-import serverAxios from "../server/server.axios";
-import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import api from "../server/api";
 
 import styled from "styled-components";
 
-import kakaoIcon from "../assets/svg/talk.svg";
 import kakao from "../assets/image/logo/kakao.png";
+import { useState } from "react";
+import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // const [modalMessage, setModalMessage] = useState(location.state);
+  const [modalMessage, setModalMessage] = useState("");
 
   const {
     register,
@@ -22,6 +24,7 @@ const Login = () => {
     reset,
     formState: { isSubmitting, isDirty, errors },
   } = useForm();
+
   const onSubmit = async () => {
     const data = { email: watch("email"), password: watch("password") };
     const queryStringData = Object.keys(data)
@@ -29,6 +32,7 @@ const Login = () => {
       .join("&");
     console.log(queryStringData);
     const contentType = "application/x-www-form-urlencoded";
+
     try {
       const res = await api(contentType).post(
         "/auth/signin",
@@ -50,6 +54,8 @@ const Login = () => {
 
   return (
     <StDiv>
+      {modalMessage && <ToastMessage text={modalMessage} />}
+
       <StTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StTitle>
@@ -191,16 +197,16 @@ const StButton = styled.button`
 
   border: var(--input-border-bottom);
   color: var(--input-font-color);
-  
+
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-  
+
   transition: all 0.2s;
   box-sizing: border-box;
 
   cursor: pointer;
-  
+
   :hover {
     background-color: var(--button-activeBackgroundColor);
     border-color: var(--button-activeBorderColor);

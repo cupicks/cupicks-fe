@@ -34,7 +34,7 @@ const MypageMyInfo = (props) => {
 
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("accessToken");
-      navigate("/");
+      navigate("/", { state: { message: "로그아웃 되었습니다." } });
     } catch (err) {
       console.log(err);
     }

@@ -23,20 +23,39 @@ const Router = () => {
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
 
-  console.log(pathname);
+  const caseNoLoggedIn = [
+    "/sign-in",
+    "/sign-up",
+    "/sign-up/complete",
+    "/resetPassword",
+  ];
+  const caseYesLoggedIn = ["/recipe/create", "/mypage", "/profile/edit"];
+  let pathNeedLoggedIn = true;
+
+  // 로그인이 필요없는 페이지
+  caseNoLoggedIn.map((currCase) => {
+    if (currCase === pathname) {
+      pathNeedLoggedIn = false;
+      return;
+    }
+  });
 
   useEffect(() => {
-    if (pathname !== "/" && pathname !== "/sigin-in") {
-      if (!refreshToken) {
-        // navigate("/sign-in");
-        // test
-        loggedIn ? setLoggedIn(false) : "";
+    // 로그인 확인(refreshToken 유무)
+    console.log(refreshToken);
+    if (refreshToken) {
+      !loggedIn ? setLoggedIn(true) : "";
+    } else {
+      loggedIn ? setLoggedIn(false) : "";
+    }
 
-        console.log(loggedIn);
+    // 리디렉션 : 테스트 필요함
+    if (!pathNeedLoggedIn) {
+      if (loggedIn) {
+        navigate("/sign-in", {
+          state: { message: "자동으로 \n 로그아웃 되었습니다." },
+        });
       } else {
-        setLoggedIn(true);
-
-        console.log(loggedIn);
       }
     }
   }, [pathname]);
@@ -47,32 +66,38 @@ const Router = () => {
       <Route path="/recipe" element={<Recipe />} />
       <Route path="/recipe/:recipeId/comment" element={<Comments />} />
       <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
+      <Route path="/sign-up/complete" element={<RegisterComplete />} />
 
-      {!loggedIn ? (
+      {!loggedIn && (
         <>
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-up/complete" element={<RegisterComplete />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
+
+          {caseYesLoggedIn.map((path, idx) => (
+            <Route
+              key={"routePathLogin" + idx}
+              path={path}
+              element={<NotFound message={"로그인이 필요한 페이지입니다."} />}
+            />
+          ))}
         </>
-      ) : (
-        <Route
-          path="*"
-          element={<NotFound message={"로그아웃이 필요한 페이지입니다."} />}
-        />
       )}
 
-      {loggedIn ? (
+      {loggedIn && (
         <>
           <Route path="/recipe/create" element={<RecipeCreate />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
+
+          {caseNoLoggedIn.map((path, idx) => (
+            <Route
+              key={"routePathLogout" + idx}
+              path={path}
+              element={<NotFound message={"로그아웃이 필요한 페이지입니다."} />}
+            />
+          ))}
         </>
-      ) : (
-        <Route
-          path="*"
-          element={<NotFound message={"로그인이 필요한 페이지입니다."} />}
-        />
       )}
 
       <Route path="*" element={<NotFound />} />
