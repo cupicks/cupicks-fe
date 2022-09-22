@@ -1,15 +1,19 @@
+import React from "react";
+
 /** 마지막 레벨일 때 */
-const NavButtonDone = ({onClick, isDisabled}) => {
-  const disabled = isDisabled ? 'disabled' : ''
-  console.log(isDisabled);
+const NavButtonDone = ({disabledStyle, onClick, disabled}) => {
+  const classStyle = disabledStyle ? 'disable' : ''
+
   return (
-    <button 
-      disabled={disabled}
+    <button
+      type='submit'
+      className={`${classStyle}`}
       onClick={onClick}
+      disabled={disabled}
     > 
       저장
     </button>
   )
-}
+};
 
 export default NavButtonDone

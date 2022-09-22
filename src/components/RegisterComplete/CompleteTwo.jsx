@@ -10,7 +10,9 @@ const CompleteTwo = () => {
       <div className="box">
         <h1>계량없이 이미지만 따라 만들어보세요!</h1>
       </div>
-      <StImg src={illustrationTwo} alt="만들어보세요" />
+      <StImgBox>
+        <StImg src={illustrationTwo} alt="만들어보세요" />
+      </StImgBox>
     </StDiv>
   );
 };
@@ -24,11 +26,21 @@ const StDiv = styled.div`
   }
 `;
 
+const StImgBox = styled.div`
+  width: 90%;
+  max-width: 450px;
+  max-height: 430px;
+
+  margin: 40px auto 0;
+
+  display: block;
+`;
+
 const StImg = styled.img`
   width: 90%;
   max-width: 450px;
 
   margin: 40px auto 0;
-  
+
   display: block;
 `;

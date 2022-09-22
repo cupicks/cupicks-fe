@@ -1,4 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useJwt } from "react-jwt";
 
 import Comments from "../pages/Comments";
 import Login from "../pages/Login";
@@ -14,19 +16,89 @@ import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
 
 const Router = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const [loggedIn, setLoggedIn] = useState(false);
+  
+  const pathname = location.pathname;
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  const caseNoLoggedIn = [
+    "/sign-in",
+    "/sign-up",
+    "/sign-up/complete",
+    "/resetPassword",
+  ];
+  const caseYesLoggedIn = ["/recipe/create", "/mypage", "/profile/edit"];
+  let pathNeedLoggedIn = true;
+
+  // 로그인이 필요없는 페이지
+  caseNoLoggedIn.map((currCase) => {
+    if (currCase === pathname) {
+      pathNeedLoggedIn = false;
+      return;
+    }
+  });
+
+  useEffect(() => {
+    // 로그인 확인(refreshToken 유무)
+    if (refreshToken) {
+      !loggedIn ? setLoggedIn(true) : "";
+    } else {
+      loggedIn ? setLoggedIn(false) : "";
+    }
+
+    // 리디렉션: 로그인 필요한 페이지에서 토큰이 만료 되었을 때 작동
+    if (!pathNeedLoggedIn) {
+      if (loggedIn) {
+        navigate("/sign-in", {
+          state: { message: "자동으로 \n 로그아웃 되었습니다." },
+        });
+      }
+    }
+  }, [pathname]);
+
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/signIn" element={<Login />} />
       <Route path="/recipe" element={<Recipe />} />
       <Route path="/recipe/:recipeId/comment" element={<Comments />} />
-      <Route path="/recipe/create" element={<RecipeCreate />} />
       <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
-      <Route path="/signUp" element={<Register />} />
-      <Route path="/signUp/complete" element={<RegisterComplete />} />
-      <Route path="/resetPassword" element={<ResetPassword />} />
-      <Route path="/mypage" element={<Mypage />} />
-      <Route path="/profile/edit" element={<ProfileEdit />} />
+      <Route path="/sign-up/complete" element={<RegisterComplete />} />
+
+      {!loggedIn && (
+        <>
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<Register />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+
+          {caseYesLoggedIn.map((path, idx) => (
+            <Route
+              key={"routePathLogin" + idx}
+              path={path}
+              element={<NotFound message={"로그인이 필요한 페이지입니다."} />}
+            />
+          ))}
+        </>
+      )}
+
+      {loggedIn && (
+        <>
+          <Route path="/recipe/create" element={<RecipeCreate />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/profile/edit" element={<ProfileEdit />} />
+
+          {caseNoLoggedIn.map((path, idx) => (
+            <Route
+              key={"routePathLogout" + idx}
+              path={path}
+              element={<NotFound message={"로그아웃이 필요한 페이지입니다."} />}
+            />
+          ))}
+        </>
+      )}
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

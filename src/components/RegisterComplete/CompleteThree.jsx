@@ -10,7 +10,9 @@ const CompleteThree = () => {
       <div className="box">
         <h1>나만의 레시피를 만들고 모두와 공유해보아요!</h1>
       </div>
-      <StImg src={illustrationThree} alt="공유해보아요" />
+      <StImgBox>
+        <StImg src={illustrationThree} alt="공유해보아요" />
+      </StImgBox>
     </StDiv>
   );
 };
@@ -24,11 +26,21 @@ const StDiv = styled.div`
   }
 `;
 
+const StImgBox = styled.div`
+  width: 90%;
+  max-width: 450px;
+  max-height: 430px;
+
+  margin: 40px auto 0;
+
+  display: block;
+`;
+
 const StImg = styled.img`
   width: 90%;
   max-width: 450px;
 
   margin: 40px auto 0;
-  
+
   display: block;
 `;

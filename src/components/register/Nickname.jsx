@@ -5,8 +5,11 @@ import api from "../../server/api";
 
 import styled from "styled-components";
 
+import ToastMessage from "../elements/modal/ToastMessage";
+
 const Nickname = (props) => {
-  const { register, errors, setValue, getValues } = props;
+  const { register, errors, setValue, getValues, toast, nicknameFailure } =
+    props;
   const [checkNickname, setCheckNickname] = React.useState(false);
 
   // const confirmNicknameVerifyCode = async () => {
@@ -32,6 +35,10 @@ const Nickname = (props) => {
 
   return (
     <StDiv>
+      {toast && <ToastMessage text={errors?.nickname?.message} timer={1000} />}
+      {nicknameFailure && (
+        <ToastMessage text={errors?.nicknameError?.message} timer={1000} />
+      )}
       <label>닉네임</label>
       <input
         placeholder="닉네임을 입력해 주세요"
@@ -41,8 +48,8 @@ const Nickname = (props) => {
         {...register("nickname", {
           required: true,
           pattern: {
-            value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/,
-            message: "닉네임은 2~10자이며, 한글, 영어, 숫자포함합니다.",
+            value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
+            message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
           },
         })}
       />

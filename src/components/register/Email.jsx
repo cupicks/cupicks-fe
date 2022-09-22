@@ -1,104 +1,47 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import serverAxios from "../../server/server.axios";
-import axios from "axios";
-import { useWatch } from "react-hook-form";
-
-import api from "../../server/api";
+import React from "react";
 import Timer from "./Timer";
-
 import ToastMessage from "../../components/elements/modal/ToastMessage";
-
+import styled from "styled-components";
+/*eslint max-lines-per-function: ["error", {"max": 300, "skipBlankLines": true}]*/
 const Email = (props) => {
   const {
     register,
     errors,
-    setValue,
-    watch,
-    getValues,
     checkNumber,
-    setCheckNumber,
     minutes,
     setMinutes,
     seconds,
     setSeconds,
     checkEmail,
-    setCheckEmail,
     checkTimer,
-    setCheckTimer,
     toast,
-    setToast,
     checkNumberCode,
     sendEmailVerifyCode,
+    failure,
+    emailSuccess,
+    numberFailure,
   } = props;
-  // const [checkEmail, setCheckEmail] = useState(false);
-  // const [checkNumber, setCheckNumber] = useState(false);
-  // const [minutes, setMinutes] = useState(3);
-  // const [seconds, setSeconds] = useState(0);
-  // const [checkTimer, setCheckTimer] = useState(false);
-  // const [toast, setToast] = useState(false);
-
-  // const contentType = "application/x-www-form-urlencoded";
-
-  // const confirmEmailVerifyCode = async () => {
-  //   try {
-  //     const res = await api(contentType).get(
-  //       `/auth/confirm-email?email=${getValues(
-  //         "email"
-  //       )}&email-verify-code=${getValues("Number")}`
-  //       // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-  //     );
-  //     const token = res.data.emailVerifyToken;
-  //     console.log(token);
-  //     setValue("emailVerifyToken", token);
-  //     console.log(getValues("emailVerifyToken"));
-  //     setCheckNumber(true);
-  //     alert(res.data.message);
-  //   } catch (err) {
-  //     console.log(err);
-  //     // await new Promise((r) => setTimeout(r, 3000));
-  //     alert(err.response.data.message);
-  //   }
-  // };
-  // const sendEmailVerifyCode = async () => {
-  //   if (errors.email) {
-  //     setToast(true);
-  //     setTimeout(() => {
-  //       setToast(false);
-  //     }, 1000);
-  //     return;
-  //   }
-  //   try {
-  //     const res = await api(contentType).get(
-  //       `/auth/send-email?email=${getValues("email")}`
-  //       // {
-  //       //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //       // }
-  //     );
-  //     console.log(res.data.message);
-  //     setCheckEmail(true);
-  //     alert(res.data.message);
-  //     setMinutes(3);
-  //     setSeconds(0);
-  //     setCheckTimer(true);
-  //   } catch (err) {
-  //     console.log(err);
-  //     alert(err.response.data.message);
-  //     setCheckEmail(false);
-  //     setCheckTimer(false);
-  //   }
-  // };
-  // React.useEffect(() => {
-  //   if (watch("email") !== getValues("email")) {
-  //     setCheckEmail(false);
-  //   }
-  //   if (watch("Number") !== getValues("Number")) {
-  //     setCheckNumber(false);
-  //   }
-  // });
   return (
     <StDiv>
-      {toast && <ToastMessage text={errors.email.message} timer={1000} />}
+      {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
+      {failure && (
+        <ToastMessage text={errors?.emailError?.message} timer={2000} />
+      )}
+      {emailSuccess && (
+        <ToastMessage
+          text={"사용자 이메일로 6자리 숫자가 발송되었어요!"}
+          timer={1000}
+        />
+      )}
+      {numberFailure && (
+        <ToastMessage text={errors?.numberError?.message} timer={1000} />
+      )}
+      {checkNumberCode && (
+        <ToastMessage
+          text={"사용자 이메일 인증이 완료되었습니다."}
+          timer={1000}
+        />
+      )}
       <label>이메일 입력</label>
       <input
         type="text"
@@ -117,31 +60,16 @@ const Email = (props) => {
       />
       {errors?.email?.types?.required && <p>{errors.email.message}</p>}
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
-      {/* <button
-        onClick={sendEmailVerifyCode}
-        disabled={watch("email") === undefined || watch("email") === ""}
-      >
-        이메일 인증번호 발송
-      </button> */}
       {checkNumber && (
         <>
           <label>이메일 인증번호 입력</label>
           <input
             type="text"
-            disabled={checkNumberCode === true}
+            disabled={checkNumberCode === true || minutes + seconds === 0}
             maxLength={6}
             placeholder="인증번호"
             {...register("Number")}
           />
-
-          {/* <button
-        onClick={confirmEmailVerifyCode}
-        disabled={
-          watch("Number")?.length <= 5 || getValues("Number") === undefined
-        }
-      >
-        인증번호 확인
-      </button> */}
           <StTimer>
             <StReNumber
               disabled={checkNumberCode === true}
@@ -168,7 +96,7 @@ export default Email;
 const StDiv = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   .unactive {
     color: var(--font-color-light);
   }
@@ -185,7 +113,7 @@ const StReNumber = styled.button`
   border: none;
   background: none;
   color: #3897f0;
-  
+
   transform: translateY(-10px);
 
   :disabled {
