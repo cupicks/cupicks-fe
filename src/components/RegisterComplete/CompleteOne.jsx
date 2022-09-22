@@ -10,7 +10,9 @@ const CompleteOne = () => {
       <div className="box">
         <h1>회원가입을 축하합니다!</h1>
       </div>
-      <StImg src={illustrationOne} alt="축하합니다" />
+      <StImgBox>
+        <StImg src={illustrationOne} alt="축하합니다" />
+      </StImgBox>
     </StDiv>
   );
 };
@@ -22,6 +24,16 @@ const StDiv = styled.div`
     width: 140px;
     margin-top: 60px;
   }
+`;
+
+const StImgBox = styled.div`
+  width: 100%;
+  max-width: 450px;
+  max-height: 430px;
+
+  margin: 40px auto 0;
+
+  display: block;
 `;
 
 const StImg = styled.img`
