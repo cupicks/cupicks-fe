@@ -14,12 +14,10 @@ const requestHandler = async (req) => {
   const refreshToken = localStorage.getItem("refreshToken");
   const isExpiredRefreshTkn = isExpired(refreshToken);
 
-  console.log(isExpiredRefreshTkn);
-
   // 토큰 만료 로직 => 이슈에 정리
   // https://github.com/cupicks/cupicks-fe/issues/117
   if (isExpiredRefreshTkn) {
-    console.log("로그아웃 상태");
+    // console.log("로그아웃 상태");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
   } else {

@@ -43,7 +43,6 @@ const Router = () => {
 
   useEffect(() => {
     // 로그인 확인(refreshToken 유무)
-    console.log(refreshToken);
     if (refreshToken) {
       !loggedIn ? setLoggedIn(true) : "";
     } else {
