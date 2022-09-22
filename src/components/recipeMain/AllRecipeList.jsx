@@ -68,8 +68,10 @@ const AllRecipeList = () => {
   useEffect(() => {
     //마지막 요소를 보고 로딩중이 아니라면
     if (inView && !loading && items.length >= counting) {
-      setPage(page + 1);
-      setCounting(counting + 6);
+      setTimeout(() => {
+        setPage(page + 1);
+        setCounting(counting + 6);
+      }, 1500);
 
       // page.current += 1;
 
@@ -87,11 +89,19 @@ const AllRecipeList = () => {
   const getItems = useCallback(async () => {
     let contentType = "application/json";
     setLoading(true);
-    await api(contentType)
-      .get(`/recipes?page=${page}&count=6`)
-      .then((res) => {
-        setItems([...items, ...res.data.recipeList]);
-      });
+    if (page === 1) {
+      await api(contentType)
+        .get(`/recipes?page=1&count=12`)
+        .then((res) => {
+          setItems([...items, ...res.data.recipeList]);
+        });
+    } else {
+      await api(contentType)
+        .get(`/recipes?page=${page + 1}&count=6`)
+        .then((res) => {
+          setItems([...items, ...res.data.recipeList]);
+        });
+    }
     setLoading(false);
   }, [page]);
 
