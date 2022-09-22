@@ -44,7 +44,7 @@ const Email = (props) => {
       )}
       <label>이메일 입력</label>
       <input
-        type="text"
+        type="email"
         disabled={checkEmail === true}
         placeholder="이메일 주소를 입력해 주세요"
         autoComplete="off"
