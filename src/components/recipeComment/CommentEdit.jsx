@@ -77,7 +77,7 @@ const CommentEdit = ({
     const form = new FormData();
     form.append(
       "imageValue",
-      getValues("image") === undefined ? null : getValues("image")[0]
+      getValues("image") === undefined ? null : getValues("image")[0],
     );
     await api(contentType)
       .put(`/comments/${editCommentId}?comment=${data.comment}`, form)
@@ -170,39 +170,19 @@ export default CommentEdit;
 //   box-sizing: border-box;
 // `;
 
-const StInputProfile = styled.img`
-  object-fit: cover;
-  border-radius: 50%;
-  max-width: 35px;
-  max-height: 35px;
-`;
-
-const DeletePreview = styled.img`
-  width: 15px;
-  height: 15px;
-
-  position: absolute;
-  top: 34%;
-  left: 35%;
-`;
-
-const StPicUpload = styled.img`
-  width: 4.5rem;
-  height: 4.5rem;
-  /* background: cover; */
-  object-fit: cover;
-  display: flex;
-`;
-
 const StWrap = styled.form`
+  width: 100%;
+  min-height: 88px;
+
+  padding: 10px 24px;
+
   display: flex;
-  flex: 1 1 auto;
-  min-height: 80px;
+  gap: 10px;
+
   position: absolute;
   bottom: 0;
-  background-color: #ededed;
-  width: 100%;
-  /* transform: translateY(45%); */
+
+  background-color: #eeeeee;
 
   input[type="file"] {
     display: none;
@@ -212,77 +192,101 @@ const StWrap = styled.form`
     position: relative;
   }
 
-  .img_preview {
-    width: 90%;
-    display: flex;
-    align-items: flex-start;
-  }
-
   .input_profile {
-    width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    transform: translateY(-2px);
   }
 
   .profile_image {
     max-width: 40px;
     max-height: 40px;
     border-radius: 50%;
-    margin-bottom: 1.5rem;
-
-    border: 2px solid black;
   }
 
   .input_wrap {
-    width: 100%;
+    flex: 1 1 auto;
+
     display: flex;
     flex-flow: column;
+    gap: 7px;
   }
 
   .input_box {
-    width: 90%;
-    height: 3.8vh;
-    border: 1px solid #8f8b8b8a;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+
+    display: flex;
+
+    border: 1px solid #d9d9d9;
     border-radius: 20px;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
   }
 
   .comment_input {
-    width: 85%;
-    height: 100%;
-    background-color: #ededed;
-    border: none;
-    border-radius: 20px;
+    all: unset;
+    flex: 1 1 auto;
 
-    padding-left: 10px;
+    padding-left: 12px;
 
-    font-size: 0.8rem;
+    font-size: 13px;
+
+    color: #9f9f9f;
   }
 
   .comment_btn {
-    width: 15%;
-    height: 40%;
-    border: none;
-    border-radius: 20px;
+    all: unset;
+    padding: 0 12px;
 
-    font-size: 0.8rem;
+    font-size: 13px;
+  }
+
+  .img_preview {
+    width: 100%;
+    display: flex;
   }
 
   .pic_wrap {
-    width: 85%;
+    width: 100%;
     display: flex;
-    align-items: flex-start;
-    margin-top: 0.2rem;
-    border: none;
   }
 
   .pic_upload {
-    border: none;
-    color: #4690f7;
+    flex: 1 1 auto;
+    color: #3897f0;
 
-    font-size: 0.8rem;
-    padding-bottom: 0.8rem;
+    font-size: 13px;
   }
+
+  @media (max-width: 300px) {
+    flex-flow: column;
+    align-items: center;
+    .img_preview {
+      justify-content: center;
+      padding-left: 25px;
+    }
+    .pic_wrap {
+      text-align: center;
+    }
+  }
+`;
+
+const StInputProfile = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
+
+const DeletePreview = styled.img`
+  width: 25px;
+  height: 25px;
+
+  position: relative;
+  transform: translate(-11px, -9px);
+`;
+
+const StPicUpload = styled.img`
+  width: 4.5rem;
+  height: 4.5rem;
+  /* background: cover; */
+  object-fit: cover;
+  display: flex;
 `;
