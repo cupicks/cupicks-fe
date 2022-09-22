@@ -1,7 +1,7 @@
 import React from "react";
 
 /** 마지막 레벨일 때 */
-const NavButtonDone = ({disabledStyle, onClick}) => {
+const NavButtonDone = ({disabledStyle, onClick, disabled}) => {
   const classStyle = disabledStyle ? 'disable' : ''
 
   return (
@@ -9,6 +9,7 @@ const NavButtonDone = ({disabledStyle, onClick}) => {
       type='submit'
       className={`${classStyle}`}
       onClick={onClick}
+      disabled={disabled}
     > 
       저장
     </button>

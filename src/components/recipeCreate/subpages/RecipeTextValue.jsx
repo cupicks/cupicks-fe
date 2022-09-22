@@ -6,7 +6,7 @@ import RecipeIngredientConform from './RecipeIngredientConform';
 
 const RecipeTextValue = (props) => {
   const { formProps } = props;
-  const { register, errors, watch, getValues } = formProps
+  const { register, errors, watch } = formProps
 
   return ( 
     <>
@@ -58,14 +58,14 @@ const RecipeTextValue = (props) => {
             <input 
               type="checkbox" 
               id='publicCheckbox'
-              defaultValue={ true }
-              {...register('isPublic', {required: true})}
-              />
+              {...register('isPublic')}
+              checked
+            />
+            <div className='range_circle'></div>
             <label 
               htmlFor='publicCheckbox'
               aria-details='커뮤니티에 공유하기'
-            >
-            </label>
+            />
           </StRangeBar>
         </StIsPulicBox>
       </StTextInputContainer>
@@ -137,24 +137,31 @@ const StIsPulicBox = styled.div`
 `
 
 const StRangeBar = styled.div`
-  width: 60px;
-  height: 25px;
-  border-radius: 26px;
+  width: 46px;
+  height: 23px;
+  border-radius: 50px;
   
   position: relative;
 
-  background: #555;
+  background: '#393939';
+  background: ${props => props.isPublic?'#393939':'#cdcdcd'};
   
   .info_box {
     width: auto;
   }
 
-  input[type="checkbox"] {
-    position: absolute;
+  label {
+    height: 100%;
+    width: 100%;
+
+    display: block;
+    position: relative;
+
+    z-index: 9;
   }
   
-  label {
-    width: 30px;
+  .range_circle {
+    width: 23px;
     height: 100%;
     border-radius: 15px;
 
@@ -163,13 +170,14 @@ const StRangeBar = styled.div`
     right: 0;
 
     background-color: #fff;
-    border: 1px solid #555;
+    border: 1px solid ${props => props.isPublic?'#393939':'#cdcdcd'};;
     color: #fff;
 
     transition: all .4s;
   }
 
-  input {
+  input[type="checkbox"] {
+    position: absolute;
     z-index: -9;
     opacity: 0;
   }

@@ -12,7 +12,7 @@ import ToastMessage from "../elements/modal/ToastMessage";
 import ConfirmBox from "../elements/modal/ConfirmBox";
 
 const RecipeCreateNavigation = (props) => {
-	const { cupState, setCupState, stepState, setStepState, formProps} = props;
+	const { cupState, setCupState, stepState, setStepState, formProps, recipeCreated} = props;
   const { ingredientDeleteMode, cupFull, currCupSize:cupSize, isIcedTag, currentIngredientDeleted} = cupState
   const { step, finalStep, subStep, finalSubStep } = stepState
   const { watch, getValues, reset } = formProps
@@ -57,24 +57,31 @@ const RecipeCreateNavigation = (props) => {
   const subStep0 = subStep === 0;
   const subStepEnd = subStep === finalSubStep;
   
-  /**********************************/
-  /* 재료 리스트 validation 상태 관리 */
-  /**********************************/
+  /******************************/
+  /* 재료 리스트 validation 관리  */
+  /* undefined일 때 거르는 조건문 */
+  /******************************/
   const newList = getValues('ingredientList')
   const newListExist = newList !== undefined
 
   let nameRequired = false;
   let amountRequired = false;
+  let colorRequired = true;
 
   if(newListExist){
+    // 이름이 존재, 필요 여부
     const ingredientNameExist = newList[newList.length-1]?.ingredientName !== undefined
-    const ingredientAmountExist = +newList[newList.length-1]?.ingredientAmount === 0 || +newList[newList.length-1]?.ingredientAmount < 10
-
     if(ingredientNameExist){
       const ingredientName = newList[newList.length-1]?.ingredientName
       ingredientName === '' ? nameRequired = true : '';
     }
+    
+    // 재료량이 존재, 필요 여부
+    const ingredientAmountExist = +newList[newList.length-1]?.ingredientAmount === 0 || +newList[newList.length-1]?.ingredientAmount < 10
     if(ingredientAmountExist) amountRequired = true
+    
+    // 색깔 선택 필요 여부
+    colorRequired = newList[newList.length-1]?.ingredientColor === null
   }
 
   /****************************************/
@@ -87,6 +94,7 @@ const RecipeCreateNavigation = (props) => {
   } else {
     !recipeCompletedRequired ? recipeCompletedRequired = true : '';
   }
+
   /*********************************/
   /**** "재료 처음부터 추가하기"  ****/ 
   /** 재료 처음부터 만들기 Confirmed */
@@ -114,12 +122,15 @@ const RecipeCreateNavigation = (props) => {
     cupTypeRequired: step === 1 && isIcedTag === null,
     subStep0: step2 && subStep0,
     subStep1NameRequired: subStep === 1 && nameRequired,
-    subStep2AmountRequired: subStep === 2 && amountRequired
+    subStep2AmountRequired: subStep === 2 && amountRequired,
+    subStep3ColorRequired: subStep === 3 && colorRequired
   }
   const prevButtonDisableCaseObj = {
     currentIngredientDeleted: step2 && currentIngredientDeleted,
   }
   
+  console.log(subStep === 3, colorRequired);
+
   let nextDisabled // next 버튼 컴포넌트 disabled={} 속성에 넘길 값
   for (const x in nextButtonDisableCaseObj){
     nextButtonDisableCaseObj[x] ? nextDisabled = true : '';
@@ -217,20 +228,12 @@ const RecipeCreateNavigation = (props) => {
   
   /** 완료 Done 버튼 클릭 핸들러  */
   const doneButtonNextClickHandler = () => {
-
-    console.log('done');
-
     if(recipeCompletedRequired){
       setShowCompleteRequireBox(true)
       setTimeout(()=>{
         setShowCompleteRequireBox(false)
       }, 2000)
     }
-
-    // event.target.disabled = true;
-    // setTimeout((event)=>{
-    //   event.target.disabled = false
-    // }, 2000)
   }
 
 	return (
@@ -271,6 +274,7 @@ const RecipeCreateNavigation = (props) => {
 
           {stepEnd &&
             <NavButtonDone
+              disabled={recipeCreated}
               disabledStyle={recipeCompletedRequired}
               onClick={doneButtonNextClickHandler}
             />

@@ -1,6 +1,6 @@
 /** Recipe 데이터 형변환  */
 const setDataType = data => {
-  const isPublicTrue = data.isPublic === 'true' ? true : false;
+  const isPublicTrue = data.isPublic === 'true' || data.isPublic === true ? true : false;
   const isIcedTrue = data.isIced === 'ice' ? true : false;
   const cupSize = +(""+data.cupSize).split('ml')[0];
 
