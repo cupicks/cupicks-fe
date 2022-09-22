@@ -6,6 +6,7 @@ import api from "../server/api";
 
 import styled from "styled-components";
 
+import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
@@ -16,7 +17,7 @@ const Login = () => {
     register,
     handleSubmit,
     watch,
-    reset,
+    resetField,
     setError,
     formState: { isSubmitting, isDirty, errors },
   } = useForm({
@@ -94,7 +95,9 @@ const Login = () => {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       setLoginSuccess(true);
-      navigate("/recipe", {state: {message: `${data.email}\n로그인 되었습니다.`}});
+      navigate("/recipe", {
+        state: { message: `${data.email}\n로그인 되었습니다.` },
+      });
     } catch (err) {
       console.log(err);
       // alert(err.response.data.message);
@@ -125,40 +128,56 @@ const Login = () => {
 
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
-        <StInput
-          type="text"
-          placeholder="이메일 주소를 입력해 주세요"
-          autoComplete="off"
-          maxLength={100}
-          {...register("email", {
-            required: true,
-            pattern: {
-              value:
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/,
-              message: "이메일 형식에 맞지 않습니다.",
-            },
-          })}
-        />
+        <div className="register_input_box">
+          {watch("email")?.length >= 1 && (
+            <img
+              className="input_label_icon"
+              src={cancelBtn}
+              alt="리셋 버튼"
+              onClick={() => resetField("email")}
+            />
+          )}
+          <StInput
+            type="text"
+            placeholder="이메일 주소를 입력해 주세요"
+            autoComplete="off"
+            maxLength={100}
+            {...register("email", {
+              required: true,
+              pattern: {
+                value:
+                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/,
+                message: "이메일 형식에 맞지 않습니다.",
+              },
+            })}
+          />
+        </div>
+        <StErrorBox>{errors.email && <p>{errors.email.message}</p>}</StErrorBox>
 
-        <StErrorBox>
-          {errors.email && <p>{errors.email.message}</p>}
-        </StErrorBox>
-        
         <label>비밀번호</label>
-        <StInput
-          type="password"
-          placeholder="비밀번호를 입력해주세요"
-          maxLength={15}
-          {...register("password", {
-            required: true,
-            pattern: {
-              value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
-              message:
-                "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
-            },
-          })}
-        />
-        
+        <div className="register_input_box">
+          {watch("password")?.length >= 1 && (
+            <img
+              className="input_label_icon"
+              src={cancelBtn}
+              alt="리셋 버튼"
+              onClick={() => resetField("password")}
+            />
+          )}
+          <StInput
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+            maxLength={15}
+            {...register("password", {
+              required: true,
+              pattern: {
+                value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
+                message:
+                  "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
+              },
+            })}
+          />
+        </div>
         <StErrorBox>
           {errors.password && <p>{errors.password.message}</p>}
         </StErrorBox>
@@ -246,10 +265,26 @@ const StForm = styled.form`
     font-size: 13px;
     color: #9e9e9e;
   }
+  .register_input_box {
+    position: relative;
+  }
+  .input_label_icon {
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    transform: translateY(-30%);
+
+    cursor: pointer;
+  }
 `;
 
 const StInput = styled.input`
   all: unset;
+  width: 100%;
   /* margin-bottom: 25px; */
   padding: 10px 0;
 
@@ -312,7 +347,7 @@ const StErrorBox = styled.div`
 
   line-height: 30px;
   font-size: 13px;
-`
+`;
 
 const StPass = styled.p`
   margin-top: 10px;
