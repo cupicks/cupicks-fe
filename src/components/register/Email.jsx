@@ -2,11 +2,13 @@ import React from "react";
 import Timer from "./Timer";
 import ToastMessage from "../../components/elements/modal/ToastMessage";
 import styled from "styled-components";
+import cancelBtn from "../../assets/svg/cancel_modal.svg";
 /*eslint max-lines-per-function: ["error", {"max": 300, "skipBlankLines": true}]*/
 const Email = (props) => {
   const {
     register,
     errors,
+    watch,
     checkNumber,
     minutes,
     setMinutes,
@@ -20,7 +22,9 @@ const Email = (props) => {
     failure,
     emailSuccess,
     numberFailure,
+    resetField,
   } = props;
+  // console.log(watch("email")?.length);
   return (
     <StDiv>
       {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
@@ -42,34 +46,56 @@ const Email = (props) => {
           timer={1000}
         />
       )}
+
       <label>이메일 입력</label>
-      <input
-        type="email"
-        disabled={checkEmail === true}
-        placeholder="이메일 주소를 입력해 주세요"
-        autoComplete="off"
-        maxLength={100}
-        {...register("email", {
-          required: true,
-          pattern: {
-            value:
-              /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/,
-            message: "이메일 형식에 맞지 않습니다.",
-          },
-        })}
-      />
+      <div className="register_input_box">
+        {watch("email")?.length >= 1 && checkEmail === false && (
+          <img
+            className="input_label_icon"
+            src={cancelBtn}
+            alt="리셋 버튼"
+            onClick={() => resetField("email")}
+          />
+        )}
+        <input
+          type="email"
+          disabled={checkEmail === true}
+          placeholder="이메일 주소를 입력해 주세요"
+          autoComplete="off"
+          maxLength={100}
+          {...register("email", {
+            required: true,
+            pattern: {
+              value:
+                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/,
+              message: "이메일 형식에 맞지 않습니다.",
+            },
+          })}
+        />
+      </div>
       {errors?.email?.types?.required && <p>{errors.email.message}</p>}
       {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
+
       {checkNumber && (
         <>
           <label>이메일 인증번호 입력</label>
-          <input
-            type="text"
-            disabled={checkNumberCode === true || minutes + seconds === 0}
-            maxLength={6}
-            placeholder="인증번호"
-            {...register("Number")}
-          />
+          <div className="register_input_box">
+            {watch("Number")?.length >= 1 && checkNumberCode === false && (
+              <img
+                className="input_label_icon"
+                src={cancelBtn}
+                alt="리셋 버튼"
+                onClick={() => resetField("Number")}
+              />
+            )}
+            <input
+              type="text"
+              disabled={checkNumberCode === true || minutes + seconds === 0}
+              maxLength={6}
+              placeholder="인증번호"
+              {...register("Number")}
+            />
+          </div>
           <StTimer>
             <StReNumber
               disabled={checkNumberCode === true}

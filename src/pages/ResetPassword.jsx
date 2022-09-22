@@ -25,6 +25,7 @@ const ResetPassword = () => {
     handleSubmit,
     getValues,
     setError,
+    resetField,
     formState: { errors, isSubmitting },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
 
@@ -101,7 +102,10 @@ const ResetPassword = () => {
         <CheckEmail
           register={register}
           errors={errors}
+          watch={watch}
           emailError={emailError}
+          resetField={resetField}
+          resetSuccess={resetSuccess}
         />
 
         <StButton
@@ -159,6 +163,7 @@ const StForm = styled.form`
 
   & input {
     all: unset;
+    width: 100%;
 
     margin-bottom: 30px;
 

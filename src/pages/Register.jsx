@@ -33,8 +33,8 @@ const Register = () => {
     criteriaMode: "all",
     mode: "onChange",
     defaultValues: {
-      cupSize: 0
-    }
+      cupSize: 0,
+    },
   });
 
   const [level, setLevel] = useState(0);
@@ -132,6 +132,16 @@ const Register = () => {
     }
     if (errors.password_confirm && level === 1) {
       //   alert("비밀번호가 일치하지 않습니다");
+      setPasswordCfError(true);
+      setTimeout(() => {
+        setPasswordCfError(false);
+      }, 1000);
+      return;
+    }
+    if (
+      getValues("password") !== getValues("password_confirm") &&
+      level === 1
+    ) {
       setPasswordCfError(true);
       setTimeout(() => {
         setPasswordCfError(false);
@@ -350,6 +360,7 @@ const Register = () => {
             failure={failure}
             emailSuccess={emailSuccess}
             numberFailure={numberFailure}
+            resetField={resetField}
           />
         )}
 
@@ -359,6 +370,7 @@ const Register = () => {
             errors={errors}
             watch={watch}
             getValues={getValues}
+            resetField={resetField}
             passwordError={passwordError}
             passwordCfError={passwordCfError}
           />
@@ -369,8 +381,7 @@ const Register = () => {
             register={register}
             errors={errors}
             watch={watch}
-            setValue={setValue}
-            getValues={getValues}
+            resetField={resetField}
             toast={toast}
             nicknameFailure={nicknameFailure}
           />
@@ -427,32 +438,6 @@ const Register = () => {
             계속하기
           </StButton>
         )}
-        {/* {level === 3 ? (
-           <StButton
-             disabled={
-               (level === 3 && watch("image") === undefined) ||
-               (level === 3 && watch("image")?.length === 0) ||
-               isSubmitting
-             }
-           >
-             계속하기
-           </StButton>
-         ) : (
-           <StButton
-             onClick={next}
-             disabled={
-               (level === 0 && watch("email") === undefined) ||
-               (level === 0 && watch("email") === "") ||
-               (level === 0 && watch("emailVerifyToken") === undefined) ||
-               (level === 1 && watch("password") === "") ||
-               (level === 1 && watch("password_confirm") === "") ||
-               (level === 2 && watch("nickname") === "") ||
-               (level === 2 && watch("nicknameVerifyToken") === undefined)
-             }
-           >
-             계속하기
-           </StButton>
-         )} */}
       </StForm>
     </StDiv>
   );
@@ -501,6 +486,7 @@ const StForm = styled.form`
 
   & input {
     all: unset;
+    width: 100%;
 
     margin-bottom: 30px;
 
@@ -516,6 +502,21 @@ const StForm = styled.form`
     ::placeholder {
       color: #ddd;
     }
+  }
+  & > div > .register_input_box {
+    position: relative;
+  }
+  & > div > div > .input_label_icon {
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    transform: translateY(-120%);
+
+    cursor: pointer;
   }
 `;
 
