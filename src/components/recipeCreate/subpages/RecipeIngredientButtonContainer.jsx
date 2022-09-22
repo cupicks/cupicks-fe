@@ -48,9 +48,6 @@ const RecipeIngredientButtonContainer = (props) => {
     }))
   }
 
-  console.log(cupFull);
-  
-
   // 재료 추가 버튼 상태
   const buttonClickable = subStep === 0 || subStep === finalSubStep;
   const addIngredientMode = ingredientDeleteMode === false
