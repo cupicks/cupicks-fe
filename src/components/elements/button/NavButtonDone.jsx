@@ -1,15 +1,18 @@
+import React from "react";
+
 /** 마지막 레벨일 때 */
-const NavButtonDone = ({onClick, isDisabled}) => {
-  const disabled = isDisabled ? 'disabled' : ''
-  console.log(isDisabled);
+const NavButtonDone = React.forwardRef (({disabledStyle, onClick}, ref) => {
+  const classStyle = disabledStyle ? 'disable' : ''
+
   return (
-    <button 
-      disabled={disabled}
+    <button
+      className={`${classStyle}`}
+      ref={ref}
       onClick={onClick}
     > 
       저장
     </button>
   )
-}
+});
 
 export default NavButtonDone

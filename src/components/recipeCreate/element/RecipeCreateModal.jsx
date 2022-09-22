@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import cancel from '../../../assets/svg/cancel_ingredient.svg'
+
 const RecipeCreateModal = (props) => {
   const {setCupState, onClick} = props;
 
@@ -15,12 +17,13 @@ const RecipeCreateModal = (props) => {
       >
         취소
       </span>
-      <button
-        type="button" 
+      <img 
+        src={cancel} 
         onClick={onClick}
-      >
-        x
-      </button>
+        className={'ingredient_button'}
+        alt="재료 삭제 버튼" 
+      />
+
     </StModal>
   )
 };
@@ -41,7 +44,26 @@ const StModal = styled.div`
   z-index: 99999999;
   
   background: rgba(0, 0, 0, 0.3);
-  
+
+  .ingredient_button {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    
+    transform-origin: 48% 48%;
+    z-index: 999;
+
+    animation: buttonShow .5s forwards;
+  }
+
+  @keyframes buttonShow {
+    0% {transform: translate(-50%, -60%) rotate(45deg); 
+    opacity: 0;}
+    100% {transform: translate(-50%, -60%) rotate(0deg); 
+    opacity: 1;}
+  }
+
   .button_close {
     position: absolute;
     top: 1.2rem;

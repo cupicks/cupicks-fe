@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-const RecipeTextarea = ({ name, placeholder="", rows=8, register, config={}, onChange=null }) => {
+const RecipeTextarea = ({ name, placeholder="", rows=8, register, config={} }) => {
 	return (
     <StTextarea 
       type="textarea"
       rows={rows}
       maxLength={255}
+      minLength={3}
       placeholder={placeholder}
       {...register( name, config )} 
-      onChange={onChange} 
     />
 	)
 }

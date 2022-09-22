@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useJwt } from "react-jwt";
 
 import Comments from "../pages/Comments";
 import Login from "../pages/Login";
@@ -17,9 +18,9 @@ import NotFound from "../pages/NotFound";
 const Router = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   const [loggedIn, setLoggedIn] = useState(false);
-
+  
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
 

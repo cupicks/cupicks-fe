@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
-const RecipeInput = ({ label, type="text", placeholder="", register, config={}, onChange=null }) => {
+const RecipeInput = ({ label, type="text", placeholder="", register, config={}}) => {
 	return (
 			<StInput 
         type={ type } 
         placeholder={placeholder}
 				{...register( label, config )} 
-				onChange={onChange} 
 			/>
 	)
 }

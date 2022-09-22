@@ -32,6 +32,9 @@ const Register = () => {
   } = useForm({
     criteriaMode: "all",
     mode: "onChange",
+    defaultValues: {
+      cupSize: 0
+    }
   });
 
   const [level, setLevel] = useState(0);
