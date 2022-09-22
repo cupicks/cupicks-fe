@@ -65,7 +65,7 @@ const RecipeCreateForm = () => {
         setTimeout(()=>{
           navigate(`/recipe/${recipeId}/detail/`)
           setRecipeCreated(false)
-        }, 2000)
+        }, 1600)
       })
       
     } catch (err) {
@@ -77,6 +77,8 @@ const RecipeCreateForm = () => {
   const onSubmit = data => {
     data = setDataType(data);
     
+    console.log(data);
+
     if(step === finalStep){
       RecipeCreating(data)
     }
@@ -91,6 +93,7 @@ const RecipeCreateForm = () => {
         setStepState={setStepState}
         formProps={formProps}
         formArrayProps={formArrayProps}
+        recipeCreated={recipeCreated}
         />
 
       {step !== 3 && 

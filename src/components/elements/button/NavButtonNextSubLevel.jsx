@@ -5,6 +5,7 @@ const NavButtonNextSublevel = (props) => {
 
   return (
     <button
+      type='button'
       className={`sublevel_button ${classStyle}`}
       onClick={onClick}
       disabled={disabled}

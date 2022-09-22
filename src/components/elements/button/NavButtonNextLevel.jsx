@@ -8,6 +8,7 @@ const NavButtonNextLevel = (props) => {
       className={`${classStyle}`}
       onClick={onClick}
       disabled={disabled}
+      type='button'
     >
       다음
     </button>
