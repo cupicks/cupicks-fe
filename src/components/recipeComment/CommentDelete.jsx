@@ -34,19 +34,11 @@ const CommentDelete = ({
 
   return (
     <>
-      <DeleteBtn onClick={onDeleteHandler}>삭 제</DeleteBtn>
+      <DeleteBtn onClick={onDeleteHandler}>삭제</DeleteBtn>
     </>
   );
 };
 
 export default CommentDelete;
 
-const DeleteBtn = styled.button`
-  height: 50%;
-  background-color: #0f100f;
-  color: white;
-  font-weight: bold;
-  border-top: 2px solid #404040;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-`;
+const DeleteBtn = styled.button``;

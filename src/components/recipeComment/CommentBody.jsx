@@ -97,24 +97,24 @@ const CommentBody = () => {
           <React.Fragment key={recipeId}>
             <StCommentWrap>
               <StProfile>
-                <div className="profile_pic">
-                  <StCommentProfile
-                    // src={decodedToken.imageUrl}
-                    src={comment.userImageUrl}
-                    onError={(e) => (e.target.src = comment.userResizedUrl)}
-                  ></StCommentProfile>
-                </div>
+                <StCommentProfile
+                  // src={decodedToken.imageUrl}
+                  src={comment.userImageUrl}
+                  onError={(e) => (e.target.src = comment.userResizedUrl)}
+                />
               </StProfile>
               <StContent>
                 <div className="content_top">
-                  <div className="nickname">{comment.nickname}</div>
-                  <div className="create_time">
+                  <span className="nickname">{comment.nickname}</span>
+                  <span className="dot">•</span>
+                  <span className="create_time">
                     {getTimegap(comment.createdAt)}
-                  </div>
+                  </span>
                 </div>
                 <div className="content_bottom">{comment.comment}</div>
                 {/* {comment.imageUrl == null ? null : ( */}
                 <div className="content_picContainer">
+                  {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                   <img
                     className="content_pic"
                     src={comment.resizedUrl}
@@ -202,35 +202,95 @@ export default CommentBody;
 //   box-sizing: border-box;
 // `;
 
-const StCommentProfile = styled.div`
-  object-fit: cover;
+const StProfile = styled.div`
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+`;
+
+const StCommentProfile = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  box-shadow: 0 0 0 1px #b6b6b6;
   background: #eee no-repeat url(${(props) => props.src}) center / cover;
 `;
 
 const StListWrap = styled.div`
   height: calc(100vh - 60px - 80px);
-  /* display: flex; */
-  flex-flow: column;
-  border-bottom: 2px solid #e6e6e6;
-  border-top: 0.5px solid #8f8b8b8a;
-  position: relative;
   overflow-y: scroll;
+
   padding-bottom: 50px;
 `;
-const StCommentWrap = styled.div`
-  width: 100%;
-  min-height: 10vh;
 
-  border-bottom: 0.5px solid #8f8b8b8a;
-  padding-top: 1rem;
+const StCommentWrap = styled.div`
+  min-height: 80px;
+  padding: 20px 25px 15px;
 
   display: flex;
-  flex-flow: row;
+  gap: 15px;
+
+  border-top: 1px solid #eeeeee;
+
+  :last-child {
+    border-bottom: 1px solid #eeeeee;
+  }
 `;
 
+const StContent = styled.div`
+  flex: 1 1 auto;
+
+  display: flex;
+  flex-flow: column;
+  gap: 3px;
+
+  font-size: 14px;
+
+  color: #393939;
+
+  .content_top {
+    display: flex;
+    gap: 7px;
+  }
+
+  .nickname {
+    font-weight: 700;
+  }
+
+  .dot {
+    font-size: 12px;
+    transform: translateY(1px);
+  }
+
+  .dot,
+  .create_time {
+    color: #9f9f9f;
+  }
+
+  .content_bottom {
+    padding-bottom: 10px;
+  }
+
+  .content_picContainer {
+    max-width: 100%;
+
+    display: flex;
+    overflow: hidden;
+  }
+
+  .content_pic {
+    width: 100%;
+    max-height: 25vh;
+    object-fit: cover;
+  }
+`;
+
+const StOption = styled.div`
+  cursor: pointer;
+`;
+
+// 비로그인 댓글 작성 막는 div
 const StGuestLoginShadow = styled.div`
   position: absolute;
   width: 100%;
@@ -249,77 +309,4 @@ const StGuestLoginShadow = styled.div`
     display: flex;
     justify-content: center;
   }
-`;
-
-const StProfile = styled.div`
-  width: 15%;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 0 auto;
-
-  .profile_pic {
-    max-width: 50px;
-    max-height: 50px;
-
-    margin-bottom: 2.2rem;
-
-    border: 1px solid black;
-    border-radius: 50%;
-  }
-`;
-
-const StContent = styled.div`
-  width: 75%;
-
-  display: flex;
-  flex-flow: column;
-
-  .content_top {
-    height: 35%;
-    display: flex;
-    flex-flow: row;
-  }
-
-  .content_bottom {
-    height: 65%;
-    font-size: 15px;
-  }
-
-  .nickname {
-    width: 20%;
-    font-size: 14px;
-    font-weight: bold;
-
-    display: flex;
-    align-items: center;
-  }
-
-  .create_time {
-    width: 80%;
-    font-size: 13px;
-    color: gray;
-
-    display: flex;
-    align-items: center;
-  }
-
-  .content_picContainer {
-    max-width: 300px;
-    max-height: 300px;
-    margin-bottom: 15px;
-  }
-
-  .content_pic {
-    max-width: 300px;
-    max-height: 300px;
-    object-fit: cover;
-  }
-`;
-
-const StOption = styled.div`
-  width: 10%;
-
-  cursor: pointer;
 `;
