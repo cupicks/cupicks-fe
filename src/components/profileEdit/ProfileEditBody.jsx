@@ -29,13 +29,10 @@ const ProfileEditBody = (props) => {
         <input
           defaultValue={userData.nickname}
           {...register("nickname", {
-            minLength: {
-              value: 2,
-              message: "2자 이상 입력해주세요",
-            },
-            maxLength: {
-              value: 10,
-              message: "10자 이하로 입력해주세요",
+            required: true,
+            pattern: {
+              value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
+              message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
             },
           })}
           type="text"
