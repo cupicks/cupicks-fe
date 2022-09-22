@@ -6,6 +6,7 @@ import api from "../../server/api";
 import { useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import CommentInput from "./CommentInput";
+import ToastMessage from "../elements/modal/ToastMessage";
 
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,6 +18,14 @@ const CommentBody = () => {
 
   const token = localStorage.getItem("refreshToken");
   const { decodedToken, isExpired } = useJwt(token);
+
+  /****************************/
+  /******* 비로그인 기능 *******/
+  /****************************/
+  const [guestLoginShadow, setGuestLoginShadow] = useState(false);
+  const [needLogginModal, setNeedLogginModal] = useState(false);
+  const userLogin = Boolean(localStorage.getItem("refreshToken"));
+  /****************************/
 
   // console.log(decodedToken);
   // console.log(comments);
@@ -74,6 +83,11 @@ const CommentBody = () => {
     // setTimeout(() => {
     getComments();
     // }, 2900);
+
+    /******* 비로그인 기능 *******/
+    if (!userLogin) {
+      setGuestLoginShadow(true);
+    }
   }, []);
 
   return (
@@ -111,8 +125,19 @@ const CommentBody = () => {
               </StContent>
               <StOption
                 onClick={() => {
-                  setMenuOpen(true);
-                  setEditCommentId(comment.commentId);
+                  if (userLogin) {
+                    // 기존 코드
+                    setMenuOpen(true);
+                    setEditCommentId(comment.commentId);
+                  } else {
+                    // 비로그인 기능 추가
+                    if (!needLogginModal) {
+                      setNeedLogginModal(true);
+                      setTimeout(() => {
+                        setNeedLogginModal(false);
+                      }, 2000);
+                    }
+                  }
                 }}
               >
                 <img src={talk_edit} />
@@ -148,6 +173,14 @@ const CommentBody = () => {
         />
       </StListWrap>
       <CommentInput getComments={getComments} />
+
+      {/* 댓글 작성 가리기 */}
+      {guestLoginShadow && <StGuestLoginShadow />}
+
+      {/* 토스트 메시지/모달 */}
+      {needLogginModal && (
+        <ToastMessage text={"로그인이\n 필요한 기능입니다."} />
+      )}
     </>
   );
 };
@@ -196,6 +229,26 @@ const StCommentWrap = styled.div`
 
   display: flex;
   flex-flow: row;
+`;
+
+const StGuestLoginShadow = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(233, 233, 233, 0.7);
+
+  ::after {
+    content: "로그인 후 이용할 수 있습니다.";
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+
+    color: #555;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const StProfile = styled.div`

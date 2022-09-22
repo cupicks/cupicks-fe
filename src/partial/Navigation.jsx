@@ -5,21 +5,17 @@ import styled from "styled-components";
 import arrowBackIcon from "../assets/svg/arrow_back.svg";
 
 const Navigation = (props) => {
-  const { empty = false, goto="/" } = props;
+  const { empty = false, goto = "/recipe" } = props;
   const navigate = useNavigate();
 
   return (
     <StNav>
       {!empty && (
-        <div 
-          className="button_goBack fcc" 
-          onClick={() => navigate(goto)}
-        >
+        <div className="button_goBack fcc" onClick={() => navigate(goto)}>
           <img src={arrowBackIcon} alt="뒤로 가기 버튼" />
         </div>
       )}
       {props.children}
-
     </StNav>
   );
 };
@@ -43,12 +39,11 @@ const StNav = styled.nav`
   min-height: 60px;
   line-height: 60px;
   z-index: 999;
-  
 
   button {
     all: unset;
     padding: 0 16px;
-    
+
     font-weight: 400;
     font-size: 17px;
     line-height: 150%;
