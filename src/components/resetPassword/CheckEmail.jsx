@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import ToastMessage from "../elements/modal/ToastMessage";
 
 const CheckEmail = (props) => {
-  const { register, errors } = props;
+  const { register, errors, emailError } = props;
 
   return (
     <StDiv>
+      {emailError && (
+        <ToastMessage text={errors?.email?.message} timer={1000} />
+      )}
       <label>이메일 입력</label>
       <input
         type="text"

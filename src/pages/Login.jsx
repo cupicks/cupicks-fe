@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 import kakaoIcon from "../assets/svg/talk.svg";
 import kakao from "../assets/image/logo/kakao.png";
+import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,9 +21,65 @@ const Login = () => {
     handleSubmit,
     watch,
     reset,
+    setError,
     formState: { isSubmitting, isDirty, errors },
-  } = useForm();
-  const onSubmit = async () => {
+  } = useForm({
+    criteriaMode: "all",
+    mode: "onChange",
+  });
+  const [emailFailure, setEmailFailure] = useState(false);
+  const [pwFailure, setPwFailure] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const onSubmit = async (data) => {
+    console.log(data);
+    // const data = { email: watch("email"), password: watch("password") };
+    // const queryStringData = Object.keys(data)
+    //   .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+    //   .join("&");
+    // console.log(queryStringData);
+    // const contentType = "application/x-www-form-urlencoded";
+    // try {
+    //   const res = await api(contentType).post(
+    //     "/auth/signin",
+    //     queryStringData,
+    //     // {
+    //     //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //     // }
+    //   );
+    //   console.log(res);
+    //   localStorage.setItem("accessToken", res.data.accessToken);
+    //   localStorage.setItem("refreshToken", res.data.refreshToken);
+    //   setLoginSuccess(true);
+    //   // alert(res.data.message);
+    //   setTimeout(() => {
+    //     navigate("/");
+    //   }, 1000);
+    // } catch (err) {
+    //   console.log(err);
+    //   // alert(err.response.data.message);
+    //   setError("loginError", { message: err.response.data.message });
+    //   setLoginError(true);
+    //   setTimeout(() => {
+    //     setLoginError(false);
+    //   }, 1000);
+    // }
+  };
+  const clickLogin = async () => {
+    if (errors.email) {
+      setEmailFailure(true);
+      setTimeout(() => {
+        setEmailFailure(false);
+      }, 1000);
+      return;
+    }
+    if (errors.password) {
+      setPwFailure(true);
+      setTimeout(() => {
+        setPwFailure(false);
+      }, 1000);
+      return;
+    }
     const data = { email: watch("email"), password: watch("password") };
     const queryStringData = Object.keys(data)
       .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
@@ -32,7 +89,7 @@ const Login = () => {
     try {
       const res = await api(contentType).post(
         "/auth/signin",
-        queryStringData
+        queryStringData,
         // {
         //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
         // }
@@ -40,16 +97,29 @@ const Login = () => {
       console.log(res);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
-      alert(res.data.message);
+      setLoginSuccess(true);
       navigate("/");
     } catch (err) {
       console.log(err);
-      alert(err.response.data.message);
+      // alert(err.response.data.message);
+      setError("loginError", { message: err.response.data.message });
+      setLoginError(true);
+      setTimeout(() => {
+        setLoginError(false);
+      }, 1000);
     }
   };
-
   return (
     <StDiv>
+      {emailFailure && (
+        <ToastMessage text={errors?.email?.message} timer={1000} />
+      )}
+      {pwFailure && (
+        <ToastMessage text={errors?.password?.message} timer={1000} />
+      )}
+      {loginError && (
+        <ToastMessage text={errors?.loginError?.message} timer={1000} />
+      )}
       <StTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StTitle>
@@ -86,7 +156,16 @@ const Login = () => {
           })}
         />
         {errors.password && <p>{errors.password.message}</p>}
-        <StButton type="submit" disabled={isSubmitting}>
+        <StButton
+          onClick={clickLogin}
+          disabled={
+            loginSuccess ||
+            loginError ||
+            watch("email") === "" ||
+            watch("email") === undefined ||
+            watch("password") === ""
+          }
+        >
           계속하기
         </StButton>
       </StForm>
@@ -98,13 +177,14 @@ const Login = () => {
       </StFlexBox>
 
       <StLineBox>
-        <span>간편 로그인</span>
+        <span>비로그인</span>
       </StLineBox>
 
-      <StKakaoBox>
+      {/* <StKakaoBox>
         <img src={kakao} />
         카카오로 시작하기
-      </StKakaoBox>
+      </StKakaoBox> */}
+      <StNonLogin onClick={() => navigate("/recipe")}>둘러보기</StNonLogin>
 
       <StCtn>
         회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
@@ -191,16 +271,16 @@ const StButton = styled.button`
 
   border: var(--input-border-bottom);
   color: var(--input-font-color);
-  
+
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-  
+
   transition: all 0.2s;
   box-sizing: border-box;
 
   cursor: pointer;
-  
+
   :hover {
     background-color: var(--button-activeBackgroundColor);
     border-color: var(--button-activeBorderColor);
@@ -289,6 +369,33 @@ const StKakaoBox = styled.div`
     height: 20px;
 
     margin-right: 9px;
+  }
+`;
+
+const StNonLogin = styled.button`
+  all: unset;
+  padding: 15px;
+  border-radius: 10px;
+
+  border: var(--input-border-bottom);
+  color: var(--input-font-color);
+
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+
+  transition: all 0.2s;
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  :hover {
+    background-color: var(--button-activeBackgroundColor);
+    border-color: var(--button-activeBorderColor);
+    color: #fff;
+  }
+  :disabled {
+    pointer-events: none;
   }
 `;
 

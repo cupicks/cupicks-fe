@@ -48,8 +48,8 @@ const Nickname = (props) => {
         {...register("nickname", {
           required: true,
           pattern: {
-            value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/,
-            message: "닉네임은 2~10자이며, 한글, 영어, 숫자포함합니다.",
+            value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
+            message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
           },
         })}
       />

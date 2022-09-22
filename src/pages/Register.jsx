@@ -53,7 +53,7 @@ const Register = () => {
   const [completion, setCompletion] = useState(false);
   const [nicknameFailure, setNicknameFailure] = useState(false);
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     console.log(data);
     // let contentType = "multi-part/form-data";
     // //request(body)-> image 보내기
