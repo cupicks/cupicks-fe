@@ -29,6 +29,13 @@ const AllRecipeListContainer = (props) => {
   const [like, setLike] = useState(false);
 
   const cupHeight = ((cupSize / 591) * 100).toFixed();
+  const windowWidth = window.innerWidth;
+  let titleText = title;
+  if (windowWidth < 400) {
+    if (title.length > 6) {
+      titleText = title.slice(0, 6) + "...";
+    }
+  }
 
   // 추후 resizeUrl로 변경
   const profileImage = resizedUrl;
@@ -90,7 +97,7 @@ const AllRecipeListContainer = (props) => {
       </StListContent>
 
       <StListDesc>
-        <div className="title">{title}</div>
+        <div className="title">{titleText}</div>
         <StIconSet>
           <img
             className="talk_btn"
@@ -175,10 +182,17 @@ const StIconSet = styled.div`
 
   .talk_btn {
     width: 9px;
+    transition: all 0.3s;
     cursor: pointer;
   }
   .like_btn {
     width: 11px;
+    transition: all 0.3s;
     cursor: pointer;
+  }
+
+  &:hover .talk_btn,
+  &:hover .like_btn {
+    transform: scale(1.3);
   }
 `;

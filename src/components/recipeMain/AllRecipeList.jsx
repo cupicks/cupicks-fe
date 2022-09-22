@@ -180,8 +180,12 @@ const StAllListWrap = styled.ul`
   flex-flow: wrap;
   gap: 9px;
 
-  @media (max-width: 360px) {
+  @media (max-width: 340px) {
     gap: 10px;
+  }
+
+  @media (max-width: 200px) {
+    gap: 0px;
   }
 `;
 
@@ -191,18 +195,24 @@ const StListWrap = styled.li`
   max-height: 500px;
   border-radius: 9px;
 
-  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: -1px 0px 5px rgba(72, 72, 72, 0.1), 3px 3px 8px rgba(0, 0, 0, 0.1);
 
   transition: all 0.3s;
   overflow: hidden;
+  
+  cursor: pointer;
 
-  @media (max-width: 360px) {
+  @media (max-width: 340px) {
     flex: 0 0 calc((100% - (10px * 1)) / 2);
+  }
+
+  @media (max-width: 200px) {
+    flex: 1 1 100%;
   }
 
   :hover {
     transform: translateY(-4px);
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
   }
 
   & > .flex_box {

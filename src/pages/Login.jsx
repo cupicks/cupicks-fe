@@ -107,6 +107,7 @@ const Login = () => {
   };
   return (
     <StDiv>
+      {/* 모달창 */}
       {emailFailure && (
         <ToastMessage text={errors?.email?.message} timer={1000} />
       )}
@@ -116,9 +117,12 @@ const Login = () => {
       {loginError && (
         <ToastMessage text={errors?.loginError?.message} timer={1000} />
       )}
+
+      {/* 로그인 시작 */}
       <StTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StTitle>
+
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
         <StInput
@@ -135,7 +139,11 @@ const Login = () => {
             },
           })}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+
+        <StErrorBox>
+          {errors.email && <p>{errors.email.message}</p>}
+        </StErrorBox>
+        
         <label>비밀번호</label>
         <StInput
           type="password"
@@ -150,7 +158,11 @@ const Login = () => {
             },
           })}
         />
-        {errors.password && <p>{errors.password.message}</p>}
+        
+        <StErrorBox>
+          {errors.password && <p>{errors.password.message}</p>}
+        </StErrorBox>
+
         <StButton
           onClick={clickLogin}
           disabled={
@@ -211,7 +223,7 @@ const StDiv = styled.div`
 const StTitle = styled.div`
   width: 200px;
 
-  margin-top: 60px;
+  margin-top: 55px;
 
   h1 {
     font-weight: 700;
@@ -221,7 +233,7 @@ const StTitle = styled.div`
 `;
 
 const StForm = styled.form`
-  margin-top: 47px;
+  margin-top: 38px;
 
   display: flex;
   flex-direction: column;
@@ -238,7 +250,7 @@ const StForm = styled.form`
 
 const StInput = styled.input`
   all: unset;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   padding: 10px 0;
 
   border-bottom: 2px solid #cdcdcd;
@@ -271,7 +283,7 @@ const StButton = styled.button`
   font-size: 18px;
   text-align: center;
 
-  transition: all 0.2s;
+  transition: all 0.3s;
   box-sizing: border-box;
 
   cursor: pointer;
@@ -282,6 +294,9 @@ const StButton = styled.button`
     color: #fff;
   }
   :disabled {
+    background: #ddd;
+    color: #9e9e9e;
+    opacity: 0.5;
     pointer-events: none;
   }
 `;
@@ -290,6 +305,14 @@ const StFlexBox = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
+const StErrorBox = styled.div`
+  min-height: 30px;
+  margin-bottom: 5px;
+
+  line-height: 30px;
+  font-size: 13px;
+`
 
 const StPass = styled.p`
   margin-top: 10px;
@@ -300,6 +323,7 @@ const StPass = styled.p`
 
   text-align: right;
   font-weight: 700;
+  font-size: 13px;
 
   cursor: pointer;
   transition: all 0.2s;
@@ -330,6 +354,7 @@ const StLineBox = styled.div`
   span {
     font-weight: 400;
     font-size: 14px;
+    padding: 0 10px;
 
     background-color: #fff;
     color: #ddd;
@@ -395,6 +420,8 @@ const StNonLogin = styled.button`
 `;
 
 const StCtn = styled.div`
+  margin-top: 5px;
+
   color: #cac8c8;
 
   font-size: 12px;

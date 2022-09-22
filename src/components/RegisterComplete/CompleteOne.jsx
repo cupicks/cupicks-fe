@@ -27,18 +27,20 @@ const StDiv = styled.div`
 `;
 
 const StImgBox = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 450px;
-  max-height: 430px;
+  padding-bottom: 100%;
 
-  margin: 40px auto 0;
+  margin: 20px auto 0;
 
   display: block;
+  position: relative;
 `;
 
 const StImg = styled.img`
   width: 100%;
   max-width: 450px;
+  position: absolute;
 
   margin: 40px auto 0;
 
