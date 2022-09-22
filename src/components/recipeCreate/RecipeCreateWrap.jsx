@@ -36,6 +36,7 @@ const RecipeCreateForm = () => {
     cupZero: false,
     cupLeft: null,
     ingredientDeleteMode: false,
+    currentIngredientDeleted: false,
     currIngredientList: []
   })
 

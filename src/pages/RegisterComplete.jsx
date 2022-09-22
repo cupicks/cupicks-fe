@@ -52,7 +52,7 @@ export default RegisterComplete;
 
 const StDiv = styled.div`
   padding: 0 25px;
-`
+`;
 
 const StCounts = styled.div`
   margin-top: 40px;
@@ -74,12 +74,12 @@ const StBtn = styled.button`
   height: 59px;
 
   margin-top: 10vh;
-  
+
   color: #eee;
   background: #101010;
   border: 1px solid #101010;
   border-radius: 10px;
-  
+
   font-weight: 700;
   font-size: 18px;
 `;

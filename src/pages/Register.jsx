@@ -32,6 +32,9 @@ const Register = () => {
   } = useForm({
     criteriaMode: "all",
     mode: "onChange",
+    defaultValues: {
+      cupSize: 0
+    }
   });
 
   const [level, setLevel] = useState(0);
@@ -92,6 +95,7 @@ const Register = () => {
       getValues("image") === undefined ? null : getValues("image")[0],
     );
     //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
+
     try {
       const res = await api(contentType).post(
         `/auth/signup?password=${getValues(
@@ -106,7 +110,7 @@ const Register = () => {
       // alert(res.data.message);
       setCompletion(true);
       setTimeout(() => {
-        navigate("/signUp/complete");
+        navigate("/sign-up/complete");
       }, 1000);
     } catch (err) {
       console.log(err);
@@ -173,7 +177,7 @@ const Register = () => {
   };
   const before = () => {
     if (level === 0) {
-      navigate("/sign-in");
+      navigate("/signIn");
     } else {
       // const emailToken = getValues("emailVerifyToken");
       // reset("emailVerifyToken");

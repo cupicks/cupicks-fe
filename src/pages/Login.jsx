@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-
-import serverAxios from "../server/server.axios";
-import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import api from "../server/api";
 
 import styled from "styled-components";
 
-import kakaoIcon from "../assets/svg/talk.svg";
 import kakao from "../assets/image/logo/kakao.png";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -98,7 +94,7 @@ const Login = () => {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       setLoginSuccess(true);
-      navigate("/");
+      navigate("/recipe", {state: {message: `${data.email}\n로그인 되었습니다.`}});
     } catch (err) {
       console.log(err);
       // alert(err.response.data.message);
@@ -123,7 +119,6 @@ const Login = () => {
       <StTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StTitle>
-
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
         <StInput
