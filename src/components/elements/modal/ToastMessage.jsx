@@ -7,10 +7,12 @@ const ToastMessage = (props) => {
     imageUrl = "",
     timer = 2000,
     backgroundShadow = false,
+    smallFont = false
   } = props;
   const [modalShow, setModalShow] = useState(true);
 
   const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : "";
+  const fontSize = smallFont ? "14px" : "18px";
 
   setTimeout(() => {
     setModalShow(false);
@@ -20,6 +22,7 @@ const ToastMessage = (props) => {
     <>
       {modalShow && (
         <StModal
+          fontSize={fontSize}
           backgroundColor={backgroundColor}
           timer={timer * 0.001}
           onClick={() => {
@@ -105,7 +108,7 @@ const StModal = styled.div`
     border: 1px solid #393939;
     box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25);
 
-    font-size: 18px;
+    font-size: ${(props) => props.fontSize};
     font-weight: 700;
 
     box-sizing: initial;

@@ -44,8 +44,8 @@ const Login = () => {
       console.log(res);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
-      alert(res.data.message);
-      navigate("/");
+
+      navigate("/recipe", {state: {message: `${data.email}\n로그인 되었습니다.`}});
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
