@@ -6,7 +6,7 @@ import RecipeIngredientConform from './RecipeIngredientConform';
 
 const RecipeTextValue = (props) => {
   const { formProps } = props;
-  const { register, errors, watch } = formProps
+  const { register, errors, watch, getValues } = formProps
 
   return ( 
     <>
@@ -58,8 +58,8 @@ const RecipeTextValue = (props) => {
             <input 
               type="checkbox" 
               id='publicCheckbox'
-              value={ true }
-              {...register('isPublic')}
+              defaultValue={ true }
+              {...register('isPublic', {required: true})}
               />
             <label 
               htmlFor='publicCheckbox'

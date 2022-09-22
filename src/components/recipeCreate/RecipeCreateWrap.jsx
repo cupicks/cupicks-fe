@@ -76,6 +76,7 @@ const RecipeCreateForm = () => {
   /** finalStep일 때 onSumit 시 */
   const onSubmit = data => {
     data = setDataType(data);
+    console.log('hi');
     
     if(step === finalStep){
       RecipeCreating(data)

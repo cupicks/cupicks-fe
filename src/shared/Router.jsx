@@ -49,13 +49,12 @@ const Router = () => {
       loggedIn ? setLoggedIn(false) : "";
     }
 
-    // 리디렉션 : 테스트 필요함
+    // 리디렉션: 로그인 필요한 페이지에서 토큰이 만료 되었을 때 작동
     if (!pathNeedLoggedIn) {
       if (loggedIn) {
         navigate("/sign-in", {
           state: { message: "자동으로 \n 로그아웃 되었습니다." },
         });
-      } else {
       }
     }
   }, [pathname]);

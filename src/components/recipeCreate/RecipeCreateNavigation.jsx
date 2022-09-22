@@ -17,7 +17,7 @@ const RecipeCreateNavigation = (props) => {
   const { step, finalStep, subStep, finalSubStep } = stepState
   const { watch, getValues, reset } = formProps
   
-  const buttonDone = useRef();
+  // const buttonDone = useRef();
 
   const [modalCupFullRequired, setModalCupFullRequired] = useState(false)
   const [needMoreIngredient, setNeedMoreIngredient] = useState(false)
@@ -98,7 +98,7 @@ const RecipeCreateNavigation = (props) => {
       setStepState(prev => ({...prev, ...initialStepState}))
     }, 1000)
   }
- 
+  
   /** 재료 처음부터 만들기 Denied */
   const goFirstDenied = () => {
     setTimeout(()=>{
@@ -218,6 +218,8 @@ const RecipeCreateNavigation = (props) => {
   /** 완료 Done 버튼 클릭 핸들러  */
   const doneButtonNextClickHandler = () => {
 
+    console.log('done');
+
     if(recipeCompletedRequired){
       setShowCompleteRequireBox(true)
       setTimeout(()=>{
@@ -225,10 +227,10 @@ const RecipeCreateNavigation = (props) => {
       }, 2000)
     }
 
-    buttonDone.current.disabled = true;
-    setTimeout(()=>{
-      buttonDone.current.disabled = false
-    }, 2000)
+    // event.target.disabled = true;
+    // setTimeout((event)=>{
+    //   event.target.disabled = false
+    // }, 2000)
   }
 
 	return (
@@ -251,14 +253,6 @@ const RecipeCreateNavigation = (props) => {
             />
           }
 
-          {stepEnd &&
-            <NavButtonDone
-              disabledStyle={recipeCompletedRequired}
-              ref={buttonDone}
-              onClick={doneButtonNextClickHandler}
-            />
-          }
-
           {!stepEnd &&
             !(step2 && !subStepEnd) &&
             <NavButtonNextLevel 
@@ -272,6 +266,13 @@ const RecipeCreateNavigation = (props) => {
             <NavButtonNextSublevel 
               disabled={nextDisabled} 
               onClick={subStepButtonNextClickHandler} 
+            />
+          }
+
+          {stepEnd &&
+            <NavButtonDone
+              disabledStyle={recipeCompletedRequired}
+              onClick={doneButtonNextClickHandler}
             />
           }
 
