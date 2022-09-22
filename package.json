@@ -12,7 +12,6 @@
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
     "axios": "^0.27.2",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-intersection-observer": "^9.4.0",
@@ -27,14 +26,6 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
-    "eslint": "^8.23.1",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.8",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
@@ -42,9 +33,7 @@
   },
   "lint-staged": {
     "./src/**/*.{js,jsx}": [
-      "npx eslint-config-prettier",
-      "npx prettier --write",
-      "npx eslint --fix"
+      "npx prettier --write"
     ]
   }
 }

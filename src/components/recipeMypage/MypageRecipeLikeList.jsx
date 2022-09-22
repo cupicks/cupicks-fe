@@ -5,108 +5,59 @@ import styled from "styled-components";
 import RecipeSilder from "./element/RecipeSilder";
 import RecipeListToggle from "./element/RecipeListToggle";
 
+import api from "../../server/api";
+
 const MypageRecipeLikeList = () => {
-  const [recipeList, setRecipeList] = useState();
+  const [recipeList, setRecipeList] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
-  const response = {
-    isSuccess: true,
-    message: '레시피 조회에 성공하셨습니다.',
-    recipeList: [
-      {
-        recipeId: 0,
-        title: '레시피 이름',
-        content:  '레시피 본문',
-        isIced: true,
-        cupSize: 355,
-        createdAt: '2022-~~',
-        updatedAt: '2022-~~',
-        ingredientList: [
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: '#123456',
-            ingredientAmount: 300
-          },
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: 'tan',
-            ingredientAmount: 55
-          }
-        ]
-      },
-      
-      {
-        recipeId: 1,
-        title: '레시피 이름',
-        content:  '레시피 본문',
-        isIced: true,
-        cupSize: 355,
-        createdAt: '2022-~~',
-        updatedAt: '2022-~~',
-        ingredientList: [
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: '#039432',
-            ingredientAmount: 100
-          },
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: 'pink',
-            ingredientAmount: 150
-          }
-        ]
-      },
-      
-      {
-        recipeId: 3,
-        title: '레시피 이름',
-        content:  '레시피 본문',
-        isIced: true,
-        cupSize: 355,
-        createdAt: '2022-~~',
-        updatedAt: '2022-~~',
-        ingredientList: [
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: '#fefe33',
-            ingredientAmount: 50
-          },
-          {
-            ingredientName: '음식 재료 이름',
-            ingredientColor: 'skyblue',
-            ingredientAmount: 20
-          }
-        ]
-      }
-    ]
+  // 페이지네이션 재료
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(3);
+
+  const Recipefetching = async () => {
+    let contentType = "application/json";
+
+    try {
+      const response = await api(contentType)
+        .get(`/profile/like-recipe?page=1&count=3`)
+        .then((res) => {
+          console.log(res);
+          setRecipeList([...recipeList, ...res.data.recipeList]);
+        });
+      setLoaded(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  useEffect(()=>{
-    setRecipeList(response.recipeList)
-    setLoaded(true)
-  },[])
+  useEffect(() => {
+    Recipefetching();
+  }, []);
+
+  // useEffect(()=>{
+  //   setRecipeList(response.recipeList)
+  //   setLoaded(true)
+  // },[])
 
   return (
     <>
-      {loaded &&
+      {loaded && (
         <StMypageRecipeWrap>
-          <RecipeListToggle>
-            좋아요 레시피
-          </RecipeListToggle>
+          <RecipeListToggle>좋아요 레시피</RecipeListToggle>
           <div className="toggleContents">
-            <RecipeSilder 
-              recipeList={recipeList} 
+            <RecipeSilder
+              recipeList={recipeList}
               setRecipeList={setRecipeList}
-              header={true} 
+              header={true}
             />
           </div>
         </StMypageRecipeWrap>
-      }
+      )}
     </>
-  )
+  );
 };
 
 export default MypageRecipeLikeList;
 
-const StMypageRecipeWrap = styled.div`
-`
+const StMypageRecipeWrap = styled.div``;

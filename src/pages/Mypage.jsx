@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useJwt } from 'react-jwt'
+import { useJwt } from "react-jwt";
 
 import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
 import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
@@ -10,25 +10,25 @@ import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
 import styled from "styled-components";
 
 const Mypage = () => {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
 
-  const token = localStorage.getItem('refreshToken')
-  const {decodedToken} = useJwt(token);
+  const token = localStorage.getItem("refreshToken");
+  const { decodedToken } = useJwt(token);
   let userData = decodedToken;
-  
+
   return (
     <StWrap>
-      {userData !== null &&
+      {userData !== null && (
         <>
           <MypageMyInfo token={token} userData={userData} />
           <MypageRecipeMyList on={true} />
-          
+
           {/* 좋아요 리스트: MVP이후 작업 */}
-          {/* <MypageRecipeLikeList />  */}
+          <MypageRecipeLikeList />
           {/* ************************* */}
           <div></div>
         </>
-      }
+      )}
     </StWrap>
   );
 };
@@ -44,7 +44,7 @@ const StWrap = styled.div`
   gap: 10px;
 
   background-color: #eee;
-  
+
   .toggleContents {
     width: 100%;
     max-height: 0;
@@ -56,7 +56,7 @@ const StWrap = styled.div`
   div.on + .toggleContents {
     max-height: 100vh;
   }
-  
+
   & > div:last-child {
     height: 100%;
     background-color: #fff;

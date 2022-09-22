@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Slider from "react-slick";
@@ -7,14 +7,40 @@ import "slick-carousel/slick/slick-theme.css";
 
 import IngredientList from "./IngredientList";
 import RecipeTitle from "../../recipeDetail/element/RecipeTitle";
-import prfilePicSrc from '../../../assets/svg/profile.svg'
+import prfilePicSrc from "../../../assets/svg/profile.svg";
 
 import styled from "styled-components";
 
 const RecipeList = (props) => {
-  const {recipeList, header=false} = props
+  const { recipeList, header = false } = props;
   const navigate = useNavigate();
+  const [dragging, setDragging] = useState(false);
+
+  const handleBeforeChange = useCallback(() => {
+    setDragging(true);
+  }, [setDragging]);
+
+  const handleAfterChange = useCallback(() => {
+    setDragging(false);
+  }, [setDragging]);
+
+  const onClickCard = useCallback(
+    (path) => (e) => {
+      if (dragging) {
+        e.stopPropagation();
+        return;
+      }
+      if (path) {
+        navigate(`/recipe/${path}/detail`);
+      }
+    },
+    [dragging],
+  );
+
   const settings = {
+    draggable: true,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
     centerMode: true,
     infinite: false,
     slidesToShow: 1,
@@ -26,44 +52,36 @@ const RecipeList = (props) => {
   return (
     <>
       <StSlider {...settings}>
-        {recipeList.map((recipe, i) => {
+        {recipeList?.map((recipe, i) => {
           return (
             // Slider의 자식은 inline-block
-            <div 
-              className="slick_box" 
-              key={'slick_box'+i}
-              onMouseUp={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
-              onTouchEnd={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
-            > 
-              {header &&
+            <div
+              className="slick_box"
+              key={"slick_box" + i}
+              onClick={onClickCard(recipe.recipeId)}
+              // onClick={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
+              // onTouchEnd={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
+            >
+              {header && (
                 <StRecipeUserInfo>
-                  <StProfilePic 
-                    prfilePicSrc={prfilePicSrc} 
-                  />
-                  이름
+                  <StProfilePic prfilePicSrc={recipe.resizedUrl} />
+                  {recipe.nickname}
                 </StRecipeUserInfo>
-              }
+              )}
 
               <div className="flex_box">
-                <StCupHeight 
-                  cupHeight={(recipe.cupSize / 591 * 100).toFixed(1)}
+                <StCupHeight
+                  cupHeight={((recipe.cupSize / 591) * 100).toFixed(1)}
                 >
-                  <IngredientList 
-                    key={i}
-                    recipe={recipe} 
-                  />
+                  <IngredientList key={i} recipe={recipe} />
                 </StCupHeight>
                 <div className="padding_box">
                   <RecipeTitle title={recipe.title} />
                 </div>
               </div>
             </div>
-          )
+          );
         })}
-        
-
-
-        
       </StSlider>
     </>
   );
@@ -72,8 +90,7 @@ const RecipeList = (props) => {
 export default RecipeList;
 
 const StSlider = styled(Slider)`
-
-background-color: #fff;
+  background-color: #fff;
 
   .slick_box {
     height: 40vh;
@@ -82,10 +99,11 @@ background-color: #fff;
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
-    
+
     overflow: hidden;
-    
-    box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1), 3px 3px 8px rgba(0, 0, 0, 0.1);
+
+    box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1),
+      3px 3px 8px rgba(0, 0, 0, 0.1);
   }
 
   .flex_box {
@@ -97,7 +115,7 @@ background-color: #fff;
 
   .padding_box {
     padding: 11px 20px 12px;
-    
+
     & * {
       font-weight: 700;
       font-size: 14px;
@@ -128,13 +146,14 @@ background-color: #fff;
 `;
 
 const StCupHeight = styled.div`
-  height: ${(props=>props.cupHeight + '%')};
-`
+  height: ${(props) => props.cupHeight + "%"};
+`;
 
-const StRecipeUserInfo = styled.div`  
+const StRecipeUserInfo = styled.div`
   display: flex;
-  align-items: center;padding: 10px;
-`
+  align-items: center;
+  padding: 10px;
+`;
 
 const StProfilePic = styled.div`
   flex: 0 0 auto;
@@ -148,12 +167,12 @@ const StProfilePic = styled.div`
 
   font-size: 14px;
 
-  background:#eee url(${props => props.prfilePicSrc}) no-repeat center / cover;
+  background: #eee url(${(props) => props.prfilePicSrc}) no-repeat center /
+    cover;
 
   img {
     position: absolute;
     right: 0;
     bottom: 0;
   }
-
 `;
