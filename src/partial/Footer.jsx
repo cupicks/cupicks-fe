@@ -85,6 +85,10 @@ const StButton = styled.button`
   background-color: #eee;
   
   cursor: pointer;
+  
+  &:hover svg {
+    opacity: 0.7;
+  }
 `;
 
 const StButtonGoToCreate = styled.button`
@@ -110,5 +114,12 @@ const StButtonGoToCreate = styled.button`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+
+    transition: all .5s;
+    opacity: 0.9;
+  }
+
+  img:hover {
+    opacity: 1;
   }
 `;

@@ -28,7 +28,7 @@ const RecipeTitle = (props) => {
 export default RecipeTitle;
 
 const StRecipeTitle = styled.div`  
-  padding: 17px 0 40px;
+  padding: 12px 0 40px;
 
   font-weight: 700;
   font-size: 18px;
@@ -41,5 +41,9 @@ const StRecipeTitle = styled.div`
 
   img {
     width: 26px;
+    cursor: pointer;
+  }
+  img:hover {
+    opacity: 0.8;
   }
 `

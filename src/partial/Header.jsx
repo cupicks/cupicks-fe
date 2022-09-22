@@ -33,4 +33,11 @@ const StLogo = styled.div`
   height: 100%;
   
   background: url(${props=>props.src}) no-repeat center / contain;
+  transition: all .4s;
+
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;

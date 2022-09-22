@@ -73,7 +73,7 @@ const StBtn = styled.button`
   width: 100%;
   height: 59px;
 
-  margin-top: 10vh;
+  margin-top: 7vh;
 
   color: #eee;
   background: #101010;
@@ -82,4 +82,10 @@ const StBtn = styled.button`
 
   font-weight: 700;
   font-size: 18px;
+
+  transition: all .3s;
+
+  :hover {
+    opacity: 0.9;
+  }
 `;
