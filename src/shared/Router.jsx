@@ -87,7 +87,9 @@ const Router = () => {
               element={
                 <NotFound
                   timer={30000}
-                  message={"로그인이 필요한 페이지입니다."}
+                  message={
+                    "로그인 후에 사용가능한 기능이에요!\n로그인하고 이용해볼까요?"
+                  }
                 />
               }
             />
