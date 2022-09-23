@@ -14,13 +14,14 @@ import RegisterComplete from "../pages/RegisterComplete";
 import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
+import RecipeEdit from "../pages/RecipeEdit";
 
 const Router = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [loggedIn, setLoggedIn] = useState(false);
-  
+
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -82,6 +83,9 @@ const Router = () => {
           ))}
         </>
       )}
+
+      {/* 레시피 수정 페이지 작성 중 */}
+      <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
 
       {loggedIn && (
         <>
