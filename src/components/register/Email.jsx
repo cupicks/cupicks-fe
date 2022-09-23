@@ -29,7 +29,7 @@ const Email = (props) => {
     <StDiv>
       {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
       {failure && (
-        <ToastMessage text={errors?.emailError?.message} timer={2000} />
+        <ToastMessage text={errors?.emailError?.message} timer={1500} />
       )}
       {emailSuccess && (
         <ToastMessage
