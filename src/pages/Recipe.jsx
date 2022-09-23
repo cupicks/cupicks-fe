@@ -9,22 +9,24 @@ const Recipe = () => {
   const location = useLocation();
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
-  const timer=1800
+  const timer = 1800;
 
-  useEffect(()=>{
-    if(messageText !== undefined){
-      setMessageModal(true)
-      setTimeout(()=>{
-        setMessageModal(false)
-      }, timer)
+  useEffect(() => {
+    if (messageText !== undefined) {
+      setMessageModal(true);
+      setTimeout(() => {
+        setMessageModal(false);
+      }, timer);
     }
-  }, [])
+  }, []);
 
   return (
     <StWrap>
       <RecipeBody />
 
-      {messageModal && <ToastMessage text={messageText} smallFont={true} timer={timer} />}
+      {messageModal && (
+        <ToastMessage text={messageText} smallFont={true} timer={timer} />
+      )}
     </StWrap>
   );
 };
@@ -33,6 +35,6 @@ export default Recipe;
 
 const StWrap = styled.div`
   height: calc(100vh - 50px - 90px);
-  
+
   overflow: hidden;
 `;

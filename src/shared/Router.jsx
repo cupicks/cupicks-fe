@@ -14,13 +14,14 @@ import RegisterComplete from "../pages/RegisterComplete";
 import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
+import RecipeEdit from "../pages/RecipeEdit";
 
 const Router = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [loggedIn, setLoggedIn] = useState(false);
-  
+
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -30,7 +31,12 @@ const Router = () => {
     "/sign-up/complete",
     "/resetPassword",
   ];
-  const caseYesLoggedIn = ["/recipe/create", "/mypage", "/profile/edit"];
+  const caseYesLoggedIn = [
+    "/recipe/create",
+    "/mypage",
+    "/profile/edit",
+    "/recipe/:recipeId/edit",
+  ];
   let pathNeedLoggedIn = true;
 
   // 로그인이 필요없는 페이지
@@ -77,7 +83,13 @@ const Router = () => {
             <Route
               key={"routePathLogin" + idx}
               path={path}
-              element={<NotFound message={"로그인이 필요한 페이지입니다."} />}
+              timer={30000}
+              element={
+                <NotFound
+                  timer={30000}
+                  message={"로그인이 필요한 페이지입니다."}
+                />
+              }
             />
           ))}
         </>
@@ -88,12 +100,18 @@ const Router = () => {
           <Route path="/recipe/create" element={<RecipeCreate />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
+          <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
 
           {caseNoLoggedIn.map((path, idx) => (
             <Route
               key={"routePathLogout" + idx}
               path={path}
-              element={<NotFound message={"로그아웃이 필요한 페이지입니다."} />}
+              element={
+                <NotFound
+                  timer={30000}
+                  message={"로그아웃이 필요한 페이지입니다."}
+                />
+              }
             />
           ))}
         </>

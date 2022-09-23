@@ -8,6 +8,7 @@ import api from "../../server/api";
 import Logo from "../../assets/image/logo/Logo_Cupick.png";
 
 import styled, { keyframes } from "styled-components";
+import ToastMessage from "../elements/modal/ToastMessage";
 
 const AllRecipeList = () => {
   // allRecipe = allRecipe.recipeList;
@@ -114,6 +115,20 @@ const AllRecipeList = () => {
   console.log(items);
   // console.log(page);
   // console.log(inView);
+
+  // 로그인 여부를 확인하기 위해 로컬 스토리지의 토큰를 불러옵니다.
+  const userLogin = Boolean(localStorage.getItem("refreshToken"));
+  // 모달이 보여줍니다.
+  const [needLogginModal, setNeedLogginModal] = useState(false);
+  // 모달이 작동하는 시간입니다.
+  const timer = 1000;
+  const modalProps = {
+    userLogin,
+    needLogginModal,
+    setNeedLogginModal,
+    timer,
+  };
+
   return (
     <StAllListWrap>
       {items?.map((allrecipes, index) => (
@@ -122,15 +137,28 @@ const AllRecipeList = () => {
             <div className="flex_box" ref={ref}>
               {/* 스피너 이미지 비율이 깨지는 것 같습니다 -by선아 */}
               {/* {loading ? <Loading src={Logo} /> : null} */}
-              <AllRecipeListContainer allrecipes={allrecipes} getItems={getItems} />
+              <AllRecipeListContainer
+                modalProps={modalProps}
+                allrecipes={allrecipes}
+                getItems={getItems}
+              />
             </div>
           ) : (
             <div className="flex_box">
-              <AllRecipeListContainer allrecipes={allrecipes} getItems={getItems} />
+              <AllRecipeListContainer
+                modalProps={modalProps}
+                allrecipes={allrecipes}
+                getItems={getItems}
+              />
             </div>
           )}
         </StListWrap>
       ))}
+
+      {/* 토스트 메시지/모달 */}
+      {needLogginModal && (
+        <ToastMessage text={"좋아요는 로그인이\n 필요한 기능입니다."} />
+      )}
     </StAllListWrap>
   );
 };
@@ -199,7 +227,7 @@ const StListWrap = styled.li`
 
   transition: all 0.3s;
   overflow: hidden;
-  
+
   cursor: pointer;
 
   @media (max-width: 340px) {

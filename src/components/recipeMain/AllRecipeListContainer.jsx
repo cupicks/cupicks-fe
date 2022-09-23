@@ -13,7 +13,8 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-  const { allrecipes, getItems } = props;
+
+  const { allrecipes, modalProps, getItems } = props;
   const {
     recipeId,
     ingredientList,
@@ -25,12 +26,15 @@ const AllRecipeListContainer = (props) => {
     imageUrl,
     isLiked,
   } = allrecipes;
+  const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
   const navigate = useNavigate();
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
   const [like, setLike] = useState(false);
 
   const cupHeight = ((cupSize / 591) * 100).toFixed();
+
+  // 브라우저 너비에 따라서 글자 수를 자릅니다.
   const windowWidth = window.innerWidth;
   let titleText = title;
   if (windowWidth < 400) {
@@ -43,7 +47,18 @@ const AllRecipeListContainer = (props) => {
   // 추후 resizeUrl로 변경
   const profileImage = resizedUrl;
 
+
   const likeCard = async (isLiked) => {
+    // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
+    if (!userLogin) {
+      if (!needLogginModal) {
+        setNeedLogginModal(true);
+        setTimeout(() => {
+          setNeedLogginModal(false);
+        }, timer);
+      }
+      return;
+    }
     let contentType = "application/json";
     //isLiked가 false일때는 좋아요 안눌러진상태
     if (isLiked === false) {
@@ -130,7 +145,7 @@ export default AllRecipeListContainer;
 
 const StListHead = styled.div`
   height: 23px;
-  padding: 0 5px;
+  padding: 2px 7px 0;
 
   display: flex;
   align-items: center;
@@ -174,7 +189,7 @@ const StCupHeight = styled.div`
 
 const StListDesc = styled.div`
   min-height: 20px;
-  padding: 4px 5.5px 5px;
+  padding: 4px 7.5px 5px;
 
   display: flex;
   justify-content: space-between;
@@ -191,7 +206,7 @@ const StListDesc = styled.div`
 
 const StIconSet = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 5px;
 
   .talk_btn {
     width: 9px;
@@ -204,8 +219,8 @@ const StIconSet = styled.div`
     cursor: pointer;
   }
 
-  &:hover .talk_btn,
-  &:hover .like_btn {
+  .talk_btn:hover,
+  .like_btn:hover {
     transform: scale(1.3);
   }
 `;

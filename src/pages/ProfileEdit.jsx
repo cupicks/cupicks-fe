@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useJwt } from "react-jwt";
 
@@ -10,6 +10,7 @@ import ProfileEditBody from "../components/profileEdit/profileEditBody";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const ProfileEdit = () => {
     setFocus,
     formState: { errors },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
+  const [failure, setFailure] = useState(false);
 
   /** 프로필 수정 request */
   const onSubmit = async (data) => {
@@ -37,15 +39,23 @@ const ProfileEdit = () => {
     const form = new FormData();
     form.append(
       "imageValue",
-      data.imageValue === undefined ? null : data.imageValue[0]
+      data.imageValue === undefined ? null : data.imageValue[0],
     );
 
     try {
       const res = await api(contentType).patch(params, form);
-      navigate("/mypage");
+      navigate("/mypage", {
+        state: { message: "프로필 수정에 성공하셨습니다." },
+      });
       console.log(res);
     } catch (err) {
       console.log(err);
+      if (err.response.status === 500) {
+        setFailure(true);
+        setTimeout(() => {
+          setFailure(false);
+        }, 1000);
+      }
     }
   };
 
@@ -55,33 +65,38 @@ const ProfileEdit = () => {
   let userData = decodedToken;
 
   return (
-    <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
-      <Navigation>
-        <span className="title">개인 정보 편집</span>
-        <button type="submit">저장</button>
-      </Navigation>
-
-      {userData !== null && (
-        <>
-          <ProfileEditHeader
-            watch={watch}
-            register={register}
-            userData={userData}
-          />
-
-          <ProfileEditBody
-            watch={watch}
-            register={register}
-            getValues={getValues}
-            setFocus={setFocus}
-            errors={errors}
-            userData={userData}
-          />
-        </>
+    <>
+      {failure && (
+        <ToastMessage text={"이미 존재하는 닉네임입니다."} timer={1000} />
       )}
+      <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
+        <Navigation>
+          <span className="title">개인 정보 편집</span>
+          <button type="submit">저장</button>
+        </Navigation>
 
-      <div></div>
-    </StProfileEdit>
+        {userData !== null && (
+          <>
+            <ProfileEditHeader
+              watch={watch}
+              register={register}
+              userData={userData}
+            />
+
+            <ProfileEditBody
+              watch={watch}
+              register={register}
+              getValues={getValues}
+              setFocus={setFocus}
+              errors={errors}
+              userData={userData}
+            />
+          </>
+        )}
+
+        <div></div>
+      </StProfileEdit>
+    </>
   );
 };
 

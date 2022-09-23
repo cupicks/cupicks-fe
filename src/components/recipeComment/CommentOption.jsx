@@ -49,7 +49,7 @@ const CommentOption = ({
           ) : (
             <MenuPage>
               <button className="edit_btn" onClick={onEditModal}>
-                수 정
+                수정
               </button>
               <CommentDelete
                 comments={comments}
@@ -68,37 +68,46 @@ const CommentOption = ({
 export default CommentOption;
 
 const ModalBack = styled.div`
+  padding-bottom: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
   position: fixed;
-  z-index: 1000;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 2.5rem;
-  box-sizing: border-box;
+
+  z-index: 1000;
 `;
 
 const MenuPage = styled.div`
-  background-color: #0f100f;
-  position: relative;
   width: 90%;
-  height: 15%;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
+  max-width: 500px;
+
+  border-radius: 10px;
+
+  background-color: #101010;
+
+  button {
+    all: unset;
+    display: block;
+    width: 100%;
+
+    padding: 20px 0;
+
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+
+    color: white;
+  }
 
   .edit_btn {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    height: 50%;
-    border-bottom: 2px solid #404040;
-    background-color: #0f100f;
-    color: white;
-    font-weight: bold;
+    border-bottom: 1px solid #ededed;
   }
 `;

@@ -55,6 +55,8 @@ const RecipeList = (props) => {
   return (
     <>
       <StSlider {...settings}>
+        {recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
+
         {recipeList?.map((recipe, i) => {
           return (
             // Slider의 자식은 inline-block
@@ -145,6 +147,13 @@ const StSlider = styled(Slider)`
     height: 40vh;
 
     background-color: #aaa;
+  }
+
+  .list_empty {
+    margin-top: 50px;
+
+    text-align: center;
+    color: #cdcdcd;
   }
 `;
 

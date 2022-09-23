@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useJwt } from "react-jwt";
+import { useLocation } from "react-router-dom";
 
 import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
 import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
@@ -8,16 +9,29 @@ import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
 // import TokenService from '../server/token.service'
 
 import styled from "styled-components";
+import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const Mypage = () => {
+  const location = useLocation();
   const [loaded, setLoaded] = useState(false);
+  const [messageModal, setMessageModal] = useState(false);
+  const messageText = location.state?.message;
 
   const token = localStorage.getItem("refreshToken");
   const { decodedToken } = useJwt(token);
   let userData = decodedToken;
+  useEffect(() => {
+    if (messageText !== undefined) {
+      setMessageModal(true);
+      setTimeout(() => {
+        setMessageModal(false);
+      }, 1500);
+    }
+  }, []);
 
   return (
     <StWrap>
+      {messageModal && <ToastMessage text={messageText} timer={1500} />}
       {userData !== null && (
         <>
           <MypageMyInfo token={token} userData={userData} />

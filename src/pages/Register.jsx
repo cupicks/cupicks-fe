@@ -33,8 +33,8 @@ const Register = () => {
     criteriaMode: "all",
     mode: "onChange",
     defaultValues: {
-      cupSize: 0
-    }
+      cupSize: 0,
+    },
   });
 
   const [level, setLevel] = useState(0);
@@ -94,8 +94,6 @@ const Register = () => {
       "imageValue",
       getValues("image") === undefined ? null : getValues("image")[0],
     );
-    //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
-
     try {
       const res = await api(contentType).post(
         `/auth/signup?password=${getValues(
@@ -118,10 +116,6 @@ const Register = () => {
   };
   const next = async () => {
     //에러가 날 경우 알림띄우기
-    if (errors.email && level === 0) {
-      alert("이메일을 제대로 입력해주세요!");
-      return;
-    }
     if (errors.password && level === 1) {
       // alert("비밀번호를 제대로 입력해주세요");
       setPasswordError(true);
@@ -132,6 +126,16 @@ const Register = () => {
     }
     if (errors.password_confirm && level === 1) {
       //   alert("비밀번호가 일치하지 않습니다");
+      setPasswordCfError(true);
+      setTimeout(() => {
+        setPasswordCfError(false);
+      }, 1000);
+      return;
+    }
+    if (
+      getValues("password") !== getValues("password_confirm") &&
+      level === 1
+    ) {
       setPasswordCfError(true);
       setTimeout(() => {
         setPasswordCfError(false);
@@ -179,25 +183,11 @@ const Register = () => {
     if (level === 0) {
       navigate("/sign-in");
     } else {
-      // const emailToken = getValues("emailVerifyToken");
-      // reset("emailVerifyToken");
-      // reset("Number");
-      // reset(getValues("email"));
-      // reset({ emailVerifyToken: undefined });
-      // reset({ nicknameVerifyToken: undefined });
-      // setValue("emailVerifyToken", undefined);
-      // resetField("emailVerifyToken");
-      // console.log(getValues("emailVerifyToken"));
-      // setLevel(0);
       setModal(true);
-      setCheckEmail(false);
-      setCheckEmailCode(false);
-      setCheckNumber(false);
-      setCheckNumberCode(false);
-      // alert("뒤로가기 버튼을 누를 시 이메일 인증부터 새로 하셔야 합니다.");
-
-      // resetField(getValues("emailVerifyToken"));
-      // console.log(getValues("emailVerifyToken"));
+      // setCheckEmail(false);
+      // setCheckEmailCode(false);
+      // setCheckNumber(false);
+      // setCheckNumberCode(false);
     }
   };
   const resetRegister = () => {
@@ -206,6 +196,10 @@ const Register = () => {
       reset({ nicknameVerifyToken: undefined });
       setLevel(0);
       setModal(false);
+      setCheckEmail(false);
+      setCheckEmailCode(false);
+      setCheckNumber(false);
+      setCheckNumberCode(false);
     }, 1000);
   };
   const cancelModal = () => {
@@ -226,42 +220,36 @@ const Register = () => {
     try {
       const res = await api(contentType).get(
         `/auth/send-email?email=${getValues("email")}`,
-        // {
-        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        // }
       );
       console.log(res.data.message);
-      setCheckEmail(true);
+      setCheckEmail(true); // input(이메일) 비활성화
       // alert(res.data.message);
-      setCheckNumber(true);
-      setMinutes(3);
-      setSeconds(0);
-      setCheckTimer(true);
-      setEmailSuccess(true);
+      setCheckNumber(true); // 버튼 바꾸기 (필요없을듯?)
+      setMinutes(3); // default 3분
+      setSeconds(0); // default 0초
+      setCheckTimer(true); // 타이머 실행
+      setEmailSuccess(true); // 이메일 성공 모달
       setTimeout(() => {
-        setEmailSuccess(false);
+        setEmailSuccess(false); // 인증번호 재전송 때문에 다시 false값줘야함
       }, 1000);
       return;
     } catch (err) {
       console.log(err);
       // alert(err.response.data.message);
-      setCheckEmail(false);
-      setCheckTimer(false);
-      setCheckNumber(false);
+      // 이것들은 왜있지?
+      // setCheckEmail(false);
+      // setCheckTimer(false);
+      // setCheckNumber(false);
 
       setError("emailError", { message: err.response.data.message });
-
-      // setValue("emailError", err.response.data.message);
-      // console.log(setError);
+      //실패시 모달
       setFailure(true);
       setTimeout(() => {
         setFailure(false);
-      }, 2000);
+      }, 1500);
       return;
     }
   };
-  // console.log(getValues("emailError"));
-
   //입력번호 확인
   const confirmEmailVerifyCode = async () => {
     let contentType = "application/x-www-form-urlencoded";
@@ -270,7 +258,6 @@ const Register = () => {
         `/auth/confirm-email?email=${getValues(
           "email",
         )}&email-verify-code=${getValues("Number")}`,
-        // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
       const token = res.data.emailVerifyToken;
       console.log(token);
@@ -278,12 +265,14 @@ const Register = () => {
       console.log(getValues("emailVerifyToken"));
       setCheckEmailCode(true);
       setCheckNumberCode(true);
+      setTimeout(() => {
+        setLevel(1);
+      }, 1000);
       // alert(res.data.message);
     } catch (err) {
       console.log(err);
-      // await new Promise((r) => setTimeout(r, 3000));
       // alert(err.response.data.message);
-      setCheckNumberCode(false);
+      // setCheckNumberCode(false);
       resetField("Number");
       setError("numberError", { message: err.response.data.message });
       setNumberFailure(true);
@@ -350,6 +339,7 @@ const Register = () => {
             failure={failure}
             emailSuccess={emailSuccess}
             numberFailure={numberFailure}
+            resetField={resetField}
           />
         )}
 
@@ -359,6 +349,7 @@ const Register = () => {
             errors={errors}
             watch={watch}
             getValues={getValues}
+            resetField={resetField}
             passwordError={passwordError}
             passwordCfError={passwordCfError}
           />
@@ -369,8 +360,7 @@ const Register = () => {
             register={register}
             errors={errors}
             watch={watch}
-            setValue={setValue}
-            getValues={getValues}
+            resetField={resetField}
             toast={toast}
             nicknameFailure={nicknameFailure}
           />
@@ -385,13 +375,20 @@ const Register = () => {
         )}
         {!checkNumber ? (
           <StButton
+            margin="194px 0 0"
             onClick={sendEmailVerifyCode}
-            disabled={watch("email") === undefined || watch("email") === ""}
+            disabled={
+              watch("email") === undefined ||
+              watch("email") === "" ||
+              checkEmail ||
+              failure
+            }
           >
             인증번호 발송
           </StButton>
         ) : !checkEmailCode ? (
           <StButton
+            margin="41px 0 0"
             onClick={confirmEmailVerifyCode}
             disabled={
               watch("Number")?.length <= 5 || getValues("Number") === undefined
@@ -411,48 +408,28 @@ const Register = () => {
           >
             계속하기
           </StButton>
-        ) : (
+        ) : level === 1 ? (
           <StButton
+            margin="61px 0 0"
             onClick={next}
             disabled={
-              (level === 0 && watch("email") === undefined) ||
-              (level === 0 && watch("email") === "") ||
-              (level === 0 && watch("emailVerifyToken") === undefined) ||
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "")
-              // (level === 2 && watch("nickname") === "") ||
-              // (level === 2 && watch("nicknameVerifyToken") === undefined)
             }
           >
             계속하기
           </StButton>
+        ) : level === 2 ? (
+          <StButton
+            margin="194px 0 0"
+            onClick={next}
+            disabled={level === 2 && watch("nickname") === ""}
+          >
+            계속하기
+          </StButton>
+        ) : (
+          <StButton margin="41px 0 0">계속하기</StButton>
         )}
-        {/* {level === 3 ? (
-           <StButton
-             disabled={
-               (level === 3 && watch("image") === undefined) ||
-               (level === 3 && watch("image")?.length === 0) ||
-               isSubmitting
-             }
-           >
-             계속하기
-           </StButton>
-         ) : (
-           <StButton
-             onClick={next}
-             disabled={
-               (level === 0 && watch("email") === undefined) ||
-               (level === 0 && watch("email") === "") ||
-               (level === 0 && watch("emailVerifyToken") === undefined) ||
-               (level === 1 && watch("password") === "") ||
-               (level === 1 && watch("password_confirm") === "") ||
-               (level === 2 && watch("nickname") === "") ||
-               (level === 2 && watch("nicknameVerifyToken") === undefined)
-             }
-           >
-             계속하기
-           </StButton>
-         )} */}
       </StForm>
     </StDiv>
   );
@@ -473,6 +450,10 @@ const StArrowBack = styled.div`
   margin-left: -10px;
 
   cursor: pointer;
+  & > img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 const StForm = styled.form`
@@ -501,6 +482,7 @@ const StForm = styled.form`
 
   & input {
     all: unset;
+    width: 100%;
 
     margin-bottom: 30px;
 
@@ -517,6 +499,21 @@ const StForm = styled.form`
       color: #ddd;
     }
   }
+  & > div > .register_input_box {
+    position: relative;
+  }
+  & > div > div > .input_label_icon {
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    transform: translateY(-120%);
+
+    cursor: pointer;
+  }
 `;
 
 const StButton = styled.button`
@@ -525,7 +522,7 @@ const StButton = styled.button`
   border-radius: 10px;
 
   padding: 15px;
-  margin: 10px 0;
+  margin: ${(props) => props.margin || "20px 0 0"};
 
   border: var(--input-border-bottom);
   color: var(--input-font-color);
@@ -534,7 +531,7 @@ const StButton = styled.button`
   font-size: 18px;
   text-align: center;
 
-  transition: all 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   box-sizing: border-box;
 
   cursor: pointer;
