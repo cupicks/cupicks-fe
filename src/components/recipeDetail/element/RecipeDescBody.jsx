@@ -13,6 +13,7 @@ const RecipeDescBody = (props) => {
     updatedAt,
     resizedUrl,
     imageUrl,
+    cupSize,
     nickname,
   } = recipe;
 
@@ -35,6 +36,9 @@ const RecipeDescBody = (props) => {
   return (
     <StRecipeDescBody>
       <ul className="text_desc">
+        <li>
+          <strong>전체 : {cupSize}ml</strong>
+        </li>
         {ingredientList.map((list, i) => (
           <li key={"text_desc" + i}>
             {list.ingredientName} : {list.ingredientAmount}ml
@@ -73,6 +77,10 @@ const StRecipeDescBody = styled.div`
   gap: 25px;
 
   font-size: 12px;
+
+  strong {
+    font-weight: 500;
+  }
 
   .user_info {
     display: flex;
