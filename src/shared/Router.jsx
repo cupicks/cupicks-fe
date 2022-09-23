@@ -83,7 +83,13 @@ const Router = () => {
             <Route
               key={"routePathLogin" + idx}
               path={path}
-              element={<NotFound message={"로그인이 필요한 페이지입니다."} />}
+              timer={30000}
+              element={
+                <NotFound
+                  timer={30000}
+                  message={"로그인이 필요한 페이지입니다."}
+                />
+              }
             />
           ))}
         </>
@@ -100,7 +106,12 @@ const Router = () => {
             <Route
               key={"routePathLogout" + idx}
               path={path}
-              element={<NotFound message={"로그아웃이 필요한 페이지입니다."} />}
+              element={
+                <NotFound
+                  timer={30000}
+                  message={"로그아웃이 필요한 페이지입니다."}
+                />
+              }
             />
           ))}
         </>
