@@ -15,7 +15,7 @@ const Image = (props) => {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
     }
-    if (image.length === 0) {
+    if (image?.length === 0) {
       setImagePreview("");
     }
     console.log(image);
