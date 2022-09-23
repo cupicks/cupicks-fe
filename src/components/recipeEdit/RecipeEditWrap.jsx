@@ -58,9 +58,7 @@ const RecipeEditForm = (props) => {
     let newContent = content;
 
     if (data.title === "" && data.content === "") {
-      navigate(`/recipe/${recipeId}/detail`, {
-        state: { message: "레시피가\n 저장되었습니다." },
-      });
+      navigate(`/recipe/${recipeId}/detail`);
       return;
     }
 
