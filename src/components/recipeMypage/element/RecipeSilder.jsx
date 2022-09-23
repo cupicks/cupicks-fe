@@ -52,7 +52,7 @@ const RecipeList = (props) => {
   return (
     <>
       <StSlider {...settings}>
-        {!recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
+        {recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
 
         {recipeList?.map((recipe, i) => {
           return (
@@ -147,6 +147,8 @@ const StSlider = styled(Slider)`
   }
 
   .list_empty {
+    margin-top: 50px;
+
     text-align: center;
     color: #cdcdcd;
   }
