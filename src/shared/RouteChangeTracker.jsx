@@ -6,6 +6,9 @@ const RouteChangeTracker = () => {
   const location = useLocation();
   const [initialized, setInitialized] = useState(false);
 
+  const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID;
+  ReactGA.initialize(GA_TRACKING_ID);
+
   useEffect(() => {
     if (!window.location.href.includes("localhost")) {
       const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID;
