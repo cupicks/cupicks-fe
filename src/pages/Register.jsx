@@ -36,7 +36,7 @@ const Register = () => {
       cupSize: 0,
     },
   });
-
+  const [check, setCheck] = useState(false);
   const [level, setLevel] = useState(0);
   const [modal, setModal] = useState(false);
   const [checkNumber, setCheckNumber] = useState(false);
@@ -87,6 +87,10 @@ const Register = () => {
     // }
   };
   const completionRegister = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     let contentType = "multi-part/form-data";
     //request(body)-> image 보내기
     const form = new FormData();
@@ -115,6 +119,10 @@ const Register = () => {
     }
   };
   const next = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     //에러가 날 경우 알림띄우기
     if (errors.password && level === 1) {
       // alert("비밀번호를 제대로 입력해주세요");
@@ -180,14 +188,14 @@ const Register = () => {
     setLevel((prev) => prev + 1);
   };
   const before = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     if (level === 0) {
       navigate("/sign-in");
     } else {
       setModal(true);
-      // setCheckEmail(false);
-      // setCheckEmailCode(false);
-      // setCheckNumber(false);
-      // setCheckNumberCode(false);
     }
   };
   const resetRegister = () => {
@@ -209,6 +217,10 @@ const Register = () => {
   };
   //인증번호 발송
   const sendEmailVerifyCode = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     let contentType = "application/x-www-form-urlencoded";
     if (errors.email) {
       setToast(true);
@@ -252,6 +264,10 @@ const Register = () => {
   };
   //입력번호 확인
   const confirmEmailVerifyCode = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     let contentType = "application/x-www-form-urlencoded";
     try {
       const res = await api(contentType).get(
@@ -378,10 +394,7 @@ const Register = () => {
             margin="194px 0 0"
             onClick={sendEmailVerifyCode}
             disabled={
-              watch("email") === undefined ||
-              watch("email") === "" ||
-              checkEmail ||
-              failure
+              watch("email") === undefined || watch("email") === "" || check
             }
           >
             인증번호 발송
@@ -391,7 +404,9 @@ const Register = () => {
             margin="41px 0 0"
             onClick={confirmEmailVerifyCode}
             disabled={
-              watch("Number")?.length <= 5 || getValues("Number") === undefined
+              check ||
+              watch("Number")?.length <= 5 ||
+              getValues("Number") === undefined
             }
           >
             인증번호 확인
@@ -400,6 +415,7 @@ const Register = () => {
           <StButton
             onClick={completionRegister}
             disabled={
+              check ||
               (level === 3 && watch("image") === undefined) ||
               (level === 3 && watch("image")?.length === 0) ||
               isSubmitting ||
@@ -413,6 +429,7 @@ const Register = () => {
             margin="61px 0 0"
             onClick={next}
             disabled={
+              check ||
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "")
             }
@@ -423,7 +440,7 @@ const Register = () => {
           <StButton
             margin="194px 0 0"
             onClick={next}
-            disabled={level === 2 && watch("nickname") === ""}
+            disabled={check || (level === 2 && watch("nickname") === "")}
           >
             계속하기
           </StButton>

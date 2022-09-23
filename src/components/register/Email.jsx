@@ -33,7 +33,7 @@ const Email = (props) => {
       )}
       {emailSuccess && (
         <ToastMessage
-          text={"사용자 이메일로 6자리 숫자가 발송되었어요!"}
+          text={"사용자 이메일로\n6자리 숫자가 발송되었어요!"}
           timer={1000}
         />
       )}
@@ -42,7 +42,7 @@ const Email = (props) => {
       )}
       {checkNumberCode && (
         <ToastMessage
-          text={"사용자 이메일 인증이 완료되었습니다."}
+          text={"사용자 이메일 인증이\n완료되었습니다."}
           timer={1000}
         />
       )}

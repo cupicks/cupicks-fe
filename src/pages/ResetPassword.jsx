@@ -14,6 +14,7 @@ import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const [check, setCheck] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [emailFailure, setEmailFailure] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
@@ -50,6 +51,10 @@ const ResetPassword = () => {
   };
 
   const clickResetPw = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     if (errors.email) {
       setEmailError(true);
       setTimeout(() => {
@@ -111,10 +116,7 @@ const ResetPassword = () => {
         <StButton
           onClick={clickResetPw}
           disabled={
-            watch("email") === undefined ||
-            watch("email") === "" ||
-            resetSuccess ||
-            emailFailure
+            watch("email") === undefined || watch("email") === "" || check
           }
         >
           계속하기
