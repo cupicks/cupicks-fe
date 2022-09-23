@@ -31,7 +31,12 @@ const Router = () => {
     "/sign-up/complete",
     "/resetPassword",
   ];
-  const caseYesLoggedIn = ["/recipe/create", "/mypage", "/profile/edit"];
+  const caseYesLoggedIn = [
+    "/recipe/create",
+    "/mypage",
+    "/profile/edit",
+    "/recipe/:recipeId/edit",
+  ];
   let pathNeedLoggedIn = true;
 
   // 로그인이 필요없는 페이지
@@ -84,14 +89,12 @@ const Router = () => {
         </>
       )}
 
-      {/* 레시피 수정 페이지 작성 중 */}
-      <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
-
       {loggedIn && (
         <>
           <Route path="/recipe/create" element={<RecipeCreate />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
+          <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
 
           {caseNoLoggedIn.map((path, idx) => (
             <Route

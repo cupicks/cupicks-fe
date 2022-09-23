@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import api from "../server/api";
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import RecipeEditWrap from "../components/recipeEdit/RecipeEditWrap";
 
 const RecipeEdit = () => {
+  // 기존 데이터를 fetch합니다.
   const { recipeId } = useParams();
   const [fetchRecipe, setFetchRecipe] = useState("");
   const navigate = useNavigate();

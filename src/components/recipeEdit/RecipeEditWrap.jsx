@@ -57,6 +57,13 @@ const RecipeEditForm = (props) => {
     let newTitle = title;
     let newContent = content;
 
+    if (data.title === "" && data.content === "") {
+      navigate(`/recipe/${recipeId}/detail`, {
+        state: { message: "레시피가\n 저장되었습니다." },
+      });
+      return;
+    }
+
     if (data.title !== "") {
       newTitle = data.title;
     }
@@ -84,7 +91,7 @@ const RecipeEditForm = (props) => {
         .then((res) => {
           console.log(res);
           navigate(`/recipe/${recipeId}/detail`, {
-            state: { message: "레시피가 수정되었습니다." },
+            state: { message: "레시피가\n 수정되었습니다." },
           });
         });
     } catch (err) {
@@ -94,7 +101,7 @@ const RecipeEditForm = (props) => {
 
   return (
     <StFormWrap onSubmit={handleSubmit(onSubmit)}>
-      <Navigation>
+      <Navigation goto={-1}>
         <div className="title">레시피 수정</div>
         <button>저장</button>
       </Navigation>
