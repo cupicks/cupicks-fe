@@ -111,7 +111,7 @@ const AllRecipeList = () => {
   }, [getItems]);
 
   //-----하단 console.log 3개 주석처리할게요! -by선아
-  // console.log(items);
+  console.log(items);
   // console.log(page);
   // console.log(inView);
   return (
@@ -122,11 +122,11 @@ const AllRecipeList = () => {
             <div className="flex_box" ref={ref}>
               {/* 스피너 이미지 비율이 깨지는 것 같습니다 -by선아 */}
               {/* {loading ? <Loading src={Logo} /> : null} */}
-              <AllRecipeListContainer allrecipes={allrecipes} />
+              <AllRecipeListContainer allrecipes={allrecipes} getItems={getItems} />
             </div>
           ) : (
             <div className="flex_box">
-              <AllRecipeListContainer allrecipes={allrecipes} />
+              <AllRecipeListContainer allrecipes={allrecipes} getItems={getItems} />
             </div>
           )}
         </StListWrap>

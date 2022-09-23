@@ -6,7 +6,8 @@ import Slider from "react-slick";
 import { RecipeListContainer } from "./RecipeListContainer";
 
 const RecipeList = ({ favRecipe, setFavRecipe }) => {
-  favRecipe = favRecipe.recipeList;
+  // favRecipe = favRecipe.recipeList;
+  console.log(favRecipe)
   const settings = {
     centerMode: true,
     arrows: true,

@@ -92,7 +92,7 @@ const CommentInput = ({ getComments }) => {
     const form = new FormData();
     form.append(
       "imageValue",
-      getValues("image") === undefined ? null : getValues("image")[0]
+      getValues("image") === undefined ? null : getValues("image")?.[0]
     );
 
     await api(contentType)
@@ -100,9 +100,9 @@ const CommentInput = ({ getComments }) => {
       .then((res) => {
         console.log(res);
       });
-    setValue("comment", null);
-    setImagePreview(URL.revokeObjectURL(image[0]));
+    setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
+    setValue("comment", null);
     getComments();
   };
 

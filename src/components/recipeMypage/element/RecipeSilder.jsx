@@ -48,6 +48,9 @@ const RecipeList = (props) => {
     initialSlide: 0,
     speed: 500,
   };
+  
+  // console.log(((recipeList.cupSize / 591) * 100).toFixed())
+  
 
   return (
     <>
@@ -71,12 +74,12 @@ const RecipeList = (props) => {
 
               <div className="flex_box">
                 <StCupHeight
-                  cupHeight={((recipe.cupSize / 591) * 100).toFixed(1)}
+                  cupHeight={((recipe.cupSize / 591) * 100).toFixed()}
                 >
                   <IngredientList key={i} recipe={recipe} />
                 </StCupHeight>
                 <div className="padding_box">
-                  <RecipeTitle title={recipe.title} />
+                  <RecipeTitle recipeId = {recipe.recipeId} title={recipe.title} />
                 </div>
               </div>
             </div>

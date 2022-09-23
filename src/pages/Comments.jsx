@@ -4,8 +4,10 @@ import Navigation from "../partial/Navigation";
 import CommentBody from "../components/recipeComment/CommentBody";
 
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 const Comments = () => {
+  const {state} = useLocation();
 
   return (
     <StRecipeComment>
@@ -15,7 +17,7 @@ const Comments = () => {
       >
         <span className="title">댓글</span>
       </Navigation>
-
+      {state}
       <CommentBody />
 
     </StRecipeComment>
