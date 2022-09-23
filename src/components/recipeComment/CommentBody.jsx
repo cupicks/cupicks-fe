@@ -10,6 +10,7 @@ import ToastMessage from "../elements/modal/ToastMessage";
 
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  
   // const menubackground = useRef();
 
   const { recipeId } = useParams();
@@ -59,25 +60,15 @@ const CommentBody = () => {
     if (months < 12) return `${Math.floor(months)}개월 전`;
     const years = days / 365;
     return `${Math.floor(years)}년 전`;
-    // const minute = Math.floor(msdiff / 60000);
-    // const hour = Math.floor(msdiff / 360000);
-
-    // if (msdiff < 0) {
-    //   return <p>0분전</p>;
-    // }
-    // if (minute > 60) {
-    //   return <p>{hour}시간 전</p>;
-    // } else {
-    //   return <p>{minute}분 전</p>;
-    // }
   };
-  const onErrorImg = (e) => {
-    if (e.target.src === undefined) {
-      setTimeout(() => {
-        getComments();
-      }, 2950);
-    }
-  };
+  
+  // const onErrorImg = (e) => {
+  //   if (e.target.src === undefined) {
+  //     setTimeout(() => {
+  //       getComments();
+  //     }, 2950);
+  //   }
+  // };
 
   useEffect(() => {
     // setTimeout(() => {

@@ -112,7 +112,7 @@ const AllRecipeList = () => {
   }, [getItems]);
 
   //-----하단 console.log 3개 주석처리할게요! -by선아
-  // console.log(items);
+  console.log(items);
   // console.log(page);
   // console.log(inView);
 
@@ -140,6 +140,7 @@ const AllRecipeList = () => {
               <AllRecipeListContainer
                 modalProps={modalProps}
                 allrecipes={allrecipes}
+                getItems={getItems}
               />
             </div>
           ) : (
@@ -147,6 +148,7 @@ const AllRecipeList = () => {
               <AllRecipeListContainer
                 modalProps={modalProps}
                 allrecipes={allrecipes}
+                getItems={getItems}
               />
             </div>
           )}

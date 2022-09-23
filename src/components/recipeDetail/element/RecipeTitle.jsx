@@ -13,13 +13,13 @@ const RecipeTitle = (props) => {
       <span>
         {title}
       </span>
-
       <img 
         src={talk} 
         alt="댓글 보러가기" 
-        onClick={()=>
+        onClick={(e)=>{
+          e.stopPropagation();
           navigate(`/recipe/${recipeId}/comment`)
-        }
+        }}
       />
     </StRecipeTitle>
   )

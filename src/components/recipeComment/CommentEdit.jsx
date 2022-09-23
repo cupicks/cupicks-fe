@@ -88,6 +88,8 @@ const CommentEdit = ({
     setEdit(false);
     setMenuOpen(false);
   };
+
+  console.log(comments.comment)
   // console.log(comments);
 
   // const onChangeEditHandler = (e) => {
@@ -104,7 +106,9 @@ const CommentEdit = ({
   // onChange={onChangeEditHandler}
 
   return (
-    <StWrap onSubmit={handleSubmit(updateSubmit)}>
+    <>
+    {/* {comments.map((comment, commentId) => ( */}
+    <StWrap  onSubmit={handleSubmit(updateSubmit)}>
       <div className="input_profile">
         <div className="profile_image">
           {decodedToken !== null && (
@@ -120,9 +124,9 @@ const CommentEdit = ({
             name="content"
             {...register("comment")}
             placeholder="새로운댓글을 입력해주세요"
-          >
-            {comments.comment}
-          </input>
+          />
+            {/* {comment.comment} */}
+          
           <button className="comment_btn">확인</button>
         </div>
         {imagePreview ? (
@@ -152,6 +156,8 @@ const CommentEdit = ({
         </div>
       </div>
     </StWrap>
+    {/* ))} */}
+    </>
   );
 };
 

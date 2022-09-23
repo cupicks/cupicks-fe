@@ -5,14 +5,16 @@ import styled from "styled-components";
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
 
 import talk from "../../assets/svg/talk.svg";
-import likes from "../../assets/svg/like_m.svg";
+import dislikes from "../../assets/svg/like_m.svg";
+import likes from "../../assets/svg/like_fill_m.svg";
 
 import { useNavigate } from "react-router-dom";
 
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-  const { allrecipes, modalProps } = props;
+
+  const { allrecipes, modalProps, getItems } = props;
   const {
     recipeId,
     ingredientList,
@@ -22,6 +24,7 @@ const AllRecipeListContainer = (props) => {
     nickname,
     resizedUrl,
     imageUrl,
+    isLiked,
   } = allrecipes;
   const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
   const navigate = useNavigate();
@@ -39,11 +42,13 @@ const AllRecipeListContainer = (props) => {
       titleText = title.slice(0, 6) + "...";
     }
   }
+  console.log(isLiked)
 
   // 추후 resizeUrl로 변경
   const profileImage = resizedUrl;
 
-  const likeCard = async () => {
+
+  const likeCard = async (isLiked) => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
     if (!userLogin) {
       if (!needLogginModal) {
@@ -54,33 +59,39 @@ const AllRecipeListContainer = (props) => {
       }
       return;
     }
-
     let contentType = "application/json";
-    if (like === false) {
+    //isLiked가 false일때는 좋아요 안눌러진상태
+    if (isLiked === false) {
+      // isLiked === true;
       try {
         await api(contentType)
+          // .patch(`/recipes/${recipeId}/dislike`, isLiked)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
             console.log(res);
           });
-        setLike(true);
+          props.getItems();
+        // setLike(true);
       } catch (err) {
         console.log(err);
       }
     } else {
+      // isLiked === false
       try {
         await api(contentType)
+          // .patch(`/recipes/${recipeId}/like`, isLiked)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
             console.log(res);
           });
-        setLike(false);
+          props.getItems();
+        // setLike(false);
       } catch (err) {
         console.log(err);
       }
     }
   };
-  console.log(like);
+  // console.log(like);
 
   return (
     <>
@@ -117,10 +128,13 @@ const AllRecipeListContainer = (props) => {
             className="talk_btn"
             src={talk}
             onClick={() => {
-              navigate(`${recipeId}/comment`);
+              navigate(`${recipeId}/comment`, {state: title});
             }}
           />
-          <img className="like_btn" src={likes} onClick={likeCard} />
+          {isLiked === false ? 
+          <img className="like_btn" src={dislikes} onClick={() => {likeCard(isLiked)}} /> :
+          <img className="like_btn" src={likes} onClick={() => {likeCard(isLiked)}} />
+          }
         </StIconSet>
       </StListDesc>
     </>
