@@ -15,6 +15,9 @@ const Image = (props) => {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
     }
+    if (image.length === 0) {
+      setImagePreview("");
+    }
     console.log(image);
   }, [image]);
 
@@ -31,7 +34,7 @@ const Image = (props) => {
         id="picture"
         {...register("image", { required: true })}
         accept="image/*"
-        hidden='hidden'
+        hidden="hidden"
       />
       {/* {errors.image && <p>이미지를 추가해 주세요</p>} */}
       <StLabelButton>
@@ -47,7 +50,7 @@ const StDiv = styled.div`
   display: flex;
   flex-direction: column;
 
-  input[type="file"]{
+  input[type="file"] {
     display: none;
   }
 `;
@@ -72,17 +75,17 @@ const StLabelButton = styled.div`
   border: 2px solid var(--button-activeBorderColor);
 
   color: #ffffff;
-  
+
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-  
+
   transition: all 0.2s;
   box-sizing: border-box;
 
   cursor: pointer;
   overflow: hidden;
-  
+
   :hover {
     color: #ffffff;
     background-color: #333333;

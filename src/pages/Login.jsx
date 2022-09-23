@@ -26,7 +26,7 @@ const Login = () => {
   });
   const [emailFailure, setEmailFailure] = useState(false);
   const [pwFailure, setPwFailure] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [check, setCheck] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const onSubmit = async (data) => {
     console.log(data);
@@ -63,6 +63,10 @@ const Login = () => {
     // }
   };
   const clickLogin = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     if (errors.email) {
       setEmailFailure(true);
       setTimeout(() => {
@@ -94,7 +98,6 @@ const Login = () => {
       console.log(res);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
-      setLoginSuccess(true);
       navigate("/recipe", {
         state: { message: `${data.email}\n로그인 되었습니다.` },
       });
@@ -185,8 +188,7 @@ const Login = () => {
         <StButton
           onClick={clickLogin}
           disabled={
-            loginSuccess ||
-            loginError ||
+            check ||
             watch("email") === "" ||
             watch("email") === undefined ||
             watch("password") === ""
