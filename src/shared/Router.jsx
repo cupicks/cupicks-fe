@@ -51,8 +51,10 @@ const Router = () => {
     if (refreshToken) {
       !loggedIn ? setLoggedIn(true) : "";
     } else {
-      loggedIn ? setLoggedIn(false) : "";
-      navigate("/sign-in");
+      if (loggedIn) {
+        setLoggedIn(false);
+        navigate("/sign-in");
+      }
     }
   }, [pathname]);
 
