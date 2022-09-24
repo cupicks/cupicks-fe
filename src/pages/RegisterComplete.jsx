@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
+import styledFormComponents from "../styles/customFormStyle";
+import styledComponents from "../styles/customElementStyle";
+const { CustomWrapFullVH } = styledComponents;
+const { CustomButton } = styledFormComponents;
 
 import CompleteOne from "../components/RegisterComplete/CompleteOne";
 import CompleteTwo from "../components/RegisterComplete/CompleteTwo";
@@ -18,7 +22,7 @@ const RegisterComplete = () => {
   };
 
   return (
-    <StDiv>
+    <CustomWrapFullVH>
       {level === 0 && <CompleteOne />}
       {level === 1 && <CompleteTwo />}
       {level === 2 && <CompleteThree />}
@@ -44,48 +48,30 @@ const RegisterComplete = () => {
       ) : (
         <StBtn onClick={clickLevel}>시작하기</StBtn>
       )}
-    </StDiv>
+    </CustomWrapFullVH>
   );
 };
 
 export default RegisterComplete;
 
-const StDiv = styled.div`
-  padding: 0 25px;
-`;
-
 const StCounts = styled.div`
-  margin-top: 40px;
+  margin-top: 4rem;
 
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 1.5rem;
 `;
 
 const StCount = styled.div`
   background: ${(props) => props.color};
-  width: 12px;
-  height: 12px;
+  width: 1.2rem;
+  height: 1.2rem;
   border-radius: 50%;
 `;
 
-const StBtn = styled.button`
-  width: 100%;
-  height: 59px;
-
+const StBtn = styled(CustomButton)`
   margin-top: 7vh;
 
   color: #eee;
   background: #101010;
-  border: 1px solid #101010;
-  border-radius: 10px;
-
-  font-weight: 700;
-  font-size: 18px;
-
-  transition: all .3s;
-
-  :hover {
-    opacity: 0.9;
-  }
 `;

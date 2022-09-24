@@ -22,16 +22,16 @@ export default CompleteThree;
 const StDiv = styled.div`
   .box {
     width: 80%;
-    margin-top: 60px;
+    margin-top: 6rem;
   }
 `;
 
 const StImgBox = styled.div`
   width: 90%;
-  max-width: 450px;
-  padding-bottom: 100%;
+  max-width: 45rem;
+  padding-bottom: 108%;
 
-  margin: -22px auto 0;
+  margin: -2.2rem auto 0;
 
   display: block;
   position: relative;
@@ -39,12 +39,12 @@ const StImgBox = styled.div`
 
 const StImg = styled.img`
   width: 100%;
-  max-width: 450px;
+  max-width: 45rem;
   position: absolute;
 
   transform: scale(0.9);
 
-  margin: 40px auto 0;
+  margin: 4rem auto 0;
 
   display: block;
 `;

@@ -6,7 +6,7 @@ import api from "../server/api";
 
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
-const { CustomInput, CustomForm, CustomButton, CustomErrorBox } =
+const { CustomInput, CustomForm, CustomButton, CustomErrorBox, CustomLabel } =
   styledFormComponents;
 import styledComponents from "../styles/customElementStyle";
 const {
@@ -20,6 +20,7 @@ const {
 import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";
 import ToastMessage from "../components/elements/modal/ToastMessage";
+import Navigation from "../partial/Navigation";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -152,6 +153,7 @@ const Login = () => {
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
 
       {/* 로그인 시작 */}
+      <Navigation empty={true} />
       <StLoginTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StLoginTitle>
@@ -298,7 +300,6 @@ const StKakaoBox = styled.div`
 
   font-weight: 500;
   font-size: 1.9rem;
-  line-height: 150%;
 
   cursor: pointer;
 
