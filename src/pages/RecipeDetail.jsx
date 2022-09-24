@@ -83,7 +83,7 @@ const RecipeDetail = () => {
       console.log(err);
       navigate("/404");
     }
-  }, [recipe.isLiked]);
+  };
 
   useEffect(() => {
     recipefetching();
@@ -99,7 +99,11 @@ const RecipeDetail = () => {
           </Navigation>
 
           <IngredientsContainer recipe={recipe} />
-          <RecipeDesc recipe={recipe} modalProps={modalProps} confirmProps={confirmProps}/>
+          <RecipeDesc
+            recipe={recipe}
+            modalProps={modalProps}
+            confirmProps={confirmProps}
+          />
         </>
       )}
       {needLoginModal && (
