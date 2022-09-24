@@ -36,6 +36,7 @@ const fonts = {
     lg: "1.8rem",
     title: "2.8rem",
     input: "1.7rem",
+    label: "1.3rem",
   },
   weight: {
     light: 100,
@@ -48,6 +49,7 @@ const colors = {
   dark: "#393939",
   middle: "#9e9e9e",
   light: "#cdcdcd",
+  wg: "#eeeeee",
   alert: "#E64A3A",
 };
 

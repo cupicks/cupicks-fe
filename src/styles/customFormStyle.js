@@ -61,12 +61,74 @@ const CustomButton = styled.button`
   }}
 `;
 
+const CustomForm = styled.form`
+  ${({ theme }) => {
+    return css`
+      margin-top: 3.5rem;
+
+      display: flex;
+      flex-direction: column;
+
+      & p {
+        color: ${theme.colors.alert};
+      }
+
+      & label {
+        font-weight: ${theme.fonts.weight.bold};
+        font-size: ${theme.fonts.size.label};
+        color: ${theme.colors.middle};
+      }
+
+      .input_label_icon {
+        width: 2.4rem;
+        height: 2.4rem;
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        transform: translateY(-30%);
+
+        cursor: pointer;
+      }
+    `;
+  }}
+`;
+
+const CustomErrorBox = styled.div`
+  ${({ theme }) => {
+    return css`
+      min-height: 3rem;
+      line-height: 2.5rem;
+      margin-bottom: 0.5rem;
+
+      font-size: ${theme.fonts.size.label};
+    `;
+  }}
+`;
+
+const CustomLabel = styled.label`
+  ${({ theme }) => {
+    return css`
+      font-weight: ${theme.fonts.weight.bold};
+      font-size: ${theme.fonts.weight.label};
+      color: ${theme.colors.middle};
+    `;
+  }}
+`;
+
 const Custom = styled.div`
   ${({ theme }) => {
     return css``;
   }}
 `;
 
-const styledComponents = { CustomInput, CustomButton };
+const styledComponents = {
+  CustomInput,
+  CustomButton,
+  CustomForm,
+  CustomErrorBox,
+  CustomLabel,
+};
 
 export default styledComponents;
