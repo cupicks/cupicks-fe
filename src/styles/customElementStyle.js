@@ -17,7 +17,7 @@ const CustomWrapFullVH = styled.div`
 const CustomTitle = styled.div`
   ${({ theme }) => {
     return css`
-      margin-top: 5.5rem;
+      margin-top: 2rem;
 
       h1 {
         font-weight: ${theme.fonts.weight.bold};

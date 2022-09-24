@@ -1,5 +1,40 @@
 import styled, { css } from "styled-components";
 
+// 폼
+const CustomForm = styled.form`
+  ${({ theme }) => {
+    return css`
+      margin-top: 3.5rem;
+
+      display: flex;
+      flex-direction: column;
+
+      & p {
+        color: ${theme.colors.alert};
+      }
+
+      & label {
+        font-weight: ${theme.fonts.weight.bold};
+        font-size: ${theme.fonts.size.label};
+        color: ${theme.colors.middle};
+      }
+
+      .input_label_icon {
+        width: 2.4rem;
+        height: 2.4rem;
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        transform: translateY(-30%);
+
+        cursor: pointer;
+      }
+    `;
+  }}
+`;
+
 // 인풋 Input
 const CustomInput = styled.input`
   ${({ theme }) => {
@@ -42,7 +77,7 @@ const CustomButton = styled.button`
       font-size: ${theme.fonts.size.lg};
       text-align: center;
 
-      transition: all 0.3s;
+      transition: border 0.3s, background-color 0.3s, color 0.3s;
       cursor: pointer;
 
       :hover {
@@ -61,40 +96,6 @@ const CustomButton = styled.button`
   }}
 `;
 
-const CustomForm = styled.form`
-  ${({ theme }) => {
-    return css`
-      margin-top: 3.5rem;
-
-      display: flex;
-      flex-direction: column;
-
-      & p {
-        color: ${theme.colors.alert};
-      }
-
-      & label {
-        font-weight: ${theme.fonts.weight.bold};
-        font-size: ${theme.fonts.size.label};
-        color: ${theme.colors.middle};
-      }
-
-      .input_label_icon {
-        width: 2.4rem;
-        height: 2.4rem;
-
-        position: absolute;
-        right: 0;
-        bottom: 0;
-
-        transform: translateY(-30%);
-
-        cursor: pointer;
-      }
-    `;
-  }}
-`;
-
 const CustomErrorBox = styled.div`
   ${({ theme }) => {
     return css`
@@ -103,6 +104,7 @@ const CustomErrorBox = styled.div`
       margin-bottom: 0.5rem;
 
       font-size: ${theme.fonts.size.label};
+      color: ${theme.colors.alert};
     `;
   }}
 `;
