@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../server/api";
 
 import styled from "styled-components";
+import styledComponents from "../styles/customFormStyle";
+const { CustomInput, CustomButton } = styledComponents;
 
 import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";
@@ -154,7 +156,7 @@ const Login = () => {
               onClick={() => resetField("email")}
             />
           )}
-          <StInput
+          <CustomInput
             type="text"
             placeholder="이메일 주소를 입력해 주세요"
             autoComplete="off"
@@ -181,7 +183,7 @@ const Login = () => {
               onClick={() => resetField("password")}
             />
           )}
-          <StInput
+          <CustomInput
             type="password"
             placeholder="비밀번호를 입력해주세요"
             maxLength={15}
@@ -199,7 +201,7 @@ const Login = () => {
           {errors.password && <p>{errors.password.message}</p>}
         </StErrorBox>
 
-        <StButton
+        <CustomButton
           onClick={clickLogin}
           disabled={
             check ||
@@ -209,7 +211,7 @@ const Login = () => {
           }
         >
           계속하기
-        </StButton>
+        </CustomButton>
       </StForm>
 
       <StFlexBox>
@@ -226,7 +228,7 @@ const Login = () => {
         <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox> */}
-      <StNonLogin onClick={() => navigate("/recipe")}>둘러보기</StNonLogin>
+      <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
         회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
@@ -295,60 +297,6 @@ const StForm = styled.form`
     transform: translateY(-30%);
 
     cursor: pointer;
-  }
-`;
-
-const StInput = styled.input`
-  all: unset;
-  width: 100%;
-  /* margin-bottom: 25px; */
-  padding: 10px 0;
-
-  border-bottom: 2px solid #cdcdcd;
-
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 150%;
-
-  transition: all 0.3s;
-
-  :hover,
-  :focus,
-  :active {
-    border-bottom-color: #9e9e9e;
-  }
-  ::placeholder {
-    color: #cdcdcd;
-  }
-`;
-
-const StButton = styled.button`
-  all: unset;
-  padding: 15px;
-  border-radius: 10px;
-
-  border: var(--input-border-bottom);
-  color: var(--input-font-color);
-
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-
-  transition: all 0.3s;
-  box-sizing: border-box;
-
-  cursor: pointer;
-
-  :hover {
-    background-color: var(--button-activeBackgroundColor);
-    border-color: var(--button-activeBorderColor);
-    color: #fff;
-  }
-  :disabled {
-    background: #ddd;
-    color: #9e9e9e;
-    opacity: 0.5;
-    pointer-events: none;
   }
 `;
 
@@ -440,33 +388,6 @@ const StKakaoBox = styled.div`
     height: 20px;
 
     margin-right: 9px;
-  }
-`;
-
-const StNonLogin = styled.button`
-  all: unset;
-  padding: 15px;
-  border-radius: 10px;
-
-  border: var(--input-border-bottom);
-  color: var(--input-font-color);
-
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-
-  transition: all 0.2s;
-  box-sizing: border-box;
-
-  cursor: pointer;
-
-  :hover {
-    background-color: var(--button-activeBackgroundColor);
-    border-color: var(--button-activeBorderColor);
-    color: #fff;
-  }
-  :disabled {
-    pointer-events: none;
   }
 `;
 

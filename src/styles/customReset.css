@@ -1,0 +1,52 @@
+body,
+html {
+  font-size: 62.5%;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+button,
+textarea {
+  all: unset;
+}
+
+.fcc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button,
+.button {
+  cursor: pointer;
+}
+
+/*****************************/
+/* 스크롤바 지우는 코드입니다. */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+/*****************************/

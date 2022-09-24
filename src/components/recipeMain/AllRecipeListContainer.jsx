@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -33,7 +33,7 @@ const AllRecipeListContainer = (props) => {
 
   const cupHeight = ((cupSize / 591) * 100).toFixed();
 
-  // 브라우저 너비에 따라서 글자 수를 자릅니다.
+  // 브라우저 너비에 따라서 글자 수를 자릅니다.(리랜더시 작동)
   const windowWidth = window.innerWidth;
   let titleText = title;
   if (windowWidth < 400) {
@@ -41,7 +41,6 @@ const AllRecipeListContainer = (props) => {
       titleText = title.slice(0, 6) + "...";
     }
   }
-  console.log(isLiked);
 
   // 추후 resizeUrl로 변경
   const profileImage = resizedUrl;
