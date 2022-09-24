@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 
@@ -5,7 +6,7 @@ import styled from "styled-components";
 
 const RecipeDescBody = (props) => {
   const navigate = useNavigate();
-  const { recipe } = props;
+  const { recipe, confirmProps } = props;
   const {
     recipeId,
     content,
@@ -16,7 +17,9 @@ const RecipeDescBody = (props) => {
     cupSize,
     nickname,
   } = recipe;
+  const { recipeDeleteButtonClickHandler } = confirmProps;
 
+  // (고유값)유저 닉네임으로 작성자 본인 확인
   const token = localStorage.getItem("refreshToken");
   const { decodedToken } = useJwt(token);
   let userName = decodedToken?.nickname;
@@ -26,7 +29,7 @@ const RecipeDescBody = (props) => {
   const profileImageUrl = imageUrl;
   // const profileImageUrl = resizedUrl
 
-  // updatedAt => 00월 00일
+  // 날짜 글자로 변환: updatedAt => 00월 00일
   const td = new Date(updatedAt).toISOString().slice(5, 10).split("-");
 
   const month = td[0];
@@ -34,38 +37,40 @@ const RecipeDescBody = (props) => {
   const today = `${month}월 ${date}일`;
 
   return (
-    <StRecipeDescBody>
-      <ul className="text_desc">
-        <li>
-          <strong>전체 : {cupSize}ml</strong>
-        </li>
-        {ingredientList.map((list, i) => (
-          <li key={"text_desc" + i}>
-            {list.ingredientName} : {list.ingredientAmount}ml
+    <>
+      <StRecipeDescBody>
+        <ul className="text_desc">
+          <li>
+            <strong>전체 : {cupSize}ml</strong>
           </li>
-        ))}
-      </ul>
+          {ingredientList.map((list, i) => (
+            <li key={"text_desc" + i}>
+              {list.ingredientName} : {list.ingredientAmount}ml
+            </li>
+          ))}
+        </ul>
 
-      <div>{content}</div>
+        <div>{content}</div>
 
-      <div className="user_info">
-        <div className="left">
-          <StProfileImage profileImageUrl={profileImageUrl} />
-          <span className="nickname">{nickname}</span>
-          <span className="dot">•</span>
-          <span className="updatedAt">{today}</span>
-        </div>
-
-        {recipeAuthor && (
-          <div
-            className="right"
-            onClick={() => navigate(`/recipe/${recipeId}/edit`)}
-          >
-            수정
+        <div className="user_info">
+          <div className="left">
+            <StProfileImage profileImageUrl={profileImageUrl} />
+            <span className="nickname">{nickname}</span>
+            <span className="dot">•</span>
+            <span className="updatedAt">{today}</span>
           </div>
-        )}
-      </div>
-    </StRecipeDescBody>
+
+          {recipeAuthor && (
+            <div className="right">
+              <button onClick={() => navigate(`/recipe/${recipeId}/edit`)}>
+                수정
+              </button>
+              <button onClick={recipeDeleteButtonClickHandler}>삭제</button>
+            </div>
+          )}
+        </div>
+      </StRecipeDescBody>
+    </>
   );
 };
 
@@ -111,10 +116,18 @@ const StRecipeDescBody = styled.div`
     }
 
     .right {
-      font-weight: 700;
-      font-size: 14px;
+      transform: translateX(8px);
 
-      color: #3897f0;
+      button {
+        all: unset;
+
+        padding: 5px 10px;
+
+        font-weight: 700;
+        font-size: 14px;
+
+        color: #3897f0;
+      }
     }
   }
 `;

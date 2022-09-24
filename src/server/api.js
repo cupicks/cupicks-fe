@@ -22,7 +22,7 @@ const customAxios = (contentType) => {
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 
   instance.interceptors.response.use(
@@ -40,7 +40,7 @@ const customAxios = (contentType) => {
           try {
             const refreshToken = TokenService.getLocalRefreshToken();
             const rs = await instance.get(
-              `/auth/token?refreshToken=${refreshToken}`
+              `/auth/token?refreshToken=${refreshToken}`,
             );
 
             console.log(rs);
@@ -56,7 +56,7 @@ const customAxios = (contentType) => {
       }
 
       return Promise.reject(err);
-    }
+    },
   );
 
   return instance;

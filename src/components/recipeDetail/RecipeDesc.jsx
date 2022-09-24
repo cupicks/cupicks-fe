@@ -6,7 +6,7 @@ import RecipeDescBody from "./element/RecipeDescBody";
 import styled from "styled-components";
 
 const RecipeDesc = (props) => {
-  const { recipe, modalProps } = props;
+  const { recipe, modalProps, confirmProps } = props;
   const { title, recipeId, isLiked } = recipe;
 
   return (
@@ -17,7 +17,7 @@ const RecipeDesc = (props) => {
         isLiked={isLiked}
         modalProps={modalProps}
       />
-      <RecipeDescBody recipe={recipe} />
+      <RecipeDescBody recipe={recipe} confirmProps={confirmProps}/>
     </StRecipeDesc>
   );
 };
