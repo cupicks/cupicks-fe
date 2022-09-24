@@ -28,6 +28,19 @@ const Login = () => {
   const [pwFailure, setPwFailure] = useState(false);
   const [check, setCheck] = useState(false);
   const [loginError, setLoginError] = useState(false);
+
+  const [messageModal, setMessageModal] = useState(false);
+  const messageText = location.state?.message;
+
+  useEffect(() => {
+    if (messageText !== undefined) {
+      setMessageModal(true);
+      setTimeout(() => {
+        setMessageModal(false);
+      }, 1500);
+    }
+  }, []);
+
   const onSubmit = async (data) => {
     console.log(data);
     // const data = { email: watch("email"), password: watch("password") };
@@ -123,6 +136,7 @@ const Login = () => {
       {loginError && (
         <ToastMessage text={errors?.loginError?.message} timer={1000} />
       )}
+      {messageModal && <ToastMessage text={messageText} timer={1500} />}
 
       {/* 로그인 시작 */}
       <StTitle>
