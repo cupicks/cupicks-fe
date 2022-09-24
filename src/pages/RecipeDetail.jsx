@@ -24,6 +24,12 @@ const RecipeDetail = () => {
 
   const messageText = location.state?.message;
   const timer = 1800;
+  const [needLoginModal, setNeedLoginModal] = useState(false);
+  const modalProps = {
+    needLoginModal,
+    setNeedLoginModal,
+    timer,
+  };
 
   /**************************/
   /** 레시피 삭제 버튼 핸들러 */
@@ -67,10 +73,8 @@ const RecipeDetail = () => {
       }, timer);
     }
   }, []);
-
   const recipefetching = async () => {
     let contentType = "application/json";
-
     try {
       const response = await api(contentType).get(`/recipes/${recipeId}`);
       setRecipe(response.data.recipe);
@@ -79,12 +83,11 @@ const RecipeDetail = () => {
       console.log(err);
       navigate("/404");
     }
-  };
+  }, [recipe.isLiked]);
 
   useEffect(() => {
     recipefetching();
   }, []);
-
   return (
     <StWrap>
       {recipe && (
@@ -96,10 +99,15 @@ const RecipeDetail = () => {
           </Navigation>
 
           <IngredientsContainer recipe={recipe} />
-          <RecipeDesc recipe={recipe} confirmProps={confirmProps} />
+          <RecipeDesc recipe={recipe} modalProps={modalProps} confirmProps={confirmProps}/>
         </>
       )}
-
+      {needLoginModal && (
+        <ToastMessage
+          text={"좋아요는 로그인이\n 필요한 기능입니다."}
+          timer={timer}
+        />
+      )}
       {messageModal && <ToastMessage text={messageText} timer={timer} />}
 
       {showConfirmBox && (

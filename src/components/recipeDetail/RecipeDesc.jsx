@@ -1,16 +1,23 @@
+import React, { useEffect, useState } from "react";
+import api from "../../server/api";
 import RecipeTitle from "./element/RecipeTitle";
 import RecipeDescBody from "./element/RecipeDescBody";
 
 import styled from "styled-components";
 
 const RecipeDesc = (props) => {
-  const { recipe, confirmProps } = props;
-  const { title, recipeId } = recipe;
+  const { recipe, modalProps, confirmProps } = props;
+  const { title, recipeId, isLiked } = recipe;
 
   return (
     <StRecipeDesc>
-      <RecipeTitle title={title} recipeId={recipeId} />
-      <RecipeDescBody recipe={recipe} confirmProps={confirmProps} />
+      <RecipeTitle
+        title={title}
+        recipeId={recipeId}
+        isLiked={isLiked}
+        modalProps={modalProps}
+      />
+      <RecipeDescBody recipe={recipe} confirmProps={confirmProps}/>
     </StRecipeDesc>
   );
 };
