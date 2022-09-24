@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import api from "../server/api";
@@ -17,6 +17,12 @@ const RecipeDetail = () => {
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
   const timer = 1800;
+  const [needLoginModal, setNeedLoginModal] = useState(false);
+  const modalProps = {
+    needLoginModal,
+    setNeedLoginModal,
+    timer,
+  };
 
   useEffect(() => {
     if (messageText !== undefined) {
@@ -30,7 +36,7 @@ const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState("");
 
-  const Recipefetching = async () => {
+  const Recipefetching = useCallback(async () => {
     let contentType = "application/json";
 
     try {
@@ -40,12 +46,11 @@ const RecipeDetail = () => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [recipe.isLiked]);
 
   useEffect(() => {
     Recipefetching();
   }, []);
-
   return (
     <StWrap>
       {recipe && (
@@ -57,10 +62,15 @@ const RecipeDetail = () => {
           </Navigation>
 
           <IngredientsContainer recipe={recipe} />
-          <RecipeDesc recipe={recipe} />
+          <RecipeDesc recipe={recipe} modalProps={modalProps} />
         </>
       )}
-
+      {needLoginModal && (
+        <ToastMessage
+          text={"좋아요는 로그인이\n 필요한 기능입니다."}
+          timer={timer}
+        />
+      )}
       {messageModal && <ToastMessage text={messageText} timer={timer} />}
     </StWrap>
   );

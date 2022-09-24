@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-
   const { allrecipes, modalProps, getItems } = props;
   const {
     recipeId,
@@ -42,11 +41,10 @@ const AllRecipeListContainer = (props) => {
       titleText = title.slice(0, 6) + "...";
     }
   }
-  console.log(isLiked)
+  console.log(isLiked);
 
   // 추후 resizeUrl로 변경
   const profileImage = resizedUrl;
-
 
   const likeCard = async (isLiked) => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
@@ -70,7 +68,7 @@ const AllRecipeListContainer = (props) => {
           .then((res) => {
             console.log(res);
           });
-          props.getItems();
+        props.getItems();
         // setLike(true);
       } catch (err) {
         console.log(err);
@@ -84,7 +82,7 @@ const AllRecipeListContainer = (props) => {
           .then((res) => {
             console.log(res);
           });
-          props.getItems();
+        props.getItems();
         // setLike(false);
       } catch (err) {
         console.log(err);
@@ -128,13 +126,26 @@ const AllRecipeListContainer = (props) => {
             className="talk_btn"
             src={talk}
             onClick={() => {
-              navigate(`${recipeId}/comment`, {state: title});
+              navigate(`${recipeId}/comment`, { state: title });
             }}
           />
-          {isLiked === false ? 
-          <img className="like_btn" src={dislikes} onClick={() => {likeCard(isLiked)}} /> :
-          <img className="like_btn" src={likes} onClick={() => {likeCard(isLiked)}} />
-          }
+          {isLiked === false ? (
+            <img
+              className="like_btn"
+              src={dislikes}
+              onClick={() => {
+                likeCard(isLiked);
+              }}
+            />
+          ) : (
+            <img
+              className="like_btn"
+              src={likes}
+              onClick={() => {
+                likeCard(isLiked);
+              }}
+            />
+          )}
         </StIconSet>
       </StListDesc>
     </>
