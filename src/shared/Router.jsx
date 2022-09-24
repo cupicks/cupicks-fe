@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useJwt } from "react-jwt";
 
 import Comments from "../pages/Comments";
 import Login from "../pages/Login";
@@ -53,17 +52,20 @@ const Router = () => {
       !loggedIn ? setLoggedIn(true) : "";
     } else {
       loggedIn ? setLoggedIn(false) : "";
+      navigate("/sign-in");
     }
+  }, [pathname]);
 
+  useEffect(() => {
     // 리디렉션: 로그인 필요한 페이지에서 토큰이 만료 되었을 때 작동
     if (!pathNeedLoggedIn) {
-      if (loggedIn) {
+      if (loggedIn && !refreshToken) {
         navigate("/sign-in", {
           state: { message: "자동으로 \n 로그아웃 되었습니다." },
         });
       }
     }
-  }, [pathname]);
+  }, [loggedIn]);
 
   return (
     <Routes>
@@ -103,19 +105,6 @@ const Router = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
-
-          {caseNoLoggedIn.map((path, idx) => (
-            <Route
-              key={"routePathLogout" + idx}
-              path={path}
-              element={
-                <NotFound
-                  timer={30000}
-                  message={"로그아웃이 필요한 페이지입니다."}
-                />
-              }
-            />
-          ))}
         </>
       )}
 
