@@ -13,15 +13,15 @@ const MypageRecipeMyList = (props) => {
   const [loaded, setLoaded] = useState(false);
 
   // 페이지네이션 재료
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(3);
+  // const [page, setPage] = useState(1);
+  // const [count, setCount] = useState(3);
 
   const Recipefetching = async () => {
     let contentType = "application/json";
 
     try {
       const response = await api(contentType)
-        .get(`/profile/my-recipe?page=1&count=3`)
+        .get(`/profile/my-recipe?page=1&count=50`)
         .then((res) => {
           console.log(res);
           setRecipeList([...recipeList, ...res.data.recipeList]);

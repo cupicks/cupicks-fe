@@ -6,14 +6,11 @@ import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
 import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
 import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
 
-// import TokenService from '../server/token.service'
-
 import styled from "styled-components";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const Mypage = () => {
   const location = useLocation();
-  const [loaded, setLoaded] = useState(false);
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
 
@@ -36,10 +33,7 @@ const Mypage = () => {
         <>
           <MypageMyInfo token={token} userData={userData} />
           <MypageRecipeMyList on={true} />
-
-          {/* 좋아요 리스트: MVP이후 작업 */}
           <MypageRecipeLikeList />
-          {/* ************************* */}
           <div></div>
         </>
       )}

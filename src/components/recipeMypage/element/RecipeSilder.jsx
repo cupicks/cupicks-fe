@@ -6,8 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import IngredientList from "./IngredientList";
-import RecipeTitle from "../../recipeDetail/element/RecipeTitle";
-import prfilePicSrc from "../../../assets/svg/profile.svg";
+import RecipeTitle from "./RecipeTitle";
 
 import styled from "styled-components";
 
@@ -48,14 +47,11 @@ const RecipeList = (props) => {
     initialSlide: 0,
     speed: 500,
   };
-  
-  // console.log(((recipeList.cupSize / 591) * 100).toFixed())
-  
 
   return (
     <>
       <StSlider {...settings}>
-        {recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
+        {!recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
 
         {recipeList?.map((recipe, i) => {
           return (
@@ -64,8 +60,6 @@ const RecipeList = (props) => {
               className="slick_box"
               key={"slick_box" + i}
               onClick={onClickCard(recipe.recipeId)}
-              // onClick={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
-              // onTouchEnd={()=>navigate(`/recipe/${recipe.recipeId}/detail`)}
             >
               {header && (
                 <StRecipeUserInfo>
@@ -81,7 +75,10 @@ const RecipeList = (props) => {
                   <IngredientList key={i} recipe={recipe} />
                 </StCupHeight>
                 <div className="padding_box">
-                  <RecipeTitle recipeId = {recipe.recipeId} title={recipe.title} />
+                  <RecipeTitle
+                    recipeId={recipe.recipeId}
+                    title={recipe.title}
+                  />
                 </div>
               </div>
             </div>
@@ -119,6 +116,7 @@ const StSlider = styled(Slider)`
   }
 
   .padding_box {
+    min-height: 42px;
     padding: 11px 20px 12px;
 
     & * {
@@ -158,7 +156,7 @@ const StSlider = styled(Slider)`
 `;
 
 const StCupHeight = styled.div`
-  height: ${(props) => props.cupHeight + "%"};
+  height: ${(props) => "calc(" + props.cupHeight + "% - 42px)"};
 `;
 
 const StRecipeUserInfo = styled.div`

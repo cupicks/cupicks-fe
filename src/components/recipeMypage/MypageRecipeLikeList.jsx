@@ -12,15 +12,15 @@ const MypageRecipeLikeList = () => {
   const [loaded, setLoaded] = useState(false);
 
   // 페이지네이션 재료
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(3);
+  // const [page, setPage] = useState(1);
+  // const [count, setCount] = useState(3);
 
   const Recipefetching = async () => {
     let contentType = "application/json";
 
     try {
       const response = await api(contentType)
-        .get(`/profile/like-recipe?page=1&count=3`)
+        .get(`/profile/like-recipe?page=1&count=50`)
         .then((res) => {
           console.log(res);
           setRecipeList([...recipeList, ...res.data.recipeList]);
@@ -34,11 +34,6 @@ const MypageRecipeLikeList = () => {
   useEffect(() => {
     Recipefetching();
   }, []);
-
-  // useEffect(()=>{
-  //   setRecipeList(response.recipeList)
-  //   setLoaded(true)
-  // },[])
 
   return (
     <>
