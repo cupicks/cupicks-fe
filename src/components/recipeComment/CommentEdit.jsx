@@ -23,7 +23,7 @@ const CommentEdit = ({
     setValue,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: {} });
 
   const { recipeId } = useParams();
   //이미지 미리보기
@@ -97,7 +97,7 @@ const CommentEdit = ({
   };
 
   console.log(comments.comment);
-  // console.log(comments);
+  console.log(comments[0].comment);
 
   // const onChangeEditHandler = (e) => {
   //   const { name, value } = e.target;
@@ -129,8 +129,9 @@ const CommentEdit = ({
               className="comment_input"
               type="text"
               name="content"
+              defaultValue={comments[0].comment}
               {...register("comment")}
-              placeholder="새로운댓글을 입력해주세요"
+              placeholder="새로운 댓글을 입력해주세요"
             />
             {/* {comment.comment} */}
 
