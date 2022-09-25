@@ -6,7 +6,7 @@ import api from "../../server/api";
 import { useJwt } from "react-jwt";
 import editIcon from "../../assets/svg/cancel_photo.svg";
 
-const CommentInput = ({ getComments }) => {
+const CommentInput = ({ getComments, setCheckComment }) => {
   const { recipeId } = useParams();
   const {
     register,
@@ -85,14 +85,18 @@ const CommentInput = ({ getComments }) => {
   // };
 
   const fileSubmit = async (data) => {
-    if (comment === "") {
-      return alert("댓글을 입력해주세요");
+    if (comment === "" || comment === null) {
+      setCheckComment(true);
+      setTimeout(() => {
+        setCheckComment(false);
+      }, 1000);
+      return;
     }
     let contentType = "multi-part/form-data";
     const form = new FormData();
     form.append(
       "imageValue",
-      getValues("image") === undefined ? null : getValues("image")?.[0]
+      getValues("image") === undefined ? null : getValues("image")?.[0],
     );
 
     await api(contentType)
