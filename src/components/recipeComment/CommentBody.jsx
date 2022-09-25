@@ -10,12 +10,13 @@ import ToastMessage from "../elements/modal/ToastMessage";
 
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  
+
   // const menubackground = useRef();
 
   const { recipeId } = useParams();
   let [comments, setComments] = useState([]);
   const [editCommentId, setEditCommentId] = useState();
+  const [checkComment, setCheckComment] = useState(false);
 
   const token = localStorage.getItem("refreshToken");
   const { decodedToken, isExpired } = useJwt(token);
@@ -61,7 +62,7 @@ const CommentBody = () => {
     const years = days / 365;
     return `${Math.floor(years)}년 전`;
   };
-  
+
   // const onErrorImg = (e) => {
   //   if (e.target.src === undefined) {
   //     setTimeout(() => {
@@ -161,9 +162,13 @@ const CommentBody = () => {
           editCommentId={editCommentId}
           setMenuOpen={setMenuOpen}
           menuOpen={menuOpen}
+          setCheckComment={setCheckComment}
         />
       </StListWrap>
-      <CommentInput getComments={getComments} />
+      <CommentInput
+        getComments={getComments}
+        setCheckComment={setCheckComment}
+      />
 
       {/* 댓글 작성 가리기 */}
       {guestLoginShadow && <StGuestLoginShadow />}
@@ -171,6 +176,9 @@ const CommentBody = () => {
       {/* 토스트 메시지/모달 */}
       {needLogginModal && (
         <ToastMessage text={"로그인이\n 필요한 기능입니다."} />
+      )}
+      {checkComment && (
+        <ToastMessage text={"댓글을 입력해주세요"} timer={1000} />
       )}
     </>
   );

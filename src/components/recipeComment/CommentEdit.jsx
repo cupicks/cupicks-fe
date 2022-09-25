@@ -5,6 +5,7 @@ import api from "../../server/api";
 import { useForm } from "react-hook-form";
 import editIcon from "../../assets/svg/cancel_photo.svg";
 import { useJwt } from "react-jwt";
+import ToastMessage from "../elements/modal/ToastMessage";
 
 const CommentEdit = ({
   edit,
@@ -13,6 +14,7 @@ const CommentEdit = ({
   comments,
   setComments,
   setMenuOpen,
+  setCheckComment,
 }) => {
   const {
     register,
@@ -29,6 +31,7 @@ const CommentEdit = ({
   const comment = watch("comment");
 
   const [imagePreview, setImagePreview] = useState("");
+  // const [checkComment, setCheckComment] = useState(false);
 
   const token = localStorage.getItem("refreshToken");
   const { decodedToken, isExpired } = useJwt(token);
@@ -70,7 +73,11 @@ const CommentEdit = ({
   const updateSubmit = async (data) => {
     // const content = editcomments.comment;
     if (comment === "") {
-      return alert("댓글을 입력해주세요");
+      setCheckComment(true);
+      setTimeout(() => {
+        setCheckComment(false);
+      }, 1000);
+      return;
     }
 
     let contentType = "multi-part/form-data";
@@ -89,7 +96,7 @@ const CommentEdit = ({
     setMenuOpen(false);
   };
 
-  console.log(comments.comment)
+  console.log(comments.comment);
   // console.log(comments);
 
   // const onChangeEditHandler = (e) => {
@@ -107,56 +114,56 @@ const CommentEdit = ({
 
   return (
     <>
-    {/* {comments.map((comment, commentId) => ( */}
-    <StWrap  onSubmit={handleSubmit(updateSubmit)}>
-      <div className="input_profile">
-        <div className="profile_image">
-          {decodedToken !== null && (
-            <StInputProfile src={decodedToken.imageUrl}></StInputProfile>
-          )}
-        </div>
-      </div>
-      <div className="input_wrap fcc">
-        <div className="input_box">
-          <input
-            className="comment_input"
-            type="text"
-            name="content"
-            {...register("comment")}
-            placeholder="새로운댓글을 입력해주세요"
-          />
-            {/* {comment.comment} */}
-          
-          <button className="comment_btn">확인</button>
-        </div>
-        {imagePreview ? (
-          <div className="img_preview">
-            <label htmlFor="picture">
-              <StPicUpload src={imagePreview}></StPicUpload>
-            </label>
-            <DeletePreview
-              src={editIcon}
-              onClick={() => {
-                cancelImage();
-              }}
-            ></DeletePreview>
+      {/* {comments.map((comment, commentId) => ( */}
+      <StWrap onSubmit={handleSubmit(updateSubmit)}>
+        <div className="input_profile">
+          <div className="profile_image">
+            {decodedToken !== null && (
+              <StInputProfile src={decodedToken.imageUrl}></StInputProfile>
+            )}
           </div>
-        ) : null}
-        <div className="pic_wrap">
-          <input
-            type="file"
-            id="picture"
-            {...register("image")}
-            accept="image/*"
-            getValues={getValues}
-          ></input>
-          <label htmlFor="picture" className="pic_upload">
-            + 사진 업로드
-          </label>
         </div>
-      </div>
-    </StWrap>
-    {/* ))} */}
+        <div className="input_wrap fcc">
+          <div className="input_box">
+            <input
+              className="comment_input"
+              type="text"
+              name="content"
+              {...register("comment")}
+              placeholder="새로운댓글을 입력해주세요"
+            />
+            {/* {comment.comment} */}
+
+            <button className="comment_btn">확인</button>
+          </div>
+          {imagePreview ? (
+            <div className="img_preview">
+              <label htmlFor="picture">
+                <StPicUpload src={imagePreview}></StPicUpload>
+              </label>
+              <DeletePreview
+                src={editIcon}
+                onClick={() => {
+                  cancelImage();
+                }}
+              ></DeletePreview>
+            </div>
+          ) : null}
+          <div className="pic_wrap">
+            <input
+              type="file"
+              id="picture"
+              {...register("image")}
+              accept="image/*"
+              getValues={getValues}
+            ></input>
+            <label htmlFor="picture" className="pic_upload">
+              + 사진 업로드
+            </label>
+          </div>
+        </div>
+      </StWrap>
+      {/* ))} */}
     </>
   );
 };
