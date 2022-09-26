@@ -11,6 +11,7 @@ import likes from "../../assets/svg/like_fill_m.svg";
 import { useNavigate } from "react-router-dom";
 
 import api from "../../server/api";
+import { useEffect } from "react";
 
 const AllRecipeListContainer = (props) => {
   const { allrecipes, modalProps, getItems } = props;
@@ -30,18 +31,40 @@ const AllRecipeListContainer = (props) => {
   // console.log(props.allrecipes.data);
   // console.log(props.allrecipes);
   const [like, setLike] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+  });
 
   const cupHeight = ((cupSize / 591) * 100).toFixed();
 
   // 브라우저 너비에 따라서 글자 수를 자릅니다.
-  const windowWidth = window.innerWidth;
+  const windowWidth = windowSize.width;
   let titleText = title;
-  if (windowWidth < 400) {
-    if (title.length > 6) {
-      titleText = title.slice(0, 6) + "...";
+  if (title.length > 11) {
+    titleText = title.slice(0, 11) + "...";
+  }
+
+  if (windowWidth < 450) {
+    if (title.length > 4) {
+      titleText = title.slice(0, 4) + "...";
+    }
+  } else if (windowWidth < 500) {
+    if (title.length > 7) {
+      titleText = title.slice(0, 7) + "...";
     }
   }
-  console.log(isLiked);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    };
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [windowWidth]);
 
   // 추후 resizeUrl로 변경
   const profileImage = resizedUrl;
