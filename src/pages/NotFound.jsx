@@ -14,7 +14,7 @@ const NotFound = (props) => {
     if (refreshToken) {
       navigate("/recipe");
     } else {
-      navigate("/sign-in");
+      // navigate("/sign-in");
     }
   }, timer);
 

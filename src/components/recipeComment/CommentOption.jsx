@@ -12,6 +12,7 @@ const CommentOption = ({
   editCommentId,
   comment,
   setCheckComment,
+  userProps,
 }) => {
   const [edit, setEdit] = useState(false);
   const menubackground = useRef();
@@ -44,7 +45,7 @@ const CommentOption = ({
               comments={comments}
               setComments={setComments}
               setCheckComment={setCheckComment}
-              // comment={comment}
+              userProps={userProps}
             />
           ) : (
             <MenuPage>

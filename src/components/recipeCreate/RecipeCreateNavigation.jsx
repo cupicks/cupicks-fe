@@ -145,8 +145,6 @@ const RecipeCreateNavigation = (props) => {
     currentIngredientDeleted: step2 && currentIngredientDeleted,
   };
 
-  console.log(subStep === 3, colorRequired);
-
   let nextDisabled; // next 버튼 컴포넌트 disabled={} 속성에 넘길 값
   for (const x in nextButtonDisableCaseObj) {
     nextButtonDisableCaseObj[x] ? (nextDisabled = true) : "";

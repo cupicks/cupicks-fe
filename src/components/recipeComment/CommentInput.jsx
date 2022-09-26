@@ -6,7 +6,14 @@ import api from "../../server/api";
 import { useJwt } from "react-jwt";
 import editIcon from "../../assets/svg/cancel_photo.svg";
 
-const CommentInput = ({ getComments, setCheckComment }) => {
+const CommentInput = ({
+  getComments,
+  comments,
+  setComments,
+  setCheckComment,
+  setCommentCreated,
+  setNewComments,
+}) => {
   const { recipeId } = useParams();
   const {
     register,
@@ -39,7 +46,6 @@ const CommentInput = ({ getComments, setCheckComment }) => {
       if (!file) return;
       setImagePreview(URL.createObjectURL(file));
     }
-    console.log(image);
   }, [image]);
 
   const cancelImage = () => {
@@ -102,12 +108,11 @@ const CommentInput = ({ getComments, setCheckComment }) => {
     await api(contentType)
       .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
       .then((res) => {
-        console.log(res);
+        setNewComments((prev) => [res.data.comment, ...prev]);
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
     setValue("comment", null);
-    getComments();
   };
 
   return (
@@ -125,6 +130,7 @@ const CommentInput = ({ getComments, setCheckComment }) => {
             className="comment_input"
             type="text"
             name="content"
+            maxLength={100}
             // value={comments.content || ""}
             // onChange={onChangeHandler}
             {...register("comment")}

@@ -17,7 +17,7 @@ const RecipeDesc = (props) => {
         isLiked={isLiked}
         modalProps={modalProps}
       />
-      <RecipeDescBody recipe={recipe} confirmProps={confirmProps}/>
+      <RecipeDescBody recipe={recipe} confirmProps={confirmProps} />
     </StRecipeDesc>
   );
 };

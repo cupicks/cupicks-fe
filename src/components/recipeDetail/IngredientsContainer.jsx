@@ -29,7 +29,9 @@ const IngredientsContainer = (props) => {
       >
         {lists
           .map((list, i) => {
-            if (isIced && i === 0) return null;
+            if (isIced && i === 0) {
+              return null;
+            }
 
             return (
               <Ingredient

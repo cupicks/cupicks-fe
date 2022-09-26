@@ -15,6 +15,7 @@ const CommentEdit = ({
   setComments,
   setMenuOpen,
   setCheckComment,
+  userProps,
 }) => {
   const {
     register,
@@ -24,6 +25,7 @@ const CommentEdit = ({
     getValues,
     formState: { errors },
   } = useForm({ defaultValues: {} });
+  const { userLogin, userLoginId, userProfileImg } = userProps;
 
   const { recipeId } = useParams();
   //이미지 미리보기
@@ -31,10 +33,13 @@ const CommentEdit = ({
   const comment = watch("comment");
 
   const [imagePreview, setImagePreview] = useState("");
-  // const [checkComment, setCheckComment] = useState(false);
 
-  const token = localStorage.getItem("refreshToken");
-  const { decodedToken, isExpired } = useJwt(token);
+  let currentComment;
+  comments.map((comment) => {
+    if (comment.commentId === editCommentId) {
+      currentComment = comment.comment;
+    }
+  });
 
   React.useEffect(() => {
     if (image && image.length > 0) {
@@ -42,7 +47,6 @@ const CommentEdit = ({
       if (!file) return;
       setImagePreview(URL.createObjectURL(file));
     }
-    console.log(image);
   }, [image]);
 
   const cancelImage = () => {
@@ -96,9 +100,6 @@ const CommentEdit = ({
     setMenuOpen(false);
   };
 
-  console.log(comments.comment);
-  console.log(comments[0].comment);
-
   // const onChangeEditHandler = (e) => {
   //   const { name, value } = e.target;
   //   setEditComments({
@@ -118,8 +119,8 @@ const CommentEdit = ({
       <StWrap onSubmit={handleSubmit(updateSubmit)}>
         <div className="input_profile">
           <div className="profile_image">
-            {decodedToken !== null && (
-              <StInputProfile src={decodedToken.imageUrl}></StInputProfile>
+            {userLogin !== null && (
+              <StInputProfile src={userProfileImg}></StInputProfile>
             )}
           </div>
         </div>
@@ -129,11 +130,10 @@ const CommentEdit = ({
               className="comment_input"
               type="text"
               name="content"
-              defaultValue={comments[0].comment}
+              defaultValue={currentComment}
               {...register("comment")}
               placeholder="새로운 댓글을 입력해주세요"
             />
-            {/* {comment.comment} */}
 
             <button className="comment_btn">확인</button>
           </div>
@@ -156,7 +156,6 @@ const CommentEdit = ({
               id="picture"
               {...register("image")}
               accept="image/*"
-              getValues={getValues}
             ></input>
             <label htmlFor="picture" className="pic_upload">
               + 사진 업로드
