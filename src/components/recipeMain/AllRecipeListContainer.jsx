@@ -13,7 +13,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-  const { allrecipes, modalProps, getItems } = props;
+
+
+  const { allrecipes, modalProps, getItems, page } = props;
+
   const {
     recipeId,
     ingredientList,
@@ -77,6 +80,7 @@ const AllRecipeListContainer = (props) => {
       }
       return;
     }
+
     let contentType = "application/json";
     //liked(isLiked)가 false일 때, 좋아요를 누를 수 있습니다.
     if (liked === false) {
@@ -84,9 +88,9 @@ const AllRecipeListContainer = (props) => {
         await api(contentType)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
+            getItems();
             console.log(res);
           });
-        // props.getItems();
         setLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
@@ -97,16 +101,16 @@ const AllRecipeListContainer = (props) => {
         await api(contentType)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
+            getItems();
             console.log(res);
           });
         setLiked((prev) => !prev);
-        // props.getItems();
       } catch (err) {
         console.log(err);
       }
     }
   };
-  // console.log(like);
+
 
   return (
     <>
