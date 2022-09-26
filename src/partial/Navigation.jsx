@@ -5,11 +5,11 @@ import styled from "styled-components";
 import arrowBackIcon from "../assets/svg/arrow_back.svg";
 
 const Navigation = (props) => {
-  const { empty = false, goto = "/recipe" } = props;
+  const { empty = false, transparent = false, goto = "/recipe" } = props;
   const navigate = useNavigate();
 
   return (
-    <StNav>
+    <StNav transparent={transparent}>
       {!empty && (
         <div className="button_goBack fcc" onClick={() => navigate(goto)}>
           <img src={arrowBackIcon} alt="뒤로 가기 버튼" />
@@ -33,7 +33,7 @@ const StNav = styled.nav`
 
   top: 0;
 
-  background-color: #fff;
+  background-color: ${(props) => (props.transparent ? "transparent" : "#fff")};
   color: #393939;
 
   min-height: 60px;

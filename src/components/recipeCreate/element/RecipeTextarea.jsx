@@ -22,8 +22,6 @@ const RecipeTextarea = ({
 export default RecipeTextarea;
 
 const StTextarea = styled.textarea`
-  all: unset;
-
   flex: 1 1 auto;
   min-height: 40px;
 

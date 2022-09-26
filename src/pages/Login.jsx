@@ -153,7 +153,7 @@ const Login = () => {
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
 
       {/* 로그인 시작 */}
-      <Navigation empty={true} />
+      <Navigation empty={true} transparent={true} />
       <StLoginTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StLoginTitle>
@@ -281,7 +281,7 @@ const StResetPassword = styled(CustomSmallBoldTextLink)`
 `;
 
 const StLineBox = styled(CustomLineBox)`
-  margin-top: 15vh;
+  margin-top: 10vh;
   margin-bottom: 3.5rem;
 `;
 
