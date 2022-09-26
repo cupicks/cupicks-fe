@@ -292,6 +292,8 @@ const StCommentWrap = styled.div`
 
   & > .flex_box {
     height: 100%;
+    flex: 1 1 auto;
+    gap: 10px;
     display: flex;
     flex-flow: row;
   }
@@ -340,12 +342,14 @@ const StContent = styled.div`
 
   .content_pic {
     width: 100%;
-    max-height: 25vh;
+    max-height: 30vh;
     object-fit: cover;
   }
 `;
 
 const StOption = styled.div`
+  padding: 0 10px;
+  transform: translateX(10px);
   cursor: pointer;
 `;
 
