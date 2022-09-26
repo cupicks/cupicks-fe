@@ -14,7 +14,7 @@ import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
 
-  const { allrecipes, modalProps, getItems } = props;
+  const { allrecipes, modalProps, getItems, page } = props;
   const {
     recipeId,
     ingredientList,
@@ -59,18 +59,18 @@ const AllRecipeListContainer = (props) => {
       }
       return;
     }
+
     let contentType = "application/json";
     //isLiked가 false일때는 좋아요 안눌러진상태
     if (isLiked === false) {
       // isLiked === true;
       try {
         await api(contentType)
-          // .patch(`/recipes/${recipeId}/dislike`, isLiked)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
+            getItems();
             console.log(res);
           });
-          props.getItems();
         // setLike(true);
       } catch (err) {
         console.log(err);
@@ -79,19 +79,18 @@ const AllRecipeListContainer = (props) => {
       // isLiked === false
       try {
         await api(contentType)
-          // .patch(`/recipes/${recipeId}/like`, isLiked)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
+            getItems();
             console.log(res);
           });
-          props.getItems();
         // setLike(false);
       } catch (err) {
         console.log(err);
       }
     }
   };
-  // console.log(like);
+
 
   return (
     <>
@@ -131,9 +130,14 @@ const AllRecipeListContainer = (props) => {
               navigate(`${recipeId}/comment`, {state: title});
             }}
           />
-          {isLiked === false ? 
-          <img className="like_btn" src={dislikes} onClick={() => {likeCard(isLiked)}} /> :
-          <img className="like_btn" src={likes} onClick={() => {likeCard(isLiked)}} />
+          {page &&isLiked === false ? 
+          <img className="like_btn" src={dislikes} onClick={(e) => {
+            e.preventDefault();
+            likeCard(isLiked)}} /> :
+          <img className="like_btn" src={likes} onClick={(e) => {
+            e.preventDefault();
+            likeCard(isLiked)
+            }} />
           }
         </StIconSet>
       </StListDesc>

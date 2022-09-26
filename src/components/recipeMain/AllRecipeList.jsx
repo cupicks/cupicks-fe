@@ -19,7 +19,7 @@ const AllRecipeList = () => {
   // const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView({
-    threshold: 0.8,
+    threshold: 0.8
     // skip: true,
   });
   //threshold
@@ -68,11 +68,15 @@ const AllRecipeList = () => {
   //저장해놓고 재사용할수 있게 해준다
   useEffect(() => {
     //마지막 요소를 보고 로딩중이 아니라면
+    //page === 1 -> items.length == counting이 같아서 실행
     if (inView && !loading && items.length >= counting) {
-      setTimeout(() => {
-        setPage(page + 1);
-        setCounting(counting + 6);
-      }, 1500);
+      if (page === 1) {
+          setPage(page + 1);
+          setCounting(counting + 12);
+      } else {
+          setPage(page + 1);
+          setCounting(counting + 6);
+      }
 
       // page.current += 1;
 
@@ -92,14 +96,16 @@ const AllRecipeList = () => {
     setLoading(true);
     if (page === 1) {
       await api(contentType)
-        .get(`/recipes?page=1&count=12`)
+        .get(`/recipes?page=${page}&count=12`)
         .then((res) => {
-          setItems([...items, ...res.data.recipeList]);
+          setItems([...res.data.recipeList]);
+          console.log(res)
         });
     } else {
       await api(contentType)
-        .get(`/recipes?page=${page + 1}&count=6`)
+        .get(`/recipes?page=${page}&count=6`)
         .then((res) => {
+          console.log(res)
           setItems([...items, ...res.data.recipeList]);
         });
     }
@@ -113,7 +119,8 @@ const AllRecipeList = () => {
 
   //-----하단 console.log 3개 주석처리할게요! -by선아
   console.log(items);
-  // console.log(page);
+  console.log(page);
+  console.log(counting)
   // console.log(inView);
 
   // 로그인 여부를 확인하기 위해 로컬 스토리지의 토큰를 불러옵니다.
@@ -141,6 +148,7 @@ const AllRecipeList = () => {
                 modalProps={modalProps}
                 allrecipes={allrecipes}
                 getItems={getItems}
+                page={page}
               />
             </div>
           ) : (
@@ -149,6 +157,7 @@ const AllRecipeList = () => {
                 modalProps={modalProps}
                 allrecipes={allrecipes}
                 getItems={getItems}
+                page={page}
               />
             </div>
           )}
