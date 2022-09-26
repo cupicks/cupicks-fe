@@ -248,7 +248,7 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        // src={comment.resizedUrl}
+                        src={comment.resizedUrl}
                         onError={(e) => (e.target.src = comment.imageUrl)}
                       />
                     </div>
