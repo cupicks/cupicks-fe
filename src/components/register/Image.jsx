@@ -1,6 +1,10 @@
 import React from "react";
 
 import styled from "styled-components";
+import styledFormComponents from "../../styles/customFormStyle";
+const { CustomTitle } = styledComponents;
+import styledComponents from "../../styles/customElementStyle";
+const { CustomButton, CustomErrorBox } = styledFormComponents;
 
 import profile from "../../assets/svg/profile.svg";
 
@@ -23,7 +27,9 @@ const Image = (props) => {
 
   return (
     <StDiv>
-      <label>프로필 이미지</label>
+      <CustomTitle>
+        <h1>프로필 이미지</h1>
+      </CustomTitle>
       {imagePreview === "" ? (
         <StImg src={profile} alt="프로필 이미지" />
       ) : (
@@ -37,9 +43,9 @@ const Image = (props) => {
         hidden="hidden"
       />
       {/* {errors.image && <p>이미지를 추가해 주세요</p>} */}
-      <StLabelButton>
-        <StLabel htmlFor="picture">사진 선택</StLabel>
-      </StLabelButton>
+      <StButton>
+        <label htmlFor="picture">사진 선택</label>
+      </StButton>
     </StDiv>
   );
 };
@@ -63,62 +69,26 @@ const StImg = styled.img`
   border-radius: 50%;
 `;
 
-const StLabelButton = styled.div`
-  all: unset;
-  height: 55px;
-  border-radius: 10px;
+const StButton = styled(CustomButton)`
+  height: 62px;
 
-  display: flex;
-  align-items: center;
+  line-height: 62px;
+  position: relative;
 
-  background-color: var(--button-activeBackgroundColor);
-  border: 2px solid var(--button-activeBorderColor);
+  padding: 0;
 
-  color: #ffffff;
+  label {
+    width: 100%;
 
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
+    display: block;
+    position: absolute;
+    top: 0;
 
-  transition: all 0.2s;
-  box-sizing: border-box;
+    font-size: 1.7rem !important;
+    cursor: pointer;
 
-  cursor: pointer;
-  overflow: hidden;
-
-  :hover {
-    color: #ffffff;
-    background-color: #333333;
-    border-color: #333333;
-  }
-  :disabled {
-    pointer-events: none;
-  }
-  /* width: 100%;
-  height: 60px;
-  border: 3px solid #eee;
-  border-radius: 10px;
-  text-align: center;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 60px;
-  margin-bottom: -200px;
-  :hover {
-    border-color: #000;
-  } */
-`;
-
-const StLabel = styled.label`
-  width: 100%;
-  line-height: 55px;
-
-  font-size: 18px;
-
-  cursor: pointer;
-
-  :hover {
-    color: #fff;
+    :hover {
+      color: #fff !important;
+    }
   }
 `;

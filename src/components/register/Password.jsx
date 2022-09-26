@@ -1,6 +1,10 @@
 import React from "react";
 
 import styled from "styled-components";
+import styledFormComponents from "../../styles/customFormStyle";
+const { CustomTitle } = styledComponents;
+import styledComponents from "../../styles/customElementStyle";
+const { CustomInput, CustomErrorBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 import ToastMessage from "../../components/elements/modal/ToastMessage";
@@ -15,6 +19,7 @@ const Password = (props) => {
     passwordError,
     passwordCfError,
   } = props;
+
   const password = React.useRef();
   password.current = watch("password");
   return (
@@ -25,7 +30,9 @@ const Password = (props) => {
       {passwordCfError && (
         <ToastMessage text={"비밀번호가 일치하지 않습니다."} timer={1000} />
       )}
-      <label>비밀번호</label>
+      <CustomTitle>
+        <h1>비밀번호 입력</h1>
+      </CustomTitle>
       <div className="register_input_box">
         {watch("password")?.length >= 1 && (
           <img
@@ -35,7 +42,7 @@ const Password = (props) => {
             onClick={() => resetField("password")}
           />
         )}
-        <input
+        <CustomInput
           type="password"
           placeholder="8자리 이상 입력해 주세요"
           minLength={8}
@@ -50,8 +57,14 @@ const Password = (props) => {
           })}
         />
       </div>
-      {errors.password && <p>{errors.password.message}</p>}
-      <label>비밀번호 확인</label>
+
+      <StErrorBox>
+        {errors.password && <p>{errors.password.message}</p>}
+      </StErrorBox>
+
+      <CustomTitle>
+        <h1>비밀번호 확인</h1>
+      </CustomTitle>
       <div className="register_input_box">
         {watch("password_confirm")?.length >= 1 && (
           <img
@@ -61,7 +74,7 @@ const Password = (props) => {
             onClick={() => resetField("password_confirm")}
           />
         )}
-        <input
+        <CustomInput
           type="password"
           placeholder="다시 한번 입력해 주세요"
           {...register("password_confirm", {
@@ -70,10 +83,13 @@ const Password = (props) => {
           })}
         />
       </div>
-      {errors.password_confirm &&
-        errors.password_confirm.type === "validate" && (
-          <p>비밀번호가 일치하지 않습니다.</p>
-        )}
+
+      <StErrorBox>
+        {errors.password_confirm &&
+          errors.password_confirm.type === "validate" && (
+            <p>비밀번호가 일치하지 않습니다.</p>
+          )}
+      </StErrorBox>
     </StDiv>
   );
 };
@@ -85,6 +101,11 @@ const StDiv = styled.div`
   flex-direction: column;
 
   & p {
-    transform: translateY(-28px) !important;
+    transform: translateY(-2.8rem) !important;
   }
+`;
+
+const StErrorBox = styled(CustomErrorBox)`
+  min-height: 0;
+  height: 0;
 `;

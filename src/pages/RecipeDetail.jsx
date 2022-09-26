@@ -52,6 +52,7 @@ const RecipeDetail = () => {
     recipeDeleteDenied,
   };
 
+  /** recipeId에 해당하는 레시피를 삭제하는 함수입니다. */
   const recipeDeleting = async () => {
     let contentType = "application/json";
 

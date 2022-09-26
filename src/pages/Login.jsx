@@ -5,10 +5,22 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../server/api";
 
 import styled from "styled-components";
+import styledFormComponents from "../styles/customFormStyle";
+const { CustomInput, CustomForm, CustomButton, CustomErrorBox, CustomLabel } =
+  styledFormComponents;
+import styledComponents from "../styles/customElementStyle";
+const {
+  CustomWrapFullVH,
+  CustomTitle,
+  CustomSmallBoldTextLink,
+  CustomLineBox,
+  CustomSmallLightText,
+} = styledComponents;
 
 import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";
 import ToastMessage from "../components/elements/modal/ToastMessage";
+import Navigation from "../partial/Navigation";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -75,6 +87,7 @@ const Login = () => {
     //   }, 1000);
     // }
   };
+
   const clickLogin = async () => {
     setCheck(true);
     setTimeout(() => {
@@ -94,6 +107,7 @@ const Login = () => {
       }, 1000);
       return;
     }
+
     const data = { email: watch("email"), password: watch("password") };
     const queryStringData = Object.keys(data)
       .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
@@ -125,7 +139,7 @@ const Login = () => {
     }
   };
   return (
-    <StDiv>
+    <CustomWrapFullVH>
       {/* 모달창 */}
       {emailFailure && (
         <ToastMessage text={errors?.email?.message} timer={1000} />
@@ -139,11 +153,12 @@ const Login = () => {
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
 
       {/* 로그인 시작 */}
-      <StTitle>
+      <Navigation empty={true} />
+      <StLoginTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
-      </StTitle>
+      </StLoginTitle>
 
-      <StForm onSubmit={handleSubmit(onSubmit)}>
+      <StLoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
         <div className="register_input_box">
           {watch("email")?.length >= 1 && (
@@ -154,7 +169,7 @@ const Login = () => {
               onClick={() => resetField("email")}
             />
           )}
-          <StInput
+          <CustomInput
             type="text"
             placeholder="이메일 주소를 입력해 주세요"
             autoComplete="off"
@@ -169,7 +184,9 @@ const Login = () => {
             })}
           />
         </div>
-        <StErrorBox>{errors.email && <p>{errors.email.message}</p>}</StErrorBox>
+        <CustomErrorBox>
+          {errors.email && <p>{errors.email.message}</p>}
+        </CustomErrorBox>
 
         <label>비밀번호</label>
         <div className="register_input_box">
@@ -181,7 +198,7 @@ const Login = () => {
               onClick={() => resetField("password")}
             />
           )}
-          <StInput
+          <CustomInput
             type="password"
             placeholder="비밀번호를 입력해주세요"
             maxLength={15}
@@ -195,11 +212,11 @@ const Login = () => {
             })}
           />
         </div>
-        <StErrorBox>
+        <CustomErrorBox>
           {errors.password && <p>{errors.password.message}</p>}
-        </StErrorBox>
+        </CustomErrorBox>
 
-        <StButton
+        <CustomButton
           onClick={clickLogin}
           disabled={
             check ||
@@ -209,13 +226,13 @@ const Login = () => {
           }
         >
           계속하기
-        </StButton>
-      </StForm>
+        </CustomButton>
+      </StLoginForm>
 
       <StFlexBox>
-        <StPass onClick={() => navigate("/resetPassword")}>
+        <StResetPassword onClick={() => navigate("/resetPassword")}>
           비밀번호를 잊으셨나요?
-        </StPass>
+        </StResetPassword>
       </StFlexBox>
 
       <StLineBox>
@@ -226,7 +243,7 @@ const Login = () => {
         <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox> */}
-      <StNonLogin onClick={() => navigate("/recipe")}>둘러보기</StNonLogin>
+      <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
         회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
@@ -235,120 +252,19 @@ const Login = () => {
       <StLink onClick={() => navigate("/sign-up")}>
         Cupick이 처음이세요? 회원가입
       </StLink>
-    </StDiv>
+    </CustomWrapFullVH>
   );
 };
 
 export default Login;
 
-const StDiv = styled.div`
-  height: 100vh;
-  padding: 0 25px;
-
-  display: flex;
-  flex-flow: column;
-
-  overflow-y: scroll;
-
-  color: #393939;
-
-  line-height: 150%;
+const StLoginTitle = styled(CustomTitle)`
+  width: 30rem;
 `;
 
-const StTitle = styled.div`
-  width: 200px;
-
-  margin-top: 55px;
-
-  h1 {
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 150%;
-  }
-`;
-
-const StForm = styled.form`
-  margin-top: 38px;
-
-  display: flex;
-  flex-direction: column;
-
-  & p {
-    color: #e64a3a;
-  }
-  & label {
-    font-weight: 700;
-    font-size: 13px;
-    color: #9e9e9e;
-  }
+const StLoginForm = styled(CustomForm)`
   .register_input_box {
     position: relative;
-  }
-  .input_label_icon {
-    width: 30px;
-    height: 30px;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    transform: translateY(-30%);
-
-    cursor: pointer;
-  }
-`;
-
-const StInput = styled.input`
-  all: unset;
-  width: 100%;
-  /* margin-bottom: 25px; */
-  padding: 10px 0;
-
-  border-bottom: 2px solid #cdcdcd;
-
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 150%;
-
-  transition: all 0.3s;
-
-  :hover,
-  :focus,
-  :active {
-    border-bottom-color: #9e9e9e;
-  }
-  ::placeholder {
-    color: #cdcdcd;
-  }
-`;
-
-const StButton = styled.button`
-  all: unset;
-  padding: 15px;
-  border-radius: 10px;
-
-  border: var(--input-border-bottom);
-  color: var(--input-font-color);
-
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-
-  transition: all 0.3s;
-  box-sizing: border-box;
-
-  cursor: pointer;
-
-  :hover {
-    background-color: var(--button-activeBackgroundColor);
-    border-color: var(--button-activeBorderColor);
-    color: #fff;
-  }
-  :disabled {
-    background: #ddd;
-    color: #9e9e9e;
-    opacity: 0.5;
-    pointer-events: none;
   }
 `;
 
@@ -357,70 +273,23 @@ const StFlexBox = styled.div`
   justify-content: flex-end;
 `;
 
-const StErrorBox = styled.div`
-  min-height: 30px;
-  margin-bottom: 5px;
-
-  line-height: 30px;
-  font-size: 13px;
-`;
-
-const StPass = styled.p`
-  margin-top: 10px;
+const StResetPassword = styled(CustomSmallBoldTextLink)`
+  margin-top: 1rem;
 
   align-self: flex-end;
-
-  color: #9e9e9e;
-
   text-align: right;
-  font-weight: 700;
-  font-size: 13px;
-
-  cursor: pointer;
-  transition: all 0.2s;
-
-  :hover {
-    color: #393939;
-  }
 `;
 
-const StLineBox = styled.div`
-  width: 100%;
-  height: 1px;
-  position: relative;
-
-  margin-top: 30%;
-  margin-bottom: 35px;
-
-  ::before {
-    content: "";
-    width: 100%;
-    height: 1px;
-
-    position: absolute;
-
-    background-color: #eee;
-  }
-
-  span {
-    font-weight: 400;
-    font-size: 14px;
-    padding: 0 10px;
-
-    background-color: #fff;
-    color: #ddd;
-
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+const StLineBox = styled(CustomLineBox)`
+  margin-top: 15vh;
+  margin-bottom: 3.5rem;
 `;
 
 const StKakaoBox = styled.div`
-  padding: 16px 0;
-  border-radius: 10px;
+  padding: 1.6em 0;
+  border-radius: 1rem;
 
-  margin-bottom: 17px;
+  margin-bottom: 1.7rem;
 
   display: flex;
   align-items: center;
@@ -430,66 +299,26 @@ const StKakaoBox = styled.div`
   color: #000000;
 
   font-weight: 500;
-  font-size: 19px;
-  line-height: 150%;
+  font-size: 1.9rem;
 
   cursor: pointer;
 
   img {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 
-    margin-right: 9px;
+    margin-right: 0.9rem;
   }
 `;
 
-const StNonLogin = styled.button`
-  all: unset;
-  padding: 15px;
-  border-radius: 10px;
-
-  border: var(--input-border-bottom);
-  color: var(--input-font-color);
-
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-
-  transition: all 0.2s;
-  box-sizing: border-box;
-
-  cursor: pointer;
-
-  :hover {
-    background-color: var(--button-activeBackgroundColor);
-    border-color: var(--button-activeBorderColor);
-    color: #fff;
-  }
-  :disabled {
-    pointer-events: none;
-  }
-`;
-
-const StCtn = styled.div`
-  margin-top: 5px;
-
-  color: #cac8c8;
-
-  font-size: 12px;
-  font-weight: 400;
+const StCtn = styled(CustomSmallLightText)`
+  margin-top: 0.5rem;
   text-align: center;
 `;
 
-const StLink = styled.div`
-  margin-top: 35px;
-  margin-bottom: 40px;
-
-  font-weight: 700;
-  font-size: 14px;
-
-  color: #9e9e9e;
+const StLink = styled(CustomSmallBoldTextLink)`
+  margin-top: 3.5rem;
+  margin-bottom: 4rem;
 
   text-align: center;
-
-  cursor: pointer;
 `;

@@ -1,6 +1,10 @@
 import React from "react";
 
 import styled from "styled-components";
+import styledFormComponents from "../../styles/customFormStyle";
+const { CustomTitle } = styledComponents;
+import styledComponents from "../../styles/customElementStyle";
+const { CustomInput, CustomErrorBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 import ToastMessage from "../elements/modal/ToastMessage";
@@ -10,10 +14,14 @@ const Nickname = (props) => {
   return (
     <StDiv>
       {toast && <ToastMessage text={errors?.nickname?.message} timer={1000} />}
+
       {nicknameFailure && (
         <ToastMessage text={errors?.nicknameError?.message} timer={1000} />
       )}
-      <label>닉네임</label>
+
+      <CustomTitle>
+        <h1>닉네임</h1>
+      </CustomTitle>
       <div className="register_input_box">
         {watch("nickname")?.length >= 1 && (
           <img
@@ -23,7 +31,7 @@ const Nickname = (props) => {
             onClick={() => resetField("nickname")}
           />
         )}
-        <input
+        <CustomInput
           placeholder="닉네임을 입력해 주세요"
           minLength={2}
           maxLength={10}
@@ -37,7 +45,9 @@ const Nickname = (props) => {
           })}
         />
       </div>
-      {errors.nickname && <p>{errors.nickname.message}</p>}
+      <StErrorBox>
+        {errors.nickname && <p>{errors.nickname.message}</p>}
+      </StErrorBox>
     </StDiv>
   );
 };
@@ -47,7 +57,9 @@ export default Nickname;
 const StDiv = styled.div`
   display: flex;
   flex-direction: column;
-  & input {
-    margin-top: 70px;
-  }
+`;
+
+const StErrorBox = styled(CustomErrorBox)`
+  min-height: 0;
+  height: 0.5rem;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -53,7 +53,7 @@ const AllRecipeListContainer = (props) => {
       titleText = title.slice(0, 7) + "...";
     }
   }
-
+  
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
