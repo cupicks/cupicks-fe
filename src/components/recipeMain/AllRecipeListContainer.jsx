@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -11,7 +11,6 @@ import likes from "../../assets/svg/like_fill_m.svg";
 import { useNavigate } from "react-router-dom";
 
 import api from "../../server/api";
-import { useEffect } from "react";
 
 const AllRecipeListContainer = (props) => {
   const { allrecipes, modalProps, getItems } = props;
@@ -27,14 +26,14 @@ const AllRecipeListContainer = (props) => {
     isLiked,
   } = allrecipes;
   const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
+
   const navigate = useNavigate();
-  // console.log(props.allrecipes.data);
-  // console.log(props.allrecipes);
-  const [like, setLike] = useState(false);
+  const [liked, setLiked] = useState(isLiked);
   const [windowSize, setWindowSize] = useState({
     width: 0,
   });
 
+  const profileImage = resizedUrl;
   const cupHeight = ((cupSize / 591) * 100).toFixed();
 
   // 브라우저 너비에 따라서 글자 수를 자릅니다.
@@ -53,7 +52,7 @@ const AllRecipeListContainer = (props) => {
       titleText = title.slice(0, 7) + "...";
     }
   }
-  
+
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -66,10 +65,8 @@ const AllRecipeListContainer = (props) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
 
-  // 추후 resizeUrl로 변경
-  const profileImage = resizedUrl;
-
-  const likeCard = async (isLiked) => {
+  /** 레시피 좋아요 버튼 핸들러 */
+  const likeCard = async () => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
     if (!userLogin) {
       if (!needLogginModal) {
@@ -81,32 +78,29 @@ const AllRecipeListContainer = (props) => {
       return;
     }
     let contentType = "application/json";
-    //isLiked가 false일때는 좋아요 안눌러진상태
-    if (isLiked === false) {
-      // isLiked === true;
+    //liked(isLiked)가 false일 때, 좋아요를 누를 수 있습니다.
+    if (liked === false) {
       try {
         await api(contentType)
-          // .patch(`/recipes/${recipeId}/dislike`, isLiked)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
             console.log(res);
           });
-        props.getItems();
-        // setLike(true);
+        // props.getItems();
+        setLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
     } else {
-      // isLiked === false
+      // liked(isLiked)가 false
       try {
         await api(contentType)
-          // .patch(`/recipes/${recipeId}/like`, isLiked)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
             console.log(res);
           });
-        props.getItems();
-        // setLike(false);
+        setLiked((prev) => !prev);
+        // props.getItems();
       } catch (err) {
         console.log(err);
       }
@@ -152,22 +146,10 @@ const AllRecipeListContainer = (props) => {
               navigate(`${recipeId}/comment`, { state: title });
             }}
           />
-          {isLiked === false ? (
-            <img
-              className="like_btn"
-              src={dislikes}
-              onClick={() => {
-                likeCard(isLiked);
-              }}
-            />
+          {liked === false ? (
+            <img className="like_btn" src={dislikes} onClick={likeCard} />
           ) : (
-            <img
-              className="like_btn"
-              src={likes}
-              onClick={() => {
-                likeCard(isLiked);
-              }}
-            />
+            <img className="like_btn" src={likes} onClick={likeCard} />
           )}
         </StIconSet>
       </StListDesc>
