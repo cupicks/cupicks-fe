@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import api from "../server/api";
 
@@ -13,6 +12,10 @@ import ConfirmBox from "../components/elements/modal/ConfirmBox";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
 import styled from "styled-components";
+import styledFormComponents from "../styles/customFormStyle";
+import styledComponents from "../styles/customElementStyle";
+const { CustomWrapFullVH } = styledComponents;
+const { CustomForm, CustomButton } = styledFormComponents;
 
 import arrowBack from "../assets/svg/arrow_back.svg";
 import Navigation from "../partial/Navigation";
@@ -37,6 +40,7 @@ const Register = () => {
     },
   });
 
+  const [check, setCheck] = useState(false);
   const [level, setLevel] = useState(0);
   const [modal, setModal] = useState(false);
   const [checkNumber, setCheckNumber] = useState(false);
@@ -86,7 +90,12 @@ const Register = () => {
     //   }
     // }
   };
+
   const completionRegister = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     let contentType = "multi-part/form-data";
     //request(body)-> image 보내기
     const form = new FormData();
@@ -114,7 +123,12 @@ const Register = () => {
       console.log(err);
     }
   };
+
   const next = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     //에러가 날 경우 알림띄우기
     if (errors.password && level === 1) {
       // alert("비밀번호를 제대로 입력해주세요");
@@ -179,17 +193,19 @@ const Register = () => {
     }
     setLevel((prev) => prev + 1);
   };
+
   const before = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     if (level === 0) {
       navigate("/sign-in");
     } else {
       setModal(true);
-      // setCheckEmail(false);
-      // setCheckEmailCode(false);
-      // setCheckNumber(false);
-      // setCheckNumberCode(false);
     }
   };
+
   const resetRegister = () => {
     setTimeout(() => {
       reset({ emailVerifyToken: undefined });
@@ -202,13 +218,19 @@ const Register = () => {
       setCheckNumberCode(false);
     }, 1000);
   };
+
   const cancelModal = () => {
     setTimeout(() => {
       setModal(false);
     }, 1000);
   };
+
   //인증번호 발송
   const sendEmailVerifyCode = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     let contentType = "application/x-www-form-urlencoded";
     if (errors.email) {
       setToast(true);
@@ -250,8 +272,13 @@ const Register = () => {
       return;
     }
   };
+
   //입력번호 확인
   const confirmEmailVerifyCode = async () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+    }, 1000);
     let contentType = "application/x-www-form-urlencoded";
     try {
       const res = await api(contentType).get(
@@ -292,6 +319,7 @@ const Register = () => {
   // React.useEffect(() => {
   //   next();
   // }, {});
+
   return (
     <StDiv>
       {modal && (
@@ -375,23 +403,22 @@ const Register = () => {
         )}
         {!checkNumber ? (
           <StButton
-            margin="194px 0 0"
+            margin="17rem 0 0"
             onClick={sendEmailVerifyCode}
             disabled={
-              watch("email") === undefined ||
-              watch("email") === "" ||
-              checkEmail ||
-              failure
+              watch("email") === undefined || watch("email") === "" || check
             }
           >
             인증번호 발송
           </StButton>
         ) : !checkEmailCode ? (
           <StButton
-            margin="41px 0 0"
+            margin="5rem 0 0"
             onClick={confirmEmailVerifyCode}
             disabled={
-              watch("Number")?.length <= 5 || getValues("Number") === undefined
+              check ||
+              watch("Number")?.length <= 5 ||
+              getValues("Number") === undefined
             }
           >
             인증번호 확인
@@ -400,6 +427,7 @@ const Register = () => {
           <StButton
             onClick={completionRegister}
             disabled={
+              check ||
               (level === 3 && watch("image") === undefined) ||
               (level === 3 && watch("image")?.length === 0) ||
               isSubmitting ||
@@ -410,9 +438,10 @@ const Register = () => {
           </StButton>
         ) : level === 1 ? (
           <StButton
-            margin="61px 0 0"
+            margin="6.1rem 0 0"
             onClick={next}
             disabled={
+              check ||
               (level === 1 && watch("password") === "") ||
               (level === 1 && watch("password_confirm") === "")
             }
@@ -421,14 +450,14 @@ const Register = () => {
           </StButton>
         ) : level === 2 ? (
           <StButton
-            margin="194px 0 0"
+            margin="19.4rem 0 0"
             onClick={next}
-            disabled={level === 2 && watch("nickname") === ""}
+            disabled={check || (level === 2 && watch("nickname") === "")}
           >
             계속하기
           </StButton>
         ) : (
-          <StButton margin="41px 0 0">계속하기</StButton>
+          <StButton margin="4.1rem 0 0">계속하기</StButton>
         )}
       </StForm>
     </StDiv>
@@ -437,111 +466,48 @@ const Register = () => {
 
 export default Register;
 
-const StDiv = styled.div`
-  padding: 0 25px;
-
+const StDiv = styled(CustomWrapFullVH)`
   & nav {
     padding: 0;
+  }
+
+  .register_input_box {
+    position: relative;
   }
 `;
 
 const StArrowBack = styled.div`
-  padding: 5px 10px;
-  margin-left: -10px;
+  padding: 0.5rem 1rem;
+  margin-left: -1rem;
 
   cursor: pointer;
+
   & > img {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
   }
 `;
 
-const StForm = styled.form`
-  & > div > label {
-    margin-top: 10px;
-
-    font-size: 28px;
-    font-weight: 700;
-
-    color: var(--font-color-dark);
-  }
+const StForm = styled(CustomForm)`
+  margin-top: 0;
 
   & p {
-    height: 0;
-
-    position: relative;
-    transform: translateY(-28px);
-
-    font-size: 13px;
-    color: var(--font-color-alert);
+    transform: translateY(-2.8rem);
   }
 
   & p.margin {
-    transform: translateY(-10px);
+    transform: translateY(-1rem);
   }
 
   & input {
-    all: unset;
-    width: 100%;
-
-    margin-bottom: 30px;
-
-    border-bottom: var(--input-border-bottom);
-    font-size: var(--input-font-size);
-    padding: var(--input-padding);
-
-    transition: all 0.2s;
-
-    :focus {
-      border-bottom: var(--input-activeBorder-bottom);
-    }
-    ::placeholder {
-      color: #ddd;
-    }
+    margin-bottom: 3rem;
   }
-  & > div > .register_input_box {
-    position: relative;
-  }
+
   & > div > div > .input_label_icon {
-    width: 30px;
-    height: 30px;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    transform: translateY(-120%);
-
-    cursor: pointer;
+    transform: translateY(-175%);
   }
 `;
 
-const StButton = styled.button`
-  all: unset;
-  width: 100%;
-  border-radius: 10px;
-
-  padding: 15px;
-  margin: ${(props) => props.margin || "20px 0 0"};
-
-  border: var(--input-border-bottom);
-  color: var(--input-font-color);
-
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  box-sizing: border-box;
-
-  cursor: pointer;
-
-  :hover {
-    background-color: var(--button-activeBackgroundColor);
-    border-color: var(--button-activeBorderColor);
-    color: #fff;
-  }
-  :disabled {
-    pointer-events: none;
-  }
+const StButton = styled(CustomButton)`
+  margin: ${(props) => props.margin || "2rem 0 0"};
 `;

@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
-const RecipeInput = ({ label, type="text", placeholder="", register, config={}}) => {
-	return (
-			<StInput 
-        type={ type } 
-        placeholder={placeholder}
-				{...register( label, config )} 
-			/>
-	)
-}
+const RecipeInput = ({
+  label,
+  type = "text",
+  placeholder = "",
+  register,
+  config = {},
+}) => {
+  return (
+    <StInput
+      type={type}
+      placeholder={placeholder}
+      {...register(label, config)}
+      maxLength={20}
+    />
+  );
+};
 
 export default RecipeInput;
 
@@ -24,4 +31,4 @@ const StInput = styled.input`
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.6;
-`
+`;

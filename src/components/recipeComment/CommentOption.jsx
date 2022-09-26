@@ -11,6 +11,7 @@ const CommentOption = ({
   setComments,
   editCommentId,
   comment,
+  setCheckComment,
 }) => {
   const [edit, setEdit] = useState(false);
   const menubackground = useRef();
@@ -35,7 +36,6 @@ const CommentOption = ({
           }}
         >
           {edit ? (
-            
             <CommentEdit
               setMenuOpen={setMenuOpen}
               editCommentId={editCommentId}
@@ -43,9 +43,9 @@ const CommentOption = ({
               setEdit={setEdit}
               comments={comments}
               setComments={setComments}
+              setCheckComment={setCheckComment}
               // comment={comment}
             />
-            
           ) : (
             <MenuPage>
               <button className="edit_btn" onClick={onEditModal}>
@@ -105,6 +105,8 @@ const MenuPage = styled.div`
     font-weight: 500;
 
     color: white;
+
+    cursor: pointer;
   }
 
   .edit_btn {
