@@ -1,26 +1,5 @@
 import styled, { css } from "styled-components";
-
-const CustomWrapFullVH = styled.div`
-  ${({ theme }) => {
-    return css`
-      height: 100vh;
-      padding: 0 4rem;
-
-      display: flex;
-      flex-flow: column;
-
-      overflow-y: scroll;
-
-      ${theme.devices.tablet} {
-        padding: 0 3rem;
-      }
-
-      ${theme.devices.mobile} {
-        padding: 0 2.4rem;
-      }
-    `;
-  }}
-`;
+import emptyProfilePic from "../assets/svg/profile.svg";
 
 const CustomTitle = styled.div`
   ${({ theme }) => {
@@ -31,7 +10,27 @@ const CustomTitle = styled.div`
 
       h1 {
         font-weight: ${theme.fonts.weight.bold};
-        font-size: ${theme.fonts.weight.title};
+        font-size: ${theme.fonts.size.title};
+      }
+    `;
+  }}
+`;
+
+const CustomRecipeListTitle = styled.div`
+  ${({ theme }) => {
+    return css`
+      padding: 1rem 2.5rem 0;
+
+      font-size: 17px;
+      line-height: 150%;
+
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+      word-break: keep-all;
+
+      h1 {
+        font-weight: ${theme.fonts.weight.bold};
+        font-size: ${theme.fonts.size.input};
       }
     `;
   }}
@@ -94,6 +93,37 @@ const CustomLineBox = styled.div`
   }}
 `;
 
+const CustomIconBox = styled.div`
+  display: flex;
+
+  gap: 0.5rem;
+
+  .icon {
+    transition: all 0.3s;
+  }
+
+  .icon:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+  }
+`;
+
+const CustomProfilePic = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+
+      border: 1px solid #b6b6b6;
+      background: #eee
+        url(${(props) =>
+          props.profileImage ? props.profileImage : emptyProfilePic})
+        no-repeat center / cover;
+    `;
+  }}
+`;
+
 const Custom = styled.div`
   ${({ theme }) => {
     return css``;
@@ -101,11 +131,13 @@ const Custom = styled.div`
 `;
 
 const styledComponents = {
-  CustomWrapFullVH,
   CustomTitle,
   CustomSmallBoldTextLink,
   CustomLineBox,
   CustomSmallLightText,
+  CustomRecipeListTitle,
+  CustomProfilePic,
+  CustomIconBox,
 };
 
 export default styledComponents;

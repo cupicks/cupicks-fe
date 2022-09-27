@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
+import styledLayoutComponents from "../styles/customLayoutStyle";
+const { CustomWrapBody } = styledLayoutComponents;
+
 import ToastMessage from "../components/elements/modal/ToastMessage";
 import RecipeBody from "../components/recipeMain/RecipeBody";
 
@@ -21,11 +24,12 @@ const Recipe = () => {
     }
   }, []);
 
+  // 에러 페이지 만든 후 삭제하기
   // const [error, setError] = useState(false);
   // setError(false);
 
   return (
-    <StWrap>
+    <StWrapBody>
       {/* {error ? (
         <>
           <div className="error">
@@ -42,17 +46,13 @@ const Recipe = () => {
       {messageModal && (
         <ToastMessage text={messageText} smallFont={true} timer={timer} />
       )}
-    </StWrap>
+    </StWrapBody>
   );
 };
 
 export default Recipe;
 
-const StWrap = styled.div`
-  height: calc(100vh - 50px - 90px);
-
-  overflow: hidden;
-
+const StWrapBody = styled(CustomWrapBody)`
   .error {
     width: 100%;
     text-align: center;

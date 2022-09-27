@@ -4,11 +4,12 @@ import RecipeList from "./RecipeList";
 import AllRecipeList from "./AllRecipeList";
 
 import styled from "styled-components";
+import styledElementComponents from "../../styles/customElementStyle";
+const { CustomRecipeListTitle } = styledElementComponents;
+
 // import api from "../../server/api";
 
-
-const RecipeBody = () => {  
-
+const RecipeBody = () => {
   // const [favRecipe, setFavRecipe] = useState([]);
   // const [AllRecipeOpen, setAllRecipeOpen] = useState(false);
 
@@ -44,8 +45,10 @@ const RecipeBody = () => {
       {/* <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle> */}
 
       {/* 임시 타이틀 */}
-      <StRecipeTitle>전체 레시피</StRecipeTitle>
-      
+      <CustomRecipeListTitle>
+        <h1>전체 레시피</h1>
+      </CustomRecipeListTitle>
+
       <AllRecipeList />
     </StWrap>
   );
@@ -61,27 +64,4 @@ const StWrap = styled.div`
   flex-flow: column;
 
   overflow: auto;
-`;
-
-// const StAllRecipeTitle = styled.div`
-//   height: 50px;
-
-//   margin-left: 45px;
-//   margin-top: 30px;
-
-//   display: flex;
-//   align-items: center;
-
-//   font-size: 18px;
-//   font-weight: bold;
-
-//   cursor: pointer;
-// `;
-
-const StRecipeTitle = styled.div`
-  padding: 10px 25px 0;
-
-  font-weight: 700;
-  font-size: 17px;
-  line-height: 150%;
 `;

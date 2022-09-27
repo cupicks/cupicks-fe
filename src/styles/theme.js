@@ -56,28 +56,53 @@ const colors = {
   alert: "#E64A3A",
 };
 
-const margins = {
-  sm: ".5rem",
-  md: "0.5rem",
+const boxShadows = {
+  hover: "3px 3px 8px rgba(0, 0, 0, 0.3)",
+  base: "-1px 0px 5px rgba(72, 72, 72, 0.1), 3px 3px 8px rgba(0, 0, 0, 0.1)",
+  light: "#cdcdcd",
+  wg: "#eeeeee",
+  alert: "#E64A3A",
+};
+
+const gaps = {
+  xs: "0rem",
+  sm: "1rem",
   base: "1rem",
+  md: "1.2rem",
   lg: "2rem",
-  xl: "3rem",
+};
+
+const flexItems = {
+  xs: "1 1 100%",
+  sm: "0 0 calc((100% - (1rem * 1)) / 2)",
+  base: "0 0 calc((100% - (1rem * 2)) / 3)",
+  md: "0 0 calc((100% - (1.2rem * 2)) / 3)",
+  lg: "0 0 calc((100% - (1.5rem * 3)) / 4)",
+};
+
+const margins = {
+  sm: "0.5rem",
+  base: "1rem",
+  md: "1.2rem",
+  lg: "2rem",
 };
 
 const paddings = {
-  sm: ".5rem",
-  base: "1rem",
-  lg: "2rem",
-  xl: "3rem",
+  sm: "0 2rem",
+  base: "0 2.4rem",
+  md: "0 3rem",
+  lg: "0 4rem",
 };
 
 const sizes = {
+  mobileXS: "240px",
   mobile: "425px",
   tablet: "768px",
   desktop: "1440px",
 };
 
 const devices = {
+  mobileXS: `@media only screen and (max-width: ${sizes.mobileXS})`,
   mobile: `@media only screen and (max-width: ${sizes.mobile})`,
   tablet: `@media only screen and (max-width: ${sizes.tablet})`,
   desktopL: `@media only screen and (max-width: ${sizes.desktop})`,
@@ -92,5 +117,8 @@ const defaultTheme = {
   buttons,
   inputs,
   colors,
+  flexItems,
+  gaps,
+  boxShadows,
 };
 export const lightTheme = { ...defaultTheme };

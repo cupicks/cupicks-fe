@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../server/api";
 
 import styled from "styled-components";
+import styledLayoutComponents from "../styles/customLayoutStyle";
+const { CustomWrapFullVH } = styledLayoutComponents;
 import styledFormComponents from "../styles/customFormStyle";
 const {
   CustomInput,
@@ -15,7 +17,6 @@ const {
 } = styledFormComponents;
 import styledElementComponents from "../styles/customElementStyle";
 const {
-  CustomWrapFullVH,
   CustomTitle,
   CustomSmallBoldTextLink,
   CustomLineBox,
