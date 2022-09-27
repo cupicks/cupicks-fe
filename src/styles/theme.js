@@ -5,9 +5,9 @@ const buttons = {
     disable: "#cdcdcd",
   },
   border: {
-    base: "2px solid #cdcdcd",
-    active: "2px solid #393939",
-    disable: "2px solid #eeeeee",
+    base: "0.2rem solid #cdcdcd",
+    active: "0.2rem solid #393939",
+    disable: "0.2rem solid #eeeeee",
   },
   backgroundColor: {
     base: "#ffffff",
@@ -18,11 +18,12 @@ const buttons = {
 
 const inputs = {
   borderBottom: {
-    base: "2px solid #cdcdcd",
-    active: "2px solid #9e9e9e",
+    base: "0.2rem solid #cdcdcd",
+    active: "0.2rem solid #9e9e9e",
   },
   padding: {
-    base: "14px 0 11px",
+    sm: "1rem 0 0.5rem",
+    base: "1.5rem 0 1rem",
   },
   fontColor: {
     base: "#cdcdcd",
@@ -31,7 +32,8 @@ const inputs = {
 
 const fonts = {
   size: {
-    sm: "1rem",
+    sm: "1.1rem",
+    md: "1.4rem",
     base: "1.5rem",
     lg: "1.8rem",
     title: "2.8rem",
@@ -56,6 +58,7 @@ const colors = {
 
 const margins = {
   sm: ".5rem",
+  md: "0.5rem",
   base: "1rem",
   lg: "2rem",
   xl: "3rem",

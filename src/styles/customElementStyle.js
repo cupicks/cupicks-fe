@@ -4,12 +4,20 @@ const CustomWrapFullVH = styled.div`
   ${({ theme }) => {
     return css`
       height: 100vh;
-      padding: 0 2.4rem;
+      padding: 0 4rem;
 
       display: flex;
       flex-flow: column;
 
       overflow-y: scroll;
+
+      ${theme.devices.tablet} {
+        padding: 0 3rem;
+      }
+
+      ${theme.devices.mobile} {
+        padding: 0 2.4rem;
+      }
     `;
   }}
 `;
@@ -17,7 +25,9 @@ const CustomWrapFullVH = styled.div`
 const CustomTitle = styled.div`
   ${({ theme }) => {
     return css`
-      margin-top: 2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+      word-break: keep-all;
 
       h1 {
         font-weight: ${theme.fonts.weight.bold};

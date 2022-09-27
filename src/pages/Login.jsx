@@ -13,14 +13,14 @@ const {
   CustomErrorBox,
   CustomInputBox,
 } = styledFormComponents;
-import styledComponents from "../styles/customElementStyle";
+import styledElementComponents from "../styles/customElementStyle";
 const {
   CustomWrapFullVH,
   CustomTitle,
   CustomSmallBoldTextLink,
   CustomLineBox,
   CustomSmallLightText,
-} = styledComponents;
+} = styledElementComponents;
 
 import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";
@@ -255,7 +255,7 @@ const Login = () => {
       <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
-        회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
+        {/* 회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다. */}
       </StCtn>
 
       <StLink onClick={() => navigate("/sign-up")}>
