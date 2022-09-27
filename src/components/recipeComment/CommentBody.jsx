@@ -203,24 +203,27 @@ const CommentBody = () => {
                     </div>
                     {/* )} */}
                   </StContent>
-                  <StOption
-                    onClick={() => {
-                      if (userLogin) {
-                        // 기존 코드
-                        setMenuOpen(true);
-                        setEditCommentId(comment.commentId);
-                      } else {
-                        // 비로그인 기능 추가
-                        if (!needLogginModal) {
-                          setNeedLogginModal(true);
-                          setTimeout(() => {
-                            setNeedLogginModal(false);
-                          }, 2000);
+                  <StOption>
+                    <button
+                      disabled={!commentAuthor}
+                      onClick={() => {
+                        if (userLogin) {
+                          // 기존 코드
+                          setMenuOpen(true);
+                          setEditCommentId(comment.commentId);
+                        } else {
+                          // 비로그인 기능 추가
+                          if (!needLogginModal) {
+                            setNeedLogginModal(true);
+                            setTimeout(() => {
+                              setNeedLogginModal(false);
+                            }, 2000);
+                          }
                         }
-                      }
-                    }}
-                  >
-                    {commentAuthor && <img src={talk_edit} />}
+                      }}
+                    >
+                      {commentAuthor && <img src={talk_edit} />}
+                    </button>
                   </StOption>
                 </div>
               ) : (
@@ -252,24 +255,27 @@ const CommentBody = () => {
                     </div>
                     {/* )} */}
                   </StContent>
-                  <StOption
-                    onClick={() => {
-                      if (userLogin) {
-                        // 기존 코드
-                        setMenuOpen(true);
-                        setEditCommentId(comment.commentId);
-                      } else {
-                        // 비로그인 기능 추가
-                        if (!needLogginModal) {
-                          setNeedLogginModal(true);
-                          setTimeout(() => {
-                            setNeedLogginModal(false);
-                          }, 2000);
+                  <StOption>
+                    <button
+                      disabled={!commentAuthor}
+                      onClick={() => {
+                        if (userLogin) {
+                          // 기존 코드
+                          setMenuOpen(true);
+                          setEditCommentId(comment.commentId);
+                        } else {
+                          // 비로그인 기능 추가
+                          if (!needLogginModal) {
+                            setNeedLogginModal(true);
+                            setTimeout(() => {
+                              setNeedLogginModal(false);
+                            }, 2000);
+                          }
                         }
-                      }
-                    }}
-                  >
-                    {commentAuthor && <img src={talk_edit} />}
+                      }}
+                    >
+                      {commentAuthor && <img src={talk_edit} />}
+                    </button>
                   </StOption>
                 </div>
               )}
@@ -421,7 +427,12 @@ const StContent = styled.div`
 const StOption = styled.div`
   padding: 0 10px;
   transform: translateX(10px);
-  cursor: pointer;
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    pointer-events: none;
+  }
 `;
 
 // 비로그인 댓글 작성 막는 div
