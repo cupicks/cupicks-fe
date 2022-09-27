@@ -46,6 +46,7 @@ const fonts = {
 };
 
 const colors = {
+  background: "#ffffff",
   dark: "#393939",
   middle: "#9e9e9e",
   light: "#cdcdcd",

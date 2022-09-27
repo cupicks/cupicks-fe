@@ -6,7 +6,7 @@ import api from "../server/api";
 
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
-const { CustomInput, CustomForm, CustomButton, CustomErrorBox, CustomLabel } =
+const { CustomInput, CustomForm, CustomButton, CustomErrorBox } =
   styledFormComponents;
 import styledComponents from "../styles/customElementStyle";
 const {
