@@ -94,7 +94,7 @@ const RecipeDetail = () => {
       {recipe && (
         <>
           <Navigation>
-            <div className="fcc">
+            <div className="fcc isIced">
               <IsIcedIcon isIced={recipe.isIced} />
             </div>
           </Navigation>

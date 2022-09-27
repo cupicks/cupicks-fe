@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { recipeDarkIngredientColorList } from "../../../util/recipeIngrediantColorList";
+
 const Ingredient = (props) => {
   const {
     ingredientName = "재료명",
@@ -7,6 +9,14 @@ const Ingredient = (props) => {
     ingredientAmount = 0,
   } = props.list;
   const { cupSize, isIced } = props;
+
+  let textColor = "#393939";
+  recipeDarkIngredientColorList.map((color) => {
+    console.log(color);
+    if (ingredientColor === color) {
+      textColor = "#eee";
+    }
+  });
 
   // 얼음이면 총량에서 200ml뺍니다.
   const iceAmount = 200;
@@ -17,6 +27,7 @@ const Ingredient = (props) => {
     <StIngredient
       ingredientColor={ingredientColor}
       ingredientAmount={amountPercent}
+      textColor={textColor}
     >
       <span>{ingredientName}</span>
     </StIngredient>
@@ -39,8 +50,10 @@ const StIngredient = styled.div`
   font-size: 18px;
   line-height: 150%;
 
-  color: #393939 span {
+  span {
     position: relative;
     z-index: 99;
   }
+
+  color: ${(props) => props.textColor};
 `;

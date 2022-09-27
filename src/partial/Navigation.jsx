@@ -57,9 +57,6 @@ const StNav = styled.nav`
     cursor: pointer;
   }
 
-  .sublevel_button {
-  }
-
   .title {
     position: absolute;
     left: 50%;
@@ -71,5 +68,9 @@ const StNav = styled.nav`
 
   img {
     margin-top: 3px;
+  }
+
+  .isIced {
+    transform: translateY(10px);
   }
 `;

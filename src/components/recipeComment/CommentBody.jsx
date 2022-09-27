@@ -109,8 +109,6 @@ const CommentBody = () => {
     console.log("hi");
   }, [getComments]);
 
-  console.log(newComments);
-
   return (
     <>
       <StListWrap>
