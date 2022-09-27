@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -8,18 +8,16 @@ import CheckEmail from "../components/resetPassword/CheckEmail";
 import Navigation from "../partial/Navigation";
 
 import styled from "styled-components";
+import styledFormComponents from "../styles/customFormStyle";
+import styledComponents from "../styles/customElementStyle";
+const { CustomWrapFullVH } = styledComponents;
+const { CustomForm, CustomButton } = styledFormComponents;
 
 import arrowBack from "../assets/svg/arrow_back.svg";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const [check, setCheck] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [emailFailure, setEmailFailure] = useState(false);
-  const [resetSuccess, setResetSuccess] = useState(false);
-  const contentType = "application/x-www-form-urlencoded";
-
   const {
     register,
     watch,
@@ -27,34 +25,20 @@ const ResetPassword = () => {
     getValues,
     setError,
     resetField,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
+
+  const [check, setCheck] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [emailFailure, setEmailFailure] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const contentType = "application/x-www-form-urlencoded";
 
   const onSubmit = async (data) => {
     console.log(data);
-    // try {
-    //   const res = await api(contentType).get(
-    //     `/auth/send-password?email=${getValues("email")}`,
-    //   );
-    //   console.log(res);
-    //   // alert(res.data.message);
-    //   navigate("/sign-in");
-    // } catch (err) {
-    //   // console.log(err);
-    //   // alert(err.response.data.message);
-    //   setError("emailError", { message: err.response.data.message });
-    //   setEmailError(true);
-    //   setTimeout(() => {
-    //     setEmailError(false);
-    //   }, 1000);
-    // }
   };
 
   const clickResetPw = async () => {
-    setCheck(true);
-    setTimeout(() => {
-      setCheck(false);
-    }, 1000);
     if (errors.email) {
       setEmailError(true);
       setTimeout(() => {
@@ -62,48 +46,56 @@ const ResetPassword = () => {
       }, 1000);
       return;
     }
+
     try {
       const res = await api(contentType).get(
         `/auth/send-password?email=${getValues("email")}`,
       );
       console.log(res);
       setResetSuccess(true);
+
       setTimeout(() => {
         navigate("/sign-in");
       }, 1000);
-      // alert(res.data.message);
     } catch (err) {
-      // console.log(err);
-      // alert(err.response.data.message);
       setError("emailFailure", { message: err.response.data.message });
+
       setEmailFailure(true);
       setTimeout(() => {
         setEmailFailure(false);
       }, 1000);
     }
   };
-  const before = () => {
-    navigate("/sign-in");
-  };
-  return (
-    <StForm onSubmit={handleSubmit(onSubmit)}>
-      {emailFailure && (
-        <ToastMessage text={errors?.emailFailure?.message} timer={1000} />
-      )}
-      {resetSuccess && (
-        <ToastMessage
-          text={"임시 비밀번호를 이메일로 발송했어요!"}
-          timer={1000}
-        />
-      )}
-      <Navigation empty={true}>
-        <StArrowBack>
-          <img src={arrowBack} onClick={before} alt="뒤로 가기" />
-        </StArrowBack>
-        <label className="title">비밀번호 찾기</label>
-      </Navigation>
 
-      <div className="padding_box">
+  return (
+    <CustomWrapFullVH>
+      <StForm onSubmit={handleSubmit(onSubmit)}>
+        {/* 모달 */}
+        {emailFailure && (
+          <ToastMessage text={errors?.emailFailure?.message} timer={1000} />
+        )}
+        {resetSuccess && (
+          <ToastMessage
+            text={"임시 비밀번호를 이메일로 발송했어요!"}
+            timer={1000}
+          />
+        )}
+
+        {/* 네비게이션 */}
+        <Navigation empty={true}>
+          <StArrowBack>
+            <img
+              src={arrowBack}
+              onClick={() => {
+                navigate("/sign-in");
+              }}
+              alt="뒤로 가기"
+            />
+          </StArrowBack>
+          <label className="title">비밀번호 찾기</label>
+        </Navigation>
+
+        {/* 비밀번호 찾기 시작 */}
         <CheckEmail
           register={register}
           errors={errors}
@@ -121,95 +113,26 @@ const ResetPassword = () => {
         >
           계속하기
         </StButton>
-      </div>
-    </StForm>
+      </StForm>
+    </CustomWrapFullVH>
   );
 };
 
 export default ResetPassword;
 
 const StArrowBack = styled.div`
-  padding: 5px 10px;
-  margin-left: -10px;
+  padding: 0.5rem 1rem;
+  margin-left: -1rem;
 
   cursor: pointer;
 `;
 
-const StForm = styled.form`
-  .padding_box {
-    padding: 0 25px;
-  }
-
-  & div label {
-    margin-top: 10px;
-
-    font-size: 28px;
-    font-weight: 700;
-
-    color: var(--font-color-dark);
-  }
-
+const StForm = styled(CustomForm)`
   & p {
-    height: 0;
-
     position: relative;
-    transform: translateY(-28px);
-
-    font-size: 13px;
-    color: var(--font-color-alert);
-  }
-
-  & p.margin {
-    transform: translateY(-10px);
-  }
-
-  & input {
-    all: unset;
-    width: 100%;
-
-    margin-bottom: 30px;
-
-    border-bottom: var(--input-border-bottom);
-    font-size: var(--input-font-size);
-    padding: var(--input-padding);
-
-    transition: all 0.2s;
-
-    :focus {
-      border-bottom: var(--input-activeBorder-bottom);
-    }
-    ::placeholder {
-      color: #ddd;
-    }
   }
 `;
 
-const StButton = styled.button`
-  all: unset;
-  width: 100%;
-  border-radius: 10px;
-
-  padding: 15px;
-  margin: 200px 0;
-
-  border: var(--input-border-bottom);
-  color: var(--input-font-color);
-
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-
-  transition: all 0.2s;
-  box-sizing: border-box;
-
-  cursor: pointer;
-
-  :hover {
-    background-color: var(--button-activeBackgroundColor);
-    border-color: var(--button-activeBorderColor);
-    color: #fff;
-  }
-  :disabled {
-    pointer-events: none;
-  }
+const StButton = styled(CustomButton)`
+  margin-top: 12rem;
 `;

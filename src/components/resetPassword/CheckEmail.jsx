@@ -1,5 +1,11 @@
 import React from "react";
+
 import styled from "styled-components";
+import styledFormComponents from "../../styles/customFormStyle";
+import styledComponents from "../../styles/customElementStyle";
+const { CustomTitle } = styledComponents;
+const { CustomInput, CustomErrorBox, CustomInputBox } = styledFormComponents;
+
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 import ToastMessage from "../elements/modal/ToastMessage";
 
@@ -8,12 +14,16 @@ const CheckEmail = (props) => {
     props;
 
   return (
-    <StDiv>
+    <>
       {emailError && (
         <ToastMessage text={errors?.email?.message} timer={1000} />
       )}
-      <label>이메일 입력</label>
-      <div className="register_input_box">
+
+      <CustomTitle>
+        <h1>이메일 입력</h1>
+      </CustomTitle>
+
+      <CustomInputBox>
         {watch("email")?.length >= 1 && resetSuccess === false && (
           <img
             className="input_label_icon"
@@ -22,7 +32,8 @@ const CheckEmail = (props) => {
             onClick={() => resetField("email")}
           />
         )}
-        <input
+
+        <CustomInput
           type="text"
           placeholder="이메일 주소를 입력해 주세요"
           autoComplete="off"
@@ -36,31 +47,14 @@ const CheckEmail = (props) => {
             },
           })}
         />
-      </div>
-      {errors?.email?.types?.required && <p>{errors.email.message}</p>}
-      {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
-    </StDiv>
+      </CustomInputBox>
+
+      <CustomErrorBox>
+        {errors?.email?.types?.required && <p>{errors.email.message}</p>}
+        {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
+      </CustomErrorBox>
+    </>
   );
 };
 
 export default CheckEmail;
-
-const StDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  .register_input_box {
-    position: relative;
-  }
-  .input_label_icon {
-    width: 30px;
-    height: 30px;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    transform: translateY(-120%);
-
-    cursor: pointer;
-  }
-`;

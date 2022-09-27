@@ -243,6 +243,7 @@ const Login = () => {
         <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox> */}
+
       <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
