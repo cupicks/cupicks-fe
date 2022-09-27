@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useJwt } from "react-jwt";
 
 import api from "../server/api";
 
@@ -29,7 +28,8 @@ const ProfileEdit = () => {
   const onSubmit = async (data) => {
     const contentType = "application/json";
 
-    const newNickname = data.nickname;
+    const newNickname =
+      data.nickname === "" ? profiles?.nickname : data.nickname;
     const newPassword = data.password;
     let params = `profile?nickname=${newNickname}`;
 
@@ -74,11 +74,6 @@ const ProfileEdit = () => {
     getProfile();
   }, []);
 
-  // 유저 정보 토큰
-  const token = localStorage.getItem("refreshToken");
-  const { decodedToken } = useJwt(token);
-  let userData = decodedToken;
-
   return (
     <>
       {failure && (
@@ -95,7 +90,6 @@ const ProfileEdit = () => {
             <ProfileEditHeader
               watch={watch}
               register={register}
-              userData={userData}
               profiles={profiles}
             />
 
@@ -105,7 +99,6 @@ const ProfileEdit = () => {
               getValues={getValues}
               setFocus={setFocus}
               errors={errors}
-              userData={userData}
               profiles={profiles}
             />
           </>

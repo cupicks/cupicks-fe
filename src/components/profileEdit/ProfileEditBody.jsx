@@ -4,8 +4,7 @@ import editIcon from "../../assets/svg/edit.svg";
 import lockIcon from "../../assets/svg/lock.svg";
 
 const ProfileEditBody = (props) => {
-  const { register, errors, watch, getValues, setFocus, userData, profiles } =
-    props;
+  const { register, errors, watch, getValues, setFocus, profiles } = props;
 
   const changeNickname = () => {
     setFocus("nickname");
@@ -29,7 +28,6 @@ const ProfileEditBody = (props) => {
         <input
           defaultValue={profiles?.nickname}
           {...register("nickname", {
-            required: true,
             pattern: {
               value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
               message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",

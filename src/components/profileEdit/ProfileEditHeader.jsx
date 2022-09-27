@@ -7,7 +7,7 @@ import editIcon from "../../assets/svg/edit.svg";
 import profilePicSrc from "../../assets/svg/profile.svg";
 
 const ProfileEditHeader = (props) => {
-  const { watch, register, userData, profiles } = props;
+  const { watch, register, profiles } = props;
   // let profilePicSrc2 = profiles?.imageUrl ? profiles?.imageUrl : imagePreview;
   const [imagePreview, setImagePreview] = React.useState(profiles?.imageUrl);
 
