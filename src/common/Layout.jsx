@@ -36,6 +36,9 @@ const StLayout = styled.div`
   max-width: 600px;
   height: calc(var(--vh, 1vh) * 100);
 
+  background-color: #fff;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+
   margin: 0 auto;
 
   position: relative;

@@ -13,14 +13,14 @@ const {
   CustomErrorBox,
   CustomInputBox,
 } = styledFormComponents;
-import styledComponents from "../styles/customElementStyle";
+import styledElementComponents from "../styles/customElementStyle";
 const {
   CustomWrapFullVH,
   CustomTitle,
   CustomSmallBoldTextLink,
   CustomLineBox,
   CustomSmallLightText,
-} = styledComponents;
+} = styledElementComponents;
 
 import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";

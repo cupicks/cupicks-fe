@@ -100,12 +100,16 @@ const CustomLabel = styled.label`
 const CustomErrorBox = styled.div`
   ${({ theme }) => {
     return css`
+      width: 90%;
       min-height: 3rem;
+
       line-height: 2.5rem;
       margin-bottom: 0.5rem;
 
       font-size: ${theme.fonts.size.label};
       color: ${theme.colors.alert};
+
+      word-break: keep-all;
 
       .info {
         color: #aaa;

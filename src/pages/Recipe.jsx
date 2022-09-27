@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 import styled from "styled-components";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 import RecipeBody from "../components/recipeMain/RecipeBody";

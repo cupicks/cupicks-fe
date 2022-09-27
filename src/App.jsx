@@ -19,8 +19,10 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme.lightTheme}>
-      <Layout />
-      <GlobalStyle />
+      <div className="app">
+        <Layout />
+        <GlobalStyle />
+      </div>
     </ThemeProvider>
   );
 };
