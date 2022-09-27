@@ -84,6 +84,9 @@ const Email = (props) => {
       </div>
 
       <CustomErrorBox>
+        <p className="info">
+          입력하신 메일로 6자리 숫자 인증번호가 전송됩니다.
+        </p>
         {errors?.email?.types?.required && <p>{errors.email.message}</p>}
         {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
       </CustomErrorBox>
