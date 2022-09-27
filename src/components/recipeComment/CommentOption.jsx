@@ -13,6 +13,7 @@ const CommentOption = ({
   comment,
   setCheckComment,
   userProps,
+  profiles,
 }) => {
   const [edit, setEdit] = useState(false);
   const menubackground = useRef();
