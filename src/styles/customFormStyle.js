@@ -105,6 +105,11 @@ const CustomErrorBox = styled.div`
 
       font-size: ${theme.fonts.size.label};
       color: ${theme.colors.alert};
+
+      .info {
+        color: #aaa;
+        word-break: keep-all;
+      }
     `;
   }}
 `;

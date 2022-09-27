@@ -43,6 +43,7 @@ const Image = (props) => {
         hidden="hidden"
       />
       {/* {errors.image && <p>이미지를 추가해 주세요</p>} */}
+      <p className="info">이미지는 jpg, png 파일, 5mb 이하로 사용가능합니다.</p>
       <StButton>
         <label htmlFor="picture">사진 선택</label>
       </StButton>
@@ -58,6 +59,12 @@ const StDiv = styled.div`
 
   input[type="file"] {
     display: none;
+  }
+
+  .info {
+    color: #aaa;
+    text-align: center;
+    transform: translateY(-15px);
   }
 `;
 
