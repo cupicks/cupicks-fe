@@ -1,33 +1,35 @@
 import React from "react";
-import { useJwt } from 'react-jwt'
+import { useJwt } from "react-jwt";
 
 import styled from "styled-components";
 
-import editIcon from '../../assets/svg/edit.svg'
-import prfilePicSrc from '../../assets/svg/profile.svg'
+import editIcon from "../../assets/svg/edit.svg";
+import profilePicSrc from "../../assets/svg/profile.svg";
 
 const ProfileEditHeader = (props) => {
-  const {watch, register, userData} = props
-  const [imagePreview, setImagePreview] = React.useState(prfilePicSrc);
+  const { watch, register, userData, profiles } = props;
+  // let profilePicSrc2 = profiles?.imageUrl ? profiles?.imageUrl : imagePreview;
+  const [imagePreview, setImagePreview] = React.useState(profiles?.imageUrl);
 
   const image = watch("imageValue");
-  
+
+  const profileImg = image?.length === 0 ? profiles?.imageUrl : imagePreview;
+
   React.useEffect(() => {
     if (image && image.length > 0) {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
-    } else {
-      if(userData.imageUrl !== null) setImagePreview(userData.imageUrl)
+    }
+    if (image?.length === 0) {
+      setImagePreview(profiles?.imageUrl);
     }
   }, [image]);
 
   return (
     <StProfileEditHeader>
-      <StProfilePic prfilePicSrc={imagePreview}>
-        <label
-          htmlFor="picture"
-        >
-          <img src={editIcon} alt="프로필 이미지 수정"/>
+      <StProfilePic profileImg={profileImg}>
+        <label htmlFor="picture">
+          <img src={editIcon} alt="프로필 이미지 수정" />
         </label>
       </StProfilePic>
       <input
@@ -37,22 +39,22 @@ const ProfileEditHeader = (props) => {
         accept="image/*"
       />
     </StProfileEditHeader>
-  )
-}
+  );
+};
 
 export default ProfileEditHeader;
 
 const StProfileEditHeader = styled.div`
   padding: 10px 0 30px;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     width: 100%;
     height: 10px;
 
@@ -62,7 +64,7 @@ const StProfileEditHeader = styled.div`
 
     background-color: #fff;
   }
-  
+
   input[type="file"] {
     display: none;
   }
@@ -72,7 +74,7 @@ const StProfileEditHeader = styled.div`
     width: 100%;
     height: 100%;
   }
-`
+`;
 
 const StProfilePic = styled.div`
   width: 150px;
@@ -81,7 +83,7 @@ const StProfilePic = styled.div`
 
   position: relative;
 
-  background:#eee url(${props => props.prfilePicSrc}) no-repeat center / cover;
+  background: #eee url(${(props) => props.profileImg}) no-repeat center / cover;
 
   img {
     position: absolute;

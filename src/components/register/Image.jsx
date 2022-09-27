@@ -84,7 +84,6 @@ const StButton = styled(CustomButton)`
     position: absolute;
     top: 0;
 
-    font-size: 1.7rem !important;
     cursor: pointer;
 
     :hover {

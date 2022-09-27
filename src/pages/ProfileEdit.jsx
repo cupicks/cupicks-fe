@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useJwt } from "react-jwt";
 
@@ -23,6 +23,7 @@ const ProfileEdit = () => {
     formState: { errors },
   } = useForm({ criteriaMode: "all", mode: "onChange" });
   const [failure, setFailure] = useState(false);
+  const [profiles, setProfiles] = useState();
 
   /** 프로필 수정 request */
   const onSubmit = async (data) => {
@@ -58,6 +59,20 @@ const ProfileEdit = () => {
       }
     }
   };
+  const getProfile = async () => {
+    const contentType = "application/json";
+    try {
+      const res = await api(contentType).get("/profile/my-profile");
+      console.log(res.data.user);
+      // setProfiles([...profiles, res.data.user]);
+      setProfiles(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   // 유저 정보 토큰
   const token = localStorage.getItem("refreshToken");
@@ -75,12 +90,13 @@ const ProfileEdit = () => {
           <button type="submit">저장</button>
         </Navigation>
 
-        {userData !== null && (
+        {profiles !== null && (
           <>
             <ProfileEditHeader
               watch={watch}
               register={register}
               userData={userData}
+              profiles={profiles}
             />
 
             <ProfileEditBody
@@ -90,6 +106,7 @@ const ProfileEdit = () => {
               setFocus={setFocus}
               errors={errors}
               userData={userData}
+              profiles={profiles}
             />
           </>
         )}

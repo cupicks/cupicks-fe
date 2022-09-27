@@ -95,9 +95,9 @@ const CommentEdit = ({
     setEdit(false);
     setMenuOpen(false);
   };
-
+  console.log(editCommentId);
   console.log(comments.comment);
-  console.log(comments[0].comment);
+  console.log(comments.map((comment) => comment.commentId === editCommentId));
 
   // const onChangeEditHandler = (e) => {
   //   const { name, value } = e.target;
@@ -124,19 +124,26 @@ const CommentEdit = ({
           </div>
         </div>
         <div className="input_wrap fcc">
-          <div className="input_box">
-            <input
-              className="comment_input"
-              type="text"
-              name="content"
-              defaultValue={comments[0].comment}
-              {...register("comment")}
-              placeholder="새로운 댓글을 입력해주세요"
-            />
-            {/* {comment.comment} */}
+          {comments.map((comment) => {
+            if (comment.commentId === editCommentId) {
+              return (
+                <div className="input_box" key={comment.commentId}>
+                  <input
+                    className="comment_input"
+                    type="text"
+                    name="content"
+                    defaultValue={comment.comment}
+                    {...register("comment")}
+                    placeholder="새로운 댓글을 입력해주세요"
+                  />
+                  {/* {comment.comment} */}
 
-            <button className="comment_btn">확인</button>
-          </div>
+                  <button className="comment_btn">확인</button>
+                </div>
+              );
+            }
+          })}
+
           {imagePreview ? (
             <div className="img_preview">
               <label htmlFor="picture">
