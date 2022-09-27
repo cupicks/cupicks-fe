@@ -15,6 +15,7 @@ const CommentEdit = ({
   setComments,
   setMenuOpen,
   setCheckComment,
+  userProps,
 }) => {
   const {
     register,
@@ -24,6 +25,7 @@ const CommentEdit = ({
     getValues,
     formState: { errors },
   } = useForm({ defaultValues: {} });
+  const { userLogin, userLoginId, userProfileImg } = userProps;
 
   const { recipeId } = useParams();
   //이미지 미리보기
@@ -31,10 +33,13 @@ const CommentEdit = ({
   const comment = watch("comment");
 
   const [imagePreview, setImagePreview] = useState("");
-  // const [checkComment, setCheckComment] = useState(false);
 
-  const token = localStorage.getItem("refreshToken");
-  const { decodedToken, isExpired } = useJwt(token);
+  let currentComment;
+  comments.map((comment) => {
+    if (comment.commentId === editCommentId) {
+      currentComment = comment.comment;
+    }
+  });
 
   React.useEffect(() => {
     if (image && image.length > 0) {
@@ -42,7 +47,6 @@ const CommentEdit = ({
       if (!file) return;
       setImagePreview(URL.createObjectURL(file));
     }
-    console.log(image);
   }, [image]);
 
   const cancelImage = () => {
@@ -95,9 +99,6 @@ const CommentEdit = ({
     setEdit(false);
     setMenuOpen(false);
   };
-  console.log(editCommentId);
-  console.log(comments.comment);
-  console.log(comments.map((comment) => comment.commentId === editCommentId));
 
   // const onChangeEditHandler = (e) => {
   //   const { name, value } = e.target;
@@ -118,32 +119,24 @@ const CommentEdit = ({
       <StWrap onSubmit={handleSubmit(updateSubmit)}>
         <div className="input_profile">
           <div className="profile_image">
-            {decodedToken !== null && (
-              <StInputProfile src={decodedToken.imageUrl}></StInputProfile>
+            {userLogin !== null && (
+              <StInputProfile src={userProfileImg}></StInputProfile>
             )}
           </div>
         </div>
         <div className="input_wrap fcc">
-          {comments.map((comment) => {
-            if (comment.commentId === editCommentId) {
-              return (
-                <div className="input_box" key={comment.commentId}>
-                  <input
-                    className="comment_input"
-                    type="text"
-                    name="content"
-                    defaultValue={comment.comment}
-                    {...register("comment")}
-                    placeholder="새로운 댓글을 입력해주세요"
-                  />
-                  {/* {comment.comment} */}
+          <div className="input_box">
+            <input
+              className="comment_input"
+              type="text"
+              name="content"
+              defaultValue={currentComment}
+              {...register("comment")}
+              placeholder="새로운 댓글을 입력해주세요"
+            />
 
-                  <button className="comment_btn">확인</button>
-                </div>
-              );
-            }
-          })}
-
+            <button className="comment_btn">확인</button>
+          </div>
           {imagePreview ? (
             <div className="img_preview">
               <label htmlFor="picture">
@@ -163,7 +156,6 @@ const CommentEdit = ({
               id="picture"
               {...register("image")}
               accept="image/*"
-              getValues={getValues}
             ></input>
             <label htmlFor="picture" className="pic_upload">
               + 사진 업로드

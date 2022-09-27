@@ -153,7 +153,7 @@ const Login = () => {
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
 
       {/* 로그인 시작 */}
-      <Navigation empty={true} />
+      <Navigation empty={true} transparent={true} />
       <StLoginTitle>
         <h1>홈 바리스타가 되어볼까요?</h1>
       </StLoginTitle>
@@ -207,7 +207,7 @@ const Login = () => {
               pattern: {
                 value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
                 message:
-                  "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
+                  "비밀번호는 문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
               },
             })}
           />
@@ -243,6 +243,7 @@ const Login = () => {
         <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox> */}
+
       <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
@@ -281,7 +282,7 @@ const StResetPassword = styled(CustomSmallBoldTextLink)`
 `;
 
 const StLineBox = styled(CustomLineBox)`
-  margin-top: 15vh;
+  margin-top: 10vh;
   margin-bottom: 3.5rem;
 `;
 

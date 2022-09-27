@@ -19,7 +19,7 @@ const AllRecipeList = () => {
   // const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView({
-    threshold: 0.8
+    threshold: 0.8,
     // skip: true,
   });
   //threshold
@@ -71,11 +71,11 @@ const AllRecipeList = () => {
     //page === 1 -> items.length == counting이 같아서 실행
     if (inView && !loading && items.length >= counting) {
       if (page === 1) {
-          setPage(page + 1);
-          setCounting(counting + 12);
+        setPage(page + 1);
+        setCounting(counting + 12);
       } else {
-          setPage(page + 1);
-          setCounting(counting + 6);
+        setPage(page + 1);
+        setCounting(counting + 6);
       }
 
       // page.current += 1;
@@ -99,13 +99,13 @@ const AllRecipeList = () => {
         .get(`/recipes?page=${page}&count=12`)
         .then((res) => {
           setItems([...res.data.recipeList]);
-          console.log(res)
+          // console.log(res);
         });
     } else {
       await api(contentType)
         .get(`/recipes?page=${page}&count=6`)
         .then((res) => {
-          console.log(res)
+          console.log(res);
           setItems([...items, ...res.data.recipeList]);
         });
     }
@@ -118,9 +118,9 @@ const AllRecipeList = () => {
   }, [getItems]);
 
   //-----하단 console.log 3개 주석처리할게요! -by선아
-  console.log(items);
-  console.log(page);
-  console.log(counting)
+  // console.log(items);
+  // console.log(page);
+  // console.log(counting)
   // console.log(inView);
 
   // 로그인 여부를 확인하기 위해 로컬 스토리지의 토큰를 불러옵니다.

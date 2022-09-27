@@ -58,7 +58,7 @@ const RecipeDetail = () => {
 
     try {
       const response = await api(contentType).delete(`/recipes/${recipeId}`);
-      navigate("/recipe", { state: { message: "메시지가\n삭제 되었습니다." } });
+      navigate("/recipe", { state: { message: "레시피가\n삭제 되었습니다." } });
     } catch (err) {
       console.log(err);
       navigate("/404");
@@ -94,7 +94,7 @@ const RecipeDetail = () => {
       {recipe && (
         <>
           <Navigation>
-            <div className="fcc">
+            <div className="fcc isIced">
               <IsIcedIcon isIced={recipe.isIced} />
             </div>
           </Navigation>

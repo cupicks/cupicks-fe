@@ -8,7 +8,6 @@ import styledComponents from "../../styles/customElementStyle";
 const { CustomInput, CustomErrorBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
-/*eslint max-lines-per-function: ["error", {"max": 300, "skipBlankLines": true}]*/
 
 const Email = (props) => {
   const {
@@ -31,10 +30,10 @@ const Email = (props) => {
     resetField,
   } = props;
 
-  // console.log(watch("email")?.length);
   return (
     <StDiv>
-      {toast && <ToastMessage text={errors?.email?.message} timer={1000} />}
+      {/* 모달 팝업 */}
+      {toast && <ToastMessage text={errors?.email?.message} timer={1500} />}
       {failure && (
         <ToastMessage text={errors?.emailError?.message} timer={1500} />
       )}
@@ -45,7 +44,7 @@ const Email = (props) => {
         />
       )}
       {numberFailure && (
-        <ToastMessage text={errors?.numberError?.message} timer={1000} />
+        <ToastMessage text={errors?.numberError?.message} timer={1500} />
       )}
       {checkNumberCode && (
         <ToastMessage
@@ -57,6 +56,7 @@ const Email = (props) => {
       <CustomTitle>
         <h1>이메일 입력</h1>
       </CustomTitle>
+
       <div className="register_input_box">
         {watch("email")?.length >= 1 && checkEmail === false && (
           <img
@@ -84,6 +84,9 @@ const Email = (props) => {
       </div>
 
       <CustomErrorBox>
+        <p className="info">
+          입력하신 메일로 6자리 숫자 인증번호가 전송됩니다.
+        </p>
         {errors?.email?.types?.required && <p>{errors.email.message}</p>}
         {errors?.email?.types?.pattern && <p>{errors.email.message}</p>}
       </CustomErrorBox>

@@ -4,10 +4,12 @@ import styled, { css } from "styled-components";
 const CustomForm = styled.form`
   ${({ theme }) => {
     return css`
-      margin-top: 3.5rem;
-
       display: flex;
       flex-direction: column;
+
+      nav {
+        padding: 0;
+      }
 
       & p {
         color: ${theme.colors.alert};
@@ -17,19 +19,6 @@ const CustomForm = styled.form`
         font-weight: ${theme.fonts.weight.bold};
         font-size: ${theme.fonts.size.label};
         color: ${theme.colors.middle};
-      }
-
-      .input_label_icon {
-        width: 2.4rem;
-        height: 2.4rem;
-
-        position: absolute;
-        right: 0;
-        bottom: 0;
-
-        transform: translateY(-30%);
-
-        cursor: pointer;
       }
     `;
   }}
@@ -96,6 +85,18 @@ const CustomButton = styled.button`
   }}
 `;
 
+// 라벨: 라벨용 작은 회색 글씨
+const CustomLabel = styled.label`
+  ${({ theme }) => {
+    return css`
+      font-weight: ${theme.fonts.weight.bold};
+      font-size: ${theme.fonts.weight.label};
+      color: ${theme.colors.middle};
+    `;
+  }}
+`;
+
+// 영역, 박스
 const CustomErrorBox = styled.div`
   ${({ theme }) => {
     return css`
@@ -105,16 +106,36 @@ const CustomErrorBox = styled.div`
 
       font-size: ${theme.fonts.size.label};
       color: ${theme.colors.alert};
+
+      .info {
+        color: #aaa;
+        word-break: keep-all;
+      }
     `;
   }}
 `;
 
-const CustomLabel = styled.label`
+const CustomInputBox = styled.div`
   ${({ theme }) => {
     return css`
-      font-weight: ${theme.fonts.weight.bold};
-      font-size: ${theme.fonts.weight.label};
-      color: ${theme.colors.middle};
+      position: relative;
+
+      .register_input_box {
+        position: relative;
+      }
+
+      .input_label_icon {
+        width: 2.4rem;
+        height: 2.4rem;
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        transform: translateY(-30%);
+
+        cursor: pointer;
+      }
     `;
   }}
 `;
@@ -131,6 +152,7 @@ const styledComponents = {
   CustomForm,
   CustomErrorBox,
   CustomLabel,
+  CustomInputBox,
 };
 
 export default styledComponents;

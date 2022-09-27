@@ -35,9 +35,7 @@ const Register = () => {
   } = useForm({
     criteriaMode: "all",
     mode: "onChange",
-    defaultValues: {
-      cupSize: 0,
-    },
+    defaultValues: {},
   });
 
   const [check, setCheck] = useState(false);
@@ -59,6 +57,8 @@ const Register = () => {
   const [passwordCfError, setPasswordCfError] = useState(false);
   const [completion, setCompletion] = useState(false);
   const [nicknameFailure, setNicknameFailure] = useState(false);
+
+  console.log(getValues());
 
   const onSubmit = (data) => {
     console.log(data);
@@ -103,13 +103,16 @@ const Register = () => {
       "imageValue",
       getValues("image") === undefined ? null : getValues("image")[0],
     );
+
+    const newPassword = getValues("password");
+    const newnicknameVerifyToken = getValues("nicknameVerifyToken");
+    const newemailVerifyToken = getValues("emailVerifyToken");
+
+    let urlTypeTwo = `/auth/signup?password=${newPassword}&nicknameVerifyToken=${newnicknameVerifyToken}&emailVerifyToken=${newemailVerifyToken}`;
+
     try {
       const res = await api(contentType).post(
-        `/auth/signup?password=${getValues(
-          "password",
-        )}&nicknameVerifyToken=${getValues(
-          "nicknameVerifyToken",
-        )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
+        urlTypeTwo,
         form,
         // { headers: { "Content-Type": "multi-part/form-data" } }
       );
@@ -164,14 +167,17 @@ const Register = () => {
       }, 1000);
       return;
     }
+
     //닉네임 중복확인
     if (level === 2) {
       const contentType = "application/x-www-form-urlencoded";
       try {
+        const emailVerifyToken = getValues("emailVerifyToken");
+        const nickname = getValues("nickname");
+        const nicknameVerifyUrl = `/auth/confirm-nickname?emailVerifyToken=${emailVerifyToken}&nickname=${nickname}`;
+
         const res = await api(contentType).get(
-          `/auth/confirm-nickname?emailVerifyToken=${getValues(
-            "emailVerifyToken",
-          )}&nickname=${getValues("nickname")}`,
+          nicknameVerifyUrl,
           // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         );
         const token = res.data.nicknameVerifyToken;
@@ -281,10 +287,11 @@ const Register = () => {
     }, 1000);
     let contentType = "application/x-www-form-urlencoded";
     try {
+      const email = getValues("email");
+      const number = getValues("Number");
+
       const res = await api(contentType).get(
-        `/auth/confirm-email?email=${getValues(
-          "email",
-        )}&email-verify-code=${getValues("Number")}`,
+        `/auth/confirm-email?email=${email}&email-verify-code=${number}`,
       );
       const token = res.data.emailVerifyToken;
       console.log(token);

@@ -18,7 +18,7 @@ const CommentDelete = ({
       .then((res) => {
         setComments([...res.data.commentList]);
       });
-    console.log(data);
+    // console.log(data);
   };
 
   const onDeleteHandler = async () => {
@@ -26,7 +26,7 @@ const CommentDelete = ({
     await api(contentType)
       .delete(`/comments/${editCommentId}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       });
     setMenuOpen(false);
     getComments();

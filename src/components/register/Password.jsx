@@ -50,16 +50,21 @@ const Password = (props) => {
           {...register("password", {
             required: true,
             pattern: {
-              value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
+              // value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[\!\@\#]).*$/,
+              value: /[a-zA-Z\d]|[\!\@]/,
               message:
-                "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
+                "비밀번호는 영문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
             },
           })}
         />
       </div>
 
       <StErrorBox>
-        {errors.password && <p>{errors.password.message}</p>}
+        <p className="info">
+          비밀번호는 문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상,
+          15글자 이하로 입력해주세요.
+        </p>
+        {/* {errors.password && <p>{errors.password.message}</p>} */}
       </StErrorBox>
 
       <CustomTitle>

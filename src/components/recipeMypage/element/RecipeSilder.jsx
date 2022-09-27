@@ -69,7 +69,9 @@ const RecipeList = (props) => {
   return (
     <>
       <StSlider {...settings}>
-        {!recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
+        {recipeList?.length === 0 && (
+          <h3 className="list_empty">레시피가 없습니다.</h3>
+        )}
 
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
