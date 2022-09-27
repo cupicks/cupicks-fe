@@ -5,9 +5,10 @@ import AllRecipeListContainer from "./AllRecipeListContainer";
 
 import api from "../../server/api";
 
-import Logo from "../../assets/image/logo/Logo_Cupick.png";
-
 import styled, { keyframes } from "styled-components";
+import styledLayoutComponents from "../../styles/customLayoutStyle";
+const { CustomFlexListWrap, CustomFlexList } = styledLayoutComponents;
+
 import ToastMessage from "../elements/modal/ToastMessage";
 
 const AllRecipeList = () => {
@@ -137,9 +138,9 @@ const AllRecipeList = () => {
   };
 
   return (
-    <StAllListWrap>
+    <CustomFlexListWrap>
       {items?.map((allrecipes, index) => (
-        <StListWrap key={"allRecipeList" + index}>
+        <CustomFlexList key={"allRecipeList" + index}>
           {items.length - 1 == index ? (
             <div className="flex_box" ref={ref}>
               {/* 스피너 이미지 비율이 깨지는 것 같습니다 -by선아 */}
@@ -161,14 +162,14 @@ const AllRecipeList = () => {
               />
             </div>
           )}
-        </StListWrap>
+        </CustomFlexList>
       ))}
 
       {/* 토스트 메시지/모달 */}
       {needLogginModal && (
         <ToastMessage text={"좋아요는 로그인이\n 필요한 기능입니다."} />
       )}
-    </StAllListWrap>
+    </CustomFlexListWrap>
   );
 };
 
@@ -206,56 +207,3 @@ to {
 //   transform: translateX(-50%);
 //   bottom: 100px;
 // `;
-
-const StAllListWrap = styled.ul`
-  width: 100%;
-
-  margin-top: 20px;
-  padding: 0 20px;
-
-  display: flex;
-  flex-flow: wrap;
-  gap: 9px;
-
-  @media (max-width: 340px) {
-    gap: 10px;
-  }
-
-  @media (max-width: 200px) {
-    gap: 0px;
-  }
-`;
-
-const StListWrap = styled.li`
-  flex: 0 0 calc((100% - (9px * 2)) / 3);
-  height: 26vh;
-  max-height: 500px;
-  border-radius: 9px;
-
-  box-shadow: -1px 0px 5px rgba(72, 72, 72, 0.1), 3px 3px 8px rgba(0, 0, 0, 0.1);
-
-  transition: all 0.3s;
-  overflow: hidden;
-
-  cursor: pointer;
-
-  @media (max-width: 340px) {
-    flex: 0 0 calc((100% - (10px * 1)) / 2);
-  }
-
-  @media (max-width: 200px) {
-    flex: 1 1 100%;
-  }
-
-  :hover {
-    transform: translateY(-4px);
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  & > .flex_box {
-    height: 100%;
-
-    display: flex;
-    flex-flow: column;
-  }
-`;

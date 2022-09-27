@@ -13,9 +13,9 @@ import ToastMessage from "../components/elements/modal/ToastMessage";
 
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
-import styledComponents from "../styles/customElementStyle";
-const { CustomWrapFullVH } = styledComponents;
-const { CustomForm, CustomButton, CustomInputBox } = styledFormComponents;
+const { CustomForm, CustomButton } = styledFormComponents;
+import styledLayoutComponents from "../styles/customLayoutStyle";
+const { CustomWrapFullVH } = styledLayoutComponents;
 
 import arrowBack from "../assets/svg/arrow_back.svg";
 import Navigation from "../partial/Navigation";

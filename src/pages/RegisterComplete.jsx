@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
-import styledComponents from "../styles/customElementStyle";
-const { CustomWrapFullVH } = styledComponents;
 const { CustomButton } = styledFormComponents;
+import styledLayoutComponents from "../styles/customLayoutStyle";
+const { CustomWrapFullVH } = styledLayoutComponents;
 
 import CompleteOne from "../components/RegisterComplete/CompleteOne";
 import CompleteTwo from "../components/RegisterComplete/CompleteTwo";

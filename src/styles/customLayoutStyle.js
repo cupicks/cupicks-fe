@@ -1,5 +1,104 @@
 import styled, { css } from "styled-components";
 
+const CustomWrapFullVH = styled.div`
+  ${({ theme }) => {
+    return css`
+      height: 100vh;
+      padding: ${theme.paddings.lg};
+
+      display: flex;
+      flex-flow: column;
+
+      overflow-y: scroll;
+
+      ${theme.devices.tablet} {
+        padding: ${theme.paddings.md};
+      }
+
+      ${theme.devices.mobile} {
+        padding: ${theme.paddings.base};
+      }
+    `;
+  }}
+`;
+
+const CustomWrapBody = styled.div`
+  ${({ theme }) => {
+    return css`
+      height: calc(100vh - 5rem - 9rem);
+
+      overflow: hidden;
+    `;
+  }}
+`;
+
+const CustomFlexListWrap = styled.div`
+  ${({ theme }) => {
+    return css`
+      padding: 0 2rem;
+
+      display: flex;
+      flex-flow: wrap;
+
+      gap: ${theme.gaps.md};
+
+      ${theme.devices.tablet} {
+        gap: ${theme.gaps.base};
+      }
+
+      ${theme.devices.mobile} {
+        gap: ${theme.gaps.sm};
+      }
+
+      ${theme.devices.mobileXS} {
+        gap: ${theme.gaps.xs};
+      }
+    `;
+  }}
+`;
+
+const CustomFlexList = styled.div`
+  ${({ theme }) => {
+    return css`
+      flex: ${theme.flexItems.md};
+      height: 26vh;
+      max-height: 50rem;
+      border-radius: 1rem;
+
+      box-shadow: ${theme.boxShadows.base};
+
+      transition: all 0.3s;
+      overflow: hidden;
+
+      cursor: pointer;
+
+      ${theme.devices.tablet} {
+        flex: ${theme.flexItems.base};
+      }
+
+      ${theme.devices.mobile} {
+        flex: ${theme.flexItems.sm};
+      }
+
+      ${theme.devices.mobileXS} {
+        flex: ${theme.flexItems.xs};
+      }
+
+      :hover {
+        transform: translateY(-0.4rem);
+        box-shadow: ${theme.boxShadows.hover};
+      }
+
+      & > .flex_box {
+        height: 100%;
+
+        display: flex;
+        flex-flow: column;
+      }
+    `;
+  }}
+`;
+
 const CustomHeader = styled.header`
   ${({ theme }) => {
     return css`
@@ -102,11 +201,21 @@ const CustomGoToCreateButton = styled.button`
   }}
 `;
 
+const Custom = styled.div`
+  ${({ theme }) => {
+    return css``;
+  }}
+`;
+
 const styledComponents = {
   CustomHeader,
   CustomFooter,
   CustomGoToCreateButton,
   CustomFooterButton,
+  CustomWrapFullVH,
+  CustomWrapBody,
+  CustomFlexListWrap,
+  CustomFlexList,
 };
 
 export default styledComponents;

@@ -9,9 +9,9 @@ import Navigation from "../partial/Navigation";
 
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
-import styledComponents from "../styles/customElementStyle";
-const { CustomWrapFullVH } = styledComponents;
 const { CustomForm, CustomButton } = styledFormComponents;
+import styledLayoutComponents from "../styles/customElementStyle";
+const { CustomWrapFullVH } = styledLayoutComponents;
 
 import arrowBack from "../assets/svg/arrow_back.svg";
 import ToastMessage from "../components/elements/modal/ToastMessage";
