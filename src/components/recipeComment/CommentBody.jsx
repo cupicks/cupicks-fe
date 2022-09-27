@@ -108,16 +108,13 @@ const CommentBody = () => {
   };
 
   useEffect(() => {
-    // setTimeout(() => {
     getComments();
-    // setComments([]);
-    // setNewComments([]);
-    getProfile();
-    // }, 2900);
 
-    /******* 비로그인 기능 *******/
+    /******* 비로그인/로그인 기능 *******/
     if (!userLogin) {
       setGuestLoginShadow(true);
+    } else {
+      getProfile();
     }
   }, [getComments]);
 
