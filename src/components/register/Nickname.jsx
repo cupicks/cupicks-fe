@@ -22,7 +22,8 @@ const Nickname = (props) => {
       <CustomTitle>
         <h1>닉네임</h1>
       </CustomTitle>
-      <div className="register_input_box">
+
+      <CustomInputBox>
         {watch("nickname")?.length >= 1 && (
           <img
             className="input_label_icon"
@@ -44,7 +45,8 @@ const Nickname = (props) => {
             },
           })}
         />
-      </div>
+      </CustomInputBox>
+
       <StErrorBox>
         {errors.nickname && <p>{errors.nickname.message}</p>}
       </StErrorBox>
