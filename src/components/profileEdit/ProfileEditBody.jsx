@@ -66,18 +66,18 @@ const ProfileEditBody = (props) => {
         </label>
         <input
           {...register("password", {
-            minLength: {
-              value: 8,
-              message: "8자 이상 써주세요",
-            },
-            maxLength: {
-              value: 15,
-              message: "15자 이하로 써주세요",
-            },
+            // minLength: {
+            //   value: 8,
+            //   message: "8자 이상 써주세요",
+            // },
+            // maxLength: {
+            //   value: 15,
+            //   message: "15자 이하로 써주세요",
+            // },
             pattern: {
-              value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!])[A-Za-z\d@!]{8,15}$/,
               message:
-                "패스워드는 영어, 숫자, 그리고 특수문자중(!@#)를 포함해주세요",
+                "비밀번호는 영문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
             },
           })}
           type="password"
