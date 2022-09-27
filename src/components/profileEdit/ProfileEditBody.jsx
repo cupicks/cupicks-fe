@@ -4,8 +4,8 @@ import editIcon from "../../assets/svg/edit.svg";
 import lockIcon from "../../assets/svg/lock.svg";
 
 const ProfileEditBody = (props) => {
-  const { register, errors, watch, getValues, setFocus, userData } = props;
-  console.log();
+  const { register, errors, watch, getValues, setFocus, userData, profiles } =
+    props;
 
   const changeNickname = () => {
     setFocus("nickname");
@@ -27,7 +27,7 @@ const ProfileEditBody = (props) => {
           />
         </label>
         <input
-          defaultValue={userData.nickname}
+          defaultValue={profiles?.nickname}
           {...register("nickname", {
             required: true,
             pattern: {
@@ -52,7 +52,7 @@ const ProfileEditBody = (props) => {
             alt="이메일은 수정할 수 없습니다."
           />
         </label>
-        <input defaultValue={userData.email} disabled />
+        <input defaultValue={profiles?.email} disabled />
       </div>
 
       {/* RegisterInputPassword */}
