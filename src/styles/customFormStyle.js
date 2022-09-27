@@ -30,7 +30,6 @@ const CustomInput = styled.input`
     return css`
       width: 100%;
       padding: ${theme.inputs.padding.base};
-      /* margin-bottom: 25px; */
 
       border-bottom: ${theme.inputs.borderBottom.base};
 
@@ -38,6 +37,10 @@ const CustomInput = styled.input`
       line-height: 1.5;
 
       transition: all 0.3s;
+
+      ${theme.devices.tablet} {
+        padding: ${theme.inputs.padding.sm};
+      }
 
       :hover,
       :focus,
@@ -57,6 +60,13 @@ const CustomButton = styled.button`
     return css`
       padding: 1.5rem;
       border-radius: 1rem;
+
+      ${theme.devices.tablet} {
+        padding: 1.2rem;
+      }
+      ${theme.devices.mobile} {
+        padding: 1rem;
+      }
 
       border: ${theme.buttons.border.base};
       background: ${theme.buttons.backgroundColor.base};
@@ -101,12 +111,12 @@ const CustomErrorBox = styled.div`
   ${({ theme }) => {
     return css`
       width: 90%;
-      min-height: 3rem;
+      min-height: 1.5rem;
 
-      line-height: 2.5rem;
-      margin-bottom: 0.5rem;
+      line-height: 2rem;
+      padding-bottom: 1rem;
 
-      font-size: ${theme.fonts.size.label};
+      font-size: ${theme.fonts.size.sm};
       color: ${theme.colors.alert};
 
       word-break: keep-all;

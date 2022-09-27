@@ -22,7 +22,8 @@ const inputs = {
     active: "0.2rem solid #9e9e9e",
   },
   padding: {
-    base: "1.1rem 0 1rem",
+    sm: "1rem 0 0.5rem",
+    base: "1.5rem 0 1rem",
   },
   fontColor: {
     base: "#cdcdcd",
@@ -31,7 +32,7 @@ const inputs = {
 
 const fonts = {
   size: {
-    sm: "1rem",
+    sm: "1.1rem",
     md: "1.4rem",
     base: "1.5rem",
     lg: "1.8rem",

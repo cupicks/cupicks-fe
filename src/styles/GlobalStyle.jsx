@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
       ${theme.devices.tablet} {
         body {
           font-size: ${theme.fonts.size.base};
-          background-color: ${theme.colors.middle};
         }
       }
 
