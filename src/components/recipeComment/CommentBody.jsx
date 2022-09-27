@@ -139,8 +139,8 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={newComment.resizedUrl}
-                        onError={(e) => (e.target.src = newComment.imageUrl)}
+                        src={newComment.imageUrl}
+                        onError={(e) => (e.target.src = newComment.resizedUrl)}
                       />
                     </div>
                     {/* )} */}
@@ -197,8 +197,8 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
+                        src={comment.imageUrl}
+                        onError={(e) => (e.target.src = comment.resizedUrl)}
                       />
                     </div>
                     {/* )} */}
@@ -249,8 +249,8 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
+                        src={comment.imageUrl}
+                        onError={(e) => (e.target.src = comment.resizedUrl)}
                       />
                     </div>
                     {/* )} */}

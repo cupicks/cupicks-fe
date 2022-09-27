@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <CustomHeader src={logo}>
-      <dis className="cupick_logo" onClick={() => navigate("/")} />
+      <div className="cupick_logo" onClick={() => navigate("/")} />
     </CustomHeader>
   );
 };

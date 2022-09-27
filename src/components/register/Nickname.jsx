@@ -4,7 +4,7 @@ import styled from "styled-components";
 import styledFormComponents from "../../styles/customFormStyle";
 const { CustomTitle } = styledComponents;
 import styledComponents from "../../styles/customElementStyle";
-const { CustomInput, CustomErrorBox } = styledFormComponents;
+const { CustomInput, CustomErrorBox, CustomInputBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 import ToastMessage from "../elements/modal/ToastMessage";
