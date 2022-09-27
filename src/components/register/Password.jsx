@@ -4,7 +4,7 @@ import styled from "styled-components";
 import styledFormComponents from "../../styles/customFormStyle";
 const { CustomTitle } = styledComponents;
 import styledComponents from "../../styles/customElementStyle";
-const { CustomInput, CustomErrorBox } = styledFormComponents;
+const { CustomInput, CustomErrorBox, CustomInputBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 import ToastMessage from "../../components/elements/modal/ToastMessage";
@@ -33,7 +33,8 @@ const Password = (props) => {
       <CustomTitle>
         <h1>비밀번호 입력</h1>
       </CustomTitle>
-      <div className="register_input_box">
+
+      <CustomInputBox>
         {watch("password")?.length >= 1 && (
           <img
             className="input_label_icon"
@@ -57,7 +58,7 @@ const Password = (props) => {
             },
           })}
         />
-      </div>
+      </CustomInputBox>
 
       <StErrorBox>
         <p className="info">
@@ -70,7 +71,8 @@ const Password = (props) => {
       <CustomTitle>
         <h1>비밀번호 확인</h1>
       </CustomTitle>
-      <div className="register_input_box">
+
+      <CustomInputBox>
         {watch("password_confirm")?.length >= 1 && (
           <img
             className="input_label_icon"
@@ -87,7 +89,7 @@ const Password = (props) => {
             validate: (value) => value === password.current,
           })}
         />
-      </div>
+      </CustomInputBox>
 
       <StErrorBox>
         {errors.password_confirm &&

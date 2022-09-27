@@ -5,7 +5,7 @@ import styled from "styled-components";
 import styledFormComponents from "../../styles/customFormStyle";
 const { CustomTitle } = styledComponents;
 import styledComponents from "../../styles/customElementStyle";
-const { CustomInput, CustomErrorBox } = styledFormComponents;
+const { CustomInput, CustomErrorBox, CustomInputBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 
@@ -57,7 +57,7 @@ const Email = (props) => {
         <h1>이메일 입력</h1>
       </CustomTitle>
 
-      <div className="register_input_box">
+      <CustomInputBox>
         {watch("email")?.length >= 1 && checkEmail === false && (
           <img
             className="input_label_icon"
@@ -81,7 +81,7 @@ const Email = (props) => {
             },
           })}
         />
-      </div>
+      </CustomInputBox>
 
       <CustomErrorBox>
         <p className="info">
@@ -94,7 +94,7 @@ const Email = (props) => {
       {checkNumber && (
         <>
           <label>이메일 인증번호 입력</label>
-          <div className="register_input_box">
+          <CustomInputBox>
             {watch("Number")?.length >= 1 && checkNumberCode === false && (
               <img
                 className="input_label_icon"
@@ -110,7 +110,8 @@ const Email = (props) => {
               placeholder="인증번호"
               {...register("Number")}
             />
-          </div>
+          </CustomInputBox>
+
           <StTimer>
             <StReNumber
               disabled={checkNumberCode === true}

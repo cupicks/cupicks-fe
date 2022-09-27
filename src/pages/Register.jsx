@@ -400,6 +400,7 @@ const Register = () => {
             nicknameFailure={nicknameFailure}
           />
         )}
+
         {level === 3 && (
           <Image
             register={register}
@@ -408,6 +409,7 @@ const Register = () => {
             getValues={getValues}
           />
         )}
+
         {!checkNumber ? (
           <StButton
             margin="17rem 0 0"

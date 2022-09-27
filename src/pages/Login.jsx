@@ -6,8 +6,13 @@ import api from "../server/api";
 
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
-const { CustomInput, CustomForm, CustomButton, CustomErrorBox } =
-  styledFormComponents;
+const {
+  CustomInput,
+  CustomForm,
+  CustomButton,
+  CustomErrorBox,
+  CustomInputBox,
+} = styledFormComponents;
 import styledComponents from "../styles/customElementStyle";
 const {
   CustomWrapFullVH,
@@ -160,7 +165,8 @@ const Login = () => {
 
       <StLoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
-        <div className="register_input_box">
+
+        <CustomInputBox>
           {watch("email")?.length >= 1 && (
             <img
               className="input_label_icon"
@@ -183,13 +189,14 @@ const Login = () => {
               },
             })}
           />
-        </div>
+        </CustomInputBox>
+
         <CustomErrorBox>
           {errors.email && <p>{errors.email.message}</p>}
         </CustomErrorBox>
 
         <label>비밀번호</label>
-        <div className="register_input_box">
+        <CustomInputBox>
           {watch("password")?.length >= 1 && (
             <img
               className="input_label_icon"
@@ -211,7 +218,8 @@ const Login = () => {
               },
             })}
           />
-        </div>
+        </CustomInputBox>
+
         <CustomErrorBox>
           {errors.password && <p>{errors.password.message}</p>}
         </CustomErrorBox>
