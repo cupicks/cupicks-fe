@@ -46,6 +46,7 @@ const MypageMyInfo = (props) => {
     <StMypageMyInfo>
       <div className="left" onClick={() => setDropBox(!dropBox)}>
         <StProfilePic
+          onError={(e) => (e.target.src = profiles?.resizedUrl)}
           ProfileImageSrc={ProfileImageSrc}
           onClick={(e) => {
             e.stopPropagation();

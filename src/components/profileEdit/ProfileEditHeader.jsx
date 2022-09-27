@@ -27,7 +27,10 @@ const ProfileEditHeader = (props) => {
 
   return (
     <StProfileEditHeader>
-      <StProfilePic profileImg={profileImg}>
+      <StProfilePic
+        profileImg={profileImg}
+        onError={(e) => (e.target.src = profiles?.resizedUrl)}
+      >
         <label htmlFor="picture">
           <img src={editIcon} alt="프로필 이미지 수정" />
         </label>
