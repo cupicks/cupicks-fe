@@ -102,6 +102,8 @@ const CustomLabel = styled.label`
       font-weight: ${theme.fonts.weight.bold};
       font-size: ${theme.fonts.weight.label};
       color: ${theme.colors.middle};
+
+      word-break: keep-all;
     `;
   }}
 `;
