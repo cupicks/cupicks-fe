@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     return css`
       body {
         font-size: ${theme.fonts.size.base};
+        background-color: ${theme.colors.background};
       }
     `;
   }}
