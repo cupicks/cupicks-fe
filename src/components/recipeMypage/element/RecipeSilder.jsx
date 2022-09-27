@@ -14,6 +14,9 @@ const RecipeList = (props) => {
   const { recipeList, header = false } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+  });
 
   const handleBeforeChange = useCallback(() => {
     setDragging(true);
@@ -48,16 +51,49 @@ const RecipeList = (props) => {
     speed: 500,
   };
 
+  // 브라우저 너비에 따라서 글자 수를 자릅니다.
+  const windowWidth = windowSize.width;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    };
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [windowWidth]);
+
   return (
     <>
       <StSlider {...settings}>
-        {!recipeList && <h3 className="list_empty">레시피가 없습니다.</h3>}
+        {recipeList?.length === 0 && (
+          <h3 className="list_empty">레시피가 없습니다.</h3>
+        )}
 
         {recipeList?.map((recipe, i) => {
+          const title = recipe.title;
+          let titleText = title;
+          if (title.length > 11) {
+            titleText = title.slice(0, 11) + "...";
+          }
+
+          if (windowWidth < 450) {
+            if (title.length > 6) {
+              titleText = title.slice(0, 6) + "...";
+            }
+          } else if (windowWidth < 500) {
+            if (title.length > 7) {
+              titleText = title.slice(0, 7) + "...";
+            }
+          }
+
           return (
             // Slider의 자식은 inline-block
-            <div
-              className="slick_box"
+            <StSlickBox
+              isTitle={header}
               key={"slick_box" + i}
               onClick={onClickCard(recipe.recipeId)}
             >
@@ -75,13 +111,10 @@ const RecipeList = (props) => {
                   <IngredientList key={i} recipe={recipe} />
                 </StCupHeight>
                 <div className="padding_box">
-                  <RecipeTitle
-                    recipeId={recipe.recipeId}
-                    title={recipe.title}
-                  />
+                  <RecipeTitle recipeId={recipe.recipeId} title={titleText} />
                 </div>
               </div>
-            </div>
+            </StSlickBox>
           );
         })}
       </StSlider>
@@ -91,29 +124,29 @@ const RecipeList = (props) => {
 
 export default RecipeList;
 
-const StSlider = styled(Slider)`
-  background-color: #fff;
+const StSlickBox = styled.div`
+  height: ${(props) => (props.isTitle ? "calc(40vh + 50px)" : "40vh")};
+  border-radius: 16px;
 
-  .slick_box {
-    height: 40vh;
-    border-radius: 16px;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
 
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-end;
+  overflow: hidden;
 
-    overflow: hidden;
-
-    box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1),
-      3px 3px 8px rgba(0, 0, 0, 0.1);
-  }
+  box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1),
+    3px 3px 8px rgba(0, 0, 0, 0.1);
 
   .flex_box {
-    height: 100%;
+    height: ${(props) => (props.isTitle ? "calc(100% - 50px)" : "100%")};
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
   }
+`;
+
+const StSlider = styled(Slider)`
+  background-color: #fff;
 
   .padding_box {
     min-height: 42px;

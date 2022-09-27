@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useJwt } from "react-jwt";
 
 import Comments from "../pages/Comments";
 import Login from "../pages/Login";
@@ -37,12 +36,12 @@ const Router = () => {
     "/profile/edit",
     "/recipe/:recipeId/edit",
   ];
-  let pathNeedLoggedIn = true;
+  let pathNeedLoggedIn = false;
 
-  // 로그인이 필요없는 페이지
-  caseNoLoggedIn.map((currCase) => {
+  // 로그인이 필요없는 페이지 구분
+  caseYesLoggedIn.map((currCase) => {
     if (currCase === pathname) {
-      pathNeedLoggedIn = false;
+      pathNeedLoggedIn = true;
       return;
     }
   });
@@ -52,18 +51,23 @@ const Router = () => {
     if (refreshToken) {
       !loggedIn ? setLoggedIn(true) : "";
     } else {
-      loggedIn ? setLoggedIn(false) : "";
-    }
-
-    // 리디렉션: 로그인 필요한 페이지에서 토큰이 만료 되었을 때 작동
-    if (!pathNeedLoggedIn) {
       if (loggedIn) {
+        setLoggedIn(false);
+        navigate("/sign-in");
+      }
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    // 리디렉션: 로그인 필요한 페이지에서 토큰이 만료 되었을 때 작동
+    if (pathNeedLoggedIn) {
+      if (loggedIn && !refreshToken) {
         navigate("/sign-in", {
           state: { message: "자동으로 \n 로그아웃 되었습니다." },
         });
       }
     }
-  }, [pathname]);
+  }, [loggedIn]);
 
   return (
     <Routes>
@@ -103,19 +107,6 @@ const Router = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
-
-          {caseNoLoggedIn.map((path, idx) => (
-            <Route
-              key={"routePathLogout" + idx}
-              path={path}
-              element={
-                <NotFound
-                  timer={30000}
-                  message={"로그아웃이 필요한 페이지입니다."}
-                />
-              }
-            />
-          ))}
         </>
       )}
 

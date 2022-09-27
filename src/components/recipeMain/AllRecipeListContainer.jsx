@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -13,7 +13,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-  const { allrecipes, modalProps, getItems } = props;
+
+
+  const { allrecipes, modalProps, getItems, page } = props;
+
   const {
     recipeId,
     ingredientList,
@@ -26,27 +29,47 @@ const AllRecipeListContainer = (props) => {
     isLiked,
   } = allrecipes;
   const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
-  const navigate = useNavigate();
-  // console.log(props.allrecipes.data);
-  // console.log(props.allrecipes);
-  const [like, setLike] = useState(false);
 
+  const navigate = useNavigate();
+  const [liked, setLiked] = useState(isLiked);
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+  });
+
+  const profileImage = resizedUrl;
   const cupHeight = ((cupSize / 591) * 100).toFixed();
 
   // 브라우저 너비에 따라서 글자 수를 자릅니다.
-  const windowWidth = window.innerWidth;
+  const windowWidth = windowSize.width;
   let titleText = title;
-  if (windowWidth < 400) {
-    if (title.length > 6) {
-      titleText = title.slice(0, 6) + "...";
+  if (title.length > 11) {
+    titleText = title.slice(0, 11) + "...";
+  }
+
+  if (windowWidth < 450) {
+    if (title.length > 4) {
+      titleText = title.slice(0, 4) + "...";
+    }
+  } else if (windowWidth < 500) {
+    if (title.length > 7) {
+      titleText = title.slice(0, 7) + "...";
     }
   }
-  console.log(isLiked);
 
-  // 추후 resizeUrl로 변경
-  const profileImage = resizedUrl;
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    };
+    handleResize();
 
-  const likeCard = async (isLiked) => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [windowWidth]);
+
+  /** 레시피 좋아요 버튼 핸들러 */
+  const likeCard = async () => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
     if (!userLogin) {
       if (!needLogginModal) {
@@ -57,39 +80,37 @@ const AllRecipeListContainer = (props) => {
       }
       return;
     }
+
     let contentType = "application/json";
-    //isLiked가 false일때는 좋아요 안눌러진상태
-    if (isLiked === false) {
-      // isLiked === true;
+    //liked(isLiked)가 false일 때, 좋아요를 누를 수 있습니다.
+    if (liked === false) {
       try {
         await api(contentType)
-          // .patch(`/recipes/${recipeId}/dislike`, isLiked)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
+            getItems();
             console.log(res);
           });
-        props.getItems();
-        // setLike(true);
+        setLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
     } else {
-      // isLiked === false
+      // liked(isLiked)가 false
       try {
         await api(contentType)
-          // .patch(`/recipes/${recipeId}/like`, isLiked)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
+            getItems();
             console.log(res);
           });
-        props.getItems();
-        // setLike(false);
+        setLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
     }
   };
-  // console.log(like);
+
 
   return (
     <>
@@ -129,22 +150,10 @@ const AllRecipeListContainer = (props) => {
               navigate(`${recipeId}/comment`, { state: title });
             }}
           />
-          {isLiked === false ? (
-            <img
-              className="like_btn"
-              src={dislikes}
-              onClick={() => {
-                likeCard(isLiked);
-              }}
-            />
+          {liked === false ? (
+            <img className="like_btn" src={dislikes} onClick={likeCard} />
           ) : (
-            <img
-              className="like_btn"
-              src={likes}
-              onClick={() => {
-                likeCard(isLiked);
-              }}
-            />
+            <img className="like_btn" src={likes} onClick={likeCard} />
           )}
         </StIconSet>
       </StListDesc>

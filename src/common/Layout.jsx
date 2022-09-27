@@ -11,23 +11,21 @@ const Layout = () => {
   const pathname = useLocation().pathname;
   let headerFooter = false;
 
-  if(
+  if (
     pathname === "/recipe" ||
     pathname === "/mypage" ||
     pathname.indexOf("/profile") > -1
-  ){
-    headerFooter = true
+  ) {
+    headerFooter = true;
   }
 
   return (
     <StLayout>
-
       {headerFooter && <Header />}
 
       <Router />
 
       {headerFooter && <Footer pathname={pathname} />}
-
     </StLayout>
   );
 };
@@ -36,7 +34,7 @@ export default Layout;
 
 const StLayout = styled.div`
   max-width: 600px;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   margin: 0 auto;
 

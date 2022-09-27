@@ -6,7 +6,7 @@ import illustration05 from "../assets/image/illustration/illustration05.png";
 import styled from "styled-components";
 
 const NotFound = (props) => {
-  const { message = "", timer = 1000 } = props;
+  const { message = "", timer = 1500 } = props;
   const navigate = useNavigate();
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -14,14 +14,14 @@ const NotFound = (props) => {
     if (refreshToken) {
       navigate("/recipe");
     } else {
-      navigate("/sign-in");
+      // navigate("/sign-in");
     }
   }, timer);
 
   return (
     <StWrap>
       <img src={illustration05} alt="커픽" />
-      <h4>{message ? message : "페이지를 찾을 수 없습니다."}</h4>
+      <h4>{message ? message : "페이지가 없거나 접근할 수 없습니다."}</h4>
       <p>
         {message ? (
           <button

@@ -6,7 +6,14 @@ import api from "../../server/api";
 import { useJwt } from "react-jwt";
 import editIcon from "../../assets/svg/cancel_photo.svg";
 
-const CommentInput = ({ getComments }) => {
+const CommentInput = ({
+  getComments,
+  comments,
+  setComments,
+  setCheckComment,
+  setCommentCreated,
+  setNewComments,
+}) => {
   const { recipeId } = useParams();
   const {
     register,
@@ -39,7 +46,6 @@ const CommentInput = ({ getComments }) => {
       if (!file) return;
       setImagePreview(URL.createObjectURL(file));
     }
-    console.log(image);
   }, [image]);
 
   const cancelImage = () => {
@@ -85,25 +91,28 @@ const CommentInput = ({ getComments }) => {
   // };
 
   const fileSubmit = async (data) => {
-    if (comment === "") {
-      return alert("댓글을 입력해주세요");
+    if (comment === "" || comment === null) {
+      setCheckComment(true);
+      setTimeout(() => {
+        setCheckComment(false);
+      }, 1000);
+      return;
     }
     let contentType = "multi-part/form-data";
     const form = new FormData();
     form.append(
       "imageValue",
-      getValues("image") === undefined ? null : getValues("image")?.[0]
+      getValues("image") === undefined ? null : getValues("image")?.[0],
     );
 
     await api(contentType)
       .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
       .then((res) => {
-        console.log(res);
+        setNewComments((prev) => [res.data.comment, ...prev]);
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
     setValue("comment", null);
-    getComments();
   };
 
   return (
@@ -121,6 +130,7 @@ const CommentInput = ({ getComments }) => {
             className="comment_input"
             type="text"
             name="content"
+            maxLength={100}
             // value={comments.content || ""}
             // onChange={onChangeHandler}
             {...register("comment")}
@@ -148,7 +158,6 @@ const CommentInput = ({ getComments }) => {
             id="picture"
             {...register("image")}
             accept="image/*"
-            getValues={getValues}
           />
           <label htmlFor="picture" className="pic_upload">
             + 사진 업로드

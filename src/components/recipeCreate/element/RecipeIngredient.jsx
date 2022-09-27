@@ -4,27 +4,27 @@ import RecipeIngredientColorLists from "./RecipeIngredientColorLists";
 import styled from "styled-components";
 
 const RecipeIngredient = (props) => {
-  const { idx, calcAmount, cupState, setCupState, stepState, formProps } = props;
-  const {subStep} = stepState;
-  const {register, watch} = formProps;
+  const { idx, calcAmount, cupState, setCupState, stepState, formProps } =
+    props;
+  const { subStep } = stepState;
+  const { register, watch } = formProps;
 
   return (
     <StRecipeIngredient>
-      {subStep === 1 &&
+      {subStep === 1 && (
         <>
-          <div className="info_box_center">
-            재료의 이름은 무엇인가요?
-          </div>
-          <input 
-            type="text" 
+          <div className="info_box_center">재료의 이름은 무엇인가요?</div>
+          <input
+            type="text"
             required={true}
             placeholder={`재료`}
             {...register(`ingredientList.${idx}.ingredientName`)}
+            maxLength={20}
           />
         </>
-      }
+      )}
 
-      {subStep === 2 &&
+      {subStep === 2 && (
         <>
           <div className="info_box_center">
             재료량을 입력해주세요.(최소 10ml)
@@ -32,34 +32,30 @@ const RecipeIngredient = (props) => {
           <div className="flex_box">
             <RecipeIngredientNumber
               idx={idx}
-              formProps={formProps}    
+              formProps={formProps}
               calcAmount={calcAmount}
-              />
+            />
             ml
           </div>
         </>
-      }
+      )}
 
-      {subStep === 3 &&
+      {subStep === 3 && (
         <>
-          <div className="info_box_center">
-            재료색을 선택해주세요.
-          </div>
-          
-          <RecipeIngredientColorLists 
-            idx={idx}
-            formProps={formProps}
-          />
+          <div className="info_box_center">재료색을 선택해주세요.</div>
+
+          <RecipeIngredientColorLists idx={idx} formProps={formProps} />
         </>
-      }
+      )}
     </StRecipeIngredient>
-	)
-}
+  );
+};
 
 export default RecipeIngredient;
 
 const StRecipeIngredient = styled.div`
-  input, select {
+  input,
+  select {
     all: unset;
     width: 100%;
 
@@ -80,7 +76,7 @@ const StRecipeIngredient = styled.div`
     display: flex;
     gap: 20px;
   }
-`
+`;
 
 const StColorCircleBox = styled.div`
   display: flex;
@@ -95,11 +91,11 @@ const StColorCircleBox = styled.div`
   }
 
   label {
-    transition: all .2s;
+    transition: all 0.2s;
   }
-  
+
   input:checked + .colorLabel {
     box-shadow: 0 2px 7px 3px rgba(45, 35, 53, 0.1);
     transform: translateY(-2px) scale(1.1);
   }
-`
+`;

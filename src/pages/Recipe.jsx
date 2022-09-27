@@ -20,8 +20,22 @@ const Recipe = () => {
     }
   }, []);
 
+  // const [error, setError] = useState(false);
+  // setError(false);
+
   return (
     <StWrap>
+      {/* {error ? (
+        <>
+          <div className="error">
+            <img src={illustration05} alt="커픽" />
+            <h4>죄송합니다😥</h4>
+            <h3>잠시 서버 수정 작업 중입니다.</h3>
+          </div>
+        </>
+      ) : (
+        <RecipeBody />
+      )} */}
       <RecipeBody />
 
       {messageModal && (
@@ -37,4 +51,12 @@ const StWrap = styled.div`
   height: calc(100vh - 50px - 90px);
 
   overflow: hidden;
+
+  .error {
+    width: 100%;
+    text-align: center;
+    img {
+      width: 50%;
+    }
+  }
 `;

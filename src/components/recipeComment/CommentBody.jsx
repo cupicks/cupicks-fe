@@ -1,21 +1,32 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import talk_edit from "../../assets/svg/talk_edit.svg";
 import CommentOption from "./CommentOption";
 import api from "../../server/api";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import CommentInput from "./CommentInput";
 import ToastMessage from "../elements/modal/ToastMessage";
+import { useInView } from "react-intersection-observer";
 
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  
+
   // const menubackground = useRef();
 
   const { recipeId } = useParams();
   let [comments, setComments] = useState([]);
+  const [page, setPage] = useState(1);
+  const [counting, setCounting] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [ref, inView] = useInView({
+    threshold: 0.8,
+    // skip: true,
+  });
+
   const [editCommentId, setEditCommentId] = useState();
+  const [checkComment, setCheckComment] = useState(false);
+  const [newComments, setNewComments] = useState(undefined);
 
   const token = localStorage.getItem("refreshToken");
   const { decodedToken, isExpired } = useJwt(token);
@@ -25,21 +36,35 @@ const CommentBody = () => {
   /****************************/
   const [guestLoginShadow, setGuestLoginShadow] = useState(false);
   const [needLogginModal, setNeedLogginModal] = useState(false);
-  const userLogin = Boolean(localStorage.getItem("refreshToken"));
+
+  const userLogin = Boolean(token);
+  /****************************/
+  /******** 로그인 기능 ********/
+  /****************************/
+  const userLoginId = decodedToken?.userId;
+  const userProfileImg = decodedToken?.imageUrl;
+  const userProps = { userLogin, userLoginId, userProfileImg };
+  let commentAuthor;
   /****************************/
 
-  // console.log(decodedToken);
-  // console.log(comments);
+  useEffect(() => {
+    if (inView && !loading && comments.length >= counting) {
+      setPage(page + 1);
+      setCounting(counting + 6);
+    }
+  }, [inView, loading]);
 
-  const getComments = async () => {
+  const getComments = useCallback(async () => {
     let contentType = "application/json";
+    setLoading(true);
     const data = await api(contentType)
-      .get(`/comments?recipeId=${recipeId}&page=1&count=10`)
+      .get(`/comments?recipeId=${recipeId}&page=${page}&count=10`)
       .then((res) => {
-        console.log(res);
-        setComments([...res.data.commentList]);
+        // console.log(res);
+        setComments([...comments, ...res.data.commentList]);
       });
-  };
+    setLoading(false);
+  }, [page]);
 
   const getTimegap = (createdAt) => {
     const myDate = new Date(createdAt);
@@ -61,7 +86,7 @@ const CommentBody = () => {
     const years = days / 365;
     return `${Math.floor(years)}년 전`;
   };
-  
+
   // const onErrorImg = (e) => {
   //   if (e.target.src === undefined) {
   //     setTimeout(() => {
@@ -73,97 +98,202 @@ const CommentBody = () => {
   useEffect(() => {
     // setTimeout(() => {
     getComments();
+    setNewComments([]);
+
     // }, 2900);
 
     /******* 비로그인 기능 *******/
     if (!userLogin) {
       setGuestLoginShadow(true);
     }
-  }, []);
+    console.log("hi");
+  }, [getComments]);
 
   return (
     <>
       <StListWrap>
-        {comments.map((comment, recipeId) => (
-          <React.Fragment key={recipeId}>
-            <StCommentWrap>
-              <StProfile>
-                <StCommentProfile
-                  // src={decodedToken.imageUrl}
-                  src={comment.userImageUrl}
-                  onError={(e) => (e.target.src = comment.userResizedUrl)}
-                />
-              </StProfile>
-              <StContent>
-                <div className="content_top">
-                  <span className="nickname">{comment.nickname}</span>
-                  <span className="dot">•</span>
-                  <span className="create_time">
-                    {getTimegap(comment.createdAt)}
-                  </span>
+        {newComments?.length !== 0 &&
+          newComments?.map((newComment, i) => {
+            return (
+              <StCommentWrap key={"newComment" + i}>
+                <div className="flex_box">
+                  <StProfile>
+                    <StCommentProfile
+                      src={newComment.userImageUrl}
+                      onError={(e) =>
+                        (e.target.src = newComment.userResizedUrl)
+                      }
+                    />
+                  </StProfile>
+                  <StContent>
+                    <div className="content_top">
+                      <span className="nickname">{newComment.nickname}</span>
+                      <span className="dot">•</span>
+                      <span className="create_time">
+                        {getTimegap(newComment.createdAt)}
+                      </span>
+                    </div>
+                    <div className="content_bottom">{newComment.comment}</div>
+                    {/* {comment.imageUrl == null ? null : ( */}
+                    <div className="content_picContainer">
+                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                      <img
+                        className="content_pic"
+                        src={newComment.resizedUrl}
+                        onError={(e) => (e.target.src = newComment.imageUrl)}
+                      />
+                    </div>
+                    {/* )} */}
+                  </StContent>
+                  <StOption
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(newComment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
+                        }
+                      }
+                    }}
+                  >
+                    <img src={talk_edit} />
+                  </StOption>
                 </div>
-                <div className="content_bottom">{comment.comment}</div>
-                {/* {comment.imageUrl == null ? null : ( */}
-                <div className="content_picContainer">
-                  {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                  <img
-                    className="content_pic"
-                    src={comment.resizedUrl}
-                    onError={(e) => (e.target.src = comment.imageUrl)}
-                  />
-                </div>
-                {/* )} */}
-              </StContent>
-              <StOption
-                onClick={() => {
-                  if (userLogin) {
-                    // 기존 코드
-                    setMenuOpen(true);
-                    setEditCommentId(comment.commentId);
-                  } else {
-                    // 비로그인 기능 추가
-                    if (!needLogginModal) {
-                      setNeedLogginModal(true);
-                      setTimeout(() => {
-                        setNeedLogginModal(false);
-                      }, 2000);
-                    }
-                  }
-                }}
-              >
-                <img src={talk_edit} />
-              </StOption>
+              </StCommentWrap>
+            );
+          })}
 
-              {/* {menuOpen == true ? (
-                <ModalBack
-                  ref={menubackground}
-                  onClick={(e) => {
-                    if (menubackground.current === e.target) {
-                      setMenuOpen(false);
-                    }
-                    e.stopPropagation();
-                  }}
-                >
-                  <CommentOption
-                    comments={comments}
-                    setComments={setComments}
-                    editCommentId={editCommentId}
-                    setMenuOpen={setMenuOpen}
-                  />
-                </ModalBack>
-              ) : null} */}
+        {comments?.map((comment, recipeId) => {
+          // 댓글을 작성한 본인인지 확인합니다.
+          commentAuthor = userLoginId === comment.userId;
+          return (
+            <StCommentWrap key={recipeId}>
+              {comments.length - 1 == recipeId ? (
+                <div className="flex_box" ref={ref}>
+                  <StProfile>
+                    <StCommentProfile
+                      // src={decodedToken.imageUrl}
+                      src={comment.userImageUrl}
+                      onError={(e) => (e.target.src = comment.userResizedUrl)}
+                    />
+                  </StProfile>
+                  <StContent>
+                    <div className="content_top">
+                      <span className="nickname">{comment.nickname}</span>
+                      <span className="dot">•</span>
+                      <span className="create_time">
+                        {getTimegap(comment.createdAt)}
+                      </span>
+                    </div>
+                    <div className="content_bottom">{comment.comment}</div>
+                    {/* {comment.imageUrl == null ? null : ( */}
+                    <div className="content_picContainer">
+                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                      <img
+                        className="content_pic"
+                        src={comment.resizedUrl}
+                        onError={(e) => (e.target.src = comment.imageUrl)}
+                      />
+                    </div>
+                    {/* )} */}
+                  </StContent>
+                  <StOption
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(comment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
+                        }
+                      }
+                    }}
+                  >
+                    {commentAuthor && <img src={talk_edit} />}
+                  </StOption>
+                </div>
+              ) : (
+                <div className="flex_box">
+                  <StProfile>
+                    <StCommentProfile
+                      // src={decodedToken.imageUrl}
+                      src={comment.userImageUrl}
+                      onError={(e) => (e.target.src = comment.userResizedUrl)}
+                    />
+                  </StProfile>
+                  <StContent>
+                    <div className="content_top">
+                      <span className="nickname">{comment.nickname}</span>
+                      <span className="dot">•</span>
+                      <span className="create_time">
+                        {getTimegap(comment.createdAt)}
+                      </span>
+                    </div>
+                    <div className="content_bottom">{comment.comment}</div>
+                    {/* {comment.imageUrl == null ? null : ( */}
+                    <div className="content_picContainer">
+                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                      <img
+                        className="content_pic"
+                        src={comment.resizedUrl}
+                        onError={(e) => (e.target.src = comment.imageUrl)}
+                      />
+                    </div>
+                    {/* )} */}
+                  </StContent>
+                  <StOption
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(comment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
+                        }
+                      }
+                    }}
+                  >
+                    {commentAuthor && <img src={talk_edit} />}
+                  </StOption>
+                </div>
+              )}
             </StCommentWrap>
-          </React.Fragment>
-        ))}
+          );
+        })}
+
         <CommentOption
           comments={comments}
           setComments={setComments}
           editCommentId={editCommentId}
           setMenuOpen={setMenuOpen}
           menuOpen={menuOpen}
+          setCheckComment={setCheckComment}
+          userProps={userProps}
         />
       </StListWrap>
-      <CommentInput getComments={getComments} />
+      <CommentInput
+        getComments={getComments}
+        setCheckComment={setCheckComment}
+        setComments={setComments}
+        comments={comments}
+        setNewComments={setNewComments}
+      />
 
       {/* 댓글 작성 가리기 */}
       {guestLoginShadow && <StGuestLoginShadow />}
@@ -171,6 +301,9 @@ const CommentBody = () => {
       {/* 토스트 메시지/모달 */}
       {needLogginModal && (
         <ToastMessage text={"로그인이\n 필요한 기능입니다."} />
+      )}
+      {checkComment && (
+        <ToastMessage text={"댓글을 입력해주세요"} timer={1000} />
       )}
     </>
   );
@@ -227,6 +360,14 @@ const StCommentWrap = styled.div`
   :last-child {
     border-bottom: 1px solid #eeeeee;
   }
+
+  & > .flex_box {
+    height: 100%;
+    flex: 1 1 auto;
+    gap: 10px;
+    display: flex;
+    flex-flow: row;
+  }
 `;
 
 const StContent = styled.div`
@@ -272,12 +413,14 @@ const StContent = styled.div`
 
   .content_pic {
     width: 100%;
-    max-height: 25vh;
+    max-height: 30vh;
     object-fit: cover;
   }
 `;
 
 const StOption = styled.div`
+  padding: 0 10px;
+  transform: translateX(10px);
   cursor: pointer;
 `;
 

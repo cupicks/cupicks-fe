@@ -17,6 +17,7 @@ const Mypage = () => {
   const token = localStorage.getItem("refreshToken");
   const { decodedToken } = useJwt(token);
   let userData = decodedToken;
+
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
