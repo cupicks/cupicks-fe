@@ -16,6 +16,7 @@ const RecipeIngredientForm = (props) => {
 
   /** cupSize보다 넘치는 값 자르는 함수! */
   const calcAmount = (e) => {
+    // 유저 피드백 및 버그 픽스를 위하여 수정할 예정입니다.
     // 값 가져오기
     const currValue = e.target.value;
     const currTargetName = e.target.name;

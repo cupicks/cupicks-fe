@@ -10,6 +10,7 @@ const CustomWrapFullVH = styled.div`
       flex-flow: column;
 
       overflow-y: scroll;
+      position: relative;
 
       ${theme.devices.tablet} {
         padding: ${theme.paddings.md};

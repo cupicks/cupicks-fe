@@ -181,7 +181,7 @@ const StSlider = styled(Slider)`
   }
 
   .list_empty {
-    margin-top: 50px;
+    margin: 2rem 0 5rem;
 
     text-align: center;
     color: #cdcdcd;
