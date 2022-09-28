@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import api from "../server/api";
 
 import Navigation from "../partial/Navigation";
-import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
+// import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
 import ProfileEditBody from "../components/profileEdit/profileEditBody";
 
 import styled from "styled-components";
@@ -87,11 +87,11 @@ const ProfileEdit = () => {
 
         {profiles !== null && (
           <>
-            <ProfileEditHeader
+            {/* <ProfileEditHeader
               watch={watch}
               register={register}
               profiles={profiles}
-            />
+            /> */}
 
             <ProfileEditBody
               watch={watch}
