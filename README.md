@@ -3,10 +3,12 @@
 > 커픽 Cupick은 계량 없이 이미지만 보고 만들 수 있는 
 카페 레시피를 확인하고 공유하는 서비스입니다.
 
-Git : [https://github.com/Sample-99](https://github.com/Sample-99)
-    FE : https://github.com/cupicks/cupicks-fe
-    BE : https://github.com/cupicks/cupicks-be
+Git : [https://github.com/Sample-99](https://github.com/Sample-99)  
+FE : https://github.com/cupicks/cupicks-fe  
+BE : https://github.com/cupicks/cupicks-be  
+팀 노션: https://global-giraffe-ef7.notion.site/3-73c1cc9c739a481fa92192ba7676811f  
 
+---
 
 ## 0. 그라운드 룰
 
@@ -75,6 +77,8 @@ Git : [https://github.com/Sample-99](https://github.com/Sample-99)
 > 일단, 돌아가게 만들어놓은 코드를 여러 가지 이유로 같은 기능을 하되, 조금 더 좋은 방식으로 고치는 작업
 >
 
+---
+
 ### 3. 커밋 명명법
 
 - Create 파일 생성
@@ -87,89 +91,19 @@ Git : [https://github.com/Sample-99](https://github.com/Sample-99)
 ### 4. ISSUE, PR, *pull request* 명명법
 
 #### 버그 리포트
->
----
-name: 버그 리포트
-about: 한 일 / 에러 내용 / 조치 사항
-title: 'Bug : 버그 주요 키워드'
-labels: 'bug'
-assignees: ['unchaptered', 'sumin-dev', 'subeom-lee']
----
-### 한 일
-로그인 기능 구현을 했습니다.
->
-### 에러 내용
-```cmd
-에러 내용
-```
->
-### 조치 사항
-만약 조치한 것이 있거나 구글링한 게 있다면, ...
->
-### 환경 설정
->
-```cmd
-OS:
-Node: 16.15.1(unchpatered) 16.16.0(sumin-dev, subeom-lee)
-npm : 8.1.1(all)
-```
+![image](https://user-images.githubusercontent.com/94776135/188368100-c205657b-aa3e-4ede-8af1-64bef52a5020.png)
 
 #### 문서 리포트
->
-## name: 문서 작업
-about: 특이한 기술 문법 / 간단한 소개 + URL
-title: 'Docs : 소개글'
-labels: 'bug'
-assignees: ['unchaptered', 'sumin-dev', 'subeom-lee']
->
-### 한 일
-로그인 기능 구현을 했습니다.
->
-### 에러 내용
-```
-에러 내용
-```
->
-### 조치 사항
->
-만약 조치한 것이 있거나 구글링한 게 있다면, ...
->
-### 환경 설정
->```
-OS:
-Node: 16.15.1(unchpatered) 16.16.0(sumin-dev, subeom-lee)
-npm : 8.1.1(all)
-```
->
-```jsx
----
-name: 문서 작업
-about: 특이한 기술 문법 / 간단한 소개 + URL
-title: 'Docs : 소개글'
-labels: 'documentation'
-assignees: ['unchaptered', 'sumin-dev', 'subeom-lee']
----
-### 한 일
-로그인 기능 구현을 했습니다.
->
-### 환경 설정
-```cmd
-OS:
-Node: 16.15.1(unchpatered) 16.16.0(sumin-dev, subeom-lee)
-npm : 8.1.1(all)
-```
+![image](https://user-images.githubusercontent.com/94776135/188368338-659679f3-7831-4358-8721-d4c6323b56cc.png)
 
-#### PR 양식
-> PR : 변경사항 `변경파일`
+#### PR 양식  
+![image](https://user-images.githubusercontent.com/94776135/188368212-bec93eb4-67f9-422d-8d82-2b383396094d.png)
 
 ---
 ## 5. 프로젝트 진행 사항
 
-- **8월 26일**
-    - 아이디어 회의 + 주제 결정
-    - SA 작성
-    - 와이어프레임 작성
-    - 요구기능 사항 정리(초안)
-- **8월 27일**
-    - 깃허브 organization 생성
-        - [https://github.com/cupicks](https://github.com/cupicks)
+### 전체 회의록(노션) 
+https://www.notion.so/3432686ad26b46e2bfe38bfa8fc3a5da?v=f3b01dabbced45f08f3b616f4b83646c
+
+### 주차별 기술 멘토링 마일스톤
+https://github.com/cupicks/cupicks-fe/milestone/1
