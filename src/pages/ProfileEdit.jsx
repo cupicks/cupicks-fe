@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import api from "../server/api";
 
 import Navigation from "../partial/Navigation";
-import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
-import ProfileEditBody from "../components/profileEdit/profileEditBody";
+import ProfileEditHeader from "../components/profileEdit/ProfileEditHeader";
+import ProfileEditBody from "../components/profileEdit/ProfileEditBody";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";

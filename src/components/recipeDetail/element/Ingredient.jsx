@@ -38,7 +38,7 @@ export default Ingredient;
 
 const StIngredient = styled.div`
   height: ${(props) => props.ingredientAmount + "%"};
-  padding: 0 24px 15px;
+  padding: 0 24px 0px;
 
   display: flex;
   justify-content: right;
