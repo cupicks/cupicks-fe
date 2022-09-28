@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 
 import styled from "styled-components";
@@ -9,13 +9,13 @@ import profilePicSrc from "../../assets/svg/profile.svg";
 const ProfileEditHeader = (props) => {
   const { watch, register, profiles } = props;
   // let profilePicSrc2 = profiles?.imageUrl ? profiles?.imageUrl : imagePreview;
-  const [imagePreview, setImagePreview] = React.useState(profiles?.imageUrl);
+  const [imagePreview, setImagePreview] = useState(profiles?.imageUrl);
 
   const image = watch("imageValue");
 
   const profileImg = image?.length === 0 ? profiles?.imageUrl : imagePreview;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (image && image.length > 0) {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));

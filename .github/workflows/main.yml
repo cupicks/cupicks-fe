@@ -7,13 +7,14 @@ on:
   push:
     branches:
       - release
-  pull_request:
-    branches:
-      - release
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [16.13.0]
 
     strategy:
       matrix:
@@ -28,27 +29,31 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Cache node modules
+      - name: Cachce node_modules
         uses: actions/cache@v2
+        id: node-cache
+        env:
+          cache-name: cache-node-modules
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Dependencies
+            ${{ runner.os }}-node-modules-
+      - name: Install node_modules
+        if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Generate Environment Variable Files for Production
         run: |
-          echo "VITE_SERVER_URL=$VITE_SERVER_URL" >> .env.production
-        env:
-          VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
+          pwd
+            cd /home/runner/work/cupicks-fe/cupicks-fe
+            touch .env
+            echo VITE_SERVER_URL=${{secrets.VITE_SERVER_URL}} >> .env
 
       - name: Build
-        run: npm run build --if-present
-        env:
-          CI: ""
+        run: |
+          cd /home/runner/work/cupicks-fe/cupicks-fe
+          npm run build
 
       - name: Deploy
         env:
@@ -59,7 +64,4 @@ jobs:
           aws s3 cp \
           --recursive \
           --region ap-northeast-2 \
-          build s3://cupick.co
-
-      - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
+          dist s3://cupick.co
