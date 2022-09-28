@@ -61,8 +61,3 @@ jobs:
           --recursive \
           --region ap-northeast-2 \
           dist s3://cupick.co
-
-      - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
-        env:
-          AWS_EC2_METADATA_DISABLED: true
