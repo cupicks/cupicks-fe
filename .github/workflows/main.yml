@@ -42,11 +42,14 @@ jobs:
         - name: Generate Environment Variable Files for Production
           run: |
             pwd
+              cd /home/runner/work/cupicks-fe/cupicks-fe
               touch .env
               echo VITE_SERVER_URL=${{secrets.VITE_SERVER_URL}} >> .env
 
         - name: Build
-          run: npm run build 
+          run: |
+            cd /home/runner/work/cupicks-fe/cupicks-fe
+            npm run build 
  
         - name: Deploy
           env:
