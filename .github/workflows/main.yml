@@ -31,7 +31,7 @@ jobs:
           run: npm ci
           
         - name: Generate Environment Variable Files for Production
-          run: /
+          run: |
             echo "VITE_SERVER_URL=$VITE_SERVER_URL" >> .env.production
           env:
             VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
