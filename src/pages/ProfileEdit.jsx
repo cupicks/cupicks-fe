@@ -5,7 +5,7 @@ import api from "../server/api";
 
 import Navigation from "../partial/Navigation";
 // import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
-import ProfileEditBody from "../components/profileEdit/profileEditBody";
+// import ProfileEditBody from "../components/profileEdit/profileEditBody";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -93,14 +93,14 @@ const ProfileEdit = () => {
               profiles={profiles}
             /> */}
 
-            <ProfileEditBody
+            {/* <ProfileEditBody
               watch={watch}
               register={register}
               getValues={getValues}
               setFocus={setFocus}
               errors={errors}
               profiles={profiles}
-            />
+            /> */}
           </>
         )}
 
