@@ -41,9 +41,9 @@ jobs:
           
         - name: Generate Environment Variable Files for Production
           run: |
-            echo "VITE_SERVER_URL=$VITE_SERVER_URL" >> .env
-          env:
-            VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
+            pwd
+              touch .env
+              echo VITE_SERVER_URL=${{secrets.VITE_SERVER_URL}} >> .env
 
         - name: Build
           run: npm run build 
