@@ -1,0 +1,16 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testRegex": ".*\\.test\\.js$",
+  "silent": true,
+  "testEnvironment": "jsdom",
+  "coverageDirectory": "coverage",
+  "coveragePathIgnorePatterns": [
+    "dist/",
+    "backup/",
+    "backup_integration/",
+    "coverage/lcov-report",
+    "test/"
+  ],
+  "collectCoverageFrom": ["**/*.js"]
+}
