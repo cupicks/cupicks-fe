@@ -41,32 +41,12 @@ jobs:
           
         - name: Generate Environment Variable Files for Production
           run: |
-            echo "VITE_SERVER_URL=$VITE_SERVER_URL" >> .env.production
+            echo "VITE_SERVER_URL=$VITE_SERVER_URL" >> .env
           env:
             VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
 
         - name: Build
           run: npm run build 
-          
-        - name: IF Failure and Close PR
-          if: failure()
-          uses: actions/github-script@0.2.0
-          with:
-            github-token: ${{github.token}}
-            script: | 
-              const ref = "${{github.ref}}"
-              const pull_number = Number(ref.split("/")[2])
-              await github.pulls.createReview({
-                ...context.repo,
-                pull_number,
-                body:"파일 빌드에 실패하였습니다. \n조속한 조치 부탁드립니다",
-                event: "REQUEST_CHANGES"
-              })
-              await github.pulls.update({
-                ...context.repo,
-                pull_number,
-                state: "closed"
-              }) 
  
         - name: Deploy
           env:
