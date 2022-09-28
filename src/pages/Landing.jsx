@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/image/logo/logo_Cupick.png";
 
 import styled from "styled-components";
+import styledLayoutComponents from "../styles/customLayoutStyle";
+const { CustomWrapFullVH } = styledLayoutComponents;
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const Landing = () => {
     } else {
       navigate("/sign-in");
     }
+    return clearTimeout();
   }, timer);
 
   return (
@@ -26,15 +29,14 @@ const Landing = () => {
 
 export default Landing;
 
-const StWrap = styled.div`
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+const StWrap = styled(CustomWrapFullVH)`
   img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+
     width: 50%;
+    margin: 0 auto;
   }
 `;

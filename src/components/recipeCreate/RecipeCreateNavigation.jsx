@@ -4,9 +4,9 @@ import Navigation from "../../partial/Navigation";
 import NavButtonDone from "../elements/button/NavButtonDone";
 import NavButtonGoMain from "../elements/button/NavButtonGoMain";
 import NavButtonNextLevel from "../elements/button/NavButtonNextLevel";
-import NavButtonNextSublevel from "../elements/button/NavButtonNextSublevel";
+import NavButtonNextSublevel from "../elements/button/NavButtonNextSubLevel";
 import NavButtonPrevLevel from "../elements/button/NavButtonPrevLevel";
-import NavButtonPrevSublevel from "../elements/button/NavButtonPrevSublevel";
+import NavButtonPrevSublevel from "../elements/button/NavButtonPrevSubLevel";
 
 import ToastMessage from "../elements/modal/ToastMessage";
 import ConfirmBox from "../elements/modal/ConfirmBox";
