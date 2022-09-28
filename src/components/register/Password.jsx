@@ -4,7 +4,7 @@ import styled from "styled-components";
 import styledFormComponents from "../../styles/customFormStyle";
 const { CustomTitle } = styledComponents;
 import styledComponents from "../../styles/customElementStyle";
-const { CustomInput, CustomErrorBox } = styledFormComponents;
+const { CustomInput, CustomErrorBox, CustomInputBox } = styledFormComponents;
 
 import cancelBtn from "../../assets/svg/cancel_modal.svg";
 import ToastMessage from "../../components/elements/modal/ToastMessage";
@@ -33,7 +33,8 @@ const Password = (props) => {
       <CustomTitle>
         <h1>비밀번호 입력</h1>
       </CustomTitle>
-      <div className="register_input_box">
+
+      <CustomInputBox>
         {watch("password")?.length >= 1 && (
           <img
             className="input_label_icon"
@@ -51,22 +52,28 @@ const Password = (props) => {
             required: true,
             pattern: {
               // value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[\!\@\#]).*$/,
-              value: /[a-zA-Z\d]|[\!\@]/,
+              // value: /[a-zA-Z\d]|[\!\@]/,
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!])[A-Za-z\d@!]{8,15}$/,
               message:
                 "비밀번호는 영문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
             },
           })}
         />
-      </div>
+      </CustomInputBox>
 
       <StErrorBox>
-        {errors.password && <p>{errors.password.message}</p>}
+        <p className="info">
+          비밀번호는 문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상,
+          15글자 이하로 입력해주세요.
+        </p>
+        {/* {errors.password && <p>{errors.password.message}</p>} */}
       </StErrorBox>
 
       <CustomTitle>
         <h1>비밀번호 확인</h1>
       </CustomTitle>
-      <div className="register_input_box">
+
+      <CustomInputBox>
         {watch("password_confirm")?.length >= 1 && (
           <img
             className="input_label_icon"
@@ -83,7 +90,7 @@ const Password = (props) => {
             validate: (value) => value === password.current,
           })}
         />
-      </div>
+      </CustomInputBox>
 
       <StErrorBox>
         {errors.password_confirm &&

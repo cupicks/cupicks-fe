@@ -20,13 +20,13 @@ const CommentDelete = ({
       });
     // console.log(data);
   };
-
+  console.log(comments);
   const onDeleteHandler = async () => {
     let contentType = "application/json";
     await api(contentType)
       .delete(`/comments/${editCommentId}`)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
       });
     setMenuOpen(false);
     getComments();

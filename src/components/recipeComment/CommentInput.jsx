@@ -12,7 +12,7 @@ const CommentInput = ({
   setComments,
   setCheckComment,
   setCommentCreated,
-  setNewComments,
+  profiles,
 }) => {
   const { recipeId } = useParams();
   const {
@@ -108,7 +108,11 @@ const CommentInput = ({
     await api(contentType)
       .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
       .then((res) => {
-        setNewComments((prev) => [res.data.comment, ...prev]);
+        console.log(res);
+        // setNewComments((prev) => [res.data.comment, ...prev]);
+        // setNewComments([...newComments, res.data.comment]);
+        const newComments = [res.data.comment];
+        setComments([...newComments, ...comments]);
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
@@ -119,8 +123,8 @@ const CommentInput = ({
     <StWrap onSubmit={handleSubmit(fileSubmit)}>
       <div className="input_profile">
         <div className="profile_image">
-          {decodedToken !== null && (
-            <StInputProfile src={decodedToken.imageUrl}></StInputProfile>
+          {profiles !== null && (
+            <StInputProfile src={profiles?.imageUrl}></StInputProfile>
           )}
         </div>
       </div>

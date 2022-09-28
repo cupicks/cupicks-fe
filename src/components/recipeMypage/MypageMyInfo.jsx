@@ -13,14 +13,16 @@ import styled from "styled-components";
 const MypageMyInfo = (props) => {
   const [dropBox, setDropBox] = useState(false);
   const navigate = useNavigate();
-  const { token, userData } = props;
+  const { token, userData, profiles } = props;
   const { nickname, imageUrl, email, userId } = userData;
 
   const onClickGoToProfileEdit = () => {
     navigate(`/profile/edit`);
   };
 
-  const ProfileImageSrc = imageUrl ? imageUrl : profilePlaceholder;
+  const ProfileImageSrc = profiles?.imageUrl
+    ? profiles?.imageUrl
+    : profilePlaceholder;
 
   // 로그아웃
   const logout = () => {
@@ -44,13 +46,14 @@ const MypageMyInfo = (props) => {
     <StMypageMyInfo>
       <div className="left" onClick={() => setDropBox(!dropBox)}>
         <StProfilePic
+          onError={(e) => (e.target.src = profiles?.resizedUrl)}
           ProfileImageSrc={ProfileImageSrc}
           onClick={(e) => {
             e.stopPropagation();
             onClickGoToProfileEdit();
           }}
         />
-        <span>{nickname}</span>
+        <span>{profiles?.nickname}</span>
         <img
           className="dropdown_menu_icon"
           src={dropDownMenuIcon}
@@ -61,8 +64,8 @@ const MypageMyInfo = (props) => {
       {dropBox && (
         <StDropMenu>
           <li onClick={() => setDropBox(false)}>
-            <span className="nickname">{nickname}</span>
-            <span className="email">{email}</span>
+            <span className="nickname">{profiles?.nickname}</span>
+            <span className="email">{profiles?.email}</span>
           </li>
           <li onClick={logout}>로그아웃</li>
         </StDropMenu>

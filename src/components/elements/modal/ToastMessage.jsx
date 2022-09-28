@@ -7,7 +7,7 @@ const ToastMessage = (props) => {
     imageUrl = "",
     timer = 2000,
     backgroundShadow = false,
-    smallFont = false
+    smallFont = false,
   } = props;
   const [modalShow, setModalShow] = useState(true);
 

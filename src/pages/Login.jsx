@@ -5,17 +5,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../server/api";
 
 import styled from "styled-components";
+import styledLayoutComponents from "../styles/customLayoutStyle";
+const { CustomWrapFullVH } = styledLayoutComponents;
 import styledFormComponents from "../styles/customFormStyle";
-const { CustomInput, CustomForm, CustomButton, CustomErrorBox, CustomLabel } =
-  styledFormComponents;
-import styledComponents from "../styles/customElementStyle";
 const {
-  CustomWrapFullVH,
+  CustomInput,
+  CustomForm,
+  CustomButton,
+  CustomErrorBox,
+  CustomInputBox,
+} = styledFormComponents;
+import styledElementComponents from "../styles/customElementStyle";
+const {
   CustomTitle,
   CustomSmallBoldTextLink,
   CustomLineBox,
   CustomSmallLightText,
-} = styledComponents;
+} = styledElementComponents;
 
 import cancelBtn from "../assets/svg/cancel_modal.svg";
 import kakao from "../assets/image/logo/kakao.png";
@@ -160,7 +166,8 @@ const Login = () => {
 
       <StLoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>이메일</label>
-        <div className="register_input_box">
+
+        <CustomInputBox>
           {watch("email")?.length >= 1 && (
             <img
               className="input_label_icon"
@@ -183,13 +190,14 @@ const Login = () => {
               },
             })}
           />
-        </div>
+        </CustomInputBox>
+
         <CustomErrorBox>
           {errors.email && <p>{errors.email.message}</p>}
         </CustomErrorBox>
 
         <label>비밀번호</label>
-        <div className="register_input_box">
+        <CustomInputBox>
           {watch("password")?.length >= 1 && (
             <img
               className="input_label_icon"
@@ -205,13 +213,14 @@ const Login = () => {
             {...register("password", {
               required: true,
               pattern: {
-                value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
+                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!])[A-Za-z\d@!]{8,15}$/,
                 message:
-                  "비밀번호는 문자, 숫자, 특수문자(!@#) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
+                  "비밀번호는 문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
               },
             })}
           />
-        </div>
+        </CustomInputBox>
+
         <CustomErrorBox>
           {errors.password && <p>{errors.password.message}</p>}
         </CustomErrorBox>
@@ -243,10 +252,11 @@ const Login = () => {
         <img src={kakao} />
         카카오로 시작하기
       </StKakaoBox> */}
+
       <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
-        회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
+        {/* 회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다. */}
       </StCtn>
 
       <StLink onClick={() => navigate("/sign-up")}>

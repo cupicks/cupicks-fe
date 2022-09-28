@@ -4,10 +4,12 @@ import styled, { css } from "styled-components";
 const CustomForm = styled.form`
   ${({ theme }) => {
     return css`
-      margin-top: 3.5rem;
-
       display: flex;
       flex-direction: column;
+
+      nav {
+        padding: 0;
+      }
 
       & p {
         color: ${theme.colors.alert};
@@ -17,19 +19,6 @@ const CustomForm = styled.form`
         font-weight: ${theme.fonts.weight.bold};
         font-size: ${theme.fonts.size.label};
         color: ${theme.colors.middle};
-      }
-
-      .input_label_icon {
-        width: 2.4rem;
-        height: 2.4rem;
-
-        position: absolute;
-        right: 0;
-        bottom: 0;
-
-        transform: translateY(-30%);
-
-        cursor: pointer;
       }
     `;
   }}
@@ -41,7 +30,6 @@ const CustomInput = styled.input`
     return css`
       width: 100%;
       padding: ${theme.inputs.padding.base};
-      /* margin-bottom: 25px; */
 
       border-bottom: ${theme.inputs.borderBottom.base};
 
@@ -49,6 +37,10 @@ const CustomInput = styled.input`
       line-height: 1.5;
 
       transition: all 0.3s;
+
+      ${theme.devices.tablet} {
+        padding: ${theme.inputs.padding.sm};
+      }
 
       :hover,
       :focus,
@@ -68,6 +60,13 @@ const CustomButton = styled.button`
     return css`
       padding: 1.5rem;
       border-radius: 1rem;
+
+      ${theme.devices.tablet} {
+        padding: 1.2rem;
+      }
+      ${theme.devices.mobile} {
+        padding: 1rem;
+      }
 
       border: ${theme.buttons.border.base};
       background: ${theme.buttons.backgroundColor.base};
@@ -96,25 +95,63 @@ const CustomButton = styled.button`
   }}
 `;
 
-const CustomErrorBox = styled.div`
-  ${({ theme }) => {
-    return css`
-      min-height: 3rem;
-      line-height: 2.5rem;
-      margin-bottom: 0.5rem;
-
-      font-size: ${theme.fonts.size.label};
-      color: ${theme.colors.alert};
-    `;
-  }}
-`;
-
+// 라벨: 라벨용 작은 회색 글씨
 const CustomLabel = styled.label`
   ${({ theme }) => {
     return css`
       font-weight: ${theme.fonts.weight.bold};
       font-size: ${theme.fonts.weight.label};
       color: ${theme.colors.middle};
+
+      word-break: keep-all;
+    `;
+  }}
+`;
+
+// 영역, 박스
+const CustomErrorBox = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 90%;
+      min-height: 1.5rem;
+
+      line-height: 2rem;
+      padding-bottom: 1rem;
+
+      font-size: ${theme.fonts.size.sm};
+      color: ${theme.colors.alert};
+
+      word-break: keep-all;
+
+      .info {
+        color: #aaa;
+        word-break: keep-all;
+      }
+    `;
+  }}
+`;
+
+const CustomInputBox = styled.div`
+  ${({ theme }) => {
+    return css`
+      position: relative;
+
+      .register_input_box {
+        position: relative;
+      }
+
+      .input_label_icon {
+        width: 2.4rem;
+        height: 2.4rem;
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        transform: translateY(-30%);
+
+        cursor: pointer;
+      }
     `;
   }}
 `;
@@ -131,6 +168,7 @@ const styledComponents = {
   CustomForm,
   CustomErrorBox,
   CustomLabel,
+  CustomInputBox,
 };
 
 export default styledComponents;

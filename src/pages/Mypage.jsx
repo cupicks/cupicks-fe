@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useJwt } from "react-jwt";
 import { useLocation } from "react-router-dom";
 
+import api from "../server/api";
+
 import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
 import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
 import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
@@ -12,12 +14,25 @@ import ToastMessage from "../components/elements/modal/ToastMessage";
 const Mypage = () => {
   const location = useLocation();
   const [messageModal, setMessageModal] = useState(false);
+  const [profiles, setProfiles] = useState();
   const messageText = location.state?.message;
 
   const token = localStorage.getItem("refreshToken");
   const { decodedToken } = useJwt(token);
   let userData = decodedToken;
 
+  const getProfile = async () => {
+    const contentType = "application/json";
+    try {
+      const res = await api(contentType).get("/profile/my-profile");
+      console.log(res.data.user);
+      // setProfiles([...profiles, res.data.user]);
+      setProfiles(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(profiles);
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
@@ -26,13 +41,15 @@ const Mypage = () => {
       }, 1500);
     }
   }, []);
-
+  useEffect(() => {
+    getProfile();
+  }, []);
   return (
     <StWrap>
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
       {userData !== null && (
         <>
-          <MypageMyInfo token={token} userData={userData} />
+          <MypageMyInfo token={token} userData={userData} profiles={profiles} />
           <MypageRecipeMyList on={true} />
           <MypageRecipeLikeList />
           <div></div>

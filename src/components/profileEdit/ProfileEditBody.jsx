@@ -4,8 +4,7 @@ import editIcon from "../../assets/svg/edit.svg";
 import lockIcon from "../../assets/svg/lock.svg";
 
 const ProfileEditBody = (props) => {
-  const { register, errors, watch, getValues, setFocus, userData } = props;
-  console.log();
+  const { register, errors, watch, getValues, setFocus, profiles } = props;
 
   const changeNickname = () => {
     setFocus("nickname");
@@ -27,9 +26,8 @@ const ProfileEditBody = (props) => {
           />
         </label>
         <input
-          defaultValue={userData.nickname}
+          defaultValue={profiles?.nickname}
           {...register("nickname", {
-            required: true,
             pattern: {
               value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
               message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
@@ -52,7 +50,7 @@ const ProfileEditBody = (props) => {
             alt="이메일은 수정할 수 없습니다."
           />
         </label>
-        <input defaultValue={userData.email} disabled />
+        <input defaultValue={profiles?.email} disabled />
       </div>
 
       {/* RegisterInputPassword */}
@@ -68,18 +66,18 @@ const ProfileEditBody = (props) => {
         </label>
         <input
           {...register("password", {
-            minLength: {
-              value: 8,
-              message: "8자 이상 써주세요",
-            },
-            maxLength: {
-              value: 15,
-              message: "15자 이하로 써주세요",
-            },
+            // minLength: {
+            //   value: 8,
+            //   message: "8자 이상 써주세요",
+            // },
+            // maxLength: {
+            //   value: 15,
+            //   message: "15자 이하로 써주세요",
+            // },
             pattern: {
-              value: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#]).*$/,
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!])[A-Za-z\d@!]{8,15}$/,
               message:
-                "패스워드는 영어, 숫자, 그리고 특수문자중(!@#)를 포함해주세요",
+                "비밀번호는 영문자, 숫자, 특수문자(!@) 각 1개씩 포함하며 8글자 이상, 15글자 이하입니다",
             },
           })}
           type="password"

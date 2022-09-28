@@ -9,7 +9,21 @@ const GlobalStyle = createGlobalStyle`
   ${({ theme }) => {
     return css`
       body {
-        font-size: ${theme.fonts.size.base};
+        font-size: ${theme.fonts.size.lg};
+        background-color: ${theme.colors.light};
+      }
+
+      ${theme.devices.tablet} {
+        body {
+          font-size: ${theme.fonts.size.base};
+        }
+      }
+
+      ${theme.devices.mobile} {
+        body {
+          font-size: ${theme.fonts.size.md};
+          background-color: ${theme.colors.background};
+        }
       }
     `;
   }}

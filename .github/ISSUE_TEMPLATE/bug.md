@@ -3,7 +3,7 @@ name: 버그 리포트
 about: 한 일 / 에러 내용 / 조치 사항
 title: 'Bug : 버그 주요 키워드'
 labels: 'bug'
-assignees: ['cmun2', 'dusunax', 'wonseok-do']
+assignees: []
 ---
 
 ### 한 일

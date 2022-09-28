@@ -19,6 +19,7 @@ const CommentBody = () => {
   const [page, setPage] = useState(1);
   const [counting, setCounting] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [profiles, setProfiles] = useState();
   const [ref, inView] = useInView({
     threshold: 0.8,
     // skip: true,
@@ -61,7 +62,7 @@ const CommentBody = () => {
       .get(`/comments?recipeId=${recipeId}&page=${page}&count=10`)
       .then((res) => {
         // console.log(res);
-        setComments([...comments, ...res.data.commentList]);
+        setComments([...res.data.commentList, ...comments]);
       });
     setLoading(false);
   }, [page]);
@@ -94,81 +95,32 @@ const CommentBody = () => {
   //     }, 2950);
   //   }
   // };
+  const getProfile = async () => {
+    const contentType = "application/json";
+    try {
+      const res = await api(contentType).get("/profile/my-profile");
+      // console.log(res.data.user);
+      // setProfiles([...profiles, res.data.user]);
+      setProfiles(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    // setTimeout(() => {
     getComments();
-    setNewComments([]);
 
-    // }, 2900);
-
-    /******* 비로그인 기능 *******/
+    /******* 비로그인/로그인 기능 *******/
     if (!userLogin) {
       setGuestLoginShadow(true);
+    } else {
+      getProfile();
     }
-    console.log("hi");
   }, [getComments]);
 
   return (
     <>
       <StListWrap>
-        {newComments?.length !== 0 &&
-          newComments?.map((newComment, i) => {
-            return (
-              <StCommentWrap key={"newComment" + i}>
-                <div className="flex_box">
-                  <StProfile>
-                    <StCommentProfile
-                      src={newComment.userImageUrl}
-                      onError={(e) =>
-                        (e.target.src = newComment.userResizedUrl)
-                      }
-                    />
-                  </StProfile>
-                  <StContent>
-                    <div className="content_top">
-                      <span className="nickname">{newComment.nickname}</span>
-                      <span className="dot">•</span>
-                      <span className="create_time">
-                        {getTimegap(newComment.createdAt)}
-                      </span>
-                    </div>
-                    <div className="content_bottom">{newComment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={newComment.resizedUrl}
-                        onError={(e) => (e.target.src = newComment.imageUrl)}
-                      />
-                    </div>
-                    {/* )} */}
-                  </StContent>
-                  <StOption
-                    onClick={() => {
-                      if (userLogin) {
-                        // 기존 코드
-                        setMenuOpen(true);
-                        setEditCommentId(newComment.commentId);
-                      } else {
-                        // 비로그인 기능 추가
-                        if (!needLogginModal) {
-                          setNeedLogginModal(true);
-                          setTimeout(() => {
-                            setNeedLogginModal(false);
-                          }, 2000);
-                        }
-                      }
-                    }}
-                  >
-                    <img src={talk_edit} />
-                  </StOption>
-                </div>
-              </StCommentWrap>
-            );
-          })}
-
         {comments?.map((comment, recipeId) => {
           // 댓글을 작성한 본인인지 확인합니다.
           commentAuthor = userLoginId === comment.userId;
@@ -197,30 +149,33 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
+                        src={comment.imageUrl}
+                        onError={(e) => (e.target.src = comment.resizedUrl)}
                       />
                     </div>
                     {/* )} */}
                   </StContent>
-                  <StOption
-                    onClick={() => {
-                      if (userLogin) {
-                        // 기존 코드
-                        setMenuOpen(true);
-                        setEditCommentId(comment.commentId);
-                      } else {
-                        // 비로그인 기능 추가
-                        if (!needLogginModal) {
-                          setNeedLogginModal(true);
-                          setTimeout(() => {
-                            setNeedLogginModal(false);
-                          }, 2000);
+                  <StOption>
+                    <button
+                      disabled={!commentAuthor}
+                      onClick={() => {
+                        if (userLogin) {
+                          // 기존 코드
+                          setMenuOpen(true);
+                          setEditCommentId(comment.commentId);
+                        } else {
+                          // 비로그인 기능 추가
+                          if (!needLogginModal) {
+                            setNeedLogginModal(true);
+                            setTimeout(() => {
+                              setNeedLogginModal(false);
+                            }, 2000);
+                          }
                         }
-                      }
-                    }}
-                  >
-                    {commentAuthor && <img src={talk_edit} />}
+                      }}
+                    >
+                      {commentAuthor && <img src={talk_edit} />}
+                    </button>
                   </StOption>
                 </div>
               ) : (
@@ -246,30 +201,33 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
+                        src={comment.imageUrl}
+                        onError={(e) => (e.target.src = comment.resizedUrl)}
                       />
                     </div>
                     {/* )} */}
                   </StContent>
-                  <StOption
-                    onClick={() => {
-                      if (userLogin) {
-                        // 기존 코드
-                        setMenuOpen(true);
-                        setEditCommentId(comment.commentId);
-                      } else {
-                        // 비로그인 기능 추가
-                        if (!needLogginModal) {
-                          setNeedLogginModal(true);
-                          setTimeout(() => {
-                            setNeedLogginModal(false);
-                          }, 2000);
+                  <StOption>
+                    <button
+                      disabled={!commentAuthor}
+                      onClick={() => {
+                        if (userLogin) {
+                          // 기존 코드
+                          setMenuOpen(true);
+                          setEditCommentId(comment.commentId);
+                        } else {
+                          // 비로그인 기능 추가
+                          if (!needLogginModal) {
+                            setNeedLogginModal(true);
+                            setTimeout(() => {
+                              setNeedLogginModal(false);
+                            }, 2000);
+                          }
                         }
-                      }
-                    }}
-                  >
-                    {commentAuthor && <img src={talk_edit} />}
+                      }}
+                    >
+                      {commentAuthor && <img src={talk_edit} />}
+                    </button>
                   </StOption>
                 </div>
               )}
@@ -278,6 +236,7 @@ const CommentBody = () => {
         })}
 
         <CommentOption
+          profiles={profiles}
           comments={comments}
           setComments={setComments}
           editCommentId={editCommentId}
@@ -288,11 +247,13 @@ const CommentBody = () => {
         />
       </StListWrap>
       <CommentInput
+        profiles={profiles}
         getComments={getComments}
         setCheckComment={setCheckComment}
         setComments={setComments}
         comments={comments}
         setNewComments={setNewComments}
+        newComments={newComments}
       />
 
       {/* 댓글 작성 가리기 */}
@@ -421,7 +382,12 @@ const StContent = styled.div`
 const StOption = styled.div`
   padding: 0 10px;
   transform: translateX(10px);
-  cursor: pointer;
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    pointer-events: none;
+  }
 `;
 
 // 비로그인 댓글 작성 막는 div

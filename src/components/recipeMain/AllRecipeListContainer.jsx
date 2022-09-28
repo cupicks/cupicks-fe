@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import styled from "styled-components";
+import styledElementComponents from "../../styles/customElementStyle";
+const { CustomProfilePic, CustomIconBox } = styledElementComponents;
 
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
 
@@ -13,8 +15,6 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-
-
   const { allrecipes, modalProps, getItems, page } = props;
 
   const {
@@ -111,11 +111,10 @@ const AllRecipeListContainer = (props) => {
     }
   };
 
-
   return (
     <>
       <StListHead>
-        <StListProfile profileImage={profileImage} />
+        <CustomProfilePic profileImage={profileImage} />
         <StNickname>{nickname}</StNickname>
       </StListHead>
 
@@ -142,20 +141,20 @@ const AllRecipeListContainer = (props) => {
 
       <StListDesc>
         <div className="title">{titleText}</div>
-        <StIconSet>
+        <StIconBox>
           <img
-            className="talk_btn"
+            className="talk_btn icon"
             src={talk}
             onClick={() => {
               navigate(`${recipeId}/comment`, { state: title });
             }}
           />
           {liked === false ? (
-            <img className="like_btn" src={dislikes} onClick={likeCard} />
+            <img className="like_btn icon" src={dislikes} onClick={likeCard} />
           ) : (
-            <img className="like_btn" src={likes} onClick={likeCard} />
+            <img className="like_btn icon" src={likes} onClick={likeCard} />
           )}
-        </StIconSet>
+        </StIconBox>
       </StListDesc>
     </>
   );
@@ -164,31 +163,21 @@ const AllRecipeListContainer = (props) => {
 export default AllRecipeListContainer;
 
 const StListHead = styled.div`
-  height: 23px;
-  padding: 2px 7px 0;
+  height: 2.5rem;
+  padding: 0.2rem 0.7rem 0;
 
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.5rem;
 
   box-shadow: 0 2px 0 #eeeeee;
-`;
-
-const StListProfile = styled.div`
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-
-  border: 1px solid #b6b6b6;
-  background: #eee url(${(props) => props.profileImage}) no-repeat center /
-    cover;
 `;
 
 const StNickname = styled.div`
   color: #101010;
 
   font-weight: 600;
-  font-size: 6.5px;
+  font-size: 1rem;
 `;
 
 const StListContent = styled.div`
@@ -197,7 +186,7 @@ const StListContent = styled.div`
   display: flex;
   flex-flow: column-reverse;
 
-  border-top: 2px solid #f8f7f8;
+  border-top: 0.2rem solid #f8f7f8;
 `;
 
 const StCupHeight = styled.div`
@@ -208,8 +197,8 @@ const StCupHeight = styled.div`
 `;
 
 const StListDesc = styled.div`
-  min-height: 20px;
-  padding: 4px 7.5px 5px;
+  min-height: 2rem;
+  padding: 0.4rem 0.7rem 0.5rem;
 
   display: flex;
   justify-content: space-between;
@@ -219,28 +208,15 @@ const StListDesc = styled.div`
 
   .title {
     font-weight: 600;
-    font-size: 7px;
-    line-height: 150%;
+    font-size: 1rem;
   }
 `;
 
-const StIconSet = styled.div`
-  display: flex;
-  gap: 5px;
-
+const StIconBox = styled(CustomIconBox)`
   .talk_btn {
-    width: 9px;
-    transition: all 0.3s;
-    cursor: pointer;
+    width: 0.9rem;
   }
   .like_btn {
-    width: 11px;
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-
-  .talk_btn:hover,
-  .like_btn:hover {
-    transform: scale(1.3);
+    width: 1.1rem;
   }
 `;
