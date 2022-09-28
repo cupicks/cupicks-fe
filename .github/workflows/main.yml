@@ -1,0 +1,83 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: release
+
+on:
+  push:
+    branches: 
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.13.0]
+
+    steps:
+        - name: Checkout source code
+          uses: actions/checkout@v3
+
+        - name: node setup
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ matrix.node-version }}
+
+        - name: Cachce node_modules
+          uses: actions/cache@v2
+          id: node-cache
+          env:
+            cache-name: cache-node-modules
+          with:
+            path: node_modules
+            key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
+              ${{ runner.os }}-node-modules-
+        - name: Install node_modules
+          if: steps.node-cache.outputs.cache-hit != 'true'
+          run: npm ci
+          
+        - name: Generate Environment Variable Files for Production
+          run: |
+            echo "VITE_SERVER_URL=$VITE_SERVER_URL" >> .env.production
+          env:
+            VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
+
+        - name: Build
+          run: npm run build 
+          
+        - name: IF Failure and Close PR
+          if: failure()
+          uses: actions/github-script@0.2.0
+          with:
+            github-token: ${{github.token}}
+            script: | 
+              const ref = "${{github.ref}}"
+              const pull_number = Number(ref.split("/")[2])
+              await github.pulls.createReview({
+                ...context.repo,
+                pull_number,
+                body:"파일 빌드에 실패하였습니다. \n조속한 조치 부탁드립니다",
+                event: "REQUEST_CHANGES"
+              })
+              await github.pulls.update({
+                ...context.repo,
+                pull_number,
+                state: "closed"
+              }) 
+ 
+        - name: Deploy
+          env:
+              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
+              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
+
+          run: |
+              aws s3 cp \
+              --recursive \
+              --region ap-northeast-2 \
+              build s3://cupick.co
+              
+        - name: Invalidate CloudFront Cache
+          run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
