@@ -12,7 +12,7 @@ const ToastMessage = (props) => {
   const [modalShow, setModalShow] = useState(true);
 
   const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : "";
-  const fontSize = smallFont ? "14px" : "18px";
+  const fontSize = smallFont ? "1.4rem" : "1.8rem";
 
   setTimeout(() => {
     setModalShow(false);

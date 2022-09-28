@@ -138,7 +138,7 @@ const AllRecipeList = () => {
   };
 
   return (
-    <CustomFlexListWrap>
+    <StFlexListWrap>
       {items?.map((allrecipes, index) => (
         <CustomFlexList key={"allRecipeList" + index}>
           {items.length - 1 == index ? (
@@ -169,11 +169,15 @@ const AllRecipeList = () => {
       {needLogginModal && (
         <ToastMessage text={"좋아요는 로그인이\n 필요한 기능입니다."} />
       )}
-    </CustomFlexListWrap>
+    </StFlexListWrap>
   );
 };
 
 export default AllRecipeList;
+
+const StFlexListWrap = styled(CustomFlexListWrap)`
+  padding-bottom: 10vh;
+`;
 
 const fade = keyframes`
 /* from {
