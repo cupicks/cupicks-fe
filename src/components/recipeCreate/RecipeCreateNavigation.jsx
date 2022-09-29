@@ -10,6 +10,7 @@ import NavButtonPrevSublevel from "../elements/button/NavButtonPrevSubLevel";
 
 import ToastMessage from "../elements/modal/ToastMessage";
 import ConfirmBox from "../elements/modal/ConfirmBox";
+import { useEffect } from "react";
 
 const RecipeCreateNavigation = (props) => {
   const {
@@ -26,6 +27,7 @@ const RecipeCreateNavigation = (props) => {
     currCupSize: cupSize,
     isIcedTag,
     currentIngredientDeleted,
+    maxAmount,
   } = cupState;
   const { step, finalStep, subStep, finalSubStep } = stepState;
   const { watch, getValues, reset } = formProps;
@@ -53,6 +55,7 @@ const RecipeCreateNavigation = (props) => {
     ingredientDeleteMode: false,
     currentIngredientDeleted: false,
     currIngredientList: [],
+    maxAmount: undefined,
   };
   const initialStepState = {
     step: 0,
@@ -78,6 +81,14 @@ const RecipeCreateNavigation = (props) => {
   let nameRequired = false;
   let amountRequired = false;
   let colorRequired = true;
+
+  useEffect(() => {
+    console.log(maxAmount);
+    if (maxAmount === 0) {
+      console.log("재료가 다 찼습니다.");
+      setCupState((prev) => ({ ...prev, cupFull: true }));
+    }
+  }, []);
 
   if (newListExist) {
     // 이름이 존재, 필요 여부
@@ -242,6 +253,25 @@ const RecipeCreateNavigation = (props) => {
 
   /** 다음 subStep 버튼 클릭 핸들러  */
   const subStepButtonNextClickHandler = () => {
+    switch (subStep) {
+      case 2:
+        const currAmount = +newList[newList.length - 1].ingredientAmount;
+        if (maxAmount === currAmount) {
+          if (cupFull === false) {
+            setCupState({ ...cupState, cupFull: true });
+            // console.log("재료가 가득 참, state가 변경됨");
+          } else {
+            // console.log("재료가 가득 참");
+          }
+        } else if (cupFull === true) {
+          setCupState({ ...cupState, cupFull: false });
+          // console.log("재료가 가득 차지 않음, state가 변경됨");
+        } else {
+          // console.log("재료가 가득 차지 않음");
+        }
+      default:
+        "";
+    }
     goNextSubStep();
   };
 

@@ -13,7 +13,7 @@ const Recipe = () => {
   const location = useLocation();
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
-  const timer = 1300;
+  const timer = 1200;
 
   useEffect(() => {
     if (messageText !== undefined) {
