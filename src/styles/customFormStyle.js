@@ -38,17 +38,23 @@ const CustomInput = styled.input`
 
       transition: all 0.3s;
 
-      ${theme.devices.tablet} {
-        padding: ${theme.inputs.padding.sm};
-      }
-
       :hover,
       :focus,
       :active {
         border-bottom: ${theme.inputs.borderBottom.active};
       }
+
       ::placeholder {
+        font-size: ${theme.fonts.size.input};
         color: ${theme.colors.light};
+      }
+
+      ${theme.devices.tablet} {
+        padding: ${theme.inputs.padding.sm};
+
+        ::placeholder {
+          font-size: ${theme.fonts.size.md};
+        }
       }
     `;
   }}
@@ -65,7 +71,7 @@ const CustomButton = styled.button`
         padding: 1.2rem;
       }
       ${theme.devices.mobile} {
-        padding: 1rem;
+        padding: 0.9rem;
       }
 
       border: ${theme.buttons.border.base};

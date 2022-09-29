@@ -30,8 +30,6 @@ const RecipeCreateNavigation = (props) => {
   const { step, finalStep, subStep, finalSubStep } = stepState;
   const { watch, getValues, reset } = formProps;
 
-  // const buttonDone = useRef();
-
   const [modalCupFullRequired, setModalCupFullRequired] = useState(false);
   const [needMoreIngredient, setNeedMoreIngredient] = useState(false);
   const [showComfirmBox, setShowComfirmBox] = useState(false);
@@ -224,7 +222,6 @@ const RecipeCreateNavigation = (props) => {
 
   /** 이전 subStep 버튼 클릭 핸들러 */
   const subStepButtonPrevClickHandler = () => {
-    console.log(currentIngredientDeleted, subStep);
     switch (subStep) {
       case 1:
         setShowComfirmBox(true);

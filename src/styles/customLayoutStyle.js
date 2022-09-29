@@ -51,7 +51,7 @@ const CustomFlexListWrap = styled.div`
         gap: ${theme.gaps.sm};
       }
 
-      ${theme.devices.mobileXS} {
+      ${theme.devices.xs} {
         gap: ${theme.gaps.xs};
       }
     `;
@@ -62,7 +62,8 @@ const CustomFlexList = styled.div`
   ${({ theme }) => {
     return css`
       flex: ${theme.flexItems.md};
-      height: 26vh;
+      height: 27vh;
+      min-height: 20rem;
       max-height: 50rem;
       border-radius: 1rem;
 
@@ -81,7 +82,7 @@ const CustomFlexList = styled.div`
         flex: ${theme.flexItems.sm};
       }
 
-      ${theme.devices.mobileXS} {
+      ${theme.devices.xs} {
         flex: ${theme.flexItems.xs};
       }
 

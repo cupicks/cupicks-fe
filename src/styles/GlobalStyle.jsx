@@ -25,6 +25,12 @@ const GlobalStyle = createGlobalStyle`
           background-color: ${theme.colors.background};
         }
       }
+
+      ${theme.devices.xs} {
+        body {
+          font-size: ${theme.fonts.size.sm};
+        }
+      }
     `;
   }}
 `;
