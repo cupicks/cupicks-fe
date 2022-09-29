@@ -75,6 +75,13 @@ const setMaxAmountAndCupFullState = (maxAmount, cupFull, setCupState) => {
   return "재료 최대량이 변경되었습니다.";
 };
 
+/**
+ * maxAmount: number(range의 max에 입력하는 재료량의 최대치)
+ * @param {number 0~591} maxAmount
+ * @param {object} setCupState
+ * @param {boolean} cupFull
+ * @returns number
+ */
 const setMaxAmountState = (maxAmount, setCupState, cupFull) => {
   if (maxAmount === 0 && !cupFull) {
     setCupState((prev) => ({ ...prev, cupFull: true }));

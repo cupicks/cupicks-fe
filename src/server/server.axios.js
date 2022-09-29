@@ -6,7 +6,6 @@ const serverAxios = axios.create({
 });
 
 /** @param { Request } req */
-
 const requestHandler = async (req) => {
   const accessToken = localStorage.getItem("accessToken");
   const isExpiredAccessTkn = isExpired(accessToken);
