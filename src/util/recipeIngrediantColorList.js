@@ -1,7 +1,7 @@
 const recipeIngredientColorList = [
   [
     "#fffaed",
-    "#000001",
+    "#000000",
     "#3897ef",
     "#7acffe",
     "#c1e9ff",
@@ -32,11 +32,22 @@ const recipeIngredientColorList = [
     "#d5d5d5",
     "#ededed",
   ],
-  ["#43a12b", "#1caa85", "#c95450", "#aa1c1c", "#7e4d21", "#572a13"],
+  [
+    "#89de72",
+    "#43a12b",
+    "#1caa85",
+    "#46d2ad",
+    "#e0827f",
+    "#c95450",
+    "#aa1c1c",
+    "#7e4d21",
+    "#572a13",
+  ],
 ];
 
 const recipeDarkIngredientColorList = [
   "#000000",
+  "#000001",
   "#3897ef",
   "#ae7948",
   "#f29d50",

@@ -60,6 +60,7 @@ const RecipeCreateForm = () => {
     ingredientDeleteMode: false,
     currentIngredientDeleted: false,
     currIngredientList: [],
+    maxRange: 200,
   });
 
   const [stepState, setStepState] = useState({
