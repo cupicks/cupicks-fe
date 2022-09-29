@@ -12,7 +12,6 @@ const Ingredient = (props) => {
 
   let textColor = "#393939";
   recipeDarkIngredientColorList.map((color) => {
-    console.log(color);
     if (ingredientColor === color) {
       textColor = "#eee";
     }
@@ -27,6 +26,8 @@ const Ingredient = (props) => {
     <StIngredient
       ingredientColor={ingredientColor}
       ingredientAmount={amountPercent}
+      smallAmount={amountPercent < 5}
+      xsAmount={amountPercent < 3}
       textColor={textColor}
     >
       <span>{ingredientName}</span>
@@ -37,8 +38,9 @@ const Ingredient = (props) => {
 export default Ingredient;
 
 const StIngredient = styled.div`
-  height: ${(props) => props.ingredientAmount + "%"};
-  padding: 0 24px 0px;
+  flex: 0 0 ${(props) => props.ingredientAmount + "%"};
+  padding: ${(props) =>
+    props.smallAmount ? "0 2.4rem 0.2rem" : "0 2.4rem 1rem"};
 
   display: flex;
   justify-content: right;
@@ -47,8 +49,7 @@ const StIngredient = styled.div`
   background-color: ${(props) => props.ingredientColor};
 
   font-weight: 700;
-  font-size: 18px;
-  line-height: 150%;
+  font-size: ${(props) => (props.smallAmount ? "1rem" : "1.8rem")};
 
   span {
     position: relative;

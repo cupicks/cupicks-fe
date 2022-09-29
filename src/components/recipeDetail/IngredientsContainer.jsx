@@ -62,6 +62,8 @@ const StIngredientsContainer = styled.div`
 const StCupHeight = styled.div`
   height: ${(props) => props.amountPercent + "%"};
   position: relative;
+  display: flex;
+  flex-flow: column;
 
   &::before {
     content: "";

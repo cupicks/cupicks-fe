@@ -15,7 +15,7 @@ const RecipeCreateModal = (props) => {
       }}
     >
       <div className="contents_area">
-        <span className="button_close">취소</span>
+        <span className="button_close">삭제취소</span>
       </div>
       <img
         src={cancel}
@@ -74,13 +74,14 @@ const StModal = styled.div`
   }
 
   .button_close {
+    padding: 2rem;
     position: absolute;
     top: 1.2rem;
     left: 1.5rem;
 
     color: #fff;
 
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     font-weight: 700;
   }
 `;
