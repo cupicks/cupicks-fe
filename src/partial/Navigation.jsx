@@ -11,7 +11,10 @@ const Navigation = (props) => {
   return (
     <StNav transparent={transparent}>
       {!empty && (
-        <div className="button_goBack fcc" onClick={() => navigate(goto)}>
+        <div
+          className="button_goBack fcc"
+          onClick={() => navigate(goto, { replace: true })}
+        >
           <img src={arrowBackIcon} alt="뒤로 가기 버튼" />
         </div>
       )}
