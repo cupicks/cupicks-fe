@@ -5,9 +5,11 @@ import illustration05 from "../assets/image/illustration/illustration05.png";
 import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
 const { CustomWrapBody } = styledLayoutComponents;
+import styledFormComponents from "../styles/customFormStyle";
+const { CustomButton } = styledFormComponents;
 
 const NotFound = (props) => {
-  const { message = "", timer = 150000 } = props;
+  const { message = "", timer = 1500 } = props;
   const navigate = useNavigate();
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -25,13 +27,13 @@ const NotFound = (props) => {
       <h3>{message ? message : "페이지가 없거나 접근할 수 없습니다."}</h3>
       <p>
         {message ? (
-          <button
+          <CustomButton
             onClick={() => {
               navigate("/sign-in");
             }}
           >
             로그인 하러 가기
-          </button>
+          </CustomButton>
         ) : (
           "잠시 후 이동합니다."
         )}

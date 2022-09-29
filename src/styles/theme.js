@@ -1,17 +1,21 @@
 const buttons = {
   color: {
-    base: "#cdcdcd",
+    light: "#cdcdcd",
+    base: "#eeeeee",
     active: "#ffffff",
     disable: "#cdcdcd",
   },
   border: {
-    base: "0.2rem solid #cdcdcd",
-    active: "0.2rem solid #393939",
+    light: "0.2rem solid #cdcdcd",
+    base: "0.2rem solid #393939",
+    active: "0.2rem solid #333333",
     disable: "0.2rem solid #eeeeee",
   },
   backgroundColor: {
-    base: "#ffffff",
-    active: "#393939",
+    light: "#ffffff",
+    base: "#393939",
+    active: "#333333",
+    hover: "#cdcdcd",
     disable: "#eeeeee",
   },
 };
@@ -95,14 +99,14 @@ const paddings = {
 };
 
 const sizes = {
-  mobileXS: "240px",
+  xs: "240px",
   mobile: "425px",
   tablet: "768px",
   desktop: "1440px",
 };
 
 const devices = {
-  mobileXS: `@media only screen and (max-width: ${sizes.mobileXS})`,
+  xs: `@media only screen and (max-width: ${sizes.xs})`,
   mobile: `@media only screen and (max-width: ${sizes.mobile})`,
   tablet: `@media only screen and (max-width: ${sizes.tablet})`,
   desktopL: `@media only screen and (max-width: ${sizes.desktop})`,
