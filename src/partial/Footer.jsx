@@ -30,7 +30,6 @@ const Footer = ({ pathname }) => {
       return;
     }
 
-<<<<<<< HEAD
     navigate("/recipe/create", { replace: true, state: undefined });
   };
 
@@ -40,17 +39,6 @@ const Footer = ({ pathname }) => {
 
   const goToMypage = () => {
     navigate("/mypage", { replace: true, state: undefined });
-=======
-    navigate("/recipe/create", { replace: true });
-  };
-
-  const goToMain = () => {
-    navigate("/recipe", { replace: true });
-  };
-
-  const goToMypage = () => {
-    navigate("/mypage", { replace: true });
->>>>>>> 3d114092207572dfafbd61601dff65b31d9de5b0
   };
 
   return (
