@@ -100,7 +100,7 @@ const paddings = {
 
 const sizes = {
   xs: "240px",
-  mobile: "425px",
+  mobile: "360px",
   tablet: "768px",
   desktop: "1440px",
 };
