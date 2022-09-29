@@ -30,15 +30,15 @@ const Footer = ({ pathname }) => {
       return;
     }
 
-    navigate("/recipe/create", { replace: true });
+    navigate("/recipe/create", { replace: true, state: undefined });
   };
 
   const goToMain = () => {
-    navigate("/recipe", { replace: true });
+    navigate("/recipe", { replace: true, state: undefined });
   };
 
   const goToMypage = () => {
-    navigate("/mypage", { replace: true });
+    navigate("/mypage", { replace: true, state: undefined });
   };
 
   return (

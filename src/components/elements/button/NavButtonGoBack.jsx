@@ -7,7 +7,7 @@ const NavButtonGoBack = () => {
     <button
       type="button"
       onClick={() => {
-        navigate(-1, { replace: true });
+        navigate(-1, { replace: true, state: undefined });
       }}
     >
       취소

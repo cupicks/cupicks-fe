@@ -7,7 +7,7 @@ const NavButtonGoMain = () => {
     <button
       type="button"
       onClick={() => {
-        navigate("/", { replace: true });
+        navigate("/", { replace: true, state: undefined });
       }}
     >
       취소
