@@ -4,7 +4,7 @@
 name: release
 
 on:
-  push:
+  pull_request:
     branches:
       - release
 
@@ -15,10 +15,6 @@ jobs:
     strategy:
       matrix:
         node-version: [16.13.0]
-
-    strategy:
-      matrix:
-        node-version: [16.x]
 
     steps:
       - name: Checkout source code
