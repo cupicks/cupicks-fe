@@ -104,7 +104,7 @@ const AllRecipeList = () => {
         });
     } else {
       await api(contentType)
-        .get(`/recipes?page=${page}&count=6`)
+        .get(`/recipes?page=${page + 1}&count=6`)
         .then((res) => {
           console.log(res);
           setItems([...items, ...res.data.recipeList]);
