@@ -27,7 +27,7 @@ const RecipeIngredient = (props) => {
       {subStep === 2 && (
         <>
           <div className="info_box_center">
-            재료량을 입력해주세요.(최소 10ml)
+            재료량을 입력해주세요.(최소 25ml)
           </div>
           <div className="flex_box">
             <RecipeIngredientNumber

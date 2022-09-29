@@ -13,7 +13,11 @@ const Navigation = (props) => {
       {!empty && (
         <div
           className="button_goBack fcc"
+<<<<<<< HEAD
           onClick={() => navigate(goto, { replace: true, state: undefined })}
+=======
+          onClick={() => navigate(goto, { replace: true })}
+>>>>>>> 3d114092207572dfafbd61601dff65b31d9de5b0
         >
           <img src={arrowBackIcon} alt="뒤로 가기 버튼" />
         </div>
