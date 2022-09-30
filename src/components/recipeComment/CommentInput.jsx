@@ -108,11 +108,11 @@ const CommentInput = ({
     await api(contentType)
       .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
       .then((res) => {
-        const newComments = [res.data.comment];
-        newComments[0].createdAt = getCurrentTime();
-        newComments[0].updatedAt = getCurrentTime();
+        const newComments = res.data.commentList[0];
+        newComments.createdAt = getCurrentTime();
+        newComments.updatedAt = getCurrentTime();
 
-        setComments([...newComments, ...comments]);
+        setComments([newComments, ...comments]);
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
