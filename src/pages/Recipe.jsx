@@ -15,15 +15,16 @@ const Recipe = () => {
   const messageText = location.state?.message;
   const timer = 1200;
 
-  useEffect(() => {
-    if (messageText !== undefined) {
-      setMessageModal(true);
-      setTimeout(() => {
-        setMessageModal(false);
-        clearTimeout();
-      }, timer);
-    }
-  }, []);
+  // Location replace 성공하면 다시 살리기
+  // useEffect(() => {
+  //   if (messageText !== undefined) {
+  //     setMessageModal(true);
+  //     setTimeout(() => {
+  //       setMessageModal(false);
+  //       clearTimeout();
+  //     }, timer);
+  //   }
+  // }, []);
 
   // 에러 페이지 만든 후 삭제하기
   // const [error, setError] = useState(false);
