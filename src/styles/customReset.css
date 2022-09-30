@@ -1,7 +1,5 @@
-body,
-html {
-  font-size: 62.5%;
-  line-height: 1.6;
+body {
+  line-height: 1.285;
   /* word-break: keep-all; */
 }
 

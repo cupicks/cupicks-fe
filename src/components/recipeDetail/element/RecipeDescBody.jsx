@@ -54,7 +54,13 @@ const RecipeDescBody = (props) => {
 
         <div className="user_info">
           <div className="left">
-            <StProfileImage profileImageUrl={profileImageUrl} />
+            <StProfileImageBox>
+              <img
+                className="content_pic"
+                src={resizedUrl}
+                onError={(e) => (e.target.src = imageUrl)}
+              />
+            </StProfileImageBox>
             <span className="nickname">{nickname}</span>
             <span className="dot">•</span>
             <span className="updatedAt">{today}</span>
@@ -132,13 +138,20 @@ const StRecipeDescBody = styled.div`
   }
 `;
 
-const StProfileImage = styled.div`
-  width: 35px;
-  height: 35px;
+const StProfileImageBox = styled.div`
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 
-  margin-right: 2px;
+  margin-right: 0.2rem;
 
-  background: #ccc url(${(props) => props.profileImageUrl}) no-repeat center /
-    cover;
+  display: flex;
+  overflow: hidden;
+
+  background: #ccc;
+
+  .content_pic {
+    width: 100%;
+    object-fit: cover;
+  }
 `;

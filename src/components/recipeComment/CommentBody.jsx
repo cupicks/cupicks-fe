@@ -131,8 +131,8 @@ const CommentBody = () => {
                   <StProfile>
                     <StCommentProfile
                       // src={decodedToken.imageUrl}
-                      src={comment.userImageUrl}
-                      onError={(e) => (e.target.src = comment.userResizedUrl)}
+                      src={comment.userResizedUrl}
+                      onError={(e) => (e.target.src = comment.userImageUrl)}
                     />
                   </StProfile>
                   <StContent>
@@ -149,33 +149,31 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={comment.imageUrl}
-                        onError={(e) => (e.target.src = comment.resizedUrl)}
+                        src={comment.resizedUrl}
+                        onError={(e) => (e.target.src = comment.imageUrl)}
                       />
                     </div>
                     {/* )} */}
                   </StContent>
-                  <StOption>
-                    <button
-                      disabled={!commentAuthor}
-                      onClick={() => {
-                        if (userLogin) {
-                          // 기존 코드
-                          setMenuOpen(true);
-                          setEditCommentId(comment.commentId);
-                        } else {
-                          // 비로그인 기능 추가
-                          if (!needLogginModal) {
-                            setNeedLogginModal(true);
-                            setTimeout(() => {
-                              setNeedLogginModal(false);
-                            }, 2000);
-                          }
+                  <StOption
+                    disabled={!commentAuthor}
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(comment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
                         }
-                      }}
-                    >
-                      {commentAuthor && <img src={talk_edit} />}
-                    </button>
+                      }
+                    }}
+                  >
+                    {commentAuthor && <img src={talk_edit} />}
                   </StOption>
                 </div>
               ) : (
@@ -183,8 +181,8 @@ const CommentBody = () => {
                   <StProfile>
                     <StCommentProfile
                       // src={decodedToken.imageUrl}
-                      src={comment.userImageUrl}
-                      onError={(e) => (e.target.src = comment.userResizedUrl)}
+                      src={comment.userResizedUrl}
+                      onError={(e) => (e.target.src = comment.userImageUrl)}
                     />
                   </StProfile>
                   <StContent>
@@ -201,33 +199,31 @@ const CommentBody = () => {
                       {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
                       <img
                         className="content_pic"
-                        src={comment.imageUrl}
-                        onError={(e) => (e.target.src = comment.resizedUrl)}
+                        src={comment.resizedUrl}
+                        onError={(e) => (e.target.src = comment.imageUrl)}
                       />
                     </div>
                     {/* )} */}
                   </StContent>
-                  <StOption>
-                    <button
-                      disabled={!commentAuthor}
-                      onClick={() => {
-                        if (userLogin) {
-                          // 기존 코드
-                          setMenuOpen(true);
-                          setEditCommentId(comment.commentId);
-                        } else {
-                          // 비로그인 기능 추가
-                          if (!needLogginModal) {
-                            setNeedLogginModal(true);
-                            setTimeout(() => {
-                              setNeedLogginModal(false);
-                            }, 2000);
-                          }
+                  <StOption
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(comment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
                         }
-                      }}
-                    >
-                      {commentAuthor && <img src={talk_edit} />}
-                    </button>
+                      }
+                    }}
+                    disabled={!commentAuthor}
+                  >
+                    {commentAuthor && <img src={talk_edit} />}
                   </StOption>
                 </div>
               )}
@@ -379,13 +375,15 @@ const StContent = styled.div`
   }
 `;
 
-const StOption = styled.div`
-  padding: 0 10px;
-  transform: translateX(10px);
-  button {
-    cursor: pointer;
+const StOption = styled.button`
+  flex: 0 0 2.4rem;
+  display: block;
+  align-items: flex-start;
+  cursor: pointer;
+  img {
+    transform: translateX(10px);
   }
-  button:disabled {
+  :disabled {
     pointer-events: none;
   }
 `;
