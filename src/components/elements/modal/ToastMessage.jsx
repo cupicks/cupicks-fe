@@ -12,7 +12,7 @@ const ToastMessage = (props) => {
   const [modalShow, setModalShow] = useState(true);
 
   const backgroundColor = backgroundShadow ? "rgba(0, 0, 0, 0.3)" : "";
-  const fontSize = smallFont ? "1.4rem" : "1.8rem";
+  const fontSize = smallFont ? "1.4rem" : "1.6rem";
 
   setTimeout(() => {
     setModalShow(false);
@@ -37,7 +37,6 @@ const ToastMessage = (props) => {
                 alt="일러스트레이션 이미지"
               />
             )}
-
             {text}
           </div>
         </StModal>
@@ -52,7 +51,7 @@ const StModal = styled.div`
   width: 100vw;
   height: 100vh;
 
-  padding: 0 10px;
+  padding: 0 1rem;
 
   display: flex;
   flex-flow: column;
@@ -64,9 +63,8 @@ const StModal = styled.div`
   left: 0;
   z-index: 999999;
 
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 600;
-  line-height: 150%;
   text-align: center;
   word-wrap: break-word;
 
@@ -92,13 +90,13 @@ const StModal = styled.div`
     display: flex;
     flex-flow: column;
     align-items: center;
-    gap: 20px;
+    gap: 2rem;
 
     width: 90%;
-    max-width: 350px;
-    border-radius: 15px;
+    max-width: 35rem;
+    border-radius: 1.5rem;
 
-    padding: 35px 0;
+    padding: 3.5rem 0;
 
     position: relative;
     transform: translateY(-150px);
