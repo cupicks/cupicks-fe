@@ -112,11 +112,25 @@ const CommentInput = ({
         // setNewComments((prev) => [res.data.comment, ...prev]);
         // setNewComments([...newComments, res.data.comment]);
         const newComments = [res.data.comment];
-        setComments([...newComments, ...comments]);
+
+        newComments[0].createdAt = getCurrentTime();
+        newComments[0].updatedAt = getCurrentTime();
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
     setValue("comment", null);
+  };
+
+  /**
+   * response로 받고 있는 형태로 현재시간 구함
+   * createdAt : "0000-00-00 00:00:00"
+   * @return {string} "0000-00-00 00:00:00"
+   */
+  const getCurrentTime = () => {
+    let currentTime = new Date(new Date().getTime() + 32400000).toISOString();
+    const newDate = currentTime.slice(0, 10);
+    const newTime = currentTime.slice(11, 19);
+    return newDate + " " + newTime;
   };
 
   return (
