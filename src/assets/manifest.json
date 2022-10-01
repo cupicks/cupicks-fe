@@ -8,20 +8,90 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "./image/pwa-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "./image/pwa-512x5s12.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "./image/pwa-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "./image/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon",
       "purpose": "any maskable"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-57.png",
+      "type": "image/png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-60.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-76.png",
+      "type": "image/png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-114.png",
+      "type": "image/png",
+      "sizes": "114x114"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-120.png",
+      "type": "image/png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./image/icon/apple-touch-icon-152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "./image/icon/favicon-16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "./image/icon/favicon-32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "./image/icon/favicon-48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./image/icon/favicon-72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./image/icon/favicon-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./image/icon/favicon-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./image/icon/favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./image/icon/favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }
