@@ -1,24 +1,24 @@
 {
   "name": "Cupick",
-  "short_name": "MyApp",
-  "start_url": "./",
+  "short_name": "Cupick",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#F8F7DA",
-  "description": "My Awesome App description",
+  "background_color": "#ffffff",
+  "description": "Cupick is the best",
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "../assets/image/pwa-192x192.png",
+      "src": "./image/pwa-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "../assets/image/pwa-512x512.png",
+      "src": "./image/pwa-512x5s12.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "../assets/image/pwa-512x512.png",
+      "src": "./image/pwa-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
