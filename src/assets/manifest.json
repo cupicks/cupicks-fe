@@ -1,7 +1,7 @@
 {
   "name": "Cupick",
   "short_name": "Cupick",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#eeeeee",
@@ -30,11 +30,6 @@
       "src": "image/icon/apple-touch-icon-72.png",
       "type": "image/png",
       "sizes": "72x72"
-    },
-    {
-      "src": "image/icon/apple-touch-icon-76.png",
-      "type": "image/png",
-      "sizes": "76x76"
     },
     {
       "src": "image/icon/apple-touch-icon-114.png",
