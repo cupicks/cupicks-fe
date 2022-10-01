@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
+    <script>
+      if ("serviceWorker" in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((registration) => {
+            console.log("Service worker registration succeeded:", registration);
+          })
+          .catch((err) => {
+            console.log("Service worker registration failed:", error);
+          });
+      } else {
+        console.log("Service workers are not supported.");
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:url" content="https://cupick.co" />
@@ -14,8 +30,21 @@
       property="og:description"
       content="홈 바리스타가 되어볼까요?☕ 커픽 Cupick 은 이미지만 보고 만들 수 있는, 음료 레시피를 확인하고 공유하는 서비스입니다.✨"
     />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Cupick</title>
     <link rel="icon" href="/src/assets/image/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      href="/src/assets/image/apple-touch-icon.png"
+      sizes="180x180"
+    />
+    <link
+      rel="mask-icon"
+      href="/src/assets/svg/mask-icon.svg"
+      color="#FFFFFF"
+    />
+    <link rel="manifest" href="/src/assets/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
