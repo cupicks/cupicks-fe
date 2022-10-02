@@ -19,6 +19,6 @@ export default defineConfig({
     port: 3067,
   },
   esbuild: {
-    // drop: ["console", "debugger"],
+    drop: ["console", "debugger"],
   },
 });

@@ -196,7 +196,7 @@ const CustomGoToCreateButton = styled.button`
       overflow: hidden;
 
       img {
-        width: 11rem;
+        height: 100%;
 
         position: absolute;
         left: 50%;
