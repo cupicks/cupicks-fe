@@ -14,7 +14,7 @@ const Layout = () => {
   if (
     pathname === "/recipe" ||
     pathname === "/mypage" ||
-    pathname.indexOf("/profile") > -1
+    pathname.indexOf("profile") > -1
   ) {
     headerFooter = true;
   }
@@ -49,7 +49,7 @@ const StLayout = styled.div`
   overflow: hidden;
 
   .contents_area {
-    height: calc(100vh - 50px - 90px);
+    height: calc((var(--vh, 1vh) * 100) - 50px - 90px);
     overflow-y: scroll;
   }
 `;
