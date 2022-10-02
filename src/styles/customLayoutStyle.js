@@ -67,6 +67,7 @@ const CustomFlexList = styled.div`
       max-height: 50rem;
       border-radius: 1rem;
 
+      background-color: #fff;
       box-shadow: ${theme.boxShadows.base};
 
       transition: all 0.3s;
@@ -203,6 +204,20 @@ const CustomGoToCreateButton = styled.button`
   }}
 `;
 
+const CustomContainer = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 100%;
+      border-radius: 1rem;
+
+      background-color: ${theme.colors.background};
+      box-shadow: ${theme.boxShadows.container};
+
+      overflow: hidden;
+    `;
+  }}
+`;
+
 const Custom = styled.div`
   ${({ theme }) => {
     return css``;
@@ -218,6 +233,7 @@ const styledComponents = {
   CustomWrapBody,
   CustomFlexListWrap,
   CustomFlexList,
+  CustomContainer,
 };
 
 export default styledComponents;

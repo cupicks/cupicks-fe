@@ -8,6 +8,7 @@ const { CustomWrapBody } = styledLayoutComponents;
 
 import ToastMessage from "../components/elements/modal/ToastMessage";
 import RecipeBody from "../components/recipeMain/RecipeBody";
+import UserGuide from "../components/userGuide/UserGuide";
 
 const Recipe = () => {
   const location = useLocation();
@@ -26,23 +27,10 @@ const Recipe = () => {
   //   }
   // }, []);
 
-  // 에러 페이지 만든 후 삭제하기
-  // const [error, setError] = useState(false);
-  // setError(false);
-
   return (
     <StWrapBody>
-      {/* {error ? (
-        <>
-          <div className="error">
-            <img src={illustration05} alt="커픽" />
-            <h4>죄송합니다😥</h4>
-            <h3>잠시 서버 수정 작업 중입니다.</h3>
-          </div>
-        </>
-      ) : (
-        <RecipeBody />
-      )} */}
+      <UserGuide />
+
       <RecipeBody />
 
       {messageModal && (
@@ -62,4 +50,6 @@ const StWrapBody = styled(CustomWrapBody)`
       width: 50%;
     }
   }
+
+  overflow: auto;
 `;

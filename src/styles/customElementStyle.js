@@ -16,6 +16,17 @@ const CustomTitle = styled.div`
   }}
 `;
 
+const CustomPlainText = styled.div`
+  ${({ theme }) => {
+    return css`
+      word-break: keep-all;
+
+      font-weight: ${theme.fonts.weight.normal};
+      font-size: ${theme.fonts.size.label};
+    `;
+  }}
+`;
+
 const CustomRecipeListTitle = styled.div`
   ${({ theme }) => {
     return css`
@@ -138,6 +149,7 @@ const styledComponents = {
   CustomRecipeListTitle,
   CustomProfilePic,
   CustomIconBox,
+  CustomPlainText,
 };
 
 export default styledComponents;

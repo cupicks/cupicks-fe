@@ -10,13 +10,12 @@ import styled from "styled-components";
 const Layout = () => {
   const pathname = useLocation().pathname;
   let headerFooter = false;
+  let footer = false;
 
-  if (
-    pathname === "/recipe" ||
-    pathname === "/mypage" ||
-    pathname.indexOf("/profile") > -1
-  ) {
+  if (pathname === "/mypage" || pathname.indexOf("/profile") > -1) {
     headerFooter = true;
+  } else if (pathname === "/recipe") {
+    footer = true;
   }
 
   return (
@@ -25,7 +24,7 @@ const Layout = () => {
 
       <Router />
 
-      {headerFooter && <Footer pathname={pathname} />}
+      {(headerFooter || footer) && <Footer pathname={pathname} />}
     </StLayout>
   );
 };

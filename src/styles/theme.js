@@ -63,6 +63,7 @@ const colors = {
 const boxShadows = {
   hover: "3px 3px 8px rgba(0, 0, 0, 0.3)",
   base: "-1px 0px 5px rgba(72, 72, 72, 0.1), 3px 3px 8px rgba(0, 0, 0, 0.1)",
+  container: "2px 2px 20px rgba(0, 0, 0, 0.25)",
   light: "#cdcdcd",
   wg: "#eeeeee",
   alert: "#E64A3A",
