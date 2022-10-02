@@ -72,7 +72,7 @@ const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/recipe" element={<Recipe />} />
+      <Route path="/recipe" element={<Recipe loggedIn={loggedIn} />} />
       <Route path="/recipe/:recipeId/comment" element={<Comments />} />
       <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
       <Route path="/sign-up/complete" element={<RegisterComplete />} />
