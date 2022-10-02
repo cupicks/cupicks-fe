@@ -1,7 +1,7 @@
 {
   "name": "Cupick",
   "short_name": "Cupick",
-  "start_url": ".",
+  "start_url": "https://cupick.co/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#eeeeee",

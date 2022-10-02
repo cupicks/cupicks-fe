@@ -33,6 +33,16 @@ const CustomWrapBody = styled.div`
   }}
 `;
 
+const CustomWrapNoHeader = styled.div`
+  ${({ theme }) => {
+    return css`
+      height: calc(100vh - 9rem);
+
+      overflow: hidden;
+    `;
+  }}
+`;
+
 const CustomFlexListWrap = styled.div`
   ${({ theme }) => {
     return css`
@@ -67,6 +77,7 @@ const CustomFlexList = styled.div`
       max-height: 50rem;
       border-radius: 1rem;
 
+      background-color: #fff;
       box-shadow: ${theme.boxShadows.base};
 
       transition: all 0.3s;
@@ -185,7 +196,7 @@ const CustomGoToCreateButton = styled.button`
       overflow: hidden;
 
       img {
-        width: 11rem;
+        height: 100%;
 
         position: absolute;
         left: 50%;
@@ -199,6 +210,20 @@ const CustomGoToCreateButton = styled.button`
       img:hover {
         opacity: 1;
       }
+    `;
+  }}
+`;
+
+const CustomContainer = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 100%;
+      border-radius: 1rem;
+
+      background-color: ${theme.colors.background};
+      box-shadow: ${theme.boxShadows.container};
+
+      overflow: hidden;
     `;
   }}
 `;
@@ -218,6 +243,8 @@ const styledComponents = {
   CustomWrapBody,
   CustomFlexListWrap,
   CustomFlexList,
+  CustomContainer,
+  CustomWrapNoHeader,
 };
 
 export default styledComponents;
