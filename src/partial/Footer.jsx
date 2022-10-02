@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ToastMessage from "../components/elements/modal/ToastMessage";
+import ConfirmBox from "../components/elements/modal/ConfirmBox";
 
 import createIcon from "../assets/svg/add.svg";
 import { ReactComponent as Icon01 } from "../assets/svg/community.svg";
@@ -24,12 +24,7 @@ const Footer = ({ pathname }) => {
 
   const goToCreate = () => {
     if (!userLogin) {
-      if (!needLogginModal) {
-        setNeedLogginModal(true);
-        setTimeout(() => {
-          setNeedLogginModal(false);
-        }, timer);
-      }
+      navigate("/recipe/create/guest", { replace: true, state: undefined });
       return;
     }
 
@@ -44,16 +39,14 @@ const Footer = ({ pathname }) => {
     navigate("/mypage", { replace: true, state: undefined });
   };
 
+  const pathCommunity = pathname === "/recipe" && pathname !== "/recipe/create";
+  const pathRecipeCreate = pathname === "/recipe/create";
+  const pathMypage = pathname === "/mypage" || pathname === "/profile/edit";
+
   return (
     <CustomFooter>
       <CustomFooterButton onClick={goToMain}>
-        <div
-          className={
-            pathname === "/mypage" || pathname === "/profile/edit"
-              ? "svg_box on"
-              : "svg_box"
-          }
-        >
+        <div className={pathCommunity ? "svg_box on" : "svg_box"}>
           <Icon01 />
         </div>
       </CustomFooterButton>
@@ -69,7 +62,7 @@ const Footer = ({ pathname }) => {
       </CustomFooterButton> */}
 
       <CustomFooterButton onClick={goToCreate}>
-        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+        <div className={pathRecipeCreate ? "svg_box on" : "svg_box"}>
           <Icon03 />
         </div>
       </CustomFooterButton>
@@ -81,15 +74,10 @@ const Footer = ({ pathname }) => {
       </CustomFooterButton> */}
 
       <CustomFooterButton onClick={goToMypage}>
-        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+        <div className={pathMypage ? "svg_box on" : "svg_box"}>
           <Icon05 />
         </div>
       </CustomFooterButton>
-
-      {/* 토스트 메시지/모달 */}
-      {needLogginModal && (
-        <ToastMessage text={"레시피 작성에는\n 로그인이 필요합니다."} />
-      )}
     </CustomFooter>
   );
 };

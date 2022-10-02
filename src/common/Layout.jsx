@@ -11,10 +11,13 @@ const Layout = () => {
   const pathname = useLocation().pathname;
   let headerFooter = false;
   let footer = false;
+  const caseHeaderFooter = ["/recipe/create/guest", "/mypage", "/profile"];
 
-  if (pathname === "/mypage" || pathname.indexOf("/profile") > -1) {
-    headerFooter = true;
-  } else if (pathname === "/recipe") {
+  caseHeaderFooter.map((path) => {
+    pathname.indexOf(path) > -1 ? (headerFooter = true) : "";
+  });
+
+  if (pathname === "/recipe") {
     footer = true;
   }
 

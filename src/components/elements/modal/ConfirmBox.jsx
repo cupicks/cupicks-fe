@@ -8,7 +8,7 @@ const ConfirmBox = (props) => {
     imageUrl = "",
     confirmButtonText = "",
     backgroundShadow = false,
-    timer = 600,
+    timer = 1000,
     onComfirmed,
     onDenied,
   } = props;
