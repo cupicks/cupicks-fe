@@ -23,6 +23,7 @@
     "react-jwt": "^1.1.6",
     "react-router-dom": "^6.3.0",
     "react-slick": "^0.29.0",
+    "react-virtualized": "^9.22.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
     "vite-plugin-svgr": "^2.2.1"

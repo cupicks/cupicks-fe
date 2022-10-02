@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import { useInView } from "react-intersection-observer";
 
 import AllRecipeListContainer from "./AllRecipeListContainer";
@@ -21,7 +27,6 @@ const AllRecipeList = () => {
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.8,
-    // skip: true,
   });
   //threshold
 

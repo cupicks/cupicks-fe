@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 import styledElementComponents from "../../styles/customElementStyle";
@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import api from "../../server/api";
 
-const AllRecipeListContainer = (props) => {
+const AllRecipeListContainer = React.memo((props) => {
   const { allrecipes, modalProps, getItems, page } = props;
 
   const {
@@ -158,9 +158,9 @@ const AllRecipeListContainer = (props) => {
       </StListDesc>
     </>
   );
-};
+});
 
-export default AllRecipeListContainer;
+export default React.memo(AllRecipeListContainer);
 
 const StListHead = styled.div`
   height: 2.5rem;
