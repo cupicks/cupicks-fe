@@ -33,6 +33,16 @@ const CustomWrapBody = styled.div`
   }}
 `;
 
+const CustomWrapNoHeader = styled.div`
+  ${({ theme }) => {
+    return css`
+      height: calc(100vh - 9rem);
+
+      overflow: hidden;
+    `;
+  }}
+`;
+
 const CustomFlexListWrap = styled.div`
   ${({ theme }) => {
     return css`
@@ -234,6 +244,7 @@ const styledComponents = {
   CustomFlexListWrap,
   CustomFlexList,
   CustomContainer,
+  CustomWrapNoHeader,
 };
 
 export default styledComponents;

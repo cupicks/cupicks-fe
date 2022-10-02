@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../../server/api";
+import api from "../../server/api";
 
 import UserGuideBanner from "./UserGuideBanner";
 import UserGuideContents from "./UserGuideContents";
@@ -9,31 +9,32 @@ import bannerImage from "../../assets/image/illustration/banner01.png";
 import styled from "styled-components";
 
 const UserGuide = (props) => {
+  const { loggedIn, scrollTopLookAround, scrollElement } = props;
   const [username, setUsername] = useState("");
 
   const getProfile = async () => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user);
-      // setProfiles([...profiles, res.data.user]);
-      // setUsername(res.data.user);
+      setUsername(res.data.user.nickname);
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log("hi");
-
   useEffect(() => {
-    getProfile();
-    setUsername("이름름");
+    if (loggedIn) getProfile();
   }, []);
 
   return (
     <StUserGuide bannerImage={bannerImage}>
       <UserGuideBanner />
-      <UserGuideContents username={username} />
+      <UserGuideContents
+        scrollTopLookAround={scrollTopLookAround}
+        scrollElement={scrollElement}
+        loggedIn={loggedIn}
+        username={username}
+      />
     </StUserGuide>
   );
 };

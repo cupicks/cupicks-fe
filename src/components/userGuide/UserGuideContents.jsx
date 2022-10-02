@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 import styledLayoutComponents from "../../styles/customLayoutStyle";
 const { CustomContainer } = styledLayoutComponents;
@@ -9,25 +11,35 @@ import icon01 from "../../assets/svg/shortcut01.svg";
 import icon02 from "../../assets/svg/shortcut02.svg";
 import icon03 from "../../assets/svg/shortcut03.svg";
 
+import { gotoScrollTop as gotoRecipeScrollTop } from "../../util/goToScrollTop";
+
 const UserGuideContents = (props) => {
-  const { username } = props;
+  const { username, loggedIn, scrollTopLookAround, scrollElement } = props;
+  const navigate = useNavigate();
+
   return (
     <StUserGuideContents>
       <StContainer>
-        <StRecipeListTitle>
-          안녕하세요. <strong>{username}</strong> 님
-        </StRecipeListTitle>
+        {loggedIn && (
+          <StRecipeListTitle>
+            안녕하세요. <strong>{username}</strong> 님
+          </StRecipeListTitle>
+        )}
 
         <StPlainText>오늘 픽할 음료를 찾으러 어디로 가볼까요?</StPlainText>
 
         <StIconLists>
-          <StIconList>
+          <StIconList
+            onClick={() =>
+              gotoRecipeScrollTop(scrollTopLookAround, scrollElement)
+            }
+          >
             <img className="icon" src={icon01} alt="둘러보기" />
           </StIconList>
-          <StIconList>
+          <StIconList onClick={() => navigate("/recipe/create")}>
             <img className="icon" src={icon02} alt="레시피 만들기" />
           </StIconList>
-          <StIconList>
+          <StIconList onClick={() => navigate("/mypage")}>
             <img className="icon" src={icon03} alt="저장한 것 보기" />
           </StIconList>
         </StIconLists>
@@ -48,11 +60,11 @@ const StContainer = styled(CustomContainer)`
 
 const StRecipeListTitle = styled(CustomRecipeListTitle)`
   margin: 0;
+  margin-bottom: 1rem;
   padding: 0;
 `;
 
 const StPlainText = styled(CustomPlainText)`
-  margin-top: 1rem;
   color: #848484;
 `;
 
@@ -66,7 +78,8 @@ const StIconLists = styled(CustomIconBox)`
   }
 
   .icon:hover {
-    transform: translateY(-2px);
+    transform: translateY(-0.2rem);
+    opacity: 0.9;
   }
   .icon {
     height: 100%;

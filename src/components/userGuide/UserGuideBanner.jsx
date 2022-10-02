@@ -18,6 +18,7 @@ export default UserGuideBanner;
 const StUserGuideBanner = styled.div`
   width: 100%;
   height: 60vw;
+  max-height: 450px;
   padding-top: 5rem;
   padding-bottom: 10vw;
   position: relative;

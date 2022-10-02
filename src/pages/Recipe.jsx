@@ -4,45 +4,37 @@ import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
-const { CustomWrapBody } = styledLayoutComponents;
+const { CustomWrapNoHeader } = styledLayoutComponents;
 
 import ToastMessage from "../components/elements/modal/ToastMessage";
 import RecipeBody from "../components/recipeMain/RecipeBody";
 import UserGuide from "../components/userGuide/UserGuide";
+import { useRef } from "react";
 
-const Recipe = () => {
+const Recipe = (props) => {
+  const { loggedIn } = props;
   const location = useLocation();
-  const [messageModal, setMessageModal] = useState(false);
-  const messageText = location.state?.message;
-  const timer = 1200;
-
-  // Location replace 성공하면 다시 살리기
-  // useEffect(() => {
-  //   if (messageText !== undefined) {
-  //     setMessageModal(true);
-  //     setTimeout(() => {
-  //       setMessageModal(false);
-  //       clearTimeout();
-  //     }, timer);
-  //   }
-  // }, []);
+  const scrollTopLookAround = useRef();
+  const scrollElement = useRef();
 
   return (
-    <StWrapBody>
-      <UserGuide />
+    <StWrapBody ref={scrollElement}>
+      <UserGuide
+        loggedIn={loggedIn}
+        scrollTopLookAround={scrollTopLookAround}
+        scrollElement={scrollElement}
+      />
+
+      <div ref={scrollTopLookAround} />
 
       <RecipeBody />
-
-      {messageModal && (
-        <ToastMessage text={messageText} smallFont={true} timer={timer} />
-      )}
     </StWrapBody>
   );
 };
 
 export default Recipe;
 
-const StWrapBody = styled(CustomWrapBody)`
+const StWrapBody = styled(CustomWrapNoHeader)`
   .error {
     width: 100%;
     text-align: center;
