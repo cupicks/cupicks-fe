@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
 import createIcon from "../assets/svg/add.svg";
-import { ReactComponent as MainIcon } from "../assets/svg/community.svg";
-import { ReactComponent as MyPageIcon } from "../assets/svg/account.svg";
+import { ReactComponent as Icon01 } from "../assets/svg/community.svg";
+import { ReactComponent as Icon02 } from "../assets/svg/community.svg";
+import { ReactComponent as Icon03 } from "../assets/svg/make_recipe.svg";
+import { ReactComponent as Icon04 } from "../assets/svg/account.svg";
+import { ReactComponent as Icon05 } from "../assets/svg/account.svg";
 
 import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
@@ -43,7 +46,7 @@ const Footer = ({ pathname }) => {
 
   return (
     <CustomFooter>
-      <CustomFooterButton onClick={goToMypage}>
+      <CustomFooterButton onClick={goToMain}>
         <div
           className={
             pathname === "/mypage" || pathname === "/profile/edit"
@@ -51,17 +54,35 @@ const Footer = ({ pathname }) => {
               : "svg_box"
           }
         >
-          <MyPageIcon />
+          <Icon01 />
         </div>
       </CustomFooterButton>
 
-      <CustomGoToCreateButton onClick={goToCreate}>
+      {/* <CustomGoToCreateButton onClick={goToCreate}>
         <img src={createIcon} />
-      </CustomGoToCreateButton>
+      </CustomGoToCreateButton> */}
 
-      <CustomFooterButton onClick={goToMain}>
+      {/* <CustomFooterButton onClick={goToMain}>
         <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
-          <MainIcon />
+          <Icon02 />
+        </div>
+      </CustomFooterButton> */}
+
+      <CustomFooterButton onClick={goToCreate}>
+        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+          <Icon03 />
+        </div>
+      </CustomFooterButton>
+
+      {/* <CustomFooterButton onClick={goToCreate}>
+        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+          <Icon04 />
+        </div>
+      </CustomFooterButton> */}
+
+      <CustomFooterButton onClick={goToMypage}>
+        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+          <Icon05 />
         </div>
       </CustomFooterButton>
 
