@@ -1,11 +1,13 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useRef, useEffect, useState, useCallback } from "react";
+// import { useInView } from "react-intersection-observer";
+import {
+  InfiniteLoader,
+  CellMeasurer,
+  CellMeasurerCache,
+  AutoSizer,
+  List,
+  ListRowProps,
+} from "react-virtualized";
 
 import AllRecipeListContainer from "./AllRecipeListContainer";
 
@@ -18,17 +20,21 @@ const { CustomFlexListWrap, CustomFlexList } = styledLayoutComponents;
 import ToastMessage from "../elements/modal/ToastMessage";
 
 const AllRecipeList = () => {
-  // allRecipe = allRecipe.recipeList;
-  // const setTarget = useRef(null);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
-  const [counting, setCounting] = useState(0);
-  // const page = useRef(1);
+  // const [counting, setCounting] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [ref, inView] = useInView({
-    threshold: 0.8,
+  const infiniteLoaderRef = useRef(null);
+  const listRef = useRef(null);
+
+  const cache = new CellMeasurerCache({
+    fixedWidth: true,
+    defaultHeight: 100,
   });
-  //threshold
+
+  // const [ref, inView] = useInView({
+  //   threshold: 0.8,
+  // });
 
   // 1. scroll height 비교해서 쓰는방법이 하나 있고
   // 2. intersection observer api(debounce/throttle useEffect처럼-> setTimeout)
@@ -72,30 +78,34 @@ const AllRecipeList = () => {
 
   //useCallback(함수, 배열) -> 첫번째 인자로 넘어온 함수를, 두번째 인자로 넘어온 배열 내의 값이 변경될때까지
   //저장해놓고 재사용할수 있게 해준다
-  useEffect(() => {
-    //마지막 요소를 보고 로딩중이 아니라면
-    //page === 1 -> items.length == counting이 같아서 실행
-    if (inView && !loading && items.length >= counting) {
-      if (page === 1) {
-        setPage(page + 1);
-        setCounting(counting + 12);
-      } else {
-        setPage(page + 1);
-        setCounting(counting + 6);
-      }
+  // useEffect(() => {
+  //   //마지막 요소를 보고 로딩중이 아니라면
+  //   //page === 1 -> items.length == counting이 같아서 실행
+  //   if (inView && !loading && items.length >= counting) {
+  //     if (page === 1) {
+  //       setPage(page + 1);
+  //       setCounting(counting + 12);
+  //     } else {
+  //       setPage(page + 1);
+  //       setCounting(counting + 6);
+  //     }
 
-      // page.current += 1;
+  //     // page.current += 1;
 
-      // 기존코드
-      // if (inView && !loading) {
-      //   setTimeout(() => {
-      //     setPage(page + 1);
-      //   }, 1500);
-      // }
-    }
-  }, [inView, loading]);
+  //     // 기존코드
+  //     // if (inView && !loading) {
+  //     //   setTimeout(() => {
+  //     //     setPage(page + 1);
+  //     //   }, 1500);
+  //     // }
+  //   }
+  // }, [inView, loading]);
 
   //서버에서 Item Get!
+
+  const isRowLoaded = ({ index }) => {
+    return !!items[index];
+  };
 
   const getItems = useCallback(async () => {
     let contentType = "application/json";
@@ -117,6 +127,30 @@ const AllRecipeList = () => {
     }
     setLoading(false);
   }, [page]);
+
+  const rowRenderer = ({ index, key, parent, style }) => {
+    return (
+      <CellMeasurer
+        cache={cache}
+        parent={parent}
+        key={key}
+        columnIndex={0}
+        rowIndex={index}
+      >
+        <CustomFlexList key={"allRecipeList" + index}>
+          <div className="flex_box" style={style}>
+            <AllRecipeListContainer
+              key={"allRecipeList" + index}
+              modalProps={modalProps}
+              allrecipes={allrecipes}
+              getItems={getItems}
+              page={page}
+            />
+          </div>
+        </CustomFlexList>
+      </CellMeasurer>
+    );
+  };
 
   //getItems method가 바뀔때마다 함수실행
   useEffect(() => {
