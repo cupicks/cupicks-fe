@@ -23,7 +23,7 @@ const Router = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   /*** 서버 다운 ***/
-  const [serverDown, setServerDown] = useState(true);
+  const [serverDown, setServerDown] = useState(false);
   if (serverDown) {
     return (
       <Routes>
