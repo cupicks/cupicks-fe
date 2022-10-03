@@ -13,6 +13,7 @@ import RegisterComplete from "../pages/RegisterComplete";
 import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
+import Error from "../pages/Error";
 import RecipeEdit from "../pages/RecipeEdit";
 
 const Router = () => {
@@ -20,6 +21,16 @@ const Router = () => {
   const location = useLocation();
 
   const [loggedIn, setLoggedIn] = useState(false);
+
+  /*** 서버 다운 ***/
+  const [serverDown, setServerDown] = useState(false);
+  if (serverDown) {
+    return (
+      <Routes>
+        <Route path="*" element={<Error />} />
+      </Routes>
+    );
+  }
 
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
@@ -35,6 +46,7 @@ const Router = () => {
     "/mypage",
     "/profile/edit",
     "/recipe/:recipeId/edit",
+    "/recipe/create/guest",
   ];
   let pathNeedLoggedIn = false;
 
@@ -103,6 +115,7 @@ const Router = () => {
         </>
       )}
 
+      <Route path="/error" element={<Error />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

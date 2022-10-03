@@ -28,6 +28,7 @@ const ToastMessage = (props) => {
           onClick={() => {
             setModalShow(false);
           }}
+          title="modal"
         >
           <div className="contents">
             {imageUrl && (

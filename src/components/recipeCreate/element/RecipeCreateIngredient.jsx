@@ -10,6 +10,7 @@ const RecipeCreateIngredient = (props) => {
     cupState,
     subStep,
     formProps,
+    isFinalStep,
     onClick,
     ingredient = {
       ingredientName: "",
@@ -57,6 +58,7 @@ const RecipeCreateIngredient = (props) => {
           ingredientColor={ingredientColor ? ingredientColor : "#e4e4e4"}
           ingredientAmount={amountPercent ? amountPercent : 10}
           ingredientTextColor={ingredientTextColor}
+          isFinalStep={isFinalStep}
           onClick={ingredientFixMode ? onClick : null}
           smallAmount={smallAmount}
           xsAmount={xsAmount}
@@ -87,6 +89,8 @@ const StIngredient = styled.div`
 
   transition: height 0.5s 0s, background-color 0.1s;
   animation: fadein 0.3s forwards;
+
+  cursor: ${(props) => (props.isFinalStep ? "pointer" : "normal")};
 
   &.ingredientSelected {
     position: relative;

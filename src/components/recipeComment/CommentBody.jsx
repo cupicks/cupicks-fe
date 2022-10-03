@@ -9,6 +9,9 @@ import CommentInput from "./CommentInput";
 import ToastMessage from "../elements/modal/ToastMessage";
 import { useInView } from "react-intersection-observer";
 
+import styledLayoutComponents from "../../styles/customLayoutStyle";
+const { CustomWrapBody } = styledLayoutComponents;
+
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -242,6 +245,7 @@ const CommentBody = () => {
           userProps={userProps}
         />
       </StListWrap>
+
       <CommentInput
         profiles={profiles}
         getComments={getComments}
@@ -284,33 +288,32 @@ export default CommentBody;
 // `;
 
 const StProfile = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 `;
 
 const StCommentProfile = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 
   box-shadow: 0 0 0 1px #b6b6b6;
   background: #eee no-repeat url(${(props) => props.src}) center / cover;
 `;
 
-const StListWrap = styled.div`
-  height: calc(100vh - 60px - 80px);
+const StListWrap = styled(CustomWrapBody)`
   overflow-y: scroll;
 
-  padding-bottom: 50px;
+  padding-bottom: 5rem;
 `;
 
 const StCommentWrap = styled.div`
-  min-height: 80px;
-  padding: 20px 25px 15px;
+  min-height: 8rem;
+  padding: 2rem 2.5rem 1.5rem;
 
   display: flex;
-  gap: 15px;
+  gap: 1.5rem;
 
   border-top: 1px solid #eeeeee;
 
@@ -321,7 +324,7 @@ const StCommentWrap = styled.div`
   & > .flex_box {
     height: 100%;
     flex: 1 1 auto;
-    gap: 10px;
+    gap: 1rem;
     display: flex;
     flex-flow: row;
   }
@@ -332,15 +335,16 @@ const StContent = styled.div`
 
   display: flex;
   flex-flow: column;
-  gap: 3px;
+  gap: 0.3rem;
 
-  font-size: 14px;
+  font-size: 1.4rem;
+  word-break: break-all;
 
   color: #393939;
 
   .content_top {
     display: flex;
-    gap: 7px;
+    gap: 0.7rem;
   }
 
   .nickname {
@@ -348,7 +352,7 @@ const StContent = styled.div`
   }
 
   .dot {
-    font-size: 12px;
+    font-size: 1.2rem;
     transform: translateY(1px);
   }
 
@@ -358,7 +362,7 @@ const StContent = styled.div`
   }
 
   .content_bottom {
-    padding-bottom: 10px;
+    padding-bottom: 1rem;
   }
 
   .content_picContainer {
@@ -370,16 +374,16 @@ const StContent = styled.div`
 
   .content_pic {
     width: 100%;
-    max-height: 30vh;
+    max-height: 32vh;
     object-fit: cover;
   }
 `;
 
 const StOption = styled.button`
   flex: 0 0 2.4rem;
-  display: block;
+  display: flex;
   align-items: flex-start;
-  cursor: pointer;
+
   img {
     transform: translateX(10px);
   }
@@ -392,16 +396,16 @@ const StOption = styled.button`
 const StGuestLoginShadow = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
-  background-color: rgba(233, 233, 233, 0.7);
+  background: linear-gradient(transparent, rgba(222, 222, 222, 0.8) 15%);
 
   ::after {
     content: "로그인 후 이용할 수 있습니다.";
     width: 100%;
-    height: 100%;
-    padding-top: 20px;
+    height: 8rem;
 
     color: #555;
+    font-size: 1.5rem;
+    line-height: 5rem;
     font-weight: 600;
 
     display: flex;

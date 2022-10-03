@@ -25,14 +25,12 @@ const Mypage = () => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user);
-      // setProfiles([...profiles, res.data.user]);
       setProfiles(res.data.user);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(profiles);
+
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
@@ -62,12 +60,13 @@ const Mypage = () => {
 export default Mypage;
 
 const StWrap = styled.div`
-  height: calc(100vh - 50px - 90px);
+  height: calc((var(--vh, 1vh) * 100) - 5rem - 9rem);
+
   overflow-y: scroll;
 
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 1rem;
 
   background-color: #eee;
 
@@ -86,23 +85,5 @@ const StWrap = styled.div`
   & > div:last-child {
     height: 100%;
     background-color: #fff;
-  }
-`;
-
-const StProfileImageBox = styled.div`
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-
-  margin-right: 0.2rem;
-
-  display: flex;
-  overflow: hidden;
-
-  background: #ccc;
-
-  .content_pic {
-    width: 100%;
-    object-fit: cover;
   }
 `;

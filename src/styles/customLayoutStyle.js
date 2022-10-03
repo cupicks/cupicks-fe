@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const CustomWrapFullVH = styled.div`
   ${({ theme }) => {
     return css`
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       padding: ${theme.paddings.lg};
 
       display: flex;
@@ -11,6 +11,8 @@ const CustomWrapFullVH = styled.div`
 
       overflow-y: scroll;
       position: relative;
+
+      background-color: #fff;
 
       ${theme.devices.tablet} {
         padding: ${theme.paddings.md};
@@ -23,20 +25,20 @@ const CustomWrapFullVH = styled.div`
   }}
 `;
 
-const CustomWrapBody = styled.div`
+const CustomWrapNoHeader = styled.div`
   ${({ theme }) => {
     return css`
-      height: calc(100vh - 5rem - 9rem);
+      height: calc(100% - 9rem);
 
       overflow: hidden;
     `;
   }}
 `;
 
-const CustomWrapNoHeader = styled.div`
+const CustomWrapBody = styled.div`
   ${({ theme }) => {
     return css`
-      height: calc(100vh - 9rem);
+      height: calc(100% - 5rem - 9rem);
 
       overflow: hidden;
     `;
@@ -161,7 +163,9 @@ const CustomFooter = styled.footer`
 const CustomFooterButton = styled.button`
   ${({ theme }) => {
     return css`
-      flex: 1 1 auto;
+      flex: 1 1 20%;
+
+      background-color: red;
 
       padding-top: 1.2rem;
 
@@ -179,36 +183,65 @@ const CustomFooterButton = styled.button`
   }}
 `;
 
-const CustomGoToCreateButton = styled.button`
+const CustomNavigation = styled.nav`
   ${({ theme }) => {
     return css`
-      width: 6.5rem;
-      height: 6.5rem;
-      border-radius: 50%;
+      padding: 0 2rem;
 
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
 
-      cursor: pointer;
-      overflow: hidden;
+      background-color: ${(props) =>
+        props.transparent ? "transparent" : "#fff"};
+      color: ${theme.colors.dark};
 
-      img {
-        height: 100%;
+      height: 6rem;
+      line-height: 6rem;
+      z-index: 999;
 
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+      button {
+        all: unset;
+        padding: 0 1.6rem;
 
-        transition: all 0.5s;
-        opacity: 0.9;
+        font-size: 1.7rem;
       }
 
-      img:hover {
-        opacity: 1;
+      .isIced {
+        line-height: normal;
+      }
+
+      button,
+      span,
+      .button_goBack {
+        cursor: pointer;
+      }
+
+      img {
+        line-height: 0;
+        transform: translateY(0.4rem);
+      }
+
+      .button_goBack {
+        padding: 1rem;
+      }
+
+      .title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        font-size: ${theme.fonts.size.lg};
+      }
+
+      & > button:first-child {
+        transform: translateX(-1rem);
+      }
+      & > button:last-child {
+        transform: translateX(1rem);
       }
     `;
   }}
@@ -237,7 +270,6 @@ const Custom = styled.div`
 const styledComponents = {
   CustomHeader,
   CustomFooter,
-  CustomGoToCreateButton,
   CustomFooterButton,
   CustomWrapFullVH,
   CustomWrapBody,
@@ -245,6 +277,7 @@ const styledComponents = {
   CustomFlexList,
   CustomContainer,
   CustomWrapNoHeader,
+  CustomNavigation,
 };
 
 export default styledComponents;

@@ -33,7 +33,7 @@ const RecipeIngredient = (props) => {
           <div className="flex_box">
             <span>최소 25ml</span>
             <span className={maxAmount < 25 ? "alert" : "dark"}>
-              현재 {minimumMinRange ? maxAmount : "--"} ml
+              {/* 현재 {minimumMinRange ? maxAmount : "--"} ml */}
             </span>
             <span>최대 {maxAmount}ml</span>
           </div>
@@ -62,6 +62,8 @@ const RecipeIngredient = (props) => {
 export default RecipeIngredient;
 
 const StRecipeIngredient = styled.div`
+  height: 100%;
+
   input,
   select {
     all: unset;

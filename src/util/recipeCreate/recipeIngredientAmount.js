@@ -102,3 +102,11 @@ export {
   setMaxAmountAndCupFullState,
   setMaxAmountState,
 };
+
+// module.exports = {
+//   getIngredientArray,
+//   exceptIceAmount,
+//   calcMaxAmount,
+//   setMaxAmountAndCupFullState,
+//   setMaxAmountState,
+// };
