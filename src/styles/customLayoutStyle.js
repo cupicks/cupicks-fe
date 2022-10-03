@@ -158,10 +158,33 @@ const CustomFooter = styled.footer`
   }}
 `;
 
+const CustomFooterButton = styled.button`
+  ${({ theme }) => {
+    return css`
+      flex: 1 1 20%;
+
+      background-color: red;
+
+      padding-top: 1.2rem;
+
+      display: flex;
+      justify-content: center;
+
+      background-color: ${theme.colors.wg};
+
+      cursor: pointer;
+
+      &:hover svg {
+        opacity: 0.7;
+      }
+    `;
+  }}
+`;
+
 const CustomNavigation = styled.nav`
   ${({ theme }) => {
     return css`
-      padding: 0 3rem;
+      padding: 0 2rem;
 
       display: flex;
       align-items: center;
@@ -211,67 +234,11 @@ const CustomNavigation = styled.nav`
         font-size: ${theme.fonts.size.lg};
       }
 
-      & > *:first-child {
+      & > button:first-child {
         transform: translateX(-1rem);
       }
-      & > *:last-child {
+      & > button:last-child {
         transform: translateX(1rem);
-      }
-    `;
-  }}
-`;
-
-const CustomFooterButton = styled.button`
-  ${({ theme }) => {
-    return css`
-      flex: 1 1 auto;
-
-      padding-top: 1.2rem;
-
-      display: flex;
-      justify-content: center;
-
-      background-color: ${theme.colors.wg};
-
-      cursor: pointer;
-
-      &:hover svg {
-        opacity: 0.7;
-      }
-    `;
-  }}
-`;
-
-const CustomGoToCreateButton = styled.button`
-  ${({ theme }) => {
-    return css`
-      width: 6.5rem;
-      height: 6.5rem;
-      border-radius: 50%;
-
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
-
-      cursor: pointer;
-      overflow: hidden;
-
-      img {
-        height: 100%;
-
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-
-        transition: all 0.5s;
-        opacity: 0.9;
-      }
-
-      img:hover {
-        opacity: 1;
       }
     `;
   }}
@@ -300,7 +267,6 @@ const Custom = styled.div`
 const styledComponents = {
   CustomHeader,
   CustomFooter,
-  CustomGoToCreateButton,
   CustomFooterButton,
   CustomWrapFullVH,
   CustomWrapBody,

@@ -12,8 +12,7 @@ import { ReactComponent as Icon05 } from "../assets/svg/account.svg";
 
 import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
-const { CustomFooter, CustomGoToCreateButton, CustomFooterButton } =
-  styledLayoutComponents;
+const { CustomFooter, CustomFooterButton } = styledLayoutComponents;
 
 const Footer = ({ pathname }) => {
   const navigate = useNavigate();
@@ -50,10 +49,6 @@ const Footer = ({ pathname }) => {
           <Icon01 />
         </div>
       </CustomFooterButton>
-
-      {/* <CustomGoToCreateButton onClick={goToCreate}>
-        <img src={createIcon} />
-      </CustomGoToCreateButton> */}
 
       {/* <CustomFooterButton onClick={goToMain}>
         <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
