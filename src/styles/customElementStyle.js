@@ -51,7 +51,7 @@ const CustomSmallBoldTextLink = styled.p`
   ${({ theme }) => {
     return css`
       font-weight: ${theme.fonts.weight.bold};
-      font-size: ${theme.fonts.weight.label};
+      font-size: ${theme.fonts.size.label};
       color: ${theme.colors.middle};
 
       cursor: pointer;
