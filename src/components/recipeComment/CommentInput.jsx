@@ -108,15 +108,27 @@ const CommentInput = ({
     await api(contentType)
       .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
       .then((res) => {
-        console.log(res);
-        // setNewComments((prev) => [res.data.comment, ...prev]);
-        // setNewComments([...newComments, res.data.comment]);
-        const newComments = [res.data.comment];
-        setComments([...newComments, ...comments]);
+        const newComments = res.data.commentList[0];
+        newComments.createdAt = getCurrentTime();
+        newComments.updatedAt = getCurrentTime();
+
+        setComments([newComments, ...comments]);
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
     setValue("comment", null);
+  };
+
+  /**
+   * response로 받고 있는 형태로 현재시간 구함
+   * createdAt : "0000-00-00 00:00:00"
+   * @return {string} "0000-00-00 00:00:00"
+   */
+  const getCurrentTime = () => {
+    let currentTime = new Date(new Date().getTime() + 32400000).toISOString();
+    const newDate = currentTime.slice(0, 10);
+    const newTime = currentTime.slice(11, 19);
+    return newDate + " " + newTime;
   };
 
   return (

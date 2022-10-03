@@ -33,6 +33,16 @@ const CustomWrapBody = styled.div`
   }}
 `;
 
+const CustomWrapNoHeader = styled.div`
+  ${({ theme }) => {
+    return css`
+      height: calc(100vh - 9rem);
+
+      overflow: hidden;
+    `;
+  }}
+`;
+
 const CustomFlexListWrap = styled.div`
   ${({ theme }) => {
     return css`
@@ -67,6 +77,7 @@ const CustomFlexList = styled.div`
       max-height: 50rem;
       border-radius: 1rem;
 
+      background-color: #fff;
       box-shadow: ${theme.boxShadows.base};
 
       transition: all 0.3s;
@@ -147,6 +158,69 @@ const CustomFooter = styled.footer`
   }}
 `;
 
+const CustomNavigation = styled.nav`
+  ${({ theme }) => {
+    return css`
+      padding: 0 3rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      position: sticky;
+      top: 0;
+
+      background-color: ${(props) =>
+        props.transparent ? "transparent" : "#fff"};
+      color: ${theme.colors.dark};
+
+      height: 6rem;
+      line-height: 6rem;
+      z-index: 999;
+
+      button {
+        all: unset;
+        padding: 0 1.6rem;
+
+        font-size: 1.7rem;
+      }
+
+      .isIced {
+        line-height: normal;
+      }
+
+      button,
+      span,
+      .button_goBack {
+        cursor: pointer;
+      }
+
+      img {
+        line-height: 0;
+      }
+
+      .button_goBack {
+        padding: 1rem;
+      }
+
+      .title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        font-size: ${theme.fonts.size.lg};
+      }
+
+      & > *:first-child {
+        transform: translateX(-1rem);
+      }
+      & > *:last-child {
+        transform: translateX(1rem);
+      }
+    `;
+  }}
+`;
+
 const CustomFooterButton = styled.button`
   ${({ theme }) => {
     return css`
@@ -185,7 +259,7 @@ const CustomGoToCreateButton = styled.button`
       overflow: hidden;
 
       img {
-        width: 11rem;
+        height: 100%;
 
         position: absolute;
         left: 50%;
@@ -199,6 +273,20 @@ const CustomGoToCreateButton = styled.button`
       img:hover {
         opacity: 1;
       }
+    `;
+  }}
+`;
+
+const CustomContainer = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 100%;
+      border-radius: 1rem;
+
+      background-color: ${theme.colors.background};
+      box-shadow: ${theme.boxShadows.container};
+
+      overflow: hidden;
     `;
   }}
 `;
@@ -218,6 +306,9 @@ const styledComponents = {
   CustomWrapBody,
   CustomFlexListWrap,
   CustomFlexList,
+  CustomContainer,
+  CustomWrapNoHeader,
+  CustomNavigation,
 };
 
 export default styledComponents;

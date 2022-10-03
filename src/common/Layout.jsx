@@ -10,13 +10,15 @@ import styled from "styled-components";
 const Layout = () => {
   const pathname = useLocation().pathname;
   let headerFooter = false;
+  let footer = false;
+  const caseHeaderFooter = ["/recipe/create/guest", "/mypage", "/profile"];
 
-  if (
-    pathname === "/recipe" ||
-    pathname === "/mypage" ||
-    pathname.indexOf("profile") > -1
-  ) {
-    headerFooter = true;
+  caseHeaderFooter.map((path) => {
+    pathname.indexOf(path) > -1 ? (headerFooter = true) : "";
+  });
+
+  if (pathname === "/recipe") {
+    footer = true;
   }
 
   return (
@@ -25,7 +27,7 @@ const Layout = () => {
 
       <Router />
 
-      {headerFooter && <Footer pathname={pathname} />}
+      {(headerFooter || footer) && <Footer pathname={pathname} />}
     </StLayout>
   );
 };

@@ -9,17 +9,10 @@ import styledFormComponents from "../styles/customFormStyle";
 const { CustomButton } = styledFormComponents;
 
 const NotFound = (props) => {
-  const { message = "", timer = 1500 } = props;
+  let { message = "", timer = 1500, type = "" } = props;
   const navigate = useNavigate();
-  const refreshToken = localStorage.getItem("refreshToken");
-
-  setTimeout(() => {
-    if (refreshToken) {
-      navigate("/recipe");
-    } else {
-      navigate("/sign-in");
-    }
-  }, timer);
+  if (type === "notLoggedIn")
+    message = "로그인 후에 사용가능한 기능이에요!\n 로그인하고 이용해볼까요?";
 
   return (
     <StWrapBody>
@@ -35,7 +28,13 @@ const NotFound = (props) => {
             로그인 하러 가기
           </CustomButton>
         ) : (
-          "잠시 후 이동합니다."
+          <CustomButton
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            처음으로 가기
+          </CustomButton>
         )}
       </p>
     </StWrapBody>
@@ -48,9 +47,23 @@ const StWrapBody = styled(CustomWrapBody)`
   text-align: center;
   padding: 0 1.5rem;
 
+  h3 {
+    margin-bottom: 2rem;
+
+    font-size: 1.5rem;
+    color: #898989;
+
+    white-space: pre-wrap;
+  }
+
+  button {
+    font-size: 1.7rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   img {
     margin-top: 10vh;
     width: 45%;
-    transform: translateY(2rem);
   }
 `;

@@ -63,5 +63,5 @@ const StWrap = styled.div`
   display: flex;
   flex-flow: column;
 
-  overflow: auto;
+  position: relative;
 `;

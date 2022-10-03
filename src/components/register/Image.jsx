@@ -77,6 +77,7 @@ const StImg = styled.img`
 
   margin: 30px auto 40px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const StButton = styled(CustomButton)`

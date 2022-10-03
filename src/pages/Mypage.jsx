@@ -88,3 +88,21 @@ const StWrap = styled.div`
     background-color: #fff;
   }
 `;
+
+const StProfileImageBox = styled.div`
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+
+  margin-right: 0.2rem;
+
+  display: flex;
+  overflow: hidden;
+
+  background: #ccc;
+
+  .content_pic {
+    width: 100%;
+    object-fit: cover;
+  }
+`;

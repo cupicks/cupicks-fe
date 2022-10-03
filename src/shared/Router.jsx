@@ -13,6 +13,7 @@ import RegisterComplete from "../pages/RegisterComplete";
 import ResetPassword from "../pages/ResetPassword";
 import ProfileEdit from "../pages/ProfileEdit";
 import NotFound from "../pages/NotFound";
+import Error from "../pages/Error";
 import RecipeEdit from "../pages/RecipeEdit";
 
 const Router = () => {
@@ -20,6 +21,16 @@ const Router = () => {
   const location = useLocation();
 
   const [loggedIn, setLoggedIn] = useState(false);
+
+  /*** 서버 다운 ***/
+  const [serverDown, setServerDown] = useState(false);
+  if (serverDown) {
+    return (
+      <Routes>
+        <Route path="*" element={<Error />} />
+      </Routes>
+    );
+  }
 
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
@@ -35,6 +46,7 @@ const Router = () => {
     "/mypage",
     "/profile/edit",
     "/recipe/:recipeId/edit",
+    "/recipe/create/guest",
   ];
   let pathNeedLoggedIn = false;
 
@@ -72,7 +84,7 @@ const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/recipe" element={<Recipe />} />
+      <Route path="/recipe" element={<Recipe loggedIn={loggedIn} />} />
       <Route path="/recipe/:recipeId/comment" element={<Comments />} />
       <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
       <Route path="/sign-up/complete" element={<RegisterComplete />} />
@@ -88,14 +100,7 @@ const Router = () => {
               key={"routePathLogin" + idx}
               path={path}
               timer={30000}
-              element={
-                <NotFound
-                  timer={30000}
-                  message={
-                    "로그인 후에 사용가능한 기능이에요!\n로그인하고 이용해볼까요?"
-                  }
-                />
-              }
+              element={<NotFound timer={30000} type={"notLoggedIn"} />}
             />
           ))}
         </>
@@ -110,6 +115,7 @@ const Router = () => {
         </>
       )}
 
+      <Route path="/error" element={<Error />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
