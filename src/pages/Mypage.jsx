@@ -25,8 +25,6 @@ const Mypage = () => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user);
-      // setProfiles([...profiles, res.data.user]);
       setProfiles(res.data.user);
     } catch (err) {
       console.log(err);

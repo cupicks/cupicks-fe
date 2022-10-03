@@ -59,9 +59,14 @@ const RecipeFormContainer = (props) => {
 export default RecipeFormContainer;
 
 const StRecipeFormContainer = styled.div`
-  display: flex;
-  flex-flow: column;
-  text-align: center;
+  height: 15rem;
+  animation: slideUp 0.3s forwards;
+
+  @keyframes slideUp {
+    100% {
+      height: 18.5rem;
+    }
+  }
 
   background-color: #eee;
 
@@ -72,23 +77,23 @@ const StRecipeFormContainer = styled.div`
 
 const StRecipeOptContainer = styled.div`
   flex: 1 1 auto;
-  padding: 1rem 1.5rem;
+  padding: 2.8rem 2.2rem 0;
 
   display: flex;
   justify-content: center;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 1.4rem;
 
-  font-size: 1.3rem;
+  font-size: 1.6rem;
 
   .info_box {
     flex: 0 0 100%;
     display: flex;
     gap: 15px;
 
-    color: #222;
-
     text-align: left;
+    font-weight: 700;
+    color: #393939;
   }
 
   .error_box {
@@ -96,6 +101,12 @@ const StRecipeOptContainer = styled.div`
     line-height: 1.6;
 
     color: #888;
+  }
+
+  .button_box {
+    width: 100%;
+    display: flex;
+    gap: 1.4rem;
   }
 
   input[type="radio"] {
@@ -111,9 +122,14 @@ const StRecipeOptContainer = styled.div`
 
   label {
     flex: 1 1 auto;
-    height: 40px;
-    border-radius: 0.5rem;
+    height: 6rem;
+    border-radius: 1rem;
+
+    font-size: 1.5rem;
+    font-weight: 600;
 
     transition: all 0.2s;
+    border: 1px solid #cdcdcd;
+    color: #cdcdcd;
   }
 `;

@@ -72,8 +72,8 @@ const RecipeVisualContainer = (props) => {
           <RecipeCreateIngredientsContainer
             cupState={cupState}
             setCupState={setCupState}
-            subStep={stepState.subStep}
             formProps={formProps}
+            stepState={stepState}
             onClick={ingredientClickHandler}
           />
         </div>
@@ -107,10 +107,17 @@ export default RecipeVisualContainer;
 
 const StRecipeVisualContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
-  height: calc((var(--vh, 1vh) * 100) - 6rem - 15rem);
+  width: 100%;
+  height: calc(100% - 6rem - 15rem);
+  animation: slideEffect 0.3s forwards;
+
+  @keyframes slideEffect {
+    100% {
+      height: calc(100% - 6rem - 18.5rem);
+    }
+  }
 
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-flow: column wrap;
 
@@ -126,7 +133,7 @@ const StRecipeVisualContainer = styled.div`
 
     color: #888;
 
-    font-size: 13px;
+    font-size: 1.3rem;
 
     strong {
       color: #777;
@@ -137,16 +144,16 @@ const StRecipeVisualContainer = styled.div`
   .is_iced_icon_box {
     position: absolute;
     right: 9%;
-    top: 25px;
+    top: 0px;
     z-index: 999;
   }
 `;
 
 const StRecipeVisual = styled.div`
   width: 70%;
-  height: 78%;
+  height: 55vh;
 
-  margin: 0 auto;
+  margin: 15% auto 5vh;
   padding-top: 20px;
 
   display: flex;

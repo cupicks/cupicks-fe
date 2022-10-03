@@ -1,35 +1,30 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const RecipeIngredientConform = (props) => {
-  const {formProps} = props
-  const {getValues} = formProps
-  const {cupSize, ingredientList, isIced} = getValues()
+  const { formProps } = props;
+  const { getValues } = formProps;
+  const { cupSize, ingredientList, isIced } = getValues();
 
   return (
     <StTextInputContainer>
-      <div className="info_box">
-        선택정보
-      </div>
+      <div className="info_box">선택정보</div>
 
       <StTable>
         <tbody>
-
           <tr>
-            <td className='title' colSpan={2}>
+            <td className="title" colSpan={2}>
               전체량 - {cupSize}
             </td>
           </tr>
 
           <tr>
-            <td className='title' colSpan={2}>
+            <td className="title" colSpan={2}>
               온도 타입 - {isIced}
             </td>
           </tr>
 
           <tr>
-            <td className='title'>
-              선택재료 -  
-            </td>
+            <td className="title">선택재료 -</td>
             <td>
               {ingredientList?.map((ingredient, idx) => {
                 return (
@@ -37,18 +32,17 @@ const RecipeIngredientConform = (props) => {
                     {`${ingredient.ingredientName} : 
                     ${ingredient.ingredientAmount}ml`}
                   </span>
-                )
+                );
               })}
             </td>
           </tr>
         </tbody>
       </StTable>
-    
     </StTextInputContainer>
-  )
-}
+  );
+};
 
-export default RecipeIngredientConform
+export default RecipeIngredientConform;
 
 const StTextInputContainer = styled.div`
   display: flex;
@@ -59,13 +53,13 @@ const StTextInputContainer = styled.div`
 
   text-align: left;
 
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 
   .info_box {
     color: #aaa;
     margin-bottom: 10px;
 
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 700;
     line-height: 21px;
   }
@@ -75,11 +69,10 @@ const StTextInputContainer = styled.div`
 
     min-height: 20px;
   }
-`
+`;
 
 const StTable = styled.table`
-  color: #B6B6B6;
-;
+  color: #b6b6b6;
   tr {
     display: flex;
   }
@@ -89,4 +82,4 @@ const StTable = styled.table`
   span {
     display: block;
   }
-`
+`;

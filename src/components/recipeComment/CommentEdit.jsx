@@ -130,6 +130,7 @@ const CommentEdit = ({
               className="comment_input"
               type="text"
               name="content"
+              maxLength={150}
               defaultValue={currentComment}
               {...register("comment")}
               placeholder="새로운 댓글을 입력해주세요"
@@ -155,7 +156,7 @@ const CommentEdit = ({
               type="file"
               id="picture"
               {...register("image")}
-              accept="image/*"
+              accept="image/png, image/jpg"
             ></input>
             <label htmlFor="picture" className="pic_upload">
               + 사진 업로드

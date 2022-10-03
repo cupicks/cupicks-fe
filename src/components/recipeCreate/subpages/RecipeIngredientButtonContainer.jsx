@@ -53,22 +53,7 @@ const RecipeIngredientButtonContainer = (props) => {
   const cupIsFull = cupFull;
 
   return (
-    <StRecipeIngredientButtonContainer>
-      {addIngredientMode && !cupIsFull && (
-        <>
-          <img
-            src={cancel}
-            alt="새 재료 추가 버튼"
-            className={
-              buttonClickable
-                ? "ingredient_button"
-                : "ingredient_button disable"
-            }
-            onClick={ingredientAddButtonClickHandler}
-          />
-        </>
-      )}
-
+    <>
       {ingredientDeleteMode && (
         <RecipeCreateModal
           onClick={ingredientDeleteButtonClickHandler}
@@ -80,22 +65,44 @@ const RecipeIngredientButtonContainer = (props) => {
       {ingredientDeletedMessage && (
         <ToastMessage text={"선택한 재료가\n삭제 되었습니다."} />
       )}
-    </StRecipeIngredientButtonContainer>
+
+      <StRecipeIngredientButtonContainer>
+        {addIngredientMode && !cupIsFull && (
+          <>
+            <img
+              src={cancel}
+              alt="새 재료 추가 버튼"
+              className={
+                buttonClickable
+                  ? "ingredient_button"
+                  : "ingredient_button disable"
+              }
+              onClick={ingredientAddButtonClickHandler}
+            />
+          </>
+        )}
+      </StRecipeIngredientButtonContainer>
+    </>
   );
 };
 
 export default RecipeIngredientButtonContainer;
 
 const StRecipeIngredientButtonContainer = styled.div`
-  & > .ingredient_button {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: 99;
+  transform-origin: 48% 48%;
 
-    transform-origin: 48% 48%;
-    z-index: 99;
+  & > .ingredient_button {
     animation: blink 0.6s alternate infinite;
+  }
+
+  .disable {
+    pointer-events: none;
+    animation: fadeOut 0.3s forwards;
   }
 
   @keyframes blink {
@@ -110,16 +117,11 @@ const StRecipeIngredientButtonContainer = styled.div`
   @keyframes fadeOut {
     0% {
       opacity: 0.8;
-      transform: translate(-50%, -50%) rotate(45deg);
+      transform: rotate(45deg);
     }
     100% {
       opacity: 0.4;
-      transform: translate(-50%, -50%) rotate(45deg) scale(0.95);
+      transform: rotate(45deg) scale(0.95);
     }
-  }
-
-  .disable {
-    pointer-events: none;
-    animation: fadeOut 0.3s forwards;
   }
 `;
