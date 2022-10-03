@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const CustomWrapFullVH = styled.div`
   ${({ theme }) => {
     return css`
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       padding: ${theme.paddings.lg};
 
       display: flex;
@@ -11,6 +11,8 @@ const CustomWrapFullVH = styled.div`
 
       overflow-y: scroll;
       position: relative;
+
+      background-color: #fff;
 
       ${theme.devices.tablet} {
         padding: ${theme.paddings.md};
@@ -220,6 +222,7 @@ const CustomNavigation = styled.nav`
 
       img {
         line-height: 0;
+        transform: translateY(0.4rem);
       }
 
       .button_goBack {

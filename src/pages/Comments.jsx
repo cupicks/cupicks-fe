@@ -28,13 +28,13 @@ const StRecipeComment = styled.div`
   position: relative;
 
   .recipe_title {
-    padding: 0 10px;
+    padding: 0 1rem;
 
     text-align: center;
-    font-size: 12px;
+    font-size: 1.2rem;
 
     position: absolute;
-    top: 50px;
+    top: 5rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
