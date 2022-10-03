@@ -51,7 +51,7 @@ const StLayout = styled.div`
   overflow: hidden;
 
   .contents_area {
-    height: calc(100vh - 50px - 90px);
+    height: calc((var(--vh, 1vh) * 100) - 50px - 90px);
     overflow-y: scroll;
   }
 `;

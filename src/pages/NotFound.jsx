@@ -63,7 +63,7 @@ const StWrapBody = styled(CustomWrapBody)`
   }
 
   img {
-    margin-top: 15vh;
+    margin-top: 10vh;
     width: 45%;
   }
 `;

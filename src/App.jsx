@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import * as theme from "./styles/theme.js";
 import GlobalStyle from "./styles/GlobalStyle";
 import "./util/windowInnerHeightSet";
+import { useEffect } from "react";
 
 const App = () => {
   RouteChangeTracker();
@@ -16,6 +17,12 @@ const App = () => {
   }
   setScreenSize();
   window.addEventListener("resize", setScreenSize);
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener("resize");
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={theme.lightTheme}>
