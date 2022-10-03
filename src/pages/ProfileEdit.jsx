@@ -113,7 +113,7 @@ const ProfileEdit = () => {
 export default ProfileEdit;
 
 const StProfileEdit = styled.form`
-  height: calc(100vh - 50px - 90px);
+  height: calc((var(--vh, 1vh) * 100) - 5rem - 9rem);
 
   display: flex;
   flex-flow: column;
