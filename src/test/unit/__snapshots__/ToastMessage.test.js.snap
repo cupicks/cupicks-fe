@@ -1,3 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ToastMessage component ToastMessage가 기존 스냅샷과 같습니다. 1`] = `<div />`;
+exports[`ToastMessage component ToastMessage가 기존 스냅샷과 같습니다. 1`] = `
+<div
+  className="sc-bczRLJ emGOyl"
+  fontSize="1.8rem"
+  onClick={[Function]}
+  title="modal"
+>
+  <div
+    className="contents"
+  >
+    <img
+      alt="일러스트레이션 이미지"
+      className="illust"
+      src="/image.png"
+    />
+    사용자가 입력하는 메시지
+  </div>
+</div>
+`;

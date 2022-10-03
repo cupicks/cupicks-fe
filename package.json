@@ -10,7 +10,7 @@
     "test": "jest --config ./jest.config.json",
     "test:watch": "jest --config ./jest.config.json --watch",
     "test:clear": "jest --clearCache",
-    "hello": "jest --help"
+    "test:help": "jest --help"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",

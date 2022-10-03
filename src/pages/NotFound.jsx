@@ -49,7 +49,7 @@ const StWrapBody = styled(CustomWrapBody)`
   padding: 0 1.5rem;
 
   img {
-    margin-top: 15vh;
+    margin-top: 10vh;
     width: 45%;
     transform: translateY(2rem);
   }
