@@ -161,7 +161,7 @@ const CustomFooter = styled.footer`
 const CustomNavigation = styled.nav`
   ${({ theme }) => {
     return css`
-      padding: 0 3rem;
+      padding: 0 2rem;
 
       display: flex;
       align-items: center;
@@ -211,10 +211,10 @@ const CustomNavigation = styled.nav`
         font-size: ${theme.fonts.size.lg};
       }
 
-      & > *:first-child {
+      & > button:first-child {
         transform: translateX(-1rem);
       }
-      & > *:last-child {
+      & > button:last-child {
         transform: translateX(1rem);
       }
     `;

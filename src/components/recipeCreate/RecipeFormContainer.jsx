@@ -6,35 +6,34 @@ import RecipeIngredientForm from "./subpages/RecipeIngredientForm";
 import styled from "styled-components";
 
 const RecipeFormContainer = (props) => {
-  const {cupState, setCupState, stepState, formProps, formArrayProps} = props;
-  const {step} = stepState
-  
+  const { cupState, setCupState, stepState, formProps, formArrayProps } = props;
+  const { step } = stepState;
+
   return (
     <StRecipeFormContainer>
-
-      {step !== 3 &&
+      {step !== 3 && (
         <StRecipeOptContainer>
-          {step === 0 && 
+          {step === 0 && (
             <RecipeCupSize
-              step={step}
-              cupState={cupState}   
-              setCupState={setCupState}
-              formProps={formProps}
-              formArrayProps={formArrayProps}
-            />
-          }
-
-          {step === 1 &&
-            <RecipeIsIced 
               step={step}
               cupState={cupState}
               setCupState={setCupState}
               formProps={formProps}
               formArrayProps={formArrayProps}
             />
-          }
+          )}
 
-          {step === 2 && 
+          {step === 1 && (
+            <RecipeIsIced
+              step={step}
+              cupState={cupState}
+              setCupState={setCupState}
+              formProps={formProps}
+              formArrayProps={formArrayProps}
+            />
+          )}
+
+          {step === 2 && (
             <RecipeIngredientForm
               cupState={cupState}
               setCupState={setCupState}
@@ -42,27 +41,24 @@ const RecipeFormContainer = (props) => {
               formProps={formProps}
               formArrayProps={formArrayProps}
             />
-          }
+          )}
         </StRecipeOptContainer>
-      }
+      )}
 
-      {step === 3 && 
+      {step === 3 && (
         <RecipeTextValue
           cupState={cupState}
           setCupState={setCupState}
           formProps={formProps}
         />
-      }
-      
+      )}
     </StRecipeFormContainer>
-  )
+  );
 };
 
 export default RecipeFormContainer;
 
 const StRecipeFormContainer = styled.div`
-  height: 100%;
-
   display: flex;
   flex-flow: column;
   text-align: center;
@@ -72,22 +68,24 @@ const StRecipeFormContainer = styled.div`
   h4 {
     font-weight: 500;
   }
-`
+`;
 
 const StRecipeOptContainer = styled.div`
   flex: 1 1 auto;
   padding: 1rem 1.5rem;
-  
+
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
-  
+
+  font-size: 1.3rem;
+
   .info_box {
     flex: 0 0 100%;
     display: flex;
     gap: 15px;
-    
+
     color: #222;
 
     text-align: left;
@@ -110,19 +108,12 @@ const StRecipeOptContainer = styled.div`
   input {
     flex: 1 1 auto;
   }
-  
+
   label {
     flex: 1 1 auto;
     height: 40px;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 
-    border: 1px solid var(--button-borderColor);
-
-    transition: all .2s;
+    transition: all 0.2s;
   }
-  
-  input:not(.colorLabel):checked + label {
-    background-color: var(--button-activeBackgroundColor);
-    color: var(--button-activeColor);
-  }
-`
+`;

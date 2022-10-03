@@ -302,6 +302,15 @@ const RecipeCreateNavigation = (props) => {
             />
           )}
 
+          <h4
+            className="title"
+            onClick={() => {
+              setShowComfirmBox(true);
+            }}
+          >
+            레시피 만들기
+          </h4>
+
           {!stepEnd && !(step2 && !subStepEnd) && (
             <NavButtonNextLevel
               disabled={nextDisabled}
@@ -324,15 +333,6 @@ const RecipeCreateNavigation = (props) => {
               onClick={doneButtonNextClickHandler}
             />
           )}
-
-          <h4
-            className="title"
-            onClick={() => {
-              setShowComfirmBox(true);
-            }}
-          >
-            레시피 만들기
-          </h4>
 
           {/* 모달 리스트 */}
           {modalCupFullRequired && (
