@@ -4,7 +4,13 @@
   box-sizing: border-box;
 
   font-family: "Noto Sans KR", sans-serif;
-  -webkit-tap-highlight-color: raba(0, 0, 0, 0);
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 h1,
@@ -30,6 +36,10 @@ input,
 button,
 textarea {
   all: unset;
+}
+
+button {
+  cursor: pointer;
 }
 
 .fcc {

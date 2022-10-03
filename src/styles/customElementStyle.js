@@ -89,7 +89,7 @@ const CustomLineBox = styled.div`
       }
 
       span {
-        font-size: ${theme.fonts.weight.label};
+        font-size: ${theme.fonts.size.label};
 
         padding: 0 1rem;
 

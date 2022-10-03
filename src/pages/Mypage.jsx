@@ -32,7 +32,7 @@ const Mypage = () => {
       console.log(err);
     }
   };
-  console.log(profiles);
+
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
@@ -68,7 +68,7 @@ const StWrap = styled.div`
 
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 1rem;
 
   background-color: #eee;
 
@@ -87,23 +87,5 @@ const StWrap = styled.div`
   & > div:last-child {
     height: 100%;
     background-color: #fff;
-  }
-`;
-
-const StProfileImageBox = styled.div`
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-
-  margin-right: 0.2rem;
-
-  display: flex;
-  overflow: hidden;
-
-  background: #ccc;
-
-  .content_pic {
-    width: 100%;
-    object-fit: cover;
   }
 `;
