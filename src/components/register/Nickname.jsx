@@ -41,14 +41,14 @@ const Nickname = (props) => {
             required: true,
             pattern: {
               value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
-              message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
+              message: "닉네임은 영문으로 2자 이상 입력해주세요.",
             },
           })}
         />
       </CustomInputBox>
 
       <StErrorBox>
-        <p className="info">닉네임은 영어 또는 숫자, 2~10자로 입력해주세요.</p>
+        <p className="info">닉네임은 영문 2~10자로 입력해주세요.</p>
         {errors.nickname && <p>{errors.nickname.message}</p>}
       </StErrorBox>
     </StDiv>

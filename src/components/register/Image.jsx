@@ -4,7 +4,7 @@ import styled from "styled-components";
 import styledFormComponents from "../../styles/customFormStyle";
 const { CustomTitle } = styledComponents;
 import styledComponents from "../../styles/customElementStyle";
-const { CustomButton, CustomErrorBox } = styledFormComponents;
+const { CustomButton } = styledFormComponents;
 
 import profile from "../../assets/svg/profile.svg";
 
@@ -67,24 +67,25 @@ const StDiv = styled.div`
   .info {
     color: #aaa;
     text-align: center;
-    transform: translateY(-15px);
+    transform: translateY(-1.5rem);
   }
 `;
 
 const StImg = styled.img`
-  width: 130px;
-  height: 130px;
+  width: 13rem;
+  height: 13rem;
 
-  margin: 30px auto 40px;
+  margin: 3rem auto 4rem;
   border-radius: 50%;
   object-fit: cover;
 `;
 
 const StButton = styled(CustomButton)`
-  height: 62px;
+  height: 5rem;
+  line-height: 5rem;
 
-  line-height: 62px;
   position: relative;
+  transform: translateY(0.5rem);
 
   padding: 0;
 
@@ -94,6 +95,8 @@ const StButton = styled(CustomButton)`
     display: block;
     position: absolute;
     top: 0;
+
+    font-size: 1.8rem;
 
     cursor: pointer;
 
