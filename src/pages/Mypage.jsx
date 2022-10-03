@@ -62,7 +62,7 @@ const Mypage = () => {
 export default Mypage;
 
 const StWrap = styled.div`
-  height: calc(100vh - 50px - 90px);
+  height: calc((var(--vh, 1vh) * 100) - 6rem - 9rem);
   overflow-y: scroll;
 
   display: flex;
