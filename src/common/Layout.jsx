@@ -11,7 +11,6 @@ import styled from "styled-components";
 
 const Layout = () => {
   const pathname = useLocation().pathname;
-
   let layoutType = { headerFooter: false, footer: false, header: false };
   let { header, footer, headerFooter } = layoutType;
 
