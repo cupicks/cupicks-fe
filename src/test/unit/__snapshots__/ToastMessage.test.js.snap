@@ -2,8 +2,8 @@
 
 exports[`ToastMessage component ToastMessage가 기존 스냅샷과 같습니다. 1`] = `
 <div
-  className="sc-bczRLJ emGOyl"
-  fontSize="1.8rem"
+  className="sc-bczRLJ iWWkCT"
+  fontSize="1.6rem"
   onClick={[Function]}
   title="modal"
 >
