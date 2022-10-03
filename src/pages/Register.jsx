@@ -344,9 +344,14 @@ const Register = () => {
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <Navigation empty={true}>
           <StArrowBack>
-            <img src={arrowBack} onClick={before} alt="뒤로 가기" />
+            <img
+              className="button_go_back"
+              src={arrowBack}
+              onClick={before}
+              alt="뒤로 가기"
+            />
           </StArrowBack>
-          <div className="title">회원가입</div>
+          <span className="title">회원가입</span>
         </Navigation>
 
         {level === 0 && (
@@ -485,7 +490,7 @@ const StDiv = styled(CustomWrapFullVH)`
   }
 `;
 
-const StArrowBack = styled.div`
+const StArrowBack = styled.button`
   padding: 0.5rem 1rem;
   margin-left: -1rem;
 
