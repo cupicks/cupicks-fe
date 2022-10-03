@@ -155,13 +155,14 @@ const StForm = styled.form`
 
   display: flex;
   flex-flow: column;
+  justify-content: space-between;
   text-align: center;
 
   background-color: #eee;
 
   // 임시 버튼
   label {
-    border: 1px solid #aaa;
+    border: 1px solid #cdcdcd;
     cursor: pointer;
     transition: all 0.2s;
     :hover {

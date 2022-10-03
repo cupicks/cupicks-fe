@@ -25,20 +25,20 @@ const CustomWrapFullVH = styled.div`
   }}
 `;
 
-const CustomWrapBody = styled.div`
+const CustomWrapNoHeader = styled.div`
   ${({ theme }) => {
     return css`
-      height: calc(100vh - 5rem - 9rem);
+      height: calc(100% - 9rem);
 
       overflow: hidden;
     `;
   }}
 `;
 
-const CustomWrapNoHeader = styled.div`
+const CustomWrapBody = styled.div`
   ${({ theme }) => {
     return css`
-      height: calc(100vh - 9rem);
+      height: calc(100% - 5rem - 9rem);
 
       overflow: hidden;
     `;

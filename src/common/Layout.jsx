@@ -1,13 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
+import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
 const { CustomWrapFullVH } = styledLayoutComponents;
 
 import Router from "../shared/Router";
 import Header from "../partial/Header";
 import Footer from "../partial/Footer";
-import styled from "styled-components";
 
 const Layout = () => {
   const pathname = useLocation().pathname;
@@ -50,4 +50,5 @@ const StLayout = styled(CustomWrapFullVH)`
   max-width: 60rem;
   padding: 0;
   overflow: hidden;
+  margin: 0 auto;
 `;

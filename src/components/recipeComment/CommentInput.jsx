@@ -146,7 +146,7 @@ const CommentInput = ({
             className="comment_input"
             type="text"
             name="content"
-            maxLength={100}
+            maxLength={150}
             autoComplete="off"
             // value={comments.content || ""}
             // onChange={onChangeHandler}
@@ -174,7 +174,7 @@ const CommentInput = ({
             type="file"
             id="picture"
             {...register("image")}
-            accept="image/*"
+            accept="image/png, image/jpg"
           />
           <label htmlFor="picture" className="pic_upload">
             + 사진 업로드
