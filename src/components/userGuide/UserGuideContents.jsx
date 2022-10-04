@@ -31,7 +31,7 @@ const UserGuideContents = (props) => {
         <StIconLists>
           <StIconList
             onClick={() =>
-              gotoRecipeScrollTop(scrollTopLookAround, scrollElement)
+              gotoRecipeScrollTop(scrollElement, scrollTopLookAround)
             }
           >
             <img className="icon" src={icon01} alt="둘러보기" />

@@ -74,6 +74,7 @@ const RecipeDetail = () => {
       }, timer);
     }
   }, []);
+
   const recipefetching = async () => {
     let contentType = "application/json";
     try {
@@ -89,6 +90,7 @@ const RecipeDetail = () => {
   useEffect(() => {
     recipefetching();
   }, []);
+
   return (
     <StWrap>
       {recipe && (
@@ -100,6 +102,7 @@ const RecipeDetail = () => {
           </Navigation>
 
           <IngredientsContainer recipe={recipe} />
+
           <RecipeDesc
             recipe={recipe}
             modalProps={modalProps}
