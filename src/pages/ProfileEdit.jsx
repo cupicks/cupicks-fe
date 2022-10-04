@@ -80,7 +80,7 @@ const ProfileEdit = () => {
         <ToastMessage text={"이미 존재하는 닉네임입니다."} timer={1000} />
       )}
       <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
-        <Navigation>
+        <Navigation goto="/mypage">
           <span className="title">개인 정보 편집</span>
           <button type="submit">저장</button>
         </Navigation>
