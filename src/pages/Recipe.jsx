@@ -25,6 +25,8 @@ const Recipe = (props) => {
       <div ref={scrollTopLookAround} />
 
       <RecipeBody loggedIn={loggedIn} />
+
+      <button>hi</button>
     </StWrapBody>
   );
 };

@@ -69,7 +69,7 @@ const AllRecipeList = (props) => {
   return (
     <StFlexListWrap>
       {items?.map((allrecipes, index) => (
-        <CustomFlexList>
+        <CustomFlexList key={"allRecipeList" + index}>
           {items.length - 1 == index ? (
             <div className="flex_box" ref={ref} key={"allRecipeList" + index}>
               <AllRecipeListContainer
@@ -80,7 +80,7 @@ const AllRecipeList = (props) => {
               />
             </div>
           ) : (
-            <div className="flex_box">
+            <div className="flex_box" key={"allRecipeList" + index}>
               <AllRecipeListContainer
                 modalProps={modalProps}
                 allrecipes={allrecipes}

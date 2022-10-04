@@ -120,7 +120,10 @@ const CommentEdit = ({
         <div className="input_profile">
           <div className="profile_image">
             {userLogin !== null && (
-              <StInputProfile src={userProfileImg}></StInputProfile>
+              <StInputProfile
+                src={userProfileImg}
+                alt="유저 프로필 이미지"
+              ></StInputProfile>
             )}
           </div>
         </div>
@@ -141,13 +144,17 @@ const CommentEdit = ({
           {imagePreview ? (
             <div className="img_preview">
               <label htmlFor="picture">
-                <StPicUpload src={imagePreview}></StPicUpload>
+                <StPicUpload
+                  src={imagePreview}
+                  alt="이미지 미리보기"
+                ></StPicUpload>
               </label>
               <DeletePreview
                 src={editIcon}
                 onClick={() => {
                   cancelImage();
                 }}
+                alt="삭제 버튼"
               ></DeletePreview>
             </div>
           ) : null}
@@ -157,6 +164,7 @@ const CommentEdit = ({
               id="picture"
               {...register("image")}
               accept="image/png, image/jpg"
+              alt="업로드할 이미지"
             ></input>
             <label htmlFor="picture" className="pic_upload">
               + 사진 업로드

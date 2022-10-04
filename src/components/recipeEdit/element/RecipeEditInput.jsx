@@ -14,6 +14,7 @@ const RecipeEditInput = ({
       defaultValue={defaultValue}
       placeholder={placeholder}
       {...register(label, config)}
+      autoComplete="off"
     />
   );
 };
