@@ -147,17 +147,17 @@ const CommentBody = () => {
                       </span>
                     </div>
                     <div className="content_bottom">{comment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
-                        alt="댓글 이미지"
-                      />
-                    </div>
-                    {/* )} */}
+                    {comment.imageUrl == null ? null : (
+                      <div className="content_picContainer">
+                        {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                        <img
+                          className="content_pic"
+                          src={comment.resizedUrl}
+                          onError={(e) => (e.target.src = comment.imageUrl)}
+                          alt="댓글 이미지"
+                        />
+                      </div>
+                    )}
                   </StContent>
                   <StOption
                     disabled={!commentAuthor}
@@ -200,17 +200,17 @@ const CommentBody = () => {
                       </span>
                     </div>
                     <div className="content_bottom">{comment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
-                        alt="댓글 이미지"
-                      />
-                    </div>
-                    {/* )} */}
+                    {comment.imageUrl == null ? null : (
+                      <div className="content_picContainer">
+                        {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                        <img
+                          className="content_pic"
+                          src={comment.resizedUrl}
+                          onError={(e) => (e.target.src = comment.imageUrl)}
+                          alt="댓글 이미지"
+                        />
+                      </div>
+                    )}
                   </StContent>
                   <StOption
                     onClick={() => {
