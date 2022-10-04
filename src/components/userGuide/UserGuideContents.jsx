@@ -20,7 +20,7 @@ const UserGuideContents = (props) => {
   return (
     <StUserGuideContents>
       <StContainer>
-        {loggedIn && (
+        {loggedIn && username && (
           <StRecipeListTitle>
             안녕하세요. <strong>{username}</strong> 님
           </StRecipeListTitle>

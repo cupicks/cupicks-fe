@@ -26,8 +26,10 @@ const AllRecipeListContainer = (props) => {
     resizedUrl,
     imageUrl,
     isLiked,
+    likeTotal,
+    commentTotal,
   } = allrecipes;
-  const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
+  const { loggedIn, needLogginModal, setNeedLogginModal, timer } = modalProps;
 
   const navigate = useNavigate();
   const [liked, setLiked] = useState(isLiked);
@@ -41,17 +43,21 @@ const AllRecipeListContainer = (props) => {
   // 브라우저 너비에 따라서 글자 수를 자릅니다.
   const windowWidth = windowSize.width;
   let titleText = title;
-  if (title.length > 11) {
-    titleText = title.slice(0, 11) + "...";
+  if (title.length > 10) {
+    titleText = title.slice(0, 10) + "..";
   }
 
   if (windowWidth < 450) {
     if (title.length > 4) {
-      titleText = title.slice(0, 4) + "...";
+      titleText = title.slice(0, 4).replace(" ", "") + "..";
     }
-  } else if (windowWidth < 500) {
-    if (title.length > 7) {
-      titleText = title.slice(0, 7) + "...";
+  } else if (windowWidth < 550) {
+    if (title.length > 6) {
+      titleText = title.slice(0, 6).replace(" ", "") + "..";
+    }
+  } else if (windowWidth < 600) {
+    if (title.length > 8) {
+      titleText = title.slice(0, 8) + "..";
     }
   }
 
@@ -70,7 +76,7 @@ const AllRecipeListContainer = (props) => {
   /** 레시피 좋아요 버튼 핸들러 */
   const likeCard = async () => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
-    if (!userLogin) {
+    if (!loggedIn) {
       if (!needLogginModal) {
         setNeedLogginModal(true);
         setTimeout(() => {
@@ -139,18 +145,28 @@ const AllRecipeListContainer = (props) => {
       <StListDesc>
         <div className="title">{titleText}</div>
         <StIconBox>
-          <img
-            className="talk_btn icon"
-            src={talk}
-            onClick={useCallback(() => {
-              navigate(`${recipeId}/comment`, { state: title });
-            }, [])}
-          />
-          {liked === false ? (
-            <img className="like_btn icon" src={dislikes} onClick={likeCard} />
-          ) : (
-            <img className="like_btn icon" src={likes} onClick={likeCard} />
-          )}
+          <div className="icon_set talk">
+            <img
+              className="talk_btn icon"
+              src={talk}
+              onClick={() => {
+                navigate(`${recipeId}/comment`, { state: title });
+              }}
+            />
+            {commentTotal}
+          </div>
+          <div className="icon_set like">
+            {liked === false ? (
+              <img
+                className="like_btn icon"
+                src={dislikes}
+                onClick={likeCard}
+              />
+            ) : (
+              <img className="like_btn icon" src={likes} onClick={likeCard} />
+            )}
+            {likeTotal}
+          </div>
         </StIconBox>
       </StListDesc>
     </>
@@ -195,7 +211,7 @@ const StCupHeight = styled.div`
 
 const StListDesc = styled.div`
   min-height: 2rem;
-  padding: 0.4rem 0.7rem 0.5rem;
+  padding: 0.4rem 0.6rem 0.5rem;
 
   display: flex;
   justify-content: space-between;
@@ -205,15 +221,36 @@ const StListDesc = styled.div`
 
   .title {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 `;
 
 const StIconBox = styled(CustomIconBox)`
+  gap: 4px;
+  .icon_set {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #393939;
+  }
   .talk_btn {
-    width: 0.9rem;
+    width: 1.1rem;
+    margin-right: 2px;
   }
   .like_btn {
-    width: 1.1rem;
+    width: 1.3rem;
+    margin-right: 1px;
+  }
+
+  @media (max-width: 400px) {
+    gap: 2px;
+    .talk_btn {
+      width: 1.1rem;
+      margin-right: 1px;
+    }
+    .like_btn {
+      width: 1.3rem;
+      margin-right: 0px;
+    }
   }
 `;

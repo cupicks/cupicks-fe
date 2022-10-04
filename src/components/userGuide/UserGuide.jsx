@@ -23,7 +23,9 @@ const UserGuide = (props) => {
   };
 
   useEffect(() => {
-    if (loggedIn) getProfile();
+    if (loggedIn) {
+      getProfile();
+    }
   }, []);
 
   return (

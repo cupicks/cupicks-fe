@@ -52,7 +52,7 @@ export default IngredientsContainer;
 
 const StIngredientsContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
-  height: calc((var(--vh, 1vh) * 100) - 60px - 50px);
+  height: calc(100% - 60px - 50px);
 
   display: flex;
   flex-flow: column;
@@ -73,7 +73,7 @@ const StCupHeight = styled.div`
     box-sizing: border-box;
 
     position: absolute;
-    top: 50px;
+    top: 1rem;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: -9;
