@@ -72,9 +72,19 @@ const RecipeTitle = (props) => {
           }}
         />
         {like === false ? (
-          <img className="like_btn" src={dislikes} onClick={likeCard} />
+          <img
+            className="like_btn"
+            src={dislikes}
+            onClick={likeCard}
+            alt="좋아요를 눌러주세요."
+          />
         ) : (
-          <img className="like_btn" src={likes} onClick={likeCard} />
+          <img
+            className="like_btn"
+            src={likes}
+            onClick={likeCard}
+            alt="좋아요를 취소합니다."
+          />
         )}
       </StIconSet>
     </StRecipeTitle>
