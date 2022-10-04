@@ -185,13 +185,13 @@ export default CommentEdit;
 // `;
 
 const StWrap = styled.form`
-  width: 670px;
-  min-height: 100px;
+  width: 60rem;
+  min-height: 10rem;
 
-  padding: 10px 24px;
+  padding: 1rem 2.4rem;
 
   display: flex;
-  gap: 10px;
+  gap: 1rem;
 
   position: absolute;
   bottom: 0;
@@ -207,7 +207,7 @@ const StWrap = styled.form`
   }
 
   .input_profile {
-    transform: translateY(-2px);
+    transform: translateY(-0.2rem);
   }
 
   .profile_image {
@@ -221,36 +221,36 @@ const StWrap = styled.form`
 
     display: flex;
     flex-flow: column;
-    gap: 7px;
+    gap: 0.7rem;
   }
 
   .input_box {
     width: 100%;
-    height: 35px;
-    line-height: 35px;
+    height: 3.5rem;
+    line-height: 3.5rem;
 
     display: flex;
 
-    border: 1px solid #d9d9d9;
-    border-radius: 20px;
+    border: 0.1rem solid #d9d9d9;
+    border-radius: 2rem;
   }
 
   .comment_input {
     all: unset;
     flex: 1 1 auto;
 
-    padding-left: 12px;
+    padding-left: 1.2rem;
 
-    font-size: 13px;
+    font-size: 1.3rem;
 
     color: #9f9f9f;
   }
 
   .comment_btn {
     all: unset;
-    padding: 0 12px;
+    padding: 0 1.2rem;
 
-    font-size: 13px;
+    font-size: 1.3rem;
   }
 
   .img_preview {
@@ -267,15 +267,15 @@ const StWrap = styled.form`
     flex: 1 1 auto;
     color: #3897f0;
 
-    font-size: 13px;
+    font-size: 1.3rem;
   }
 
-  @media (max-width: 300px) {
+  @media (max-width: 30rem) {
     flex-flow: column;
     align-items: center;
     .img_preview {
       justify-content: center;
-      padding-left: 25px;
+      padding-left: 2.5rem;
     }
     .pic_wrap {
       text-align: center;
@@ -290,11 +290,11 @@ const StInputProfile = styled.img`
 `;
 
 const DeletePreview = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 2.5rem;
+  height: 2.5rem;
 
   position: relative;
-  transform: translate(-11px, -9px);
+  transform: translate(-1.1rem, -0.9rem);
 `;
 
 const StPicUpload = styled.img`

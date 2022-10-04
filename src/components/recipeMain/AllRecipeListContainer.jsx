@@ -239,6 +239,7 @@ const StIconBox = styled(CustomIconBox)`
   .talk_btn {
     width: 1.1rem;
     margin-right: 2px;
+    transform: translateY(1px);
   }
   .like_btn {
     width: 1.3rem;
