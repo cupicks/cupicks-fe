@@ -187,7 +187,6 @@ export default CommentEdit;
 const StWrap = styled.form`
   width: 60rem;
   min-height: 10rem;
-
   padding: 1rem 2.4rem;
 
   display: flex;
