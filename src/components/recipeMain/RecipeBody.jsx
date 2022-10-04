@@ -9,7 +9,8 @@ const { CustomRecipeListTitle } = styledElementComponents;
 
 // import api from "../../server/api";
 
-const RecipeBody = () => {
+const RecipeBody = (props) => {
+  const { loggedIn } = props;
   // const [favRecipe, setFavRecipe] = useState([]);
   // const [AllRecipeOpen, setAllRecipeOpen] = useState(false);
 
@@ -48,7 +49,7 @@ const RecipeBody = () => {
         <h1>전체 레시피</h1>
       </CustomRecipeListTitle>
 
-      <AllRecipeList />
+      <AllRecipeList loggedIn={loggedIn} />
     </StWrap>
   );
 };

@@ -185,8 +185,8 @@ export default CommentEdit;
 // `;
 
 const StWrap = styled.form`
-  width: 100%;
-  min-height: 88px;
+  width: 670px;
+  min-height: 100px;
 
   padding: 10px 24px;
 
@@ -211,8 +211,8 @@ const StWrap = styled.form`
   }
 
   .profile_image {
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 4rem;
+    max-height: 4rem;
     border-radius: 50%;
   }
 
@@ -284,8 +284,8 @@ const StWrap = styled.form`
 `;
 
 const StInputProfile = styled.img`
-  width: 40px;
-  height: 40px;
+  max-width: 4rem;
+  max-height: 4rem;
   border-radius: 50%;
 `;
 

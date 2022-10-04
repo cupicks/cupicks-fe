@@ -108,8 +108,8 @@ export default RecipeVisualContainer;
 const StRecipeVisualContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
   width: 100%;
-  height: calc(100% - 6rem - 15rem);
-  animation: slideEffect 0.3s forwards;
+  height: calc(100% - 6rem - 16rem);
+  animation: slideEffect 0.3s 0.1s forwards;
 
   @keyframes slideEffect {
     100% {
