@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 
-import RecipeList from "./RecipeList";
+// import RecipeList from "./RecipeList";
 import AllRecipeList from "./AllRecipeList";
 
 import styled from "styled-components";
@@ -19,12 +19,11 @@ const RecipeBody = (props) => {
 
   //   try {
   //     const response = await api(contentType)
-  //       .get(`/recipe/best`)
+  //       .get(`/ranking/weekly-recipe`)
   //       .then((res) => {
   //         console.log(res);
-  //         setFavRecipe([...favRecipe, ...res.data.recipeList]);
+  //         setFavRecipe([...res.data.bestRecipeList]);
   //       });
-  //     setLoaded(true);
   //   } catch (err) {
   //     console.log(err);
   //   }
@@ -40,10 +39,10 @@ const RecipeBody = (props) => {
 
   return (
     <StWrap>
-      {/* <StRecipeTitle>이번주 인기 레시피</StRecipeTitle>
-      <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} /> */}
+      {/* <StRecipeTitle>이번주 인기 레시피</StRecipeTitle> */}
+      {/* <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} /> */}
 
-      {/* <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle> */}
+      {/* <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
 
       {/* 임시 타이틀 */}
       <CustomRecipeListTitle>

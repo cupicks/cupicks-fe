@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import styled from "styled-components";
 import styledElementComponents from "../../styles/customElementStyle";
 const { CustomProfilePic, CustomIconBox } = styledElementComponents;
-
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
 
 import talk from "../../assets/svg/talk.svg";
@@ -15,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-  const { allrecipes, modalProps, getItems, page } = props;
+  const { allrecipes, modalProps, getItems } = props;
 
   const {
     recipeId,
@@ -88,7 +87,6 @@ const AllRecipeListContainer = (props) => {
     }
 
     let contentType = "application/json";
-    //liked(isLiked)가 false일 때, 좋아요를 누를 수 있습니다.
     if (liked === false) {
       try {
         await api(contentType)
@@ -102,7 +100,6 @@ const AllRecipeListContainer = (props) => {
         console.log(err);
       }
     } else {
-      // liked(isLiked)가 false
       try {
         await api(contentType)
           .patch(`/recipes/${recipeId}/dislike`)
@@ -125,9 +122,9 @@ const AllRecipeListContainer = (props) => {
       </StListHead>
 
       <StListContent
-        onClick={() => {
+        onClick={useCallback(() => {
           navigate(`${recipeId}/detail`);
-        }}
+        }, [])}
       >
         <StCupHeight cupHeight={cupHeight}>
           {ingredientList.map((ingredients, idx) => {
