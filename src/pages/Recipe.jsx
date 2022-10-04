@@ -6,14 +6,12 @@ import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
 const { CustomWrapNoHeader } = styledLayoutComponents;
 
-import ToastMessage from "../components/elements/modal/ToastMessage";
 import RecipeBody from "../components/recipeMain/RecipeBody";
 import UserGuide from "../components/userGuide/UserGuide";
 import { useRef } from "react";
 
 const Recipe = (props) => {
   const { loggedIn } = props;
-  const location = useLocation();
   const scrollTopLookAround = useRef();
   const scrollElement = useRef();
 
@@ -24,10 +22,9 @@ const Recipe = (props) => {
         scrollTopLookAround={scrollTopLookAround}
         scrollElement={scrollElement}
       />
-
       <div ref={scrollTopLookAround} />
 
-      <RecipeBody />
+      <RecipeBody loggedIn={loggedIn} />
     </StWrapBody>
   );
 };
