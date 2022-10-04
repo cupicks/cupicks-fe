@@ -6,10 +6,10 @@ import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    VitePWA({
-      registerType: "autoUpdate",
-      injectRegister: "auto",
-    }),
+    // VitePWA({
+    //   registerType: "autoUpdate",
+    //   injectRegister: "auto",
+    // }),
     react(),
     svgr({
       exportAsDefault: false,

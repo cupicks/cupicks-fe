@@ -72,6 +72,7 @@ const RecipeCreateForm = () => {
 
   const [recipeCreated, setRecipeCreated] = useState(false);
   const { step, finalStep } = stepState;
+  const textStepContainer = step === finalStep;
 
   /** 완성한 레피시를 등록하는 함수 */
   const RecipeCreating = async (newData) => {
@@ -106,7 +107,10 @@ const RecipeCreateForm = () => {
   };
 
   return (
-    <StForm onSubmit={handleSubmit(onSubmit)}>
+    <StForm
+      onSubmit={handleSubmit(onSubmit)}
+      textStepContainer={textStepContainer}
+    >
       <RecipeCreateNavigation
         cupState={cupState}
         setCupState={setCupState}
@@ -151,7 +155,7 @@ const RecipeCreateForm = () => {
 export default RecipeCreateForm;
 
 const StForm = styled.form`
-  height: 100%;
+  height: ${(props) => (props.textStepContainer ? "auto" : "100%")};
 
   display: flex;
   flex-flow: column;
@@ -170,6 +174,12 @@ const StForm = styled.form`
       border: 1px solid #393939;
       background-color: #393939;
     }
+  }
+
+  .button_box > input[type="radio"]:checked + label {
+    color: #fff;
+    border: 1px solid #393939;
+    background-color: #393939;
   }
   //
 

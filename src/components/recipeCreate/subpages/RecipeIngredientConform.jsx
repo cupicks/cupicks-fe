@@ -45,29 +45,30 @@ const RecipeIngredientConform = (props) => {
 export default RecipeIngredientConform;
 
 const StTextInputContainer = styled.div`
+  height: 100%;
   display: flex;
   flex-flow: column;
 
-  padding: 1rem 1.2rem;
-  margin-top: 10px;
+  padding: 2.5rem 2.3rem;
+  margin-top: 1rem;
 
   text-align: left;
 
   background-color: #f8f8f8;
+  font-size: 1.4rem;
 
   .info_box {
     color: #aaa;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 
-    font-size: 1.4rem;
     font-weight: 700;
-    line-height: 21px;
+    line-height: 2.1rem;
   }
 
   .error_box {
     color: #aaa;
 
-    min-height: 20px;
+    min-height: 2rem;
   }
 `;
 
@@ -77,7 +78,7 @@ const StTable = styled.table`
     display: flex;
   }
   .title {
-    padding-right: 4px;
+    padding-right: 0.4rem;
   }
   span {
     display: block;
