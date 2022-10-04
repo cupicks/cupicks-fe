@@ -1,20 +1,19 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
-import Comments from "../pages/Comments";
-import Login from "../pages/Login";
-import Landing from "../pages/Landing";
-import Mypage from "../pages/Mypage";
-import Recipe from "../pages/Recipe";
-import RecipeCreate from "../pages/RecipeCreate";
-import RecipeDetail from "../pages/RecipeDetail";
-import Register from "../pages/Register";
-import RegisterComplete from "../pages/RegisterComplete";
-import ResetPassword from "../pages/ResetPassword";
-import ProfileEdit from "../pages/ProfileEdit";
-import NotFound from "../pages/NotFound";
-import Error from "../pages/Error";
-import RecipeEdit from "../pages/RecipeEdit";
+const Comments = lazy(() => import("../pages/Comments"));
+const Login = lazy(() => import("../pages/Login"));
+const Landing = lazy(() => import("../pages/Landing"));
+const Mypage = lazy(() => import("../pages/Mypage"));
+const Recipe = lazy(() => import("../pages/Recipe"));
+const RecipeCreate = lazy(() => import("../pages/RecipeCreate"));
+const RecipeDetail = lazy(() => import("../pages/RecipeDetail"));
+const Register = lazy(() => import("../pages/Register"));
+const RegisterComplete = lazy(() => import("../pages/RegisterComplete"));
+const ResetPassword = lazy(() => import("../pages/ResetPassword"));
+const ProfileEdit = lazy(() => import("../pages/ProfileEdit"));
+const NotFound = lazy(() => import("../pages/NotFound"));
+const RecipeEdit = lazy(() => import("../pages/RecipeEdit"));
 
 const Router = () => {
   const navigate = useNavigate();
@@ -82,42 +81,52 @@ const Router = () => {
   }, [loggedIn]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/recipe" element={<Recipe loggedIn={loggedIn} />} />
-      <Route path="/recipe/:recipeId/comment" element={<Comments />} />
-      <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
-      <Route path="/sign-up/complete" element={<RegisterComplete />} />
+    <>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/recipe" element={<Recipe loggedIn={loggedIn} />} />
+          <Route path="/recipe/:recipeId/comment" element={<Comments />} />
+          <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
+          <Route path="/sign-up/complete" element={<RegisterComplete />} />
 
-      {!loggedIn && (
-        <>
-          <Route path="/sign-in" element={<Login />} />
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/resetPassword" element={<ResetPassword />} />
+          {!loggedIn && (
+            <>
+              <Route path="/sign-in" element={<Login />} />
+              <Route path="/sign-up" element={<Register />} />
+              <Route path="/resetPassword" element={<ResetPassword />} />
 
-          {caseYesLoggedIn.map((path, idx) => (
-            <Route
-              key={"routePathLogin" + idx}
-              path={path}
-              timer={30000}
-              element={<NotFound timer={30000} type={"notLoggedIn"} />}
-            />
-          ))}
-        </>
-      )}
+              {caseYesLoggedIn.map((path, idx) => (
+                <Route
+                  key={"routePathLogin" + idx}
+                  path={path}
+                  timer={30000}
+                  element={
+                    <NotFound
+                      timer={30000}
+                      message={
+                        "로그인 후에 사용가능한 기능이에요!\n로그인하고 이용해볼까요?"
+                      }
+                    />
+                  }
+                />
+              ))}
+            </>
+          )}
 
-      {loggedIn && (
-        <>
-          <Route path="/recipe/create" element={<RecipeCreate />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/profile/edit" element={<ProfileEdit />} />
-          <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
-        </>
-      )}
+          {loggedIn && (
+            <>
+              <Route path="/recipe/create" element={<RecipeCreate />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/profile/edit" element={<ProfileEdit />} />
+              <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
+            </>
+          )}
 
-      <Route path="/error" element={<Error />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 
