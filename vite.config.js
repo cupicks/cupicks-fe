@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
+      injectRegister: "auto",
     }),
     react(),
     svgr({
