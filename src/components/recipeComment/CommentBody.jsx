@@ -154,6 +154,7 @@ const CommentBody = () => {
                         className="content_pic"
                         src={comment.resizedUrl}
                         onError={(e) => (e.target.src = comment.imageUrl)}
+                        alt="댓글 이미지"
                       />
                     </div>
                     {/* )} */}
@@ -176,7 +177,9 @@ const CommentBody = () => {
                       }
                     }}
                   >
-                    {commentAuthor && <img src={talk_edit} />}
+                    {commentAuthor && (
+                      <img src={talk_edit} alt="댓글 관리 버튼" />
+                    )}
                   </StOption>
                 </div>
               ) : (
@@ -204,6 +207,7 @@ const CommentBody = () => {
                         className="content_pic"
                         src={comment.resizedUrl}
                         onError={(e) => (e.target.src = comment.imageUrl)}
+                        alt="댓글 이미지"
                       />
                     </div>
                     {/* )} */}
@@ -226,7 +230,9 @@ const CommentBody = () => {
                     }}
                     disabled={!commentAuthor}
                   >
-                    {commentAuthor && <img src={talk_edit} />}
+                    {commentAuthor && (
+                      <img src={talk_edit} alt="댓글 관리 버튼" />
+                    )}
                   </StOption>
                 </div>
               )}

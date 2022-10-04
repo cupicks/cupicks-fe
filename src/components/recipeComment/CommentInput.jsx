@@ -136,7 +136,10 @@ const CommentInput = ({
       <div className="input_profile">
         <div className="profile_image">
           {profiles !== null && (
-            <StInputProfile src={profiles?.imageUrl}></StInputProfile>
+            <StInputProfile
+              src={profiles?.imageUrl}
+              alt="이미지 미리보기"
+            ></StInputProfile>
           )}
         </div>
       </div>
@@ -158,13 +161,17 @@ const CommentInput = ({
         {imagePreview ? (
           <div className="img_preview">
             <label htmlFor="picture">
-              <StPicUpload src={imagePreview}></StPicUpload>
+              <StPicUpload
+                src={imagePreview}
+                alt="업로드할 이미지"
+              ></StPicUpload>
             </label>
             <DeletePreview
               src={editIcon}
               onClick={() => {
                 cancelImage();
               }}
+              alt="삭제 버튼"
             ></DeletePreview>
           </div>
         ) : null}
@@ -175,6 +182,7 @@ const CommentInput = ({
             id="picture"
             {...register("image")}
             accept="image/png, image/jpg"
+            alt="업로드할 이미지"
           />
           <label htmlFor="picture" className="pic_upload">
             + 사진 업로드
