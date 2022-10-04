@@ -16,7 +16,9 @@ const NotFound = (props) => {
 
   return (
     <StWrapBody>
-      <img src={illustration05} alt="커픽" />
+      <div className="image_box">
+        <img src={illustration05} alt="커픽" />
+      </div>
       <h3>{message ? message : "페이지가 없거나 접근할 수 없습니다."}</h3>
       <p>
         {message ? (
@@ -47,8 +49,18 @@ const StWrapBody = styled(CustomWrapBody)`
   text-align: center;
   padding: 0 1.5rem;
 
+  .image_box {
+    margin-top: 5vh;
+    height: 50%;
+  }
+
+  img {
+    height: 100%;
+  }
+
   h3 {
     margin-bottom: 2rem;
+    transform: translateY(-0.3rem);
 
     font-size: 1.5rem;
     color: #898989;
@@ -60,10 +72,5 @@ const StWrapBody = styled(CustomWrapBody)`
     font-size: 1.7rem;
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-
-  img {
-    margin-top: 10vh;
-    width: 45%;
   }
 `;
