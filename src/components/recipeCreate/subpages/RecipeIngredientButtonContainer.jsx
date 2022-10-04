@@ -92,7 +92,7 @@ const StRecipeIngredientButtonContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -100%) rotate(45deg);
   z-index: 99;
   transform-origin: 48% 48%;
 
