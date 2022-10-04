@@ -25,10 +25,10 @@ const Password = (props) => {
   return (
     <StDiv>
       {passwordError && (
-        <ToastMessage text={errors?.password?.message} timer={1000} />
+        <ToastMessage text={errors?.password?.message} timer={1800} />
       )}
       {passwordCfError && (
-        <ToastMessage text={"비밀번호가 일치하지 않습니다."} timer={1000} />
+        <ToastMessage text={"비밀번호가 일치하지 않습니다."} timer={1800} />
       )}
       <CustomTitle>
         <h1>비밀번호 입력</h1>
