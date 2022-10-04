@@ -23,6 +23,7 @@ const RecipeIngredient = (props) => {
             placeholder={`재료`}
             {...register(`ingredientList.${idx}.ingredientName`)}
             maxLength={20}
+            autoComplete="off"
           />
         </>
       )}
