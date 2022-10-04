@@ -33,14 +33,18 @@ const Email = (props) => {
   return (
     <StDiv>
       {/* 모달 팝업 */}
-      {toast && <ToastMessage text={errors?.email?.message} timer={1500} />}
+      {toast && <ToastMessage text={errors?.email?.message} timer={1800} />}
       {failure && (
-        <ToastMessage text={errors?.emailError?.message} timer={1500} />
+        <ToastMessage
+          text={errors?.emailError?.message}
+          timer={1800}
+          smallFont={true}
+        />
       )}
       {emailSuccess && (
         <ToastMessage
           text={"사용자 이메일로\n6자리 숫자가 발송되었어요!"}
-          timer={1000}
+          timer={1800}
         />
       )}
       {numberFailure && (

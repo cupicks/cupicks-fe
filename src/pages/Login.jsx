@@ -37,7 +37,7 @@ const Login = () => {
     watch,
     resetField,
     setError,
-    formState: { isSubmitting, isDirty, errors },
+    formState: { errors },
   } = useForm({
     criteriaMode: "all",
     mode: "onChange",
@@ -61,37 +61,6 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    // const data = { email: watch("email"), password: watch("password") };
-    // const queryStringData = Object.keys(data)
-    //   .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
-    //   .join("&");
-    // console.log(queryStringData);
-    // const contentType = "application/x-www-form-urlencoded";
-    // try {
-    //   const res = await api(contentType).post(
-    //     "/auth/signin",
-    //     queryStringData,
-    //     // {
-    //     //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //     // }
-    //   );
-    //   console.log(res);
-    //   localStorage.setItem("accessToken", res.data.accessToken);
-    //   localStorage.setItem("refreshToken", res.data.refreshToken);
-    //   setLoginSuccess(true);
-    //   // alert(res.data.message);
-    //   setTimeout(() => {
-    //     navigate("/");
-    //   }, 1000);
-    // } catch (err) {
-    //   console.log(err);
-    //   // alert(err.response.data.message);
-    //   setError("loginError", { message: err.response.data.message });
-    //   setLoginError(true);
-    //   setTimeout(() => {
-    //     setLoginError(false);
-    //   }, 1000);
-    // }
   };
 
   const clickLogin = async () => {
@@ -121,13 +90,7 @@ const Login = () => {
     console.log(queryStringData);
     const contentType = "application/x-www-form-urlencoded";
     try {
-      const res = await api(contentType).post(
-        "/auth/signin",
-        queryStringData,
-        // {
-        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        // }
-      );
+      const res = await api(contentType).post("/auth/signin", queryStringData);
       console.log(res);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
@@ -136,7 +99,6 @@ const Login = () => {
       });
     } catch (err) {
       console.log(err);
-      // alert(err.response.data.message);
       setError("loginError", { message: err.response.data.message });
       setLoginError(true);
       setTimeout(() => {
@@ -148,13 +110,21 @@ const Login = () => {
     <CustomWrapFullVH>
       {/* 모달창 */}
       {emailFailure && (
-        <ToastMessage text={errors?.email?.message} timer={1000} />
+        <ToastMessage text={errors?.email?.message} timer={1800} />
       )}
       {pwFailure && (
-        <ToastMessage text={errors?.password?.message} timer={1000} />
+        <ToastMessage
+          text={errors?.password?.message}
+          timer={1800}
+          smallFont={true}
+        />
       )}
       {loginError && (
-        <ToastMessage text={errors?.loginError?.message} timer={1000} />
+        <ToastMessage
+          text={errors?.loginError?.message}
+          timer={1800}
+          smallFont={true}
+        />
       )}
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
 

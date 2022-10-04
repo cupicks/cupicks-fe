@@ -1,10 +1,10 @@
 {
-  "name": "cupicks-fe",
-  "short_name": "cupicks-fe",
+  "name": "Cupick",
+  "short_name": "Cupick",
   "start_url": "https://cupick.co",
   "display": "standalone",
   "background_color": "#ffffff",
-  "lang": "en",
+  "lang": "ko",
   "prefer_related_applications": true,
   "theme_color": "#ffffff",
   "icons": [
