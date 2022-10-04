@@ -108,9 +108,6 @@ const StMypageMyInfo = styled.div`
   img.show_more_icon {
     max-height: 1.6rem;
     position: relative;
-    right: -1rem;
-
-    cursor: pointer;
   }
 
   .left {
@@ -118,7 +115,9 @@ const StMypageMyInfo = styled.div`
   }
 
   .right {
-    padding: 0 1.2rem;
+    padding: 1rem 1.2rem;
+
+    cursor: pointer;
   }
 `;
 
