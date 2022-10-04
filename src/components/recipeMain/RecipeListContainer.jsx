@@ -5,13 +5,14 @@ import talk from "../../assets/svg/talk.svg";
 import like from "../../assets/svg/like_m.svg";
 
 export const RecipeListContainer = (props) => {
-  const { recipeId, ingredientList, title, cupSize } = props.recipes;
+  const { recipeId, ingredientList, title, cupSize, nickname, resizedUrl } =
+    props.recipes;
   return (
     <StList key={recipeId}>
       <StListWrap>
         <StListHead>
           <StListProfile></StListProfile>
-          <StNickname>닉네임</StNickname>
+          <StNickname>{nickname}</StNickname>
         </StListHead>
         <StListContent>
           {ingredientList.map((ingredients) => (
