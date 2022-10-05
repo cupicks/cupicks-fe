@@ -175,6 +175,7 @@ const StProfilePic = styled.div`
 
   background: #eee url(${(props) => props.ProfileImageSrc}) no-repeat center /
     cover;
+  border: 1px solid #eee;
 
   img {
     position: absolute;
