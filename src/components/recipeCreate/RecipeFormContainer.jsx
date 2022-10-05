@@ -61,12 +61,12 @@ const RecipeFormContainer = (props) => {
 export default RecipeFormContainer;
 
 const StRecipeFormContainer = styled.div`
-  height: 16rem;
   animation: slideUp 0.3s 0.1s forwards;
+  height: 18%;
 
   @keyframes slideUp {
     100% {
-      height: 18.5rem;
+      height: 20%;
     }
   }
 

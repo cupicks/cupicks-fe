@@ -108,12 +108,12 @@ export default RecipeVisualContainer;
 const StRecipeVisualContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
   width: 100%;
-  height: calc(100% - 6rem - 16rem);
-  animation: slideEffect 0.3s 0.1s forwards;
+  height: calc(100% - 6rem - 18%);
+  animation: slideEffect 0.2s 0.1s forwards;
 
   @keyframes slideEffect {
     100% {
-      height: calc(100% - 6rem - 18.5rem);
+      height: calc(100% - 6rem - 20%);
     }
   }
 
@@ -150,18 +150,16 @@ const StRecipeVisualContainer = styled.div`
 `;
 
 const StRecipeVisual = styled.div`
-  width: 70%;
-  height: 55vh;
-
-  margin: 15% auto 5vh;
-  padding-top: 20px;
-
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
 
-  position: relative;
+  position: absolute;
   z-index: 9;
+  top: 10%;
+  bottom: 12%;
+  left: 15%;
+  right: 15%;
 
   border: 0.5em solid #ddd;
   border-top: 0;

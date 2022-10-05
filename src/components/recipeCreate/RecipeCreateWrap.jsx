@@ -162,7 +162,7 @@ const StForm = styled.form`
   justify-content: space-between;
   text-align: center;
 
-  background-color: #eee;
+  background-color: ${(props) => (props.textStepContainer ? "#eee" : "#fff")};
 
   // 임시 버튼
   label {
