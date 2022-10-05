@@ -144,9 +144,17 @@ const CustomFooter = styled.footer`
   ${({ theme }) => {
     return css`
       height: 9rem;
-
-      display: flex;
       position: relative;
+
+      .contents_area {
+        width: 100%;
+        height: 9rem;
+
+        display: flex;
+
+        position: fixed;
+        bottom: 0;
+      }
 
       .svg_box {
         transition: all 0.2s;
