@@ -39,12 +39,15 @@ const RecipeIngredientForm = (props) => {
 
   return (
     <StWrap>
-      <div className="info_box_center">
-        {addNewIngredientMode &&
-          !cupFull &&
-          "+ 버튼을 눌러 재료를 추가해주세요."}
-        {addNewIngredientMode && cupFull && "재료가 모두 찼습니다."}
-      </div>
+      {addNewIngredientMode && !cupFull && (
+        <div className="info_box_center">
+          + 버튼을 눌러 재료를 추가해주세요.
+        </div>
+      )}
+
+      {addNewIngredientMode && cupFull && (
+        <div className="info_box_center cup_full">재료가 모두 찼습니다.</div>
+      )}
 
       {/* 마지막 input만 출력합니다 */}
       {newFields?.map((field, idx) => {
