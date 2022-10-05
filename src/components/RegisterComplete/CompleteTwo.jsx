@@ -8,10 +8,10 @@ const CompleteTwo = () => {
   return (
     <StDiv>
       <div className="box">
-        <h1>계량없이 이미지만 따라 만들어보세요!</h1>
+        <h1></h1>
       </div>
       <StImgBox>
-        <StImg src={illustrationTwo} alt="만들어보세요" />
+        <StImg src={illustrationTwo} alt="" />
       </StImgBox>
     </StDiv>
   );
