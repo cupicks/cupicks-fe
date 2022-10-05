@@ -197,9 +197,9 @@ export default CommentInput;
 
 const StWrap = styled.form`
   width: 100%;
+  max-width: calc(var(--vh, 1vw) * 100);
+  padding: 1rem 2rem;
   min-height: 9rem;
-
-  padding: 1rem 2.4rem;
 
   display: flex;
   gap: 1rem;
@@ -240,6 +240,9 @@ const StWrap = styled.form`
     line-height: 3.5rem;
 
     display: flex;
+    justify-content: flex-end;
+
+    position: relative;
 
     border: 0.1px solid #d9d9d9;
     border-radius: 2rem;
@@ -247,20 +250,25 @@ const StWrap = styled.form`
 
   .comment_input {
     all: unset;
-    flex: 1 1 auto;
+    flex: 1 1 0px;
 
-    padding-left: 1.2rem;
+    position: absolute;
+    left: 1rem;
+    right: 5rem;
 
-    font-size: 1.3rem;
+    font-size: 1.6rem;
 
     color: #9f9f9f;
   }
 
   .comment_btn {
     all: unset;
-    padding: 0 1.2rem;
+    padding: 0 1.1rem;
+    margin-left: -1rem;
 
     font-size: 1.3rem;
+    word-break: keep-all;
+    white-space: nowrap;
   }
 
   .img_preview {
@@ -277,18 +285,6 @@ const StWrap = styled.form`
     color: #3897f0;
 
     font-size: 1.3rem;
-  }
-
-  @media (max-width: 30px) {
-    flex-flow: column;
-    align-items: center;
-    .img_preview {
-      justify-content: center;
-      padding-left: 2.5rem;
-    }
-    .pic_wrap {
-      text-align: center;
-    }
   }
 `;
 
