@@ -196,7 +196,7 @@ const StWrap = styled.form`
   width: 100%;
   max-width: 60rem;
   min-height: 10rem;
-  padding: 1rem 2.4rem;
+  padding: 1rem 2rem;
 
   display: flex;
   gap: 1rem;
@@ -219,10 +219,16 @@ const StWrap = styled.form`
   }
 
   .profile_image {
-    max-width: 4rem;
-    max-height: 4rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     margin-top: 1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .input_wrap {
@@ -239,6 +245,9 @@ const StWrap = styled.form`
     line-height: 3.5rem;
 
     display: flex;
+    justify-content: flex-end;
+
+    position: relative;
 
     border: 0.1rem solid #d9d9d9;
     border-radius: 2rem;
@@ -246,11 +255,13 @@ const StWrap = styled.form`
 
   .comment_input {
     all: unset;
-    flex: 1 1 auto;
+    flex: 1 1 0px;
 
-    padding-left: 1.2rem;
+    position: absolute;
+    left: 1rem;
+    right: 5rem;
 
-    font-size: 1.3rem;
+    font-size: 1.6rem;
 
     color: #9f9f9f;
   }
@@ -258,8 +269,12 @@ const StWrap = styled.form`
   .comment_btn {
     all: unset;
     padding: 0 1.2rem;
+    padding: 0 1.1rem;
+    margin-left: -1rem;
 
     font-size: 1.3rem;
+    word-break: keep-all;
+    white-space: nowrap;
   }
 
   .img_preview {
