@@ -57,26 +57,20 @@ Team
 
 Dependencies
 
-<img src="https://img.shields.io/badge/PM2-2B037A?style=flat-square&logo=PM2&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Jsonwebtoken-000000?style=flat-square&logo=JSON Web Tokens&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Cors-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Bcrypt-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Dayjs-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Joi-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Multer-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/UUID-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/AWS_SDK-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/React Hook Form-EC5990?style=flat-square&logo=ReactHookForm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/React_Intersection_Observer-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/React_Jwt-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/React_Slick-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"/></a>
 
 DevDependencies
 
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=GNU Bash&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Jest-CB3837?style=flat-square&logo=Jest&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/morgan-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Node_Mock_Http-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/@faker_js-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Esbuild_Jest-CB3837?style=flat-square&logo=npm&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Google Analytics-E37400?style=flat-square&logo=Google Analytics&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Lighthouse-F44B21?style=flat-square&logo=Lighthouse&logoColor=white"/></a>
 
 Infra
 
