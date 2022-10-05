@@ -193,7 +193,8 @@ export default CommentEdit;
 // `;
 
 const StWrap = styled.form`
-  width: 60rem;
+  width: 100%;
+  max-width: 60rem;
   min-height: 10rem;
   padding: 1rem 2.4rem;
 
@@ -221,6 +222,7 @@ const StWrap = styled.form`
     max-width: 4rem;
     max-height: 4rem;
     border-radius: 50%;
+    margin-top: 1rem;
   }
 
   .input_wrap {
@@ -277,7 +279,7 @@ const StWrap = styled.form`
     font-size: 1.3rem;
   }
 
-  @media (max-width: 30rem) {
+  /* @media (max-width: 30rem) {
     flex-flow: column;
     align-items: center;
     .img_preview {
@@ -287,7 +289,7 @@ const StWrap = styled.form`
     .pic_wrap {
       text-align: center;
     }
-  }
+  } */
 `;
 
 const StInputProfile = styled.img`
