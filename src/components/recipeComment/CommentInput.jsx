@@ -197,9 +197,9 @@ export default CommentInput;
 
 const StWrap = styled.form`
   width: 100%;
-  min-height: 9rem;
-
+  max-width: calc(var(--vh, 1vw) * 100);
   padding: 1rem 2rem;
+  min-height: 9rem;
 
   display: flex;
   gap: 1rem;
@@ -240,6 +240,9 @@ const StWrap = styled.form`
     line-height: 3.5rem;
 
     display: flex;
+    justify-content: flex-end;
+
+    position: relative;
 
     border: 0.1px solid #d9d9d9;
     border-radius: 2rem;
@@ -247,9 +250,10 @@ const StWrap = styled.form`
 
   .comment_input {
     all: unset;
-    flex: 1;
+    flex: 1 1 0px;
 
-    padding-left: 1.2rem;
+    position: absolute;
+    left: 1rem;
 
     font-size: 1.3rem;
 
