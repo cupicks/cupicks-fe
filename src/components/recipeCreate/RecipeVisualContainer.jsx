@@ -188,8 +188,10 @@ const StRecipeVisual = styled.div`
   // cupSize Height
   .ingredient_outline {
     height: ${(props) => props.ingredient_height + "%"};
+    width: calc(100% - 2px);
 
     position: relative;
+    margin-left: 1px;
 
     border: 3px dashed ${(props) => props.borderColor};
 
