@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
         html {
           font-size: 55%;
         }
+        background-color: ${theme.colors.background};
       }
 
       ${theme.devices.xs} {
