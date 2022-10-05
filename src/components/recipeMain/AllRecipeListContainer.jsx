@@ -74,7 +74,7 @@ const AllRecipeListContainer = (props) => {
   }, [windowWidth]);
 
   /** 레시피 좋아요 버튼 핸들러 */
-  const likeCard = async () => {
+  const likeCard = async (ev) => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
     if (!loggedIn) {
       if (!needLogginModal) {
@@ -86,14 +86,18 @@ const AllRecipeListContainer = (props) => {
       return;
     }
 
+    const targetText = +ev.target.nextSibling.innerText;
+
     let contentType = "application/json";
     if (liked === false) {
       try {
         await api(contentType)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
-            getItems();
-            console.log(res);
+            // console.log(res);
+            if (res.data.isSuccess) {
+              ev.target.nextSibling.innerText = targetText + 1;
+            }
           });
         setLiked((prev) => !prev);
       } catch (err) {
@@ -104,8 +108,10 @@ const AllRecipeListContainer = (props) => {
         await api(contentType)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
-            getItems();
-            console.log(res);
+            // console.log(res);
+            if (res.data.isSuccess) {
+              ev.target.nextSibling.innerText = targetText - 1;
+            }
           });
         setLiked((prev) => !prev);
       } catch (err) {
@@ -153,7 +159,7 @@ const AllRecipeListContainer = (props) => {
                 navigate(`${recipeId}/comment`, { state: title });
               }}
             />
-            {commentTotal}
+            <span>{commentTotal}</span>
           </div>
           <div className="icon_set like">
             {liked === false ? (
@@ -165,7 +171,7 @@ const AllRecipeListContainer = (props) => {
             ) : (
               <img className="like_btn icon" src={likes} onClick={likeCard} />
             )}
-            {likeTotal}
+            <span>{likeTotal}</span>
           </div>
         </StIconBox>
       </StListDesc>
