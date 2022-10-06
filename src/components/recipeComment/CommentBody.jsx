@@ -76,7 +76,7 @@ const CommentBody = () => {
     const msdiff = Date.now() - result;
     const seconds = msdiff / 1000;
 
-    if (isNaN(createdAt)) {
+    if (isNaN(result)) {
       return `방금 전`;
     }
 
