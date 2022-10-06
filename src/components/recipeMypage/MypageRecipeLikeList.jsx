@@ -5,6 +5,8 @@ import styled from "styled-components";
 import RecipeSilder from "./element/RecipeSilder";
 import RecipeListToggle from "./element/RecipeListToggle";
 
+import noRecipeBanner02 from "../../assets/image/illustration/banner_no-recipe02.png";
+
 import api from "../../server/api";
 
 const MypageRecipeLikeList = () => {
@@ -48,6 +50,7 @@ const MypageRecipeLikeList = () => {
               header={true}
               Recipefetching={Recipefetching}
               setCancelLike={setCancelLike}
+              bannerImage={noRecipeBanner02}
             />
           </div>
         </StMypageRecipeWrap>

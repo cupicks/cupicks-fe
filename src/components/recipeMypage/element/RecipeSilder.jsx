@@ -12,7 +12,7 @@ import styled from "styled-components";
 import RecipeSlickBox from "./RecipeSlickBox";
 
 const RecipeSlider = (props) => {
-  const { recipeList, header = false } = props;
+  const { recipeList, header = false, bannerImage } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
   const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
@@ -70,7 +70,9 @@ const RecipeSlider = (props) => {
   return (
     <>
       {(recipeList?.length === 0 || countRecipeList === 0) && (
-        <StListEmpty>레시피가 없습니다.</StListEmpty>
+        <StListEmpty>
+          <img src={bannerImage} alt="레시피가 없습니다." />
+        </StListEmpty>
       )}
       <StSlider {...settings}>
         {recipeList?.map((recipe, i) => {
@@ -148,11 +150,15 @@ const StSlider = styled(Slider)`
 
 const StListEmpty = styled.p`
   width: 100%;
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
 
   font-size: 1.7rem;
   text-align: center;
 
   color: #cdcdcd;
   background-color: #fff;
+
+  img {
+    width: 50%;
+  }
 `;
