@@ -146,8 +146,6 @@ const StSlickBox = styled.div`
 `;
 
 const StSlider = styled(Slider)`
-  background-color: #fff;
-
   .padding_box {
     min-height: 42px;
     padding: 11px 20px 12px;
