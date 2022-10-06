@@ -142,14 +142,25 @@ const AllRecipeListContainer = (props) => {
           <img
             className="talk_btn icon"
             src={talk}
+            alt="talk_btn"
             onClick={useCallback(() => {
               navigate(`${recipeId}/comment`, { state: title });
             }, [])}
           />
           {liked === false ? (
-            <img className="like_btn icon" src={dislikes} onClick={likeCard} />
+            <img
+              className="like_btn icon"
+              src={dislikes}
+              onClick={likeCard}
+              alt="dislike_btn"
+            />
           ) : (
-            <img className="like_btn icon" src={likes} onClick={likeCard} />
+            <img
+              className="like_btn icon"
+              src={likes}
+              onClick={likeCard}
+              alt="like_btn"
+            />
           )}
         </StIconBox>
       </StListDesc>
