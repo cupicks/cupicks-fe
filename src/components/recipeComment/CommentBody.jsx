@@ -76,6 +76,10 @@ const CommentBody = () => {
     const msdiff = Date.now() - result;
     const seconds = msdiff / 1000;
 
+    if (isNaN(createdAt)) {
+      return `방금 전`;
+    }
+
     if (seconds < 60) return `방금 전`;
     const minutes = seconds / 60;
     if (minutes < 60) return `${Math.floor(minutes)}분 전`;
@@ -147,16 +151,17 @@ const CommentBody = () => {
                       </span>
                     </div>
                     <div className="content_bottom">{comment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
-                      />
-                    </div>
-                    {/* )} */}
+                    {comment.imageUrl == null ? null : (
+                      <div className="content_picContainer">
+                        {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                        <img
+                          className="content_pic"
+                          src={comment.resizedUrl}
+                          onError={(e) => (e.target.src = comment.imageUrl)}
+                          alt="댓글 이미지"
+                        />
+                      </div>
+                    )}
                   </StContent>
                   <StOption
                     disabled={!commentAuthor}
@@ -176,7 +181,9 @@ const CommentBody = () => {
                       }
                     }}
                   >
-                    {commentAuthor && <img src={talk_edit} />}
+                    {commentAuthor && (
+                      <img src={talk_edit} alt="댓글 관리 버튼" />
+                    )}
                   </StOption>
                 </div>
               ) : (
@@ -197,16 +204,17 @@ const CommentBody = () => {
                       </span>
                     </div>
                     <div className="content_bottom">{comment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={comment.resizedUrl}
-                        onError={(e) => (e.target.src = comment.imageUrl)}
-                      />
-                    </div>
-                    {/* )} */}
+                    {comment.imageUrl == null ? null : (
+                      <div className="content_picContainer">
+                        {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                        <img
+                          className="content_pic"
+                          src={comment.resizedUrl}
+                          onError={(e) => (e.target.src = comment.imageUrl)}
+                          alt="댓글 이미지"
+                        />
+                      </div>
+                    )}
                   </StContent>
                   <StOption
                     onClick={() => {
@@ -226,7 +234,9 @@ const CommentBody = () => {
                     }}
                     disabled={!commentAuthor}
                   >
-                    {commentAuthor && <img src={talk_edit} />}
+                    {commentAuthor && (
+                      <img src={talk_edit} alt="댓글 관리 버튼" />
+                    )}
                   </StOption>
                 </div>
               )}

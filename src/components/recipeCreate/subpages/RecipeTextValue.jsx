@@ -9,7 +9,7 @@ const RecipeTextValue = (props) => {
   const { register, errors, watch } = formProps;
 
   return (
-    <>
+    <StWrap>
       <StTextInputContainer>
         <div className="info_box">레시피 이름</div>
 
@@ -20,6 +20,7 @@ const RecipeTextValue = (props) => {
           config={{
             required: true,
           }}
+          autoComplete="off"
         />
       </StTextInputContainer>
 
@@ -35,6 +36,7 @@ const RecipeTextValue = (props) => {
           config={{
             required: true,
           }}
+          maxlength={100}
         />
 
         <div className="error_box">
@@ -64,7 +66,7 @@ const RecipeTextValue = (props) => {
       </StTextInputContainer> */}
 
       <StTextInputContainer />
-    </>
+    </StWrap>
   );
 };
 
@@ -72,13 +74,15 @@ export default RecipeTextValue;
 
 const StWrap = styled.div`
   height: 100%;
+  display: flex;
+  flex-flow: column;
 `;
 
 const StTextInputContainer = styled.div`
   display: flex;
   flex-flow: column;
 
-  padding: 1rem 1.2rem;
+  padding: 1.7rem 2.3rem;
   margin-top: 10px;
 
   text-align: left;

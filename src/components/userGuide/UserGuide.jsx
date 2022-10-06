@@ -23,7 +23,9 @@ const UserGuide = (props) => {
   };
 
   useEffect(() => {
-    if (loggedIn) getProfile();
+    if (loggedIn) {
+      getProfile();
+    }
   }, []);
 
   return (
@@ -45,5 +47,5 @@ const StUserGuide = styled.div`
   width: 100%;
   padding: 0 2.4rem;
 
-  background: url(${(props) => props.bannerImage}) no-repeat center -5px / 100%;
+  background: url(${(props) => props.bannerImage}) no-repeat center -9px / 100%;
 `;

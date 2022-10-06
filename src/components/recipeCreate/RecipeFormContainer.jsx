@@ -10,39 +10,41 @@ const RecipeFormContainer = (props) => {
   const { step } = stepState;
 
   return (
-    <StRecipeFormContainer>
+    <>
       {step !== 3 && (
-        <StRecipeOptContainer>
-          {step === 0 && (
-            <RecipeCupSize
-              step={step}
-              cupState={cupState}
-              setCupState={setCupState}
-              formProps={formProps}
-              formArrayProps={formArrayProps}
-            />
-          )}
+        <StRecipeFormContainer>
+          <StRecipeOptContainer>
+            {step === 0 && (
+              <RecipeCupSize
+                step={step}
+                cupState={cupState}
+                setCupState={setCupState}
+                formProps={formProps}
+                formArrayProps={formArrayProps}
+              />
+            )}
 
-          {step === 1 && (
-            <RecipeIsIced
-              step={step}
-              cupState={cupState}
-              setCupState={setCupState}
-              formProps={formProps}
-              formArrayProps={formArrayProps}
-            />
-          )}
+            {step === 1 && (
+              <RecipeIsIced
+                step={step}
+                cupState={cupState}
+                setCupState={setCupState}
+                formProps={formProps}
+                formArrayProps={formArrayProps}
+              />
+            )}
 
-          {step === 2 && (
-            <RecipeIngredientForm
-              cupState={cupState}
-              setCupState={setCupState}
-              stepState={stepState}
-              formProps={formProps}
-              formArrayProps={formArrayProps}
-            />
-          )}
-        </StRecipeOptContainer>
+            {step === 2 && (
+              <RecipeIngredientForm
+                cupState={cupState}
+                setCupState={setCupState}
+                stepState={stepState}
+                formProps={formProps}
+                formArrayProps={formArrayProps}
+              />
+            )}
+          </StRecipeOptContainer>
+        </StRecipeFormContainer>
       )}
 
       {step === 3 && (
@@ -52,19 +54,19 @@ const RecipeFormContainer = (props) => {
           formProps={formProps}
         />
       )}
-    </StRecipeFormContainer>
+    </>
   );
 };
 
 export default RecipeFormContainer;
 
 const StRecipeFormContainer = styled.div`
-  height: 15rem;
-  animation: slideUp 0.3s forwards;
+  animation: slideUp 0.3s 0.1s forwards;
+  height: 18%;
 
   @keyframes slideUp {
     100% {
-      height: 18.5rem;
+      height: 20%;
     }
   }
 

@@ -13,6 +13,7 @@ const App = () => {
 
   useEffect(() => {
     handleScreenSize();
+
     window.addEventListener("resize", handleScreenSize);
     return () => window.removeEventListener("resize", handleScreenSize);
   }, []);

@@ -6,9 +6,10 @@ import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    VitePWA({
-      registerType: "autoUpdate",
-    }),
+    // VitePWA({
+    //   registerType: "autoUpdate",
+    //   injectRegister: "auto",
+    // }),
     react(),
     svgr({
       exportAsDefault: false,
@@ -19,6 +20,6 @@ export default defineConfig({
     port: 3067,
   },
   esbuild: {
-    // drop: ["console", "debugger"],
+    drop: ["console", "debugger"],
   },
 });

@@ -20,7 +20,7 @@ const UserGuideContents = (props) => {
   return (
     <StUserGuideContents>
       <StContainer>
-        {loggedIn && (
+        {loggedIn && username && (
           <StRecipeListTitle>
             안녕하세요. <strong>{username}</strong> 님
           </StRecipeListTitle>
@@ -31,12 +31,12 @@ const UserGuideContents = (props) => {
         <StIconLists>
           <StIconList
             onClick={() =>
-              gotoRecipeScrollTop(scrollTopLookAround, scrollElement)
+              gotoRecipeScrollTop(scrollElement, scrollTopLookAround)
             }
           >
             <img className="icon" src={icon01} alt="둘러보기" />
           </StIconList>
-          <StIconList onClick={() => navigate("/recipe/create")}>
+          <StIconList onClick={() => navigate("/recipe/create/guest")}>
             <img className="icon" src={icon02} alt="레시피 만들기" />
           </StIconList>
           <StIconList onClick={() => navigate("/mypage")}>
