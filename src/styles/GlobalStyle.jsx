@@ -21,14 +21,14 @@ const GlobalStyle = createGlobalStyle`
 
       ${theme.devices.mobile} {
         html {
-          font-size: 55%;
+          font-size: 60%;
         }
         background-color: ${theme.colors.background};
       }
 
       ${theme.devices.xs} {
         html {
-          font-size: 50%;
+          font-size: 55%;
         }
       }
     `;

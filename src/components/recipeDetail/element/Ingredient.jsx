@@ -40,7 +40,7 @@ export default Ingredient;
 const StIngredient = styled.div`
   flex: 0 0 ${(props) => props.ingredientAmount + "%"};
   padding: ${(props) =>
-    props.smallAmount ? "0 2.4rem 0.2rem" : "0 2.4rem 1rem"};
+    props.smallAmount ? "0 2.4rem 0.2rem" : "0 2.4rem 0.5rem"};
 
   display: flex;
   justify-content: right;

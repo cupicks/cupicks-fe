@@ -29,7 +29,6 @@ const RecipeCreateIngredient = (props) => {
 
   const smallAmount = +ingredientAmount < 25 ? true : false;
   const xsAmount = +ingredientAmount < 10 ? true : false;
-  console.log(smallAmount, +ingredientAmount);
 
   let amountML = ingredientAmount ? +ingredientAmount : 20;
   let amountPercent = +((amountML / cupSize) * 100).toFixed(1);

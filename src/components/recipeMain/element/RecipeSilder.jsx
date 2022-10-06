@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ConfirmBox from "../../elements/modal/ConfirmBox";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,7 +13,7 @@ import styled from "styled-components";
 import RecipeSlickBox from "./RecipeSlickBox";
 
 const RecipeSlider = (props) => {
-  const { recipeList, header = false, bannerImage } = props;
+  const { recipeList, loggedIn, header = false } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
   const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
@@ -35,6 +36,7 @@ const RecipeSlider = (props) => {
         return;
       }
       if (path) {
+        e.stopPropagation();
         navigate(`/recipe/${path}/detail`);
       }
     },
@@ -45,6 +47,7 @@ const RecipeSlider = (props) => {
     draggable: true,
     beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,
+    dots: true,
     centerMode: true,
     infinite: false,
     slidesToShow: 1,
@@ -66,29 +69,40 @@ const RecipeSlider = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
-  console.log(countRecipeList);
+  console.log(recipeList);
+
+  // 모달을 보여주는 state.
+  const [needLogginModal, setNeedLogginModal] = useState(false);
+  // 모달이 작동하는 시간입니다.
+  const gotoLogin = () => {
+    navigate("/sign-in");
+  };
+  const cancelModal = () => {
+    setNeedLogginModal(false);
+  };
+  const modalProps = {
+    loggedIn,
+    needLogginModal,
+    setNeedLogginModal,
+  };
+
   return (
     <>
-      {(recipeList?.length === 0 || countRecipeList === 0) && (
-        <StListEmpty>
-          <img src={bannerImage} alt="레시피가 없습니다." />
-        </StListEmpty>
-      )}
       <StSlider {...settings}>
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
-          if (title.length > 10) {
-            titleText = title.slice(0, 10) + "..";
+          if (title.length > 12) {
+            titleText = title.slice(0, 12) + "..";
           }
 
-          if (windowWidth < 450) {
-            if (title.length > 6) {
-              titleText = title.slice(0, 6) + "..";
+          if (windowWidth < 400) {
+            if (title.length > 5) {
+              titleText = title.slice(0, 5) + "..";
             }
           } else if (windowWidth < 600) {
-            if (title.length > 8) {
-              titleText = title.slice(0, 8) + "..";
+            if (title.length > 10) {
+              titleText = title.slice(0, 10) + "..";
             }
           }
 
@@ -101,10 +115,20 @@ const RecipeSlider = (props) => {
               titleText={titleText}
               setCountRecipeList={setCountRecipeList}
               countRecipeList={countRecipeList}
+              modalProps={modalProps}
             />
           );
         })}
       </StSlider>
+      {/* 토스트 메시지/모달 */}
+      {needLogginModal && (
+        <ConfirmBox
+          text={"좋아요는 로그인이\n 필요한 기능입니다."}
+          confirmButtonText={"로그인 하러 가기"}
+          onComfirmed={gotoLogin}
+          onDenied={cancelModal}
+        />
+      )}
     </>
   );
 };
@@ -112,8 +136,6 @@ const RecipeSlider = (props) => {
 export default RecipeSlider;
 
 const StSlider = styled(Slider)`
-  background-color: #fff;
-
   .padding_box {
     min-height: 4.2rem;
     padding: 1.1rem 1.5rem 1.2rem;
@@ -150,15 +172,11 @@ const StSlider = styled(Slider)`
 
 const StListEmpty = styled.p`
   width: 100%;
-  padding-bottom: 4rem;
+  padding-bottom: 5rem;
 
   font-size: 1.7rem;
   text-align: center;
 
   color: #cdcdcd;
   background-color: #fff;
-
-  img {
-    width: 50%;
-  }
 `;

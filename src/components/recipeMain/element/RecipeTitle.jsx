@@ -1,49 +1,51 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import api from "../../../server/api";
-
 import talk from "../../../assets/svg/talk.svg";
-import dislikes from "../../../assets/svg/like_m.svg";
-import likes from "../../../assets/svg/like_fill_m.svg";
+import like from "../../../assets/svg/like_fill_m.svg";
+import dislike from "../../../assets/svg/like_m.svg";
+
+import api from "../../../server/api";
 
 import styled from "styled-components";
 
 const RecipeTitle = (props) => {
   const navigate = useNavigate();
+  const {
+    title,
+    recipeId,
+    header,
+    liked,
+    handleOnClickSlickBox,
+    commentTotal,
+    likeTotal,
+    modalProps,
+  } = props;
+  const { loggedIn, needLogginModal, setNeedLogginModal } = modalProps;
+  const [bestLiked, setBestLiked] = useState(liked);
 
-  const { title, recipeId, isLiked, modalProps, commentTotal, likeTotal } =
-    props;
-  const { needLoginModal, setNeedLoginModal, timer } = modalProps;
-  // console.log(needLoginModal);
-  const [like, setLike] = useState(isLiked);
-  const [likeCount, setLikeCount] = useState(likeTotal);
-  const userLogin = Boolean(localStorage.getItem("refreshToken"));
-
-  // const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
-  // console.log(userLogin);
-  const likeCard = async () => {
-    // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
-    if (!userLogin) {
-      if (!needLoginModal) {
-        setNeedLoginModal(true);
-        setTimeout(() => {
-          setNeedLoginModal(false);
-        }, timer);
+  const likeCard = async (ev) => {
+    ev.stopPropagation();
+    if (!loggedIn) {
+      if (!needLogginModal) {
+        setNeedLogginModal(true);
       }
       return;
     }
+
+    const targetText = +ev.target.nextSibling.innerText;
+
     let contentType = "application/json";
-    //like가 false일때는 좋아요 안눌러진상태
-    if (like === false) {
+    if (bestLiked === false) {
       try {
         await api(contentType)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
-            setLike(!like);
-            setLikeCount((prev) => prev + 1);
-            console.log(res);
+            if (res.data.isSuccess) {
+              ev.target.nextSibling.innerText = targetText + 1;
+            }
           });
+        setBestLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
@@ -52,16 +54,17 @@ const RecipeTitle = (props) => {
         await api(contentType)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
-            setLike(!like);
-            setLikeCount((prev) => prev - 1);
-            console.log(res);
+            // console.log(res);
+            if (res.data.isSuccess) {
+              ev.target.nextSibling.innerText = targetText - 1;
+            }
           });
+        setBestLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
     }
   };
-
   return (
     <StRecipeTitle>
       <span>{title}</span>
@@ -75,23 +78,23 @@ const RecipeTitle = (props) => {
             navigate(`/recipe/${recipeId}/comment`, { state: title });
           }}
         />
-        {commentTotal}
-        {like === false ? (
+        <span>{commentTotal}</span>
+        {header && bestLiked === false ? (
           <img
             className="like_btn"
-            src={dislikes}
+            src={dislike}
+            alt="싫어요"
             onClick={likeCard}
-            alt="좋아요를 눌러주세요."
           />
         ) : (
           <img
             className="like_btn"
-            src={likes}
+            src={like}
+            alt="좋아요"
             onClick={likeCard}
-            alt="좋아요를 취소합니다."
           />
         )}
-        {likeCount}
+        <span>{likeTotal}</span>
       </StIconSet>
     </StRecipeTitle>
   );
@@ -121,14 +124,12 @@ const StRecipeTitle = styled.div`
 const StIconSet = styled.div`
   display: flex;
 
-  gap: 0.5rem;
+  gap: 0.4rem;
 
   .talk_btn {
     width: 2.5rem;
   }
   .like_btn {
     width: 2.9rem;
-
-    margin-left: 0.5rem;
   }
 `;

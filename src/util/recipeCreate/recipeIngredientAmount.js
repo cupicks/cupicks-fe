@@ -45,11 +45,31 @@ const calcMaxAmount = (ingredientValuesArray, cupSize) => {
   });
 
   const maxAmount = cupSize - prevSum;
-  console.log(maxAmount, cupSize, prevSum);
   return maxAmount;
 };
 
 /**
+ * maxAmount: number(range의 max에 입력하는 재료량의 최대치)
+ * @param {number 0~591} maxAmount
+ * @param {object} setCupState
+ * @param {boolean} cupFull
+ * @returns number
+ */
+const setMaxAmountState = (maxAmount, setCupState, cupFull) => {
+  console.log(maxAmount);
+  if (maxAmount === 0 && !cupFull) {
+    setCupState((prev) => ({ ...prev, cupFull: true }));
+    return "재료가 다 찼습니다.";
+  } else if (maxAmount !== 0) {
+    setCupState((prev) => ({ ...prev, cupFull: false, maxAmount: maxAmount }));
+    return "재료가 다 차지 않았습니다. 재료 최대량이 변경되었습니다.";
+  }
+
+  setCupState((prev) => ({ ...prev, maxAmount: maxAmount }));
+  return "재료 최대량이 변경되었습니다.";
+};
+
+/** 사용하지 않고 있음
  * maxAmount의 형태: number(range의 max에 입력하는 재료량의 최대치)
  * cupFull: boolean형태의 state hook
  * setCupState: 커스텀 훅 정의하는 함수
@@ -61,32 +81,10 @@ const calcMaxAmount = (ingredientValuesArray, cupSize) => {
  * @returns "함수 동작 결과"
  */
 const setMaxAmountAndCupFullState = (maxAmount, cupFull, setCupState) => {
-  console.log("hi");
-
   if (maxAmount === 0 && !cupFull) {
     setCupState((prev) => ({ ...prev, cupFull: true }));
     return "재료가 다 찼습니다.";
-  } else if (maxAmount !== 0 && cupFull) {
-    setCupState((prev) => ({ ...prev, cupFull: false, maxAmount: maxAmount }));
-    return "재료가 다 차지 않았습니다. 재료 최대량이 변경되었습니다.";
-  }
-
-  setCupState((prev) => ({ ...prev, maxAmount: maxAmount }));
-  return "재료 최대량이 변경되었습니다.";
-};
-
-/**
- * maxAmount: number(range의 max에 입력하는 재료량의 최대치)
- * @param {number 0~591} maxAmount
- * @param {object} setCupState
- * @param {boolean} cupFull
- * @returns number
- */
-const setMaxAmountState = (maxAmount, setCupState, cupFull) => {
-  if (maxAmount === 0 && !cupFull) {
-    setCupState((prev) => ({ ...prev, cupFull: true }));
-    return "재료가 다 찼습니다.";
-  } else if (maxAmount !== 0 && cupFull) {
+  } else if (maxAmount !== 0) {
     setCupState((prev) => ({ ...prev, cupFull: false, maxAmount: maxAmount }));
     return "재료가 다 차지 않았습니다. 재료 최대량이 변경되었습니다.";
   }

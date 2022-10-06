@@ -16,6 +16,7 @@ const CommentEdit = ({
   setMenuOpen,
   setCheckComment,
   userProps,
+  profiles,
 }) => {
   const {
     register,
@@ -25,7 +26,7 @@ const CommentEdit = ({
     getValues,
     formState: { errors },
   } = useForm({ defaultValues: {} });
-  const { userLogin, userLoginId, userProfileImg } = userProps;
+  const { userLogin } = userProps;
 
   const { recipeId } = useParams();
   //이미지 미리보기
@@ -121,7 +122,7 @@ const CommentEdit = ({
           <div className="profile_image">
             {userLogin !== null && (
               <StInputProfile
-                src={userProfileImg}
+                src={profiles?.imageUrl}
                 alt="유저 프로필 이미지"
               ></StInputProfile>
             )}
