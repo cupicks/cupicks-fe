@@ -226,7 +226,7 @@ const Login = () => {
       <CustomButton onClick={() => navigate("/recipe")}>둘러보기</CustomButton>
 
       <StCtn>
-        {/* 회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다. */}
+        회원가입 시 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.
       </StCtn>
 
       <StLink onClick={() => navigate("/sign-up")}>
@@ -292,8 +292,13 @@ const StKakaoBox = styled.div`
 `;
 
 const StCtn = styled(CustomSmallLightText)`
-  margin-top: 0.5rem;
+  margin-top: 1.8rem;
+  padding: 0 1rem;
+
+  word-break: keep-all;
+
   text-align: center;
+  font-size: 1.2rem;
 `;
 
 const StLink = styled(CustomSmallBoldTextLink)`

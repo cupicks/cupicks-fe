@@ -4,7 +4,8 @@ import api from "../../server/api";
 import UserGuideBanner from "./UserGuideBanner";
 import UserGuideContents from "./UserGuideContents";
 
-import bannerImage from "../../assets/image/illustration/banner01.png";
+import bannerImage from "../../assets/image/illustration/banner00.png";
+import bannerLogo from "../../assets/image/logo/logo_main-banner.png";
 
 import styled from "styled-components";
 
@@ -30,6 +31,7 @@ const UserGuide = (props) => {
 
   return (
     <StUserGuide bannerImage={bannerImage}>
+      <StMainLogo src={bannerLogo} alt="Cupick 로고" />
       <UserGuideBanner />
       <UserGuideContents
         scrollTopLookAround={scrollTopLookAround}
@@ -47,5 +49,14 @@ const StUserGuide = styled.div`
   width: 100%;
   padding: 0 2.4rem;
 
+  position: relative;
+
   background: url(${(props) => props.bannerImage}) no-repeat center -9px / 100%;
+`;
+
+const StMainLogo = styled.img`
+  position: absolute;
+  width: 12rem;
+
+  margin: 1.5rem 3rem 0 0;
 `;
