@@ -140,7 +140,7 @@ const StRecipeTitle = styled.div`
 const StIconSet = styled.div`
   display: flex;
 
-  gap: 1rem;
+  gap: 0.4rem;
 
   .talk_btn {
     width: 2.5rem;
