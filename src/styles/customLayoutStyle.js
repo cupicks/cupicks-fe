@@ -148,6 +148,7 @@ const CustomFooter = styled.footer`
 
       .contents_area {
         width: 100%;
+        max-width: 60rem;
         height: 9rem;
 
         display: flex;
