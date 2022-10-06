@@ -10,7 +10,6 @@ const { CustomRecipeListTitle } = styledElementComponents;
 
 import api from "../../server/api";
 
-
 const RecipeBody = (props) => {
   const { loggedIn } = props;
   const [favRecipe, setFavRecipe] = useState([]);
@@ -64,10 +63,11 @@ export default RecipeBody;
 
 const StWrap = styled.div`
   width: 100%;
-  height: 100%;
 
   display: flex;
   flex-flow: column;
 
   position: relative;
+
+  overflow: hidden;
 `;
