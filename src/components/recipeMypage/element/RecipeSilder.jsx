@@ -9,11 +9,13 @@ import IngredientList from "./IngredientList";
 import RecipeTitle from "./RecipeTitle";
 
 import styled from "styled-components";
+import RecipeSlickBox from "./RecipeSlickBox";
 
 const RecipeList = (props) => {
-  const { recipeList, header = false } = props;
+  const { recipeList, header = false, setCancelLike } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
+  const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
   const [windowSize, setWindowSize] = useState({
     width: 0,
   });
@@ -61,18 +63,16 @@ const RecipeList = (props) => {
       });
     };
     handleResize();
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
-
+  console.log(countRecipeList);
   return (
     <>
+      {(recipeList?.length === 0 || countRecipeList === 0) && (
+        <StListEmpty>레시피가 없습니다.</StListEmpty>
+      )}
       <StSlider {...settings}>
-        {recipeList?.length === 0 && (
-          <h3 className="list_empty">레시피가 없습니다.</h3>
-        )}
-
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
@@ -91,30 +91,15 @@ const RecipeList = (props) => {
           }
 
           return (
-            // Slider의 자식은 inline-block
-            <StSlickBox
-              isTitle={header}
+            <RecipeSlickBox
               key={"slick_box" + i}
-              onClick={onClickCard(recipe.recipeId)}
-            >
-              {header && (
-                <StRecipeUserInfo>
-                  <StProfilePic prfilePicSrc={recipe.resizedUrl} />
-                  {recipe.nickname}
-                </StRecipeUserInfo>
-              )}
-
-              <div className="flex_box">
-                <StCupHeight
-                  cupHeight={((recipe.cupSize / 591) * 100).toFixed()}
-                >
-                  <IngredientList key={i} recipe={recipe} />
-                </StCupHeight>
-                <div className="padding_box">
-                  <RecipeTitle recipeId={recipe.recipeId} title={titleText} />
-                </div>
-              </div>
-            </StSlickBox>
+              header={header}
+              onClickCard={onClickCard}
+              recipe={recipe}
+              titleText={titleText}
+              setCountRecipeList={setCountRecipeList}
+              countRecipeList={countRecipeList}
+            />
           );
         })}
       </StSlider>
@@ -123,27 +108,6 @@ const RecipeList = (props) => {
 };
 
 export default RecipeList;
-
-const StSlickBox = styled.div`
-  height: ${(props) => (props.isTitle ? "calc(40vh + 5.0rem)" : "40vh")};
-  border-radius: 1.6rem;
-
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-end;
-
-  overflow: hidden;
-
-  box-shadow: -0.2rem -0.2rem 1rem rgba(155, 155, 155, 0.1),
-    0.3rem 0.3rem 0.8rem rgba(0, 0, 0, 0.1);
-
-  .flex_box {
-    height: ${(props) => (props.isTitle ? "calc(100% - 5.0rem)" : "100%")};
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-end;
-  }
-`;
 
 const StSlider = styled(Slider)`
   background-color: #fff;
@@ -180,46 +144,15 @@ const StSlider = styled(Slider)`
 
     background-color: #aaa;
   }
-
-  .list_empty {
-    margin: 2rem 0 5rem;
-
-    text-align: center;
-    color: #cdcdcd;
-  }
 `;
 
-const StCupHeight = styled.div`
-  height: ${(props) => "calc(" + props.cupHeight + "% - 4.2rem)"};
-`;
+const StListEmpty = styled.p`
+  width: 100%;
+  padding-bottom: 5rem;
 
-const StRecipeUserInfo = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-`;
+  font-size: 1.7rem;
+  text-align: center;
 
-const StProfilePic = styled.div`
-  flex: 0 0 auto;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  border: 1px solid #b6b6b6;
-
-  margin-right: 1rem;
-
-  position: relative;
-
-  font-size: 1.4rem;
-
-  background: #eee url(${(props) => props.prfilePicSrc}) no-repeat center /
-    cover;
-
-  img {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
+  color: #cdcdcd;
+  background-color: #fff;
 `;

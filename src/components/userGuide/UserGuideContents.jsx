@@ -36,7 +36,7 @@ const UserGuideContents = (props) => {
           >
             <img className="icon" src={icon01} alt="둘러보기" />
           </StIconList>
-          <StIconList onClick={() => navigate("/recipe/create")}>
+          <StIconList onClick={() => navigate("/recipe/create/guest")}>
             <img className="icon" src={icon02} alt="레시피 만들기" />
           </StIconList>
           <StIconList onClick={() => navigate("/mypage")}>
