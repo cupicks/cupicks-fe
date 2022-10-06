@@ -11,7 +11,6 @@ import RecipeTitle from "./RecipeTitle";
 import styled from "styled-components";
 import RecipeSlickBox from "./RecipeSlickBox";
 
-
 const RecipeSlider = (props) => {
   const { recipeList, header = false } = props;
   const navigate = useNavigate();
