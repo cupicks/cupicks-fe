@@ -47,7 +47,7 @@ const RecipeSlider = (props) => {
     infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 0,
+    initialSlide: 1,
     speed: 500,
   };
 

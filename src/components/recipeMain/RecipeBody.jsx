@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import RecipeList from "./RecipeList";
 import AllRecipeList from "./AllRecipeList";
+import RecipeSlider from "./element/RecipeSilder";
 
 import styled from "styled-components";
 import styledElementComponents from "../../styles/customElementStyle";
@@ -42,7 +43,8 @@ const RecipeBody = () => {
       <CustomRecipeListTitle>
         <h1>이번주 인기 레시피</h1>
       </CustomRecipeListTitle>
-      <RecipeList favRecipe={favRecipe} setFavRecipe={setFavRecipe} />
+
+      <RecipeSlider recipeList={favRecipe} header={true} />
 
       {/* <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
 
