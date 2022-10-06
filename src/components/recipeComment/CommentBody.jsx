@@ -9,6 +9,9 @@ import CommentInput from "./CommentInput";
 import ToastMessage from "../elements/modal/ToastMessage";
 import { useInView } from "react-intersection-observer";
 
+import styledLayoutComponents from "../../styles/customLayoutStyle";
+const { CustomWrapBody } = styledLayoutComponents;
+
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -73,6 +76,10 @@ const CommentBody = () => {
     const msdiff = Date.now() - result;
     const seconds = msdiff / 1000;
 
+    if (isNaN(result)) {
+      return `방금 전`;
+    }
+
     if (seconds < 60) return `방금 전`;
     const minutes = seconds / 60;
     if (minutes < 60) return `${Math.floor(minutes)}분 전`;
@@ -131,8 +138,8 @@ const CommentBody = () => {
                   <StProfile>
                     <StCommentProfile
                       // src={decodedToken.imageUrl}
-                      src={comment.userImageUrl}
-                      onError={(e) => (e.target.src = comment.userResizedUrl)}
+                      src={comment.userResizedUrl}
+                      onError={(e) => (e.target.src = comment.userImageUrl)}
                     />
                   </StProfile>
                   <StContent>
@@ -144,38 +151,39 @@ const CommentBody = () => {
                       </span>
                     </div>
                     <div className="content_bottom">{comment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={comment.imageUrl}
-                        onError={(e) => (e.target.src = comment.resizedUrl)}
-                      />
-                    </div>
-                    {/* )} */}
+                    {comment.imageUrl == null ? null : (
+                      <div className="content_picContainer">
+                        {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                        <img
+                          className="content_pic"
+                          src={comment.resizedUrl}
+                          onError={(e) => (e.target.src = comment.imageUrl)}
+                          alt="댓글 이미지"
+                        />
+                      </div>
+                    )}
                   </StContent>
-                  <StOption>
-                    <button
-                      disabled={!commentAuthor}
-                      onClick={() => {
-                        if (userLogin) {
-                          // 기존 코드
-                          setMenuOpen(true);
-                          setEditCommentId(comment.commentId);
-                        } else {
-                          // 비로그인 기능 추가
-                          if (!needLogginModal) {
-                            setNeedLogginModal(true);
-                            setTimeout(() => {
-                              setNeedLogginModal(false);
-                            }, 2000);
-                          }
+                  <StOption
+                    disabled={!commentAuthor}
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(comment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
                         }
-                      }}
-                    >
-                      {commentAuthor && <img src={talk_edit} />}
-                    </button>
+                      }
+                    }}
+                  >
+                    {commentAuthor && (
+                      <img src={talk_edit} alt="댓글 관리 버튼" />
+                    )}
                   </StOption>
                 </div>
               ) : (
@@ -183,8 +191,8 @@ const CommentBody = () => {
                   <StProfile>
                     <StCommentProfile
                       // src={decodedToken.imageUrl}
-                      src={comment.userImageUrl}
-                      onError={(e) => (e.target.src = comment.userResizedUrl)}
+                      src={comment.userResizedUrl}
+                      onError={(e) => (e.target.src = comment.userImageUrl)}
                     />
                   </StProfile>
                   <StContent>
@@ -196,38 +204,39 @@ const CommentBody = () => {
                       </span>
                     </div>
                     <div className="content_bottom">{comment.comment}</div>
-                    {/* {comment.imageUrl == null ? null : ( */}
-                    <div className="content_picContainer">
-                      {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
-                      <img
-                        className="content_pic"
-                        src={comment.imageUrl}
-                        onError={(e) => (e.target.src = comment.resizedUrl)}
-                      />
-                    </div>
-                    {/* )} */}
+                    {comment.imageUrl == null ? null : (
+                      <div className="content_picContainer">
+                        {/* 기존 img태그 => div로 변경했습니다(크기 동일하게 하기 위해서) */}
+                        <img
+                          className="content_pic"
+                          src={comment.resizedUrl}
+                          onError={(e) => (e.target.src = comment.imageUrl)}
+                          alt="댓글 이미지"
+                        />
+                      </div>
+                    )}
                   </StContent>
-                  <StOption>
-                    <button
-                      disabled={!commentAuthor}
-                      onClick={() => {
-                        if (userLogin) {
-                          // 기존 코드
-                          setMenuOpen(true);
-                          setEditCommentId(comment.commentId);
-                        } else {
-                          // 비로그인 기능 추가
-                          if (!needLogginModal) {
-                            setNeedLogginModal(true);
-                            setTimeout(() => {
-                              setNeedLogginModal(false);
-                            }, 2000);
-                          }
+                  <StOption
+                    onClick={() => {
+                      if (userLogin) {
+                        // 기존 코드
+                        setMenuOpen(true);
+                        setEditCommentId(comment.commentId);
+                      } else {
+                        // 비로그인 기능 추가
+                        if (!needLogginModal) {
+                          setNeedLogginModal(true);
+                          setTimeout(() => {
+                            setNeedLogginModal(false);
+                          }, 2000);
                         }
-                      }}
-                    >
-                      {commentAuthor && <img src={talk_edit} />}
-                    </button>
+                      }
+                    }}
+                    disabled={!commentAuthor}
+                  >
+                    {commentAuthor && (
+                      <img src={talk_edit} alt="댓글 관리 버튼" />
+                    )}
                   </StOption>
                 </div>
               )}
@@ -246,6 +255,7 @@ const CommentBody = () => {
           userProps={userProps}
         />
       </StListWrap>
+
       <CommentInput
         profiles={profiles}
         getComments={getComments}
@@ -288,33 +298,32 @@ export default CommentBody;
 // `;
 
 const StProfile = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 `;
 
 const StCommentProfile = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 
   box-shadow: 0 0 0 1px #b6b6b6;
   background: #eee no-repeat url(${(props) => props.src}) center / cover;
 `;
 
-const StListWrap = styled.div`
-  height: calc(100vh - 60px - 80px);
+const StListWrap = styled(CustomWrapBody)`
   overflow-y: scroll;
 
-  padding-bottom: 50px;
+  padding-bottom: 5rem;
 `;
 
 const StCommentWrap = styled.div`
-  min-height: 80px;
-  padding: 20px 25px 15px;
+  min-height: 8rem;
+  padding: 2rem 2.5rem 1.5rem;
 
   display: flex;
-  gap: 15px;
+  gap: 1.5rem;
 
   border-top: 1px solid #eeeeee;
 
@@ -325,7 +334,7 @@ const StCommentWrap = styled.div`
   & > .flex_box {
     height: 100%;
     flex: 1 1 auto;
-    gap: 10px;
+    gap: 1rem;
     display: flex;
     flex-flow: row;
   }
@@ -336,15 +345,16 @@ const StContent = styled.div`
 
   display: flex;
   flex-flow: column;
-  gap: 3px;
+  gap: 0.3rem;
 
-  font-size: 14px;
+  font-size: 1.4rem;
+  word-break: break-all;
 
   color: #393939;
 
   .content_top {
     display: flex;
-    gap: 7px;
+    gap: 0.7rem;
   }
 
   .nickname {
@@ -352,7 +362,7 @@ const StContent = styled.div`
   }
 
   .dot {
-    font-size: 12px;
+    font-size: 1.2rem;
     transform: translateY(1px);
   }
 
@@ -362,7 +372,7 @@ const StContent = styled.div`
   }
 
   .content_bottom {
-    padding-bottom: 10px;
+    padding-bottom: 1rem;
   }
 
   .content_picContainer {
@@ -374,18 +384,20 @@ const StContent = styled.div`
 
   .content_pic {
     width: 100%;
-    max-height: 30vh;
+    max-height: 32vh;
     object-fit: cover;
   }
 `;
 
-const StOption = styled.div`
-  padding: 0 10px;
-  transform: translateX(10px);
-  button {
-    cursor: pointer;
+const StOption = styled.button`
+  flex: 0 0 2.4rem;
+  display: flex;
+  align-items: flex-start;
+
+  img {
+    transform: translateX(10px);
   }
-  button:disabled {
+  :disabled {
     pointer-events: none;
   }
 `;
@@ -394,16 +406,16 @@ const StOption = styled.div`
 const StGuestLoginShadow = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
-  background-color: rgba(233, 233, 233, 0.7);
+  background: linear-gradient(transparent, rgba(222, 222, 222, 0.8) 15%);
 
   ::after {
     content: "로그인 후 이용할 수 있습니다.";
     width: 100%;
-    height: 100%;
-    padding-top: 20px;
+    height: 8rem;
 
     color: #555;
+    font-size: 1.5rem;
+    line-height: 5rem;
     font-weight: 600;
 
     display: flex;

@@ -47,6 +47,7 @@ const CommentOption = ({
               setComments={setComments}
               setCheckComment={setCheckComment}
               userProps={userProps}
+              profiles={profiles}
             />
           ) : (
             <MenuPage>

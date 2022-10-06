@@ -74,6 +74,7 @@ const RecipeDetail = () => {
       }, timer);
     }
   }, []);
+
   const recipefetching = async () => {
     let contentType = "application/json";
     try {
@@ -89,6 +90,7 @@ const RecipeDetail = () => {
   useEffect(() => {
     recipefetching();
   }, []);
+
   return (
     <StWrap>
       {recipe && (
@@ -100,6 +102,7 @@ const RecipeDetail = () => {
           </Navigation>
 
           <IngredientsContainer recipe={recipe} />
+
           <RecipeDesc
             recipe={recipe}
             modalProps={modalProps}
@@ -134,11 +137,11 @@ const StWrap = styled.div`
   overflow-y: scroll;
 
   .icon_box {
-    width: 40px;
-    height: 40px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
-    margin-top: 4px;
-    margin-right: 10px;
+    margin-top: 0.4rem;
+    margin-right: 1rem;
 
     background-color: #444;
     color: #fff;

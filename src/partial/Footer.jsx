@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ToastMessage from "../components/elements/modal/ToastMessage";
+import ConfirmBox from "../components/elements/modal/ConfirmBox";
 
 import createIcon from "../assets/svg/add.svg";
-import { ReactComponent as MainIcon } from "../assets/svg/community.svg";
-import { ReactComponent as MyPageIcon } from "../assets/svg/account.svg";
+import { ReactComponent as Icon01 } from "../assets/svg/community.svg";
+import { ReactComponent as Icon02 } from "../assets/svg/community.svg";
+import { ReactComponent as Icon03 } from "../assets/svg/make_recipe.svg";
+import { ReactComponent as Icon04 } from "../assets/svg/account.svg";
+import { ReactComponent as Icon05 } from "../assets/svg/account.svg";
 
 import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
-const { CustomFooter, CustomGoToCreateButton, CustomFooterButton } =
-  styledLayoutComponents;
+const { CustomFooter, CustomFooterButton } = styledLayoutComponents;
 
 const Footer = ({ pathname }) => {
   const navigate = useNavigate();
@@ -21,54 +23,58 @@ const Footer = ({ pathname }) => {
 
   const goToCreate = () => {
     if (!userLogin) {
-      if (!needLogginModal) {
-        setNeedLogginModal(true);
-        setTimeout(() => {
-          setNeedLogginModal(false);
-        }, timer);
-      }
+      navigate("/recipe/create/guest", { replace: true, state: undefined });
       return;
     }
 
-    navigate("/recipe/create");
+    navigate("/recipe/create", { replace: true, state: undefined });
   };
 
   const goToMain = () => {
-    navigate("/recipe");
+    navigate("/recipe", { replace: true, state: undefined });
   };
 
   const goToMypage = () => {
-    navigate("/mypage");
+    navigate("/mypage", { replace: true, state: undefined });
   };
+
+  const pathCommunity = pathname === "/recipe" && pathname !== "/recipe/create";
+  const pathRecipeCreate = pathname === "/recipe/create";
+  const pathMypage = pathname === "/mypage" || pathname === "/profile/edit";
 
   return (
     <CustomFooter>
-      <CustomFooterButton onClick={goToMypage}>
-        <div
-          className={
-            pathname === "/mypage" || pathname === "/profile/edit"
-              ? "svg_box on"
-              : "svg_box"
-          }
-        >
-          <MyPageIcon />
-        </div>
-      </CustomFooterButton>
+      <div className="contents_area">
+        <CustomFooterButton onClick={goToMain}>
+          <div className={pathCommunity ? "svg_box on" : "svg_box"}>
+            <Icon01 />
+          </div>
+        </CustomFooterButton>
 
-      <CustomGoToCreateButton onClick={goToCreate}>
-        <img src={createIcon} />
-      </CustomGoToCreateButton>
-
-      <CustomFooterButton onClick={goToMain}>
+        {/* <CustomFooterButton onClick={goToMain}>
         <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
-          <MainIcon />
+          <Icon02 />
         </div>
-      </CustomFooterButton>
+      </CustomFooterButton> */}
 
-      {/* 토스트 메시지/모달 */}
-      {needLogginModal && (
-        <ToastMessage text={"레시피 작성에는\n 로그인이 필요합니다."} />
-      )}
+        <CustomFooterButton onClick={goToCreate}>
+          <div className={pathRecipeCreate ? "svg_box on" : "svg_box"}>
+            <Icon03 />
+          </div>
+        </CustomFooterButton>
+
+        {/* <CustomFooterButton onClick={goToCreate}>
+        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+          <Icon04 />
+        </div>
+      </CustomFooterButton> */}
+
+        <CustomFooterButton onClick={goToMypage}>
+          <div className={pathMypage ? "svg_box on" : "svg_box"}>
+            <Icon05 />
+          </div>
+        </CustomFooterButton>
+      </div>
     </CustomFooter>
   );
 };

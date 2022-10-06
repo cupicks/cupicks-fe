@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import styledFormComponents from "../../styles/customFormStyle";
+const { CustomInput, CustomInputBox, CustomLabel, CustomErrorBox } =
+  styledFormComponents;
 
 import editIcon from "../../assets/svg/edit.svg";
 import lockIcon from "../../assets/svg/lock.svg";
@@ -15,8 +18,8 @@ const ProfileEditBody = (props) => {
   return (
     <StProfileEditBody>
       {/* RegisterInputName */}
-      <div className="register_input_box">
-        <label>
+      <StInputBox>
+        <StLabel>
           닉네임
           <img
             className="input_label_icon"
@@ -24,38 +27,41 @@ const ProfileEditBody = (props) => {
             alt="닉네임 수정 아이콘"
             onClick={changeNickname}
           />
-        </label>
-        <input
+        </StLabel>
+        <StInput
+          autoComplete="off"
           defaultValue={profiles?.nickname}
           {...register("nickname", {
             pattern: {
-              value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
-              message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
+              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/,
+              message: "닉네임은 2~10자이며, 한글, 영어, 숫자포함합니다.",
             },
           })}
           type="text"
         />
-      </div>
-      {errors.nickname && (
-        <p className={"warning"}>{errors.nickname.message}</p>
-      )}
+      </StInputBox>
+      <StErrorBox>
+        {errors.nickname && (
+          <p className={"warning"}>{errors.nickname.message}</p>
+        )}
+      </StErrorBox>
 
       {/* RegisterInputEmail */}
-      <div className="register_input_box">
-        <label>
+      <CustomInputBox>
+        <StLabel>
           이메일
           <img
-            className="input_label_icon"
+            className="input_label_icon disabled"
             src={lockIcon}
             alt="이메일은 수정할 수 없습니다."
           />
-        </label>
-        <input defaultValue={profiles?.email} disabled />
-      </div>
+        </StLabel>
+        <StInput defaultValue={profiles?.email} disabled />
+      </CustomInputBox>
 
       {/* RegisterInputPassword */}
-      <div className="register_input_box">
-        <label>
+      <StInputBox>
+        <StLabel>
           패스워드
           <img
             className="input_label_icon"
@@ -63,8 +69,8 @@ const ProfileEditBody = (props) => {
             alt="패스워드 수정 아이콘"
             onClick={changePassword}
           />
-        </label>
-        <input
+        </StLabel>
+        <StInput
           {...register("password", {
             // minLength: {
             //   value: 8,
@@ -82,10 +88,13 @@ const ProfileEditBody = (props) => {
           })}
           type="password"
         />
-      </div>
-      {errors.password && (
-        <p className={"warning"}>{errors.password.message}</p>
-      )}
+      </StInputBox>
+
+      <StErrorBox>
+        {errors.password && (
+          <p className={"warning"}>{errors.password.message}</p>
+        )}
+      </StErrorBox>
     </StProfileEditBody>
   );
 };
@@ -93,32 +102,26 @@ const ProfileEditBody = (props) => {
 export default ProfileEditBody;
 
 const StProfileEditBody = styled.div`
-  padding: 15px 20px;
-
-  label {
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 150%;
-
-    color: #9e9e9e;
-  }
-
-  .register_input_box {
-    position: relative;
-  }
+  padding: 1.5rem 2rem 4rem;
 
   input:disabled {
-    color: #888;
+    margin-bottom: 2rem;
+    opacity: 0.3;
   }
 
-  .input_label_icon {
-    width: 30px;
-    height: 30px;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    transform: translateY(-50%);
+  .input_label_icon.disabled {
+    transform: translate(0, -3.3rem);
   }
+`;
+
+const StLabel = styled(CustomLabel)`
+  font-size: 1.3rem;
+`;
+
+const StInput = styled(CustomInput)``;
+
+const StInputBox = styled(CustomInputBox)``;
+
+const StErrorBox = styled(CustomErrorBox)`
+  height: 2rem;
 `;

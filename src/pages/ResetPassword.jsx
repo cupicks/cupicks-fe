@@ -10,7 +10,7 @@ import Navigation from "../partial/Navigation";
 import styled from "styled-components";
 import styledFormComponents from "../styles/customFormStyle";
 const { CustomForm, CustomButton } = styledFormComponents;
-import styledLayoutComponents from "../styles/customElementStyle";
+import styledLayoutComponents from "../styles/customLayoutStyle";
 const { CustomWrapFullVH } = styledLayoutComponents;
 
 import arrowBack from "../assets/svg/arrow_back.svg";

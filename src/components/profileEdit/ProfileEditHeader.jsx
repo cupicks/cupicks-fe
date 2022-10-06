@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 
 import styled from "styled-components";
@@ -9,13 +9,13 @@ import profilePicSrc from "../../assets/svg/profile.svg";
 const ProfileEditHeader = (props) => {
   const { watch, register, profiles } = props;
   // let profilePicSrc2 = profiles?.imageUrl ? profiles?.imageUrl : imagePreview;
-  const [imagePreview, setImagePreview] = React.useState(profiles?.imageUrl);
+  const [imagePreview, setImagePreview] = useState(profiles?.imageUrl);
 
   const image = watch("imageValue");
 
   const profileImg = image?.length === 0 ? profiles?.imageUrl : imagePreview;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (image && image.length > 0) {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
@@ -48,7 +48,7 @@ const ProfileEditHeader = (props) => {
 export default ProfileEditHeader;
 
 const StProfileEditHeader = styled.div`
-  padding: 10px 0 30px;
+  padding: 1rem 0 3rem;
 
   display: flex;
   justify-content: center;
@@ -59,7 +59,7 @@ const StProfileEditHeader = styled.div`
   &::before {
     content: "";
     width: 100%;
-    height: 10px;
+    height: 1rem;
 
     position: absolute;
     top: 0;
@@ -80,9 +80,10 @@ const StProfileEditHeader = styled.div`
 `;
 
 const StProfilePic = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 15rem;
+  height: 15rem;
   border-radius: 50%;
+  border: 1px solid #eee;
 
   position: relative;
 

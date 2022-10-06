@@ -1,63 +1,73 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
 import styled from "styled-components";
 import styledLayoutComponents from "../styles/customLayoutStyle";
-const { CustomWrapBody } = styledLayoutComponents;
+const { CustomWrapNoHeader } = styledLayoutComponents;
 
-import ToastMessage from "../components/elements/modal/ToastMessage";
 import RecipeBody from "../components/recipeMain/RecipeBody";
+import UserGuide from "../components/userGuide/UserGuide";
+import { useRef } from "react";
 
-const Recipe = () => {
-  const location = useLocation();
-  const [messageModal, setMessageModal] = useState(false);
-  const messageText = location.state?.message;
-  const timer = 1800;
+import { gotoScrollTop as gotoScrollTop } from "../util/goToScrollTop";
 
-  useEffect(() => {
-    if (messageText !== undefined) {
-      setMessageModal(true);
-      setTimeout(() => {
-        setMessageModal(false);
-      }, timer);
-    }
-  }, []);
+import topButton from "../assets/svg/top_button.svg";
 
-  // 에러 페이지 만든 후 삭제하기
-  // const [error, setError] = useState(false);
-  // setError(false);
+const Recipe = (props) => {
+  const { loggedIn } = props;
+  const scrollTopLookAround = useRef();
+  const scrollElement = useRef();
 
   return (
-    <StWrapBody>
-      {/* {error ? (
-        <>
-          <div className="error">
-            <img src={illustration05} alt="커픽" />
-            <h4>죄송합니다😥</h4>
-            <h3>잠시 서버 수정 작업 중입니다.</h3>
-          </div>
-        </>
-      ) : (
-        <RecipeBody />
-      )} */}
-      <RecipeBody />
+    <>
+      <StWrapBody ref={scrollElement}>
+        <UserGuide
+          loggedIn={loggedIn}
+          scrollTopLookAround={scrollTopLookAround}
+          scrollElement={scrollElement}
+        />
+        <div ref={scrollTopLookAround} />
 
-      {messageModal && (
-        <ToastMessage text={messageText} smallFont={true} timer={timer} />
-      )}
-    </StWrapBody>
+        <RecipeBody loggedIn={loggedIn} />
+      </StWrapBody>
+
+      <StTopButton
+        className="top_button"
+        onClick={() => gotoScrollTop(scrollElement)}
+      >
+        <img src={topButton} alt="맨 위로 가기" />
+      </StTopButton>
+    </>
   );
 };
 
 export default Recipe;
 
-const StWrapBody = styled(CustomWrapBody)`
+const StWrapBody = styled(CustomWrapNoHeader)`
   .error {
     width: 100%;
     text-align: center;
     img {
       width: 50%;
     }
+  }
+
+  overflow: auto;
+`;
+
+const StTopButton = styled.button`
+  position: absolute;
+  bottom: 10rem;
+  right: 1.1rem;
+
+  padding: 0.5rem;
+
+  opacity: 0.8;
+  transition: all 0.2s;
+
+  :hover {
+    opacity: 1;
+    transform: translateY(-0.5rem);
+  }
+
+  img {
+    width: 3.6rem;
   }
 `;

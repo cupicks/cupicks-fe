@@ -3,13 +3,16 @@ import styled, { css } from "styled-components";
 const CustomWrapFullVH = styled.div`
   ${({ theme }) => {
     return css`
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       padding: ${theme.paddings.lg};
 
       display: flex;
       flex-flow: column;
 
       overflow-y: scroll;
+      position: relative;
+
+      background-color: #fff;
 
       ${theme.devices.tablet} {
         padding: ${theme.paddings.md};
@@ -22,10 +25,20 @@ const CustomWrapFullVH = styled.div`
   }}
 `;
 
+const CustomWrapNoHeader = styled.div`
+  ${({ theme }) => {
+    return css`
+      height: calc(100% - 9rem);
+
+      overflow: hidden;
+    `;
+  }}
+`;
+
 const CustomWrapBody = styled.div`
   ${({ theme }) => {
     return css`
-      height: calc(100vh - 5rem - 9rem);
+      height: calc(100% - 5rem - 9rem);
 
       overflow: hidden;
     `;
@@ -50,7 +63,7 @@ const CustomFlexListWrap = styled.div`
         gap: ${theme.gaps.sm};
       }
 
-      ${theme.devices.mobileXS} {
+      ${theme.devices.xs} {
         gap: ${theme.gaps.xs};
       }
     `;
@@ -61,10 +74,12 @@ const CustomFlexList = styled.div`
   ${({ theme }) => {
     return css`
       flex: ${theme.flexItems.md};
-      height: 26vh;
+      height: 27vh;
+      min-height: 20rem;
       max-height: 50rem;
       border-radius: 1rem;
 
+      background-color: #fff;
       box-shadow: ${theme.boxShadows.base};
 
       transition: all 0.3s;
@@ -80,7 +95,7 @@ const CustomFlexList = styled.div`
         flex: ${theme.flexItems.sm};
       }
 
-      ${theme.devices.mobileXS} {
+      ${theme.devices.xs} {
         flex: ${theme.flexItems.xs};
       }
 
@@ -129,9 +144,18 @@ const CustomFooter = styled.footer`
   ${({ theme }) => {
     return css`
       height: 9rem;
-
-      display: flex;
       position: relative;
+
+      .contents_area {
+        width: 100%;
+        max-width: 60rem;
+        height: 9rem;
+
+        display: flex;
+
+        position: fixed;
+        bottom: 0;
+      }
 
       .svg_box {
         transition: all 0.2s;
@@ -148,7 +172,9 @@ const CustomFooter = styled.footer`
 const CustomFooterButton = styled.button`
   ${({ theme }) => {
     return css`
-      flex: 1 1 auto;
+      flex: 1 1 20%;
+
+      background-color: red;
 
       padding-top: 1.2rem;
 
@@ -166,37 +192,80 @@ const CustomFooterButton = styled.button`
   }}
 `;
 
-const CustomGoToCreateButton = styled.button`
+const CustomNavigation = styled.nav`
   ${({ theme }) => {
     return css`
-      width: 6.5rem;
-      height: 6.5rem;
-      border-radius: 50%;
+      padding: 0 2rem;
 
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
 
-      cursor: pointer;
-      overflow: hidden;
+      background-color: ${(props) =>
+        props.transparent ? "transparent" : "#fff"};
+      color: ${theme.colors.dark};
+
+      height: 6rem;
+      line-height: 6rem;
+      z-index: 999;
+
+      button {
+        all: unset;
+        padding: 0 1.6rem;
+
+        font-size: 1.7rem;
+      }
+
+      .isIced {
+        line-height: normal;
+      }
+
+      button,
+      span,
+      .button_goBack {
+        cursor: pointer;
+      }
 
       img {
-        width: 11rem;
+        line-height: 0;
+        transform: translateY(0.4rem);
+      }
 
+      .button_goBack {
+        padding: 1rem;
+      }
+
+      .title {
         position: absolute;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
 
-        transition: all 0.5s;
-        opacity: 0.9;
+        font-size: ${theme.fonts.size.lg};
       }
 
-      img:hover {
-        opacity: 1;
+      & > button:first-child {
+        transform: translateX(-1rem);
       }
+      & > button:last-child {
+        transform: translateX(1rem);
+      }
+    `;
+  }}
+`;
+
+const CustomContainer = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 100%;
+      border-radius: 1rem;
+
+      background-color: ${theme.colors.background};
+      box-shadow: ${theme.boxShadows.container};
+
+      overflow: hidden;
     `;
   }}
 `;
@@ -210,12 +279,14 @@ const Custom = styled.div`
 const styledComponents = {
   CustomHeader,
   CustomFooter,
-  CustomGoToCreateButton,
   CustomFooterButton,
   CustomWrapFullVH,
   CustomWrapBody,
   CustomFlexListWrap,
   CustomFlexList,
+  CustomContainer,
+  CustomWrapNoHeader,
+  CustomNavigation,
 };
 
 export default styledComponents;

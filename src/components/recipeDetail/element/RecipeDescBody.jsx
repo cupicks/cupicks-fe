@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
+
+import api from "../../../server/api";
 
 import styled from "styled-components";
 
@@ -18,12 +20,22 @@ const RecipeDescBody = (props) => {
     nickname,
   } = recipe;
   const { recipeDeleteButtonClickHandler } = confirmProps;
+  const [isAuthor, setIsAuthor] = useState(false);
 
-  // (고유값)유저 닉네임으로 작성자 본인 확인
-  const token = localStorage.getItem("refreshToken");
-  const { decodedToken } = useJwt(token);
-  let userName = decodedToken?.nickname;
-  const recipeAuthor = userName === nickname;
+  const getProfile = async () => {
+    const contentType = "application/json";
+    try {
+      const res = await api(contentType).get("/profile/my-profile");
+      console.log(res.data.user.nickname);
+      const userName = res.data.user.nickname;
+      setIsAuthor(userName === nickname);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   // 프로필 이미지
   const profileImageUrl = imageUrl;
@@ -54,13 +66,19 @@ const RecipeDescBody = (props) => {
 
         <div className="user_info">
           <div className="left">
-            <StProfileImage profileImageUrl={profileImageUrl} />
+            <StProfileImageBox>
+              <img
+                className="content_pic"
+                src={resizedUrl}
+                onError={(e) => (e.target.src = imageUrl)}
+              />
+            </StProfileImageBox>
             <span className="nickname">{nickname}</span>
             <span className="dot">•</span>
             <span className="updatedAt">{today}</span>
           </div>
 
-          {recipeAuthor && (
+          {isAuthor && (
             <div className="right">
               <button onClick={() => navigate(`/recipe/${recipeId}/edit`)}>
                 수정
@@ -127,18 +145,27 @@ const StRecipeDescBody = styled.div`
         font-size: 14px;
 
         color: #3897f0;
+
+        cursor: pointer;
       }
     }
   }
 `;
 
-const StProfileImage = styled.div`
-  width: 35px;
-  height: 35px;
+const StProfileImageBox = styled.div`
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 
-  margin-right: 2px;
+  margin-right: 0.2rem;
 
-  background: #ccc url(${(props) => props.profileImageUrl}) no-repeat center /
-    cover;
+  display: flex;
+  overflow: hidden;
+
+  background: #ccc;
+
+  .content_pic {
+    width: 100%;
+    object-fit: cover;
+  }
 `;

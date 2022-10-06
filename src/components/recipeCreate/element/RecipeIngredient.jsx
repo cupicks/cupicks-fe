@@ -4,10 +4,13 @@ import RecipeIngredientColorLists from "./RecipeIngredientColorLists";
 import styled from "styled-components";
 
 const RecipeIngredient = (props) => {
-  const { idx, calcAmount, cupState, setCupState, stepState, formProps } =
+  const { idx, cupState, setCupState, stepState, formProps, currAmount } =
     props;
+  const { currCupSize, maxAmount } = cupState;
   const { subStep } = stepState;
-  const { register, watch } = formProps;
+  const { register } = formProps;
+
+  const minimumMinRange = maxAmount < 25 ? true : false;
 
   return (
     <StRecipeIngredient>
@@ -20,22 +23,28 @@ const RecipeIngredient = (props) => {
             placeholder={`재료`}
             {...register(`ingredientList.${idx}.ingredientName`)}
             maxLength={20}
+            autoComplete="off"
           />
         </>
       )}
 
       {subStep === 2 && (
         <>
-          <div className="info_box_center">
-            재료량을 입력해주세요.(최소 10ml)
+          <div className="info_box_center">재료량을 입력해주세요.</div>
+          <div className="flex_box">
+            <span>최소 25ml</span>
+            <span className={maxAmount < 25 ? "alert" : "dark"}>
+              {/* 현재 {minimumMinRange ? maxAmount : "--"} ml */}
+            </span>
+            <span>최대 {maxAmount}ml</span>
           </div>
+
           <div className="flex_box">
             <RecipeIngredientNumber
               idx={idx}
               formProps={formProps}
-              calcAmount={calcAmount}
+              cupState={cupState}
             />
-            ml
           </div>
         </>
       )}
@@ -54,6 +63,8 @@ const RecipeIngredient = (props) => {
 export default RecipeIngredient;
 
 const StRecipeIngredient = styled.div`
+  height: 100%;
+
   input,
   select {
     all: unset;
@@ -66,6 +77,34 @@ const StRecipeIngredient = styled.div`
     line-height: 40px;
   }
 
+  input[type="range"] {
+    height: 0.5rem;
+    border-radius: 1rem;
+
+    margin-top: 1rem;
+
+    background-color: #ccc;
+    border: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #333;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    border-radius: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #333;
+    cursor: pointer;
+  }
+
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -74,7 +113,18 @@ const StRecipeIngredient = styled.div`
 
   .flex_box {
     display: flex;
+    justify-content: space-between;
     gap: 20px;
+
+    span {
+      color: #aaa;
+    }
+    span.dark {
+      color: #555;
+    }
+    span.alert {
+      color: #fe5454ed;
+    }
   }
 `;
 

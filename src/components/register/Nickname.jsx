@@ -13,10 +13,20 @@ const Nickname = (props) => {
   const { register, errors, watch, resetField, toast, nicknameFailure } = props;
   return (
     <StDiv>
-      {toast && <ToastMessage text={errors?.nickname?.message} timer={1000} />}
+      {toast && (
+        <ToastMessage
+          text={"닉네임은 한글 또는 영문 또는 숫자로\n 2자 이상 입력해주세요."}
+          timer={1800}
+          smallFont={true}
+        />
+      )}
 
       {nicknameFailure && (
-        <ToastMessage text={errors?.nicknameError?.message} timer={1000} />
+        <ToastMessage
+          text={errors?.nicknameError?.message}
+          timer={1800}
+          smallFont={true}
+        />
       )}
 
       <CustomTitle>
@@ -36,18 +46,20 @@ const Nickname = (props) => {
           placeholder="닉네임을 입력해 주세요"
           minLength={2}
           maxLength={10}
-          // disabled={checkNickname}
+          autoComplete="off"
           {...register("nickname", {
             required: true,
             pattern: {
-              value: /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{2,10}$/,
-              message: "닉네임은 2~10자이며, 영어, 숫자포함합니다.",
+              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/,
+              message:
+                "닉네임은 한글 또는 영문 또는 숫자로 2자 이상 입력해주세요.",
             },
           })}
         />
       </CustomInputBox>
 
       <StErrorBox>
+        <p className="info">닉네임은 영문 또는 숫자 2~10자로 입력해주세요.</p>
         {errors.nickname && <p>{errors.nickname.message}</p>}
       </StErrorBox>
     </StDiv>

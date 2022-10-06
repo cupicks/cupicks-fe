@@ -2,7 +2,10 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
     <meta property="og:url" content="https://cupick.co" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Cupick" />
@@ -15,15 +18,140 @@
       content="홈 바리스타가 되어볼까요?☕ 커픽 Cupick 은 이미지만 보고 만들 수 있는, 음료 레시피를 확인하고 공유하는 서비스입니다.✨"
     />
     <title>Cupick</title>
+    <meta
+      name="description"
+      content="홈 바리스타가 되어볼까요?☕ 커픽 Cupick 은 이미지만 보고 만들 수 있는, 음료 레시피를 확인하고 공유하는 서비스입니다.✨"
+    />
     <link rel="icon" href="/src/assets/image/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
     <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="icons/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="icons/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="icons/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="icons/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="icons/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="icons/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="icons/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="icons/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/favicon-196x196.png"
+      sizes="196x196"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/favicon-128.png"
+      sizes="128x128"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/favicon-512.png"
+      sizes="512x512"
+    />
+    <link
+      rel="maskable_icon"
+      type="image/png"
+      href="icons/maskable_icon-128x128.png"
+      sizes="128x128"
+    />
+    <link
+      rel="maskable_icon"
+      type="image/png"
+      href="icons/maskable_icon-192x192.png"
+      sizes="192x192"
+    />
+    <link
+      rel="maskable_icon"
+      type="image/png"
+      href="icons/maskable_icon-512x512.png"
+      sizes="512x512"
+    />
+    <meta name="application-name" content="&nbsp;" />
+    <!-- font -->
+    <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      as="style"
+      crossorigin="anonymous"
+    />
+    <link
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      crossorigin="anonymous"
     />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/Main.jsx"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((registration) => {
+            console.log("Service worker registration succeeded:", registration);
+          })
+          .catch((err) => {
+            console.log("Service worker registration failed:", error);
+          });
+      } else {
+        console.log("Service workers are not supported.");
+      }
+    </script>
   </body>
 </html>

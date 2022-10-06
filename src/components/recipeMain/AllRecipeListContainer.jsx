@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import styled from "styled-components";
 import styledElementComponents from "../../styles/customElementStyle";
 const { CustomProfilePic, CustomIconBox } = styledElementComponents;
-
 import AllRecipeListIngredient from "./AllRecipeListIngredient";
 
 import talk from "../../assets/svg/talk.svg";
@@ -15,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../server/api";
 
 const AllRecipeListContainer = (props) => {
-  const { allrecipes, modalProps, getItems, page } = props;
+  const { allrecipes, modalProps, getItems } = props;
 
   const {
     recipeId,
@@ -27,8 +26,10 @@ const AllRecipeListContainer = (props) => {
     resizedUrl,
     imageUrl,
     isLiked,
+    likeTotal,
+    commentTotal,
   } = allrecipes;
-  const { userLogin, needLogginModal, setNeedLogginModal, timer } = modalProps;
+  const { loggedIn, needLogginModal, setNeedLogginModal } = modalProps;
 
   const navigate = useNavigate();
   const [liked, setLiked] = useState(isLiked);
@@ -42,17 +43,21 @@ const AllRecipeListContainer = (props) => {
   // 브라우저 너비에 따라서 글자 수를 자릅니다.
   const windowWidth = windowSize.width;
   let titleText = title;
-  if (title.length > 11) {
-    titleText = title.slice(0, 11) + "...";
+  if (title.length > 10) {
+    titleText = title.slice(0, 10) + "..";
   }
 
   if (windowWidth < 450) {
     if (title.length > 4) {
-      titleText = title.slice(0, 4) + "...";
+      titleText = title.slice(0, 4).replace(" ", "") + "..";
     }
-  } else if (windowWidth < 500) {
-    if (title.length > 7) {
-      titleText = title.slice(0, 7) + "...";
+  } else if (windowWidth < 550) {
+    if (title.length > 6) {
+      titleText = title.slice(0, 6).replace(" ", "") + "..";
+    }
+  } else if (windowWidth < 600) {
+    if (title.length > 8) {
+      titleText = title.slice(0, 8) + "..";
     }
   }
 
@@ -69,40 +74,41 @@ const AllRecipeListContainer = (props) => {
   }, [windowWidth]);
 
   /** 레시피 좋아요 버튼 핸들러 */
-  const likeCard = async () => {
+  const likeCard = async (ev) => {
     // 로그인이 안되어 있다면 모달창을 띄우고 함수를 종료합니다.
-    if (!userLogin) {
+    if (!loggedIn) {
       if (!needLogginModal) {
         setNeedLogginModal(true);
-        setTimeout(() => {
-          setNeedLogginModal(false);
-        }, timer);
       }
       return;
     }
 
+    const targetText = +ev.target.nextSibling.innerText;
+
     let contentType = "application/json";
-    //liked(isLiked)가 false일 때, 좋아요를 누를 수 있습니다.
     if (liked === false) {
       try {
         await api(contentType)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
-            getItems();
-            console.log(res);
+            // console.log(res);
+            if (res.data.isSuccess) {
+              ev.target.nextSibling.innerText = targetText + 1;
+            }
           });
         setLiked((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
     } else {
-      // liked(isLiked)가 false
       try {
         await api(contentType)
           .patch(`/recipes/${recipeId}/dislike`)
           .then((res) => {
-            getItems();
-            console.log(res);
+            // console.log(res);
+            if (res.data.isSuccess) {
+              ev.target.nextSibling.innerText = targetText - 1;
+            }
           });
         setLiked((prev) => !prev);
       } catch (err) {
@@ -119,9 +125,9 @@ const AllRecipeListContainer = (props) => {
       </StListHead>
 
       <StListContent
-        onClick={() => {
+        onClick={useCallback(() => {
           navigate(`${recipeId}/detail`);
-        }}
+        }, [])}
       >
         <StCupHeight cupHeight={cupHeight}>
           {ingredientList.map((ingredients, idx) => {
@@ -142,18 +148,28 @@ const AllRecipeListContainer = (props) => {
       <StListDesc>
         <div className="title">{titleText}</div>
         <StIconBox>
-          <img
-            className="talk_btn icon"
-            src={talk}
-            onClick={() => {
-              navigate(`${recipeId}/comment`, { state: title });
-            }}
-          />
-          {liked === false ? (
-            <img className="like_btn icon" src={dislikes} onClick={likeCard} />
-          ) : (
-            <img className="like_btn icon" src={likes} onClick={likeCard} />
-          )}
+          <div className="icon_set talk">
+            <img
+              className="talk_btn icon"
+              src={talk}
+              onClick={() => {
+                navigate(`${recipeId}/comment`, { state: title });
+              }}
+            />
+            <span>{commentTotal}</span>
+          </div>
+          <div className="icon_set like">
+            {liked === false ? (
+              <img
+                className="like_btn icon"
+                src={dislikes}
+                onClick={likeCard}
+              />
+            ) : (
+              <img className="like_btn icon" src={likes} onClick={likeCard} />
+            )}
+            <span>{likeTotal}</span>
+          </div>
         </StIconBox>
       </StListDesc>
     </>
@@ -198,7 +214,7 @@ const StCupHeight = styled.div`
 
 const StListDesc = styled.div`
   min-height: 2rem;
-  padding: 0.4rem 0.7rem 0.5rem;
+  padding: 0.4rem 0.6rem 0.5rem;
 
   display: flex;
   justify-content: space-between;
@@ -208,15 +224,36 @@ const StListDesc = styled.div`
 
   .title {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 `;
 
 const StIconBox = styled(CustomIconBox)`
+  gap: 4px;
+  .icon_set {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #393939;
+  }
   .talk_btn {
-    width: 0.9rem;
+    width: 1.1rem;
+    margin-right: 2px;
   }
   .like_btn {
-    width: 1.1rem;
+    width: 1.3rem;
+    margin-right: 1px;
+  }
+
+  @media (max-width: 400px) {
+    gap: 2px;
+    .talk_btn {
+      width: 1.1rem;
+      margin-right: 1px;
+    }
+    .like_btn {
+      width: 1.3rem;
+      margin-right: 0px;
+    }
   }
 `;

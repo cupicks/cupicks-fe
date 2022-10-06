@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import api from "../server/api";
 
 import Navigation from "../partial/Navigation";
-import ProfileEditHeader from "../components/profileEdit/profileEditHeader";
-import ProfileEditBody from "../components/profileEdit/profileEditBody";
+import ProfileEditHeader from "../components/profileEdit/ProfileEditHeader";
+import ProfileEditBody from "../components/profileEdit/ProfileEditBody";
 
 import styled from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import ToastMessage from "../components/elements/modal/ToastMessage";
 
@@ -80,7 +81,7 @@ const ProfileEdit = () => {
         <ToastMessage text={"이미 존재하는 닉네임입니다."} timer={1000} />
       )}
       <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
-        <Navigation>
+        <Navigation goto="/mypage">
           <span className="title">개인 정보 편집</span>
           <button type="submit">저장</button>
         </Navigation>
@@ -113,7 +114,7 @@ const ProfileEdit = () => {
 export default ProfileEdit;
 
 const StProfileEdit = styled.form`
-  height: calc(100vh - 50px - 90px);
+  height: calc((var(--vh, 1vh) * 100) - 5rem - 9rem);
 
   display: flex;
   flex-flow: column;
@@ -122,35 +123,6 @@ const StProfileEdit = styled.form`
   background-color: #eee;
 
   overflow-y: auto;
-
-  .warning {
-    min-height: 20px;
-    color: #ffb593;
-    font-size: 14px;
-  }
-
-  label {
-    width: 100%;
-
-    padding: 5px 0;
-
-    display: block;
-    color: #888;
-
-    font-size: 14px;
-  }
-
-  input {
-    all: unset;
-    width: 100%;
-    padding: 2px 0 5px;
-
-    margin-bottom: 5px;
-
-    border-bottom: var(--input-border-bottom);
-
-    font-size: 20px;
-  }
 
   & > div {
     background-color: #fff;

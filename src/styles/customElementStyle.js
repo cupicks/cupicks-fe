@@ -16,6 +16,17 @@ const CustomTitle = styled.div`
   }}
 `;
 
+const CustomPlainText = styled.div`
+  ${({ theme }) => {
+    return css`
+      word-break: keep-all;
+
+      font-weight: ${theme.fonts.weight.normal};
+      font-size: ${theme.fonts.size.label};
+    `;
+  }}
+`;
+
 const CustomRecipeListTitle = styled.div`
   ${({ theme }) => {
     return css`
@@ -40,7 +51,7 @@ const CustomSmallBoldTextLink = styled.p`
   ${({ theme }) => {
     return css`
       font-weight: ${theme.fonts.weight.bold};
-      font-size: ${theme.fonts.weight.label};
+      font-size: ${theme.fonts.size.label};
       color: ${theme.colors.middle};
 
       cursor: pointer;
@@ -78,7 +89,7 @@ const CustomLineBox = styled.div`
       }
 
       span {
-        font-size: ${theme.fonts.weight.label};
+        font-size: ${theme.fonts.size.label};
 
         padding: 0 1rem;
 
@@ -138,6 +149,7 @@ const styledComponents = {
   CustomRecipeListTitle,
   CustomProfilePic,
   CustomIconBox,
+  CustomPlainText,
 };
 
 export default styledComponents;

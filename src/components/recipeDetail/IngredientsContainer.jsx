@@ -52,7 +52,7 @@ export default IngredientsContainer;
 
 const StIngredientsContainer = styled.div`
   /* 전체 높이에서 헤더와 하단 영역 제외 */
-  height: calc(100vh - 60px - 50px);
+  height: calc(100% - 6rem - 5rem);
 
   display: flex;
   flex-flow: column;
@@ -62,6 +62,8 @@ const StIngredientsContainer = styled.div`
 const StCupHeight = styled.div`
   height: ${(props) => props.amountPercent + "%"};
   position: relative;
+  display: flex;
+  flex-flow: column;
 
   &::before {
     content: "";
@@ -71,7 +73,7 @@ const StCupHeight = styled.div`
     box-sizing: border-box;
 
     position: absolute;
-    top: 50px;
+    top: 1rem;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: -9;
@@ -81,7 +83,7 @@ const StCupHeight = styled.div`
 
     @keyframes float {
       0% {
-        transform: translate(-50%, 10px);
+        transform: translate(-50%, 1rem);
         opacity: 0.2;
       }
       100% {

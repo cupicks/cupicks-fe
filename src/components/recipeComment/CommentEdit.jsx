@@ -16,6 +16,7 @@ const CommentEdit = ({
   setMenuOpen,
   setCheckComment,
   userProps,
+  profiles,
 }) => {
   const {
     register,
@@ -25,7 +26,7 @@ const CommentEdit = ({
     getValues,
     formState: { errors },
   } = useForm({ defaultValues: {} });
-  const { userLogin, userLoginId, userProfileImg } = userProps;
+  const { userLogin } = userProps;
 
   const { recipeId } = useParams();
   //이미지 미리보기
@@ -120,7 +121,10 @@ const CommentEdit = ({
         <div className="input_profile">
           <div className="profile_image">
             {userLogin !== null && (
-              <StInputProfile src={userProfileImg}></StInputProfile>
+              <StInputProfile
+                src={profiles?.imageUrl}
+                alt="유저 프로필 이미지"
+              ></StInputProfile>
             )}
           </div>
         </div>
@@ -130,6 +134,7 @@ const CommentEdit = ({
               className="comment_input"
               type="text"
               name="content"
+              maxLength={150}
               defaultValue={currentComment}
               {...register("comment")}
               placeholder="새로운 댓글을 입력해주세요"
@@ -140,13 +145,17 @@ const CommentEdit = ({
           {imagePreview ? (
             <div className="img_preview">
               <label htmlFor="picture">
-                <StPicUpload src={imagePreview}></StPicUpload>
+                <StPicUpload
+                  src={imagePreview}
+                  alt="이미지 미리보기"
+                ></StPicUpload>
               </label>
               <DeletePreview
                 src={editIcon}
                 onClick={() => {
                   cancelImage();
                 }}
+                alt="삭제 버튼"
               ></DeletePreview>
             </div>
           ) : null}
@@ -155,7 +164,8 @@ const CommentEdit = ({
               type="file"
               id="picture"
               {...register("image")}
-              accept="image/*"
+              accept="image/png, image/jpg"
+              alt="업로드할 이미지"
             ></input>
             <label htmlFor="picture" className="pic_upload">
               + 사진 업로드
@@ -185,12 +195,12 @@ export default CommentEdit;
 
 const StWrap = styled.form`
   width: 100%;
-  min-height: 88px;
-
-  padding: 10px 24px;
+  max-width: 60rem;
+  min-height: 10rem;
+  padding: 1rem 2rem;
 
   display: flex;
-  gap: 10px;
+  gap: 1rem;
 
   position: absolute;
   bottom: 0;
@@ -206,13 +216,20 @@ const StWrap = styled.form`
   }
 
   .input_profile {
-    transform: translateY(-2px);
+    transform: translateY(-0.2rem);
   }
 
   .profile_image {
-    max-width: 40px;
-    max-height: 40px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
+    margin-top: 1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .input_wrap {
@@ -220,36 +237,45 @@ const StWrap = styled.form`
 
     display: flex;
     flex-flow: column;
-    gap: 7px;
+    gap: 0.7rem;
   }
 
   .input_box {
     width: 100%;
-    height: 35px;
-    line-height: 35px;
+    height: 3.5rem;
+    line-height: 3.5rem;
 
     display: flex;
+    justify-content: flex-end;
 
-    border: 1px solid #d9d9d9;
-    border-radius: 20px;
+    position: relative;
+
+    border: 0.1rem solid #d9d9d9;
+    border-radius: 2rem;
   }
 
   .comment_input {
     all: unset;
-    flex: 1 1 auto;
+    flex: 1 1 0px;
 
-    padding-left: 12px;
+    position: absolute;
+    left: 1rem;
+    right: 5rem;
 
-    font-size: 13px;
+    font-size: 1.6rem;
 
     color: #9f9f9f;
   }
 
   .comment_btn {
     all: unset;
-    padding: 0 12px;
+    padding: 0 1.2rem;
+    padding: 0 1.1rem;
+    margin-left: -1rem;
 
-    font-size: 13px;
+    font-size: 1.3rem;
+    word-break: keep-all;
+    white-space: nowrap;
   }
 
   .img_preview {
@@ -266,34 +292,34 @@ const StWrap = styled.form`
     flex: 1 1 auto;
     color: #3897f0;
 
-    font-size: 13px;
+    font-size: 1.3rem;
   }
 
-  @media (max-width: 300px) {
+  /* @media (max-width: 30rem) {
     flex-flow: column;
     align-items: center;
     .img_preview {
       justify-content: center;
-      padding-left: 25px;
+      padding-left: 2.5rem;
     }
     .pic_wrap {
       text-align: center;
     }
-  }
+  } */
 `;
 
 const StInputProfile = styled.img`
-  width: 40px;
-  height: 40px;
+  max-width: 4rem;
+  max-height: 4rem;
   border-radius: 50%;
 `;
 
 const DeletePreview = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 2.5rem;
+  height: 2.5rem;
 
   position: relative;
-  transform: translate(-11px, -9px);
+  transform: translate(-1.1rem, -0.9rem);
 `;
 
 const StPicUpload = styled.img`

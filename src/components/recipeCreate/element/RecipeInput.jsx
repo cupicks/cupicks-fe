@@ -13,6 +13,7 @@ const RecipeInput = ({
       placeholder={placeholder}
       {...register(label, config)}
       maxLength={20}
+      autoComplete="off"
     />
   );
 };

@@ -9,11 +9,13 @@ import IngredientList from "./IngredientList";
 import RecipeTitle from "./RecipeTitle";
 
 import styled from "styled-components";
+import RecipeSlickBox from "./RecipeSlickBox";
 
-const RecipeList = (props) => {
-  const { recipeList, header = false } = props;
+const RecipeSlider = (props) => {
+  const { recipeList, header = false, bannerImage } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
+  const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
   const [windowSize, setWindowSize] = useState({
     width: 0,
   });
@@ -61,60 +63,45 @@ const RecipeList = (props) => {
       });
     };
     handleResize();
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
-
+  console.log(countRecipeList);
   return (
     <>
+      {(recipeList?.length === 0 || countRecipeList === 0) && (
+        <StListEmpty>
+          <img src={bannerImage} alt="레시피가 없습니다." />
+        </StListEmpty>
+      )}
       <StSlider {...settings}>
-        {recipeList?.length === 0 && (
-          <h3 className="list_empty">레시피가 없습니다.</h3>
-        )}
-
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
-          if (title.length > 11) {
-            titleText = title.slice(0, 11) + "...";
+          if (title.length > 10) {
+            titleText = title.slice(0, 10) + "..";
           }
 
           if (windowWidth < 450) {
             if (title.length > 6) {
-              titleText = title.slice(0, 6) + "...";
+              titleText = title.slice(0, 6) + "..";
             }
-          } else if (windowWidth < 500) {
-            if (title.length > 7) {
-              titleText = title.slice(0, 7) + "...";
+          } else if (windowWidth < 600) {
+            if (title.length > 8) {
+              titleText = title.slice(0, 8) + "..";
             }
           }
 
           return (
-            // Slider의 자식은 inline-block
-            <StSlickBox
-              isTitle={header}
+            <RecipeSlickBox
               key={"slick_box" + i}
-              onClick={onClickCard(recipe.recipeId)}
-            >
-              {header && (
-                <StRecipeUserInfo>
-                  <StProfilePic prfilePicSrc={recipe.resizedUrl} />
-                  {recipe.nickname}
-                </StRecipeUserInfo>
-              )}
-
-              <div className="flex_box">
-                <StCupHeight
-                  cupHeight={((recipe.cupSize / 591) * 100).toFixed()}
-                >
-                  <IngredientList key={i} recipe={recipe} />
-                </StCupHeight>
-                <div className="padding_box">
-                  <RecipeTitle recipeId={recipe.recipeId} title={titleText} />
-                </div>
-              </div>
-            </StSlickBox>
+              header={header}
+              onClickCard={onClickCard}
+              recipe={recipe}
+              titleText={titleText}
+              setCountRecipeList={setCountRecipeList}
+              countRecipeList={countRecipeList}
+            />
           );
         })}
       </StSlider>
@@ -122,56 +109,36 @@ const RecipeList = (props) => {
   );
 };
 
-export default RecipeList;
-
-const StSlickBox = styled.div`
-  height: ${(props) => (props.isTitle ? "calc(40vh + 50px)" : "40vh")};
-  border-radius: 16px;
-
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-end;
-
-  overflow: hidden;
-
-  box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1),
-    3px 3px 8px rgba(0, 0, 0, 0.1);
-
-  .flex_box {
-    height: ${(props) => (props.isTitle ? "calc(100% - 50px)" : "100%")};
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-end;
-  }
-`;
+export default RecipeSlider;
 
 const StSlider = styled(Slider)`
   background-color: #fff;
 
   .padding_box {
-    min-height: 42px;
-    padding: 11px 20px 12px;
+    min-height: 4.2rem;
+    padding: 1.1rem 1.5rem 1.2rem;
 
     & * {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 1.4rem;
       padding: 0;
     }
 
     img {
-      width: 18px;
+      width: 1.8rem;
     }
   }
 
   .slick-list {
-    width: 85%;
+    width: 100%;
+    max-width: 40rem;
     margin: 0 auto;
     overflow: visible;
   }
 
   .slick-slide {
     position: relative;
-    padding: 12px;
+    padding: 1.2rem;
   }
 
   .slide {
@@ -179,43 +146,19 @@ const StSlider = styled(Slider)`
 
     background-color: #aaa;
   }
-
-  .list_empty {
-    margin-top: 50px;
-
-    text-align: center;
-    color: #cdcdcd;
-  }
 `;
 
-const StCupHeight = styled.div`
-  height: ${(props) => "calc(" + props.cupHeight + "% - 42px)"};
-`;
+const StListEmpty = styled.p`
+  width: 100%;
+  padding-bottom: 4rem;
 
-const StRecipeUserInfo = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-`;
+  font-size: 1.7rem;
+  text-align: center;
 
-const StProfilePic = styled.div`
-  flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-
-  margin-right: 5px;
-
-  position: relative;
-
-  font-size: 14px;
-
-  background: #eee url(${(props) => props.prfilePicSrc}) no-repeat center /
-    cover;
+  color: #cdcdcd;
+  background-color: #fff;
 
   img {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    width: 50%;
   }
 `;

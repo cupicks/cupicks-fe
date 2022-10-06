@@ -25,14 +25,12 @@ const Mypage = () => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user);
-      // setProfiles([...profiles, res.data.user]);
       setProfiles(res.data.user);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(profiles);
+
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
@@ -52,7 +50,6 @@ const Mypage = () => {
           <MypageMyInfo token={token} userData={userData} profiles={profiles} />
           <MypageRecipeMyList on={true} />
           <MypageRecipeLikeList />
-          <div></div>
         </>
       )}
     </StWrap>
@@ -62,12 +59,13 @@ const Mypage = () => {
 export default Mypage;
 
 const StWrap = styled.div`
-  height: calc(100vh - 50px - 90px);
+  height: calc((var(--vh, 1vh) * 100) - 5rem - 9rem);
+
   overflow-y: scroll;
 
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 1rem;
 
   background-color: #eee;
 

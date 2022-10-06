@@ -81,7 +81,7 @@ const MypageMyInfo = (props) => {
 export default MypageMyInfo;
 
 const StMypageMyInfo = styled.div`
-  padding: 10px 20px 20px;
+  padding: 1rem 2rem 2rem;
 
   display: flex;
   justify-content: space-between;
@@ -93,20 +93,21 @@ const StMypageMyInfo = styled.div`
   & > div {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.8rem;
+  }
+
+  span {
+    font-size: 1.5rem;
   }
 
   img.dropdown_menu_icon {
-    width: 12px;
-    margin-top: 4px;
+    width: 1.2rem;
+    margin-top: 0.5rem;
   }
 
   img.show_more_icon {
-    max-height: 16px;
+    max-height: 1.6rem;
     position: relative;
-    right: -10px;
-
-    cursor: pointer;
   }
 
   .left {
@@ -114,7 +115,9 @@ const StMypageMyInfo = styled.div`
   }
 
   .right {
-    padding: 0 12px;
+    padding: 1rem 1.2rem;
+
+    cursor: pointer;
   }
 `;
 
@@ -162,8 +165,8 @@ const StDropMenu = styled.ul`
 
 const StProfilePic = styled.div`
   flex: 0 0 auto;
-  width: 50px;
-  height: 50px;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
 
   margin-right: 5px;
@@ -172,6 +175,7 @@ const StProfilePic = styled.div`
 
   background: #eee url(${(props) => props.ProfileImageSrc}) no-repeat center /
     cover;
+  border: 1px solid #eee;
 
   img {
     position: absolute;

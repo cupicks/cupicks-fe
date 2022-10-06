@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const RecipeDesc = (props) => {
   const { recipe, modalProps, confirmProps } = props;
-  const { title, recipeId, isLiked } = recipe;
+  const { title, recipeId, isLiked, commentTotal, likeTotal } = recipe;
 
   return (
     <StRecipeDesc>
@@ -16,6 +16,8 @@ const RecipeDesc = (props) => {
         recipeId={recipeId}
         isLiked={isLiked}
         modalProps={modalProps}
+        commentTotal={commentTotal}
+        likeTotal={likeTotal}
       />
       <RecipeDescBody recipe={recipe} confirmProps={confirmProps} />
     </StRecipeDesc>

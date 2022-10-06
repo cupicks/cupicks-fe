@@ -8,21 +8,27 @@ const GlobalStyle = createGlobalStyle`
 
   ${({ theme }) => {
     return css`
-      body {
-        font-size: ${theme.fonts.size.lg};
+      html {
+        font-size: 70%;
         background-color: ${theme.colors.light};
       }
 
       ${theme.devices.tablet} {
-        body {
-          font-size: ${theme.fonts.size.base};
+        html {
+          font-size: 62.5%;
         }
       }
 
       ${theme.devices.mobile} {
-        body {
-          font-size: ${theme.fonts.size.md};
-          background-color: ${theme.colors.background};
+        html {
+          font-size: 60%;
+        }
+        background-color: ${theme.colors.background};
+      }
+
+      ${theme.devices.xs} {
+        html {
+          font-size: 55%;
         }
       }
     `;

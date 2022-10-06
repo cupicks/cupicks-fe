@@ -24,9 +24,9 @@ const CommentInput = ({
     formState: { errors },
   } = useForm();
 
-  const token = localStorage.getItem("refreshToken");
+  // const token = localStorage.getItem("refreshToken");
 
-  const { decodedToken, isExpired } = useJwt(token);
+  // const { decodedToken, isExpired } = useJwt(token);
   // const myDecodedToken = decodeToken(accessToken);
   // console.log(decodedToken.imageUrl);
   // const onSubmit = (data) => console.log(data);
@@ -108,15 +108,27 @@ const CommentInput = ({
     await api(contentType)
       .post(`/comments?recipeId=${recipeId}&comment=${data.comment}`, form)
       .then((res) => {
-        console.log(res);
-        // setNewComments((prev) => [res.data.comment, ...prev]);
-        // setNewComments([...newComments, res.data.comment]);
-        const newComments = [res.data.comment];
-        setComments([...newComments, ...comments]);
+        const newComments = res.data.commentList[0];
+        newComments.createdAt = getCurrentTime();
+        newComments.updatedAt = getCurrentTime();
+
+        setComments([newComments, ...comments]);
       });
     setImagePreview(URL.revokeObjectURL(image?.[0]));
     setValue("image", null);
     setValue("comment", null);
+  };
+
+  /**
+   * response로 받고 있는 형태로 현재시간 구함
+   * createdAt : "0000-00-00 00:00:00"
+   * @return {string} "0000-00-00 00:00:00"
+   */
+  const getCurrentTime = () => {
+    let currentTime = new Date(new Date().getTime() + 32400000).toISOString();
+    const newDate = currentTime.slice(0, 10);
+    const newTime = currentTime.slice(11, 19);
+    return newDate + " " + newTime;
   };
 
   return (
@@ -124,7 +136,10 @@ const CommentInput = ({
       <div className="input_profile">
         <div className="profile_image">
           {profiles !== null && (
-            <StInputProfile src={profiles?.imageUrl}></StInputProfile>
+            <StInputProfile
+              src={profiles?.imageUrl}
+              alt="이미지 미리보기"
+            ></StInputProfile>
           )}
         </div>
       </div>
@@ -134,7 +149,8 @@ const CommentInput = ({
             className="comment_input"
             type="text"
             name="content"
-            maxLength={100}
+            maxLength={150}
+            autoComplete="off"
             // value={comments.content || ""}
             // onChange={onChangeHandler}
             {...register("comment")}
@@ -145,13 +161,17 @@ const CommentInput = ({
         {imagePreview ? (
           <div className="img_preview">
             <label htmlFor="picture">
-              <StPicUpload src={imagePreview}></StPicUpload>
+              <StPicUpload
+                src={imagePreview}
+                alt="업로드할 이미지"
+              ></StPicUpload>
             </label>
             <DeletePreview
               src={editIcon}
               onClick={() => {
                 cancelImage();
               }}
+              alt="삭제 버튼"
             ></DeletePreview>
           </div>
         ) : null}
@@ -161,7 +181,8 @@ const CommentInput = ({
             type="file"
             id="picture"
             {...register("image")}
-            accept="image/*"
+            accept="image/png, image/jpg"
+            alt="업로드할 이미지"
           />
           <label htmlFor="picture" className="pic_upload">
             + 사진 업로드
@@ -176,12 +197,12 @@ export default CommentInput;
 
 const StWrap = styled.form`
   width: 100%;
-  min-height: 88px;
-
-  padding: 10px 24px;
+  max-width: calc(var(--vh, 1vw) * 100);
+  padding: 1rem 2rem;
+  min-height: 9rem;
 
   display: flex;
-  gap: 10px;
+  gap: 1rem;
 
   position: absolute;
   bottom: 0;
@@ -197,12 +218,12 @@ const StWrap = styled.form`
   }
 
   .input_profile {
-    transform: translateY(-2px);
+    transform: translateY(-0.2rem);
   }
 
   .profile_image {
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 4rem;
+    max-height: 4rem;
     border-radius: 50%;
   }
 
@@ -211,35 +232,43 @@ const StWrap = styled.form`
 
     display: flex;
     flex-flow: column;
-    gap: 7px;
+    gap: 0.7rem;
   }
 
   .input_box {
-    height: 35px;
-    line-height: 35px;
+    height: 3.5rem;
+    line-height: 3.5rem;
 
     display: flex;
+    justify-content: flex-end;
 
-    border: 1px solid #d9d9d9;
-    border-radius: 20px;
+    position: relative;
+
+    border: 0.1px solid #d9d9d9;
+    border-radius: 2rem;
   }
 
   .comment_input {
     all: unset;
-    flex: 1 1 auto;
+    flex: 1 1 0px;
 
-    padding-left: 12px;
+    position: absolute;
+    left: 1rem;
+    right: 5rem;
 
-    font-size: 13px;
+    font-size: 1.6rem;
 
     color: #9f9f9f;
   }
 
   .comment_btn {
     all: unset;
-    padding: 0 12px;
+    padding: 0 1.1rem;
+    margin-left: -1rem;
 
-    font-size: 13px;
+    font-size: 1.3rem;
+    word-break: keep-all;
+    white-space: nowrap;
   }
 
   .img_preview {
@@ -255,37 +284,25 @@ const StWrap = styled.form`
     flex: 1 1 auto;
     color: #3897f0;
 
-    font-size: 13px;
-  }
-
-  @media (max-width: 300px) {
-    flex-flow: column;
-    align-items: center;
-    .img_preview {
-      justify-content: center;
-      padding-left: 25px;
-    }
-    .pic_wrap {
-      text-align: center;
-    }
+    font-size: 1.3rem;
   }
 `;
 
 const StInputProfile = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
 
-  box-shadow: 0 0 0 1px #b6b6b6;
+  box-shadow: 0 0 0 0.1px #b6b6b6;
   background: #eee no-repeat url(${(props) => props.src}) center / cover;
 `;
 
 const DeletePreview = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 2.5rem;
+  height: 2.5rem;
 
   position: relative;
-  transform: translate(-11px, -9px);
+  transform: translate(-1.1px, -0.9px);
 `;
 
 const StPicUpload = styled.img`

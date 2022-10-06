@@ -5,11 +5,14 @@ import styled from "styled-components";
 import RecipeSilder from "./element/RecipeSilder";
 import RecipeListToggle from "./element/RecipeListToggle";
 
+import noRecipeBanner02 from "../../assets/image/illustration/banner_no-recipe02.png";
+
 import api from "../../server/api";
 
 const MypageRecipeLikeList = () => {
   const [recipeList, setRecipeList] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [cancelLike, setCancelLike] = useState(false);
 
   // 페이지네이션 재료
   // const [page, setPage] = useState(1);
@@ -45,6 +48,9 @@ const MypageRecipeLikeList = () => {
               recipeList={recipeList}
               setRecipeList={setRecipeList}
               header={true}
+              Recipefetching={Recipefetching}
+              setCancelLike={setCancelLike}
+              bannerImage={noRecipeBanner02}
             />
           </div>
         </StMypageRecipeWrap>

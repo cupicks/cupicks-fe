@@ -51,47 +51,18 @@ const Register = () => {
   const [checkEmail, setCheckEmail] = useState(false);
   const [failure, setFailure] = useState(false);
   const [emailSuccess, setEmailSuccess] = useState(false);
-  const [numberSuccess, setNumberSuccess] = useState(false);
   const [numberFailure, setNumberFailure] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCfError, setPasswordCfError] = useState(false);
   const [completion, setCompletion] = useState(false);
   const [nicknameFailure, setNicknameFailure] = useState(false);
 
-  console.log(getValues());
-
   const onSubmit = (data) => {
     console.log(data);
-    // let contentType = "multi-part/form-data";
-    // //request(body)-> image 보내기
-    // const form = new FormData();
-    // form.append(
-    //   "imageValue",
-    //   getValues("image") === undefined ? null : getValues("image")[0]
-    // );
-    // //마지막 페이지, 이메일, 닉네임 토큰이 있을 때에만 onSubmit사용
-    // if (level === 3) {
-    //   try {
-    //     const res = await api(contentType).post(
-    //       `/auth/signup?password=${getValues(
-    //         "password"
-    //       )}&nicknameVerifyToken=${getValues(
-    //         "nicknameVerifyToken"
-    //       )}&emailVerifyToken=${getValues("emailVerifyToken")}`,
-    //       form
-    //       // { headers: { "Content-Type": "multi-part/form-data" } }
-    //     );
-    //     console.log(res);
-    //     alert(res.data.message);
-    //     // setCompletion(true);
-    //     navigate("/signUp/complete");
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
   };
 
   const completionRegister = async () => {
+    //중복 클릭 방지
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
@@ -111,13 +82,8 @@ const Register = () => {
     let urlTypeTwo = `/auth/signup?password=${newPassword}&nicknameVerifyToken=${newnicknameVerifyToken}&emailVerifyToken=${newemailVerifyToken}`;
 
     try {
-      const res = await api(contentType).post(
-        urlTypeTwo,
-        form,
-        // { headers: { "Content-Type": "multi-part/form-data" } }
-      );
+      const res = await api(contentType).post(urlTypeTwo, form);
       console.log(res);
-      // alert(res.data.message);
       setCompletion(true);
       setTimeout(() => {
         navigate("/sign-up/complete");
@@ -176,19 +142,12 @@ const Register = () => {
         const nickname = getValues("nickname");
         const nicknameVerifyUrl = `/auth/confirm-nickname?emailVerifyToken=${emailVerifyToken}&nickname=${nickname}`;
 
-        const res = await api(contentType).get(
-          nicknameVerifyUrl,
-          // { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-        );
+        const res = await api(contentType).get(nicknameVerifyUrl);
         const token = res.data.nicknameVerifyToken;
-        // console.log(res);
         setValue("nicknameVerifyToken", token);
         console.log(getValues("nicknameVerifyToken"));
-        // setCheckNickname(true);
-        // alert(res.data.message);
       } catch (err) {
         console.log(err);
-        // alert(err.response.data.message);
         setError("nicknameError", { message: err.response.data.message });
         setNicknameFailure(true);
         setTimeout(() => {
@@ -251,7 +210,6 @@ const Register = () => {
       );
       console.log(res.data.message);
       setCheckEmail(true); // input(이메일) 비활성화
-      // alert(res.data.message);
       setCheckNumber(true); // 버튼 바꾸기 (필요없을듯?)
       setMinutes(3); // default 3분
       setSeconds(0); // default 0초
@@ -263,12 +221,6 @@ const Register = () => {
       return;
     } catch (err) {
       console.log(err);
-      // alert(err.response.data.message);
-      // 이것들은 왜있지?
-      // setCheckEmail(false);
-      // setCheckTimer(false);
-      // setCheckNumber(false);
-
       setError("emailError", { message: err.response.data.message });
       //실패시 모달
       setFailure(true);
@@ -302,11 +254,8 @@ const Register = () => {
       setTimeout(() => {
         setLevel(1);
       }, 1000);
-      // alert(res.data.message);
     } catch (err) {
       console.log(err);
-      // alert(err.response.data.message);
-      // setCheckNumberCode(false);
       resetField("Number");
       setError("numberError", { message: err.response.data.message });
       setNumberFailure(true);
@@ -315,17 +264,6 @@ const Register = () => {
       }, 1000);
     }
   };
-  // React.useEffect(() => {
-  //   if (level !== 0) {
-  //     before();
-  //   }
-  // }, []);
-  // React.useEffect(() => {
-  //   resetRegister();
-  // }, []);
-  // React.useEffect(() => {
-  //   next();
-  // }, {});
 
   return (
     <StDiv>
@@ -339,14 +277,14 @@ const Register = () => {
         />
       )}
       {completion && (
-        <ToastMessage text={"회원가입에 성공하셨습니다."} timer={1000} />
+        <ToastMessage text={"회원가입에 성공하셨습니다."} timer={1800} />
       )}
       <StForm onSubmit={handleSubmit(onSubmit)}>
         <Navigation empty={true}>
-          <StArrowBack>
-            <img src={arrowBack} onClick={before} alt="뒤로 가기" />
+          <StArrowBack onClick={before}>
+            <img className="button_go_back" src={arrowBack} alt="뒤로 가기" />
           </StArrowBack>
-          <div className="title">회원가입</div>
+          <span className="title">회원가입</span>
         </Navigation>
 
         {level === 0 && (
@@ -452,6 +390,7 @@ const Register = () => {
             disabled={
               check ||
               (level === 1 && watch("password") === "") ||
+              (level === 1 && watch("password") === undefined) ||
               (level === 1 && watch("password_confirm") === "")
             }
           >
@@ -485,7 +424,7 @@ const StDiv = styled(CustomWrapFullVH)`
   }
 `;
 
-const StArrowBack = styled.div`
+const StArrowBack = styled.button`
   padding: 0.5rem 1rem;
   margin-left: -1rem;
 
