@@ -10,6 +10,7 @@ import api from "../../server/api";
 const MypageRecipeLikeList = () => {
   const [recipeList, setRecipeList] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [cancelLike, setCancelLike] = useState(false);
 
   // 페이지네이션 재료
   // const [page, setPage] = useState(1);
@@ -45,6 +46,8 @@ const MypageRecipeLikeList = () => {
               recipeList={recipeList}
               setRecipeList={setRecipeList}
               header={true}
+              Recipefetching={Recipefetching}
+              setCancelLike={setCancelLike}
             />
           </div>
         </StMypageRecipeWrap>
