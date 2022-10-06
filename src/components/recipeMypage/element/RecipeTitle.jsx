@@ -11,7 +11,7 @@ import styled from "styled-components";
 const RecipeTitle = (props) => {
   const navigate = useNavigate();
 
-  const { title, recipeId, header, liked, setCancelLike } = props;
+  const { title, recipeId, header, liked, handleOnClickSlickBox } = props;
   // console.log(liked);
   // const [cancelLike, setCancelLike] = useState(liked);
 
@@ -26,6 +26,9 @@ const RecipeTitle = (props) => {
         .patch(`/recipes/${recipeId}/dislike`)
         .then((res) => {
           console.log(res);
+          if (res.data.isSuccess) {
+            handleOnClickSlickBox();
+          }
         });
       // setCancelLike((prev) => !prev);
     } catch (err) {
