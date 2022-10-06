@@ -27,10 +27,11 @@ const RecipeIngredientForm = (props) => {
   const ingredientAmountChangeHandler = () => {
     const getIngredientValues = getValues("ingredientList");
     const ingredientValuesArray = getIngredientArray(getIngredientValues);
-    const maxAmount = calcMaxAmount(ingredientValuesArray, currCupSize);
+
+    let maxAmount = 0;
+    if (!cupFull) maxAmount = calcMaxAmount(ingredientValuesArray, currCupSize);
 
     const stateChanges = setMaxAmountState(maxAmount, setCupState, cupFull);
-    console.log(stateChanges);
   };
 
   useEffect(() => {
