@@ -40,14 +40,11 @@ const RecipeBody = (props) => {
 
   return (
     <StWrap>
-      {/* <StRecipeTitle>이번주 인기 레시피</StRecipeTitle> */}
       <CustomRecipeListTitle>
         <h1>이번주 인기 레시피</h1>
       </CustomRecipeListTitle>
 
       <RecipeSlider loggedIn={loggedIn} recipeList={favRecipe} header={true} />
-
-      {/* <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
 
       {/* 임시 타이틀 */}
       <CustomRecipeListTitle>

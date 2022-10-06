@@ -21,8 +21,6 @@ const RecipeTitle = (props) => {
     likeTotal,
     modalProps,
   } = props;
-  // console.log(liked);
-  // const [cancelLike, setCancelLike] = useState(liked);
   const { loggedIn, needLogginModal, setNeedLogginModal } = modalProps;
   const [bestLiked, setBestLiked] = useState(liked);
 
@@ -43,7 +41,6 @@ const RecipeTitle = (props) => {
         await api(contentType)
           .patch(`/recipes/${recipeId}/like`)
           .then((res) => {
-            // console.log(res);
             if (res.data.isSuccess) {
               ev.target.nextSibling.innerText = targetText + 1;
             }
@@ -67,19 +64,6 @@ const RecipeTitle = (props) => {
         console.log(err);
       }
     }
-    // try {
-    //   await api(contentType)
-    //     .patch(`/recipes/${recipeId}/dislike`)
-    //     .then((res) => {
-    //       console.log(res);
-    //       if (res.data.isSuccess) {
-    //         handleOnClickSlickBox();
-    //       }
-    //     });
-    //   // setCancelLike((prev) => !prev);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
   return (
     <StRecipeTitle>
