@@ -76,17 +76,17 @@ const RecipeList = (props) => {
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
-          if (title.length > 11) {
-            titleText = title.slice(0, 11) + "...";
+          if (title.length > 10) {
+            titleText = title.slice(0, 10) + "..";
           }
 
           if (windowWidth < 450) {
             if (title.length > 6) {
-              titleText = title.slice(0, 6) + "...";
+              titleText = title.slice(0, 6) + "..";
             }
-          } else if (windowWidth < 500) {
-            if (title.length > 7) {
-              titleText = title.slice(0, 7) + "...";
+          } else if (windowWidth < 600) {
+            if (title.length > 8) {
+              titleText = title.slice(0, 8) + "..";
             }
           }
 
@@ -113,29 +113,30 @@ const StSlider = styled(Slider)`
   background-color: #fff;
 
   .padding_box {
-    min-height: 42px;
-    padding: 11px 20px 12px;
+    min-height: 4.2rem;
+    padding: 1.1rem 1.5rem 1.2rem;
 
     & * {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 1.4rem;
       padding: 0;
     }
 
     img {
-      width: 18px;
+      width: 1.8rem;
     }
   }
 
   .slick-list {
-    width: 85%;
+    width: 100%;
+    max-width: 40rem;
     margin: 0 auto;
     overflow: visible;
   }
 
   .slick-slide {
     position: relative;
-    padding: 12px;
+    padding: 1.2rem;
   }
 
   .slide {

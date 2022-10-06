@@ -254,8 +254,9 @@ const StWrap = styled.form`
 
     position: absolute;
     left: 1rem;
+    right: 5rem;
 
-    font-size: 1.3rem;
+    font-size: 1.6rem;
 
     color: #9f9f9f;
   }

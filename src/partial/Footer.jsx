@@ -44,35 +44,37 @@ const Footer = ({ pathname }) => {
 
   return (
     <CustomFooter>
-      <CustomFooterButton onClick={goToMain}>
-        <div className={pathCommunity ? "svg_box on" : "svg_box"}>
-          <Icon01 />
-        </div>
-      </CustomFooterButton>
+      <div className="contents_area">
+        <CustomFooterButton onClick={goToMain}>
+          <div className={pathCommunity ? "svg_box on" : "svg_box"}>
+            <Icon01 />
+          </div>
+        </CustomFooterButton>
 
-      {/* <CustomFooterButton onClick={goToMain}>
+        {/* <CustomFooterButton onClick={goToMain}>
         <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
           <Icon02 />
         </div>
       </CustomFooterButton> */}
 
-      <CustomFooterButton onClick={goToCreate}>
-        <div className={pathRecipeCreate ? "svg_box on" : "svg_box"}>
-          <Icon03 />
-        </div>
-      </CustomFooterButton>
+        <CustomFooterButton onClick={goToCreate}>
+          <div className={pathRecipeCreate ? "svg_box on" : "svg_box"}>
+            <Icon03 />
+          </div>
+        </CustomFooterButton>
 
-      {/* <CustomFooterButton onClick={goToCreate}>
+        {/* <CustomFooterButton onClick={goToCreate}>
         <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
           <Icon04 />
         </div>
       </CustomFooterButton> */}
 
-      <CustomFooterButton onClick={goToMypage}>
-        <div className={pathMypage ? "svg_box on" : "svg_box"}>
-          <Icon05 />
-        </div>
-      </CustomFooterButton>
+        <CustomFooterButton onClick={goToMypage}>
+          <div className={pathMypage ? "svg_box on" : "svg_box"}>
+            <Icon05 />
+          </div>
+        </CustomFooterButton>
+      </div>
     </CustomFooter>
   );
 };

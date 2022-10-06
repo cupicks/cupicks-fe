@@ -65,10 +65,10 @@ const RecipeTitle = (props) => {
 export default RecipeTitle;
 
 const StRecipeTitle = styled.div`
-  padding: 12px 0 40px;
+  padding: 1.2rem 0 4rem;
 
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.8rem;
 
   color: #393939;
 
@@ -86,12 +86,12 @@ const StRecipeTitle = styled.div`
 const StIconSet = styled.div`
   display: flex;
 
-  gap: 10px;
+  gap: 1rem;
 
   .talk_btn {
-    width: 25px;
+    width: 2.5rem;
   }
   .like_btn {
-    width: 29px;
+    width: 2.9rem;
   }
 `;
