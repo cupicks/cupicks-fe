@@ -15,7 +15,7 @@ const RecipeList = (props) => {
   const { recipeList, header = false, setCancelLike } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
-  // const [cancelLike, setCancelLike] = useState(false);
+  const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
   const [windowSize, setWindowSize] = useState({
     width: 0,
   });
@@ -63,15 +63,14 @@ const RecipeList = (props) => {
       });
     };
     handleResize();
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
-
+  console.log(countRecipeList);
   return (
     <>
       <StSlider {...settings}>
-        {recipeList?.length === 0 && (
+        {(recipeList?.length === 0 || countRecipeList === 0) && (
           <h3 className="list_empty">레시피가 없습니다.</h3>
         )}
 
@@ -99,6 +98,8 @@ const RecipeList = (props) => {
               onClickCard={onClickCard}
               recipe={recipe}
               titleText={titleText}
+              setCountRecipeList={setCountRecipeList}
+              countRecipeList={countRecipeList}
             />
           );
         })}

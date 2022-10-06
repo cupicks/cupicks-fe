@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,13 +8,18 @@ import IngredientList from "./IngredientList";
 import RecipeTitle from "./RecipeTitle";
 
 import styled from "styled-components";
-import { useRef } from "react";
 
 const RecipeSlickBox = (props) => {
-  const { header, onClickCard, recipe, titleText } = props;
+  const {
+    header,
+    onClickCard,
+    recipe,
+    titleText,
+    setCountRecipeList,
+    countRecipeList,
+  } = props;
   const [showSlickBox, setShowSlickBox] = useState(true);
   const currentSlickBox = useRef();
-
   const headerElement = header ? (
     <StRecipeUserInfo>
       <StProfilePic prfilePicSrc={recipe.resizedUrl} />
@@ -26,13 +31,17 @@ const RecipeSlickBox = (props) => {
 
   const handleOnClickSlickBox = () => {
     setShowSlickBox(false);
-    currentSlickBox.current.parentElement.parentElement.remove();
+    setCountRecipeList((prev) => prev - 1);
+    if (countRecipeList !== 0) {
+      currentSlickBox.current.parentElement.parentElement.remove();
+    }
+    console.log(currentSlickBox.current.parentElement.parentElement);
   };
 
   return (
     // header, onClick, recipe, titleText // Slider의 자식은 inline-block
     <>
-      {showSlickBox && (
+      {showSlickBox && countRecipeList !== 0 && (
         <StSlickBox
           isTitle={header}
           ref={currentSlickBox}
