@@ -24,9 +24,9 @@ const CommentInput = ({
     formState: { errors },
   } = useForm();
 
-  const token = localStorage.getItem("refreshToken");
+  // const token = localStorage.getItem("refreshToken");
 
-  const { decodedToken, isExpired } = useJwt(token);
+  // const { decodedToken, isExpired } = useJwt(token);
   // const myDecodedToken = decodeToken(accessToken);
   // console.log(decodedToken.imageUrl);
   // const onSubmit = (data) => console.log(data);
