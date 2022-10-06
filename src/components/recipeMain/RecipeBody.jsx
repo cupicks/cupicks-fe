@@ -10,7 +10,6 @@ const { CustomRecipeListTitle } = styledElementComponents;
 
 import api from "../../server/api";
 
-
 const RecipeBody = (props) => {
   const { loggedIn } = props;
   const [favRecipe, setFavRecipe] = useState([]);
@@ -46,7 +45,7 @@ const RecipeBody = (props) => {
         <h1>이번주 인기 레시피</h1>
       </CustomRecipeListTitle>
 
-      <RecipeSlider recipeList={favRecipe} header={true} />
+      <RecipeSlider loggedIn={loggedIn} recipeList={favRecipe} header={true} />
 
       {/* <StAllRecipeTitle>최신순 ▼</StAllRecipeTitle>
 
