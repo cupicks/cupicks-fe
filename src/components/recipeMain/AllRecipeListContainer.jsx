@@ -29,7 +29,7 @@ const AllRecipeListContainer = (props) => {
     likeTotal,
     commentTotal,
   } = allrecipes;
-  const { loggedIn, needLogginModal, setNeedLogginModal, timer } = modalProps;
+  const { loggedIn, needLogginModal, setNeedLogginModal } = modalProps;
 
   const navigate = useNavigate();
   const [liked, setLiked] = useState(isLiked);
@@ -79,9 +79,6 @@ const AllRecipeListContainer = (props) => {
     if (!loggedIn) {
       if (!needLogginModal) {
         setNeedLogginModal(true);
-        setTimeout(() => {
-          setNeedLogginModal(false);
-        }, timer);
       }
       return;
     }
