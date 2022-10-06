@@ -81,12 +81,8 @@ const RecipeList = (props) => {
           }
 
           if (windowWidth < 450) {
-            if (title.length > 4) {
-              titleText = title.slice(0, 4).replace(" ", "") + "..";
-            }
-          } else if (windowWidth < 550) {
             if (title.length > 6) {
-              titleText = title.slice(0, 6).replace(" ", "") + "..";
+              titleText = title.slice(0, 6) + "..";
             }
           } else if (windowWidth < 600) {
             if (title.length > 8) {
@@ -154,7 +150,7 @@ const StSlider = styled(Slider)`
 
   .padding_box {
     min-height: 4.2rem;
-    padding: 1.1rem 2rem 1.2rem;
+    padding: 1.1rem 1.5rem 1.2rem;
 
     & * {
       font-weight: 700;
@@ -168,7 +164,8 @@ const StSlider = styled(Slider)`
   }
 
   .slick-list {
-    width: 85%;
+    width: 100%;
+    max-width: 40rem;
     margin: 0 auto;
     overflow: visible;
   }
@@ -200,6 +197,8 @@ const StRecipeUserInfo = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
 `;
 
 const StProfilePic = styled.div`
@@ -207,8 +206,9 @@ const StProfilePic = styled.div`
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+  border: 1px solid #b6b6b6;
 
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 
   position: relative;
 
