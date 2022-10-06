@@ -55,7 +55,7 @@ const StWrapBody = styled(CustomWrapNoHeader)`
 const StTopButton = styled.button`
   position: absolute;
   bottom: 10rem;
-  right: 3rem;
+  right: 1.1rem;
 
   padding: 0.5rem;
 
