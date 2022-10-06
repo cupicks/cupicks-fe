@@ -83,9 +83,7 @@ const RecipeCreateNavigation = (props) => {
   let colorRequired = true;
 
   useEffect(() => {
-    console.log(maxAmount);
     if (maxAmount === 0) {
-      console.log("재료가 다 찼습니다.");
       setCupState((prev) => ({ ...prev, cupFull: true }));
     }
   }, []);
@@ -120,8 +118,8 @@ const RecipeCreateNavigation = (props) => {
     !recipeCompletedRequired ? (recipeCompletedRequired = true) : "";
   }
 
-  /*********************************/
-  /**** "재료 처음부터 추가하기"  ****/
+  /**************************************/
+  /*** "재료 처음부터 추가하기 컨펌박스" ***/
   /** 재료 처음부터 만들기 Confirmed */
   const goFirstConfirmed = () => {
     setShowComfirmBox(false);
