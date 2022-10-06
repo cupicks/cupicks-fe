@@ -69,11 +69,10 @@ const RecipeList = (props) => {
   console.log(countRecipeList);
   return (
     <>
+      {(recipeList?.length === 0 || countRecipeList === 0) && (
+        <StListEmpty>레시피가 없습니다.</StListEmpty>
+      )}
       <StSlider {...settings}>
-        {(recipeList?.length === 0 || countRecipeList === 0) && (
-          <h3 className="list_empty">레시피가 없습니다.</h3>
-        )}
-
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
@@ -144,11 +143,15 @@ const StSlider = styled(Slider)`
 
     background-color: #aaa;
   }
+`;
 
-  .list_empty {
-    margin: 2rem 0 5rem;
+const StListEmpty = styled.p`
+  width: 100%;
+  padding-bottom: 5rem;
 
-    text-align: center;
-    color: #cdcdcd;
-  }
+  font-size: 1.7rem;
+  text-align: center;
+
+  color: #cdcdcd;
+  background-color: #fff;
 `;
