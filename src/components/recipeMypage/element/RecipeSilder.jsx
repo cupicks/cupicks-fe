@@ -76,17 +76,21 @@ const RecipeList = (props) => {
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
-          if (title.length > 11) {
-            titleText = title.slice(0, 11) + "...";
+          if (title.length > 10) {
+            titleText = title.slice(0, 10) + "..";
           }
 
           if (windowWidth < 450) {
-            if (title.length > 6) {
-              titleText = title.slice(0, 6) + "...";
+            if (title.length > 4) {
+              titleText = title.slice(0, 4).replace(" ", "") + "..";
             }
-          } else if (windowWidth < 500) {
-            if (title.length > 7) {
-              titleText = title.slice(0, 7) + "...";
+          } else if (windowWidth < 550) {
+            if (title.length > 6) {
+              titleText = title.slice(0, 6).replace(" ", "") + "..";
+            }
+          } else if (windowWidth < 600) {
+            if (title.length > 8) {
+              titleText = title.slice(0, 8) + "..";
             }
           }
 
@@ -125,8 +129,8 @@ const RecipeList = (props) => {
 export default RecipeList;
 
 const StSlickBox = styled.div`
-  height: ${(props) => (props.isTitle ? "calc(40vh + 50px)" : "40vh")};
-  border-radius: 16px;
+  height: ${(props) => (props.isTitle ? "calc(40vh + 5.0rem)" : "40vh")};
+  border-radius: 1.6rem;
 
   display: flex;
   flex-flow: column;
@@ -134,11 +138,11 @@ const StSlickBox = styled.div`
 
   overflow: hidden;
 
-  box-shadow: -2px -2px 10px rgba(155, 155, 155, 0.1),
-    3px 3px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: -0.2rem -0.2rem 1rem rgba(155, 155, 155, 0.1),
+    0.3rem 0.3rem 0.8rem rgba(0, 0, 0, 0.1);
 
   .flex_box {
-    height: ${(props) => (props.isTitle ? "calc(100% - 50px)" : "100%")};
+    height: ${(props) => (props.isTitle ? "calc(100% - 5.0rem)" : "100%")};
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
@@ -149,17 +153,17 @@ const StSlider = styled(Slider)`
   background-color: #fff;
 
   .padding_box {
-    min-height: 42px;
-    padding: 11px 20px 12px;
+    min-height: 4.2rem;
+    padding: 1.1rem 2rem 1.2rem;
 
     & * {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 1.4rem;
       padding: 0;
     }
 
     img {
-      width: 18px;
+      width: 1.8rem;
     }
   }
 
@@ -171,7 +175,7 @@ const StSlider = styled(Slider)`
 
   .slick-slide {
     position: relative;
-    padding: 12px;
+    padding: 1.2rem;
   }
 
   .slide {
@@ -189,26 +193,26 @@ const StSlider = styled(Slider)`
 `;
 
 const StCupHeight = styled.div`
-  height: ${(props) => "calc(" + props.cupHeight + "% - 42px)"};
+  height: ${(props) => "calc(" + props.cupHeight + "% - 4.2rem)"};
 `;
 
 const StRecipeUserInfo = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 1rem;
 `;
 
 const StProfilePic = styled.div`
   flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
 
-  margin-right: 5px;
+  margin-right: 0.5rem;
 
   position: relative;
 
-  font-size: 14px;
+  font-size: 1.4rem;
 
   background: #eee url(${(props) => props.prfilePicSrc}) no-repeat center /
     cover;
