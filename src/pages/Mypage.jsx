@@ -50,7 +50,6 @@ const Mypage = () => {
           <MypageMyInfo token={token} userData={userData} profiles={profiles} />
           <MypageRecipeMyList on={true} />
           <MypageRecipeLikeList />
-          <div></div>
         </>
       )}
     </StWrap>

@@ -7,56 +7,61 @@ import { RecipeListContainer } from "./RecipeListContainer";
 
 const RecipeList = ({ favRecipe, setFavRecipe }) => {
   // favRecipe = favRecipe.recipeList;
-  console.log(favRecipe)
+  console.log(favRecipe);
   const settings = {
     centerMode: true,
-    arrows: true,
-    dots: false,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     variableWidth: false,
     speed: 500,
-    nextArrow: <Div>&gt</Div>,
-    prevArrow: <DivPre>&lt</DivPre>,
+    // beforeChange: handleBeforeChange,
+    // afterChange: handleAfterChange,
   };
   return (
-    <>
+    <SlideWrap>
       <StyledSlider {...settings}>
-        {favRecipe.map((recipes) => (
-          <RecipeListContainer recipes={recipes} />
+        {favRecipe.map((recipes, i) => (
+          <RecipeListContainer recipes={recipes} i={i} />
         ))}
       </StyledSlider>
-    </>
+    </SlideWrap>
   );
 };
 
 export default RecipeList;
 
+const SlideWrap = styled.div`
+  width: 100%;
+`;
+
 const StyledSlider = styled(Slider)`
-  width: 100vw;
-  position: relative;
+  /* width: 100vw; */
+  /* position: relative; */
 
-  .slick-prev::before {
-    opacity: 1;
-    /* display: none; */
-  }
-  .slick-next::before {
-    opacity: 1;
-    /* display: none; */
-  }
-
-  .slick-slide div {
+  /* .slick-slide div {
     cursor: pointer;
     margin-left: 2px;
     margin-right: 14px;
-  }
+  } */
+
   .slick-list {
     /* position: absolute; */
     /* width: 40vw; */
     /* width: 390px; */
-    width: 100vw;
+    width: 85%;
     margin: 0 auto;
+    overflow: visible;
+  }
+
+  .slick-slide {
+    position: relative;
+    padding: 5px;
+  }
+
+  .slide {
+    height: 40vh;
+    background-color: #aaa;
   }
 `;
 

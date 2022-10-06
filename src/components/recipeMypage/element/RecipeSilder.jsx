@@ -11,8 +11,9 @@ import RecipeTitle from "./RecipeTitle";
 import styled from "styled-components";
 import RecipeSlickBox from "./RecipeSlickBox";
 
-const RecipeList = (props) => {
-  const { recipeList, header = false, setCancelLike } = props;
+
+const RecipeSlider = (props) => {
+  const { recipeList, header = false } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
   const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
@@ -107,7 +108,7 @@ const RecipeList = (props) => {
   );
 };
 
-export default RecipeList;
+export default RecipeSlider;
 
 const StSlider = styled(Slider)`
   background-color: #fff;
