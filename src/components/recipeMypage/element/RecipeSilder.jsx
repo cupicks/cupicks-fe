@@ -11,9 +11,10 @@ import RecipeTitle from "./RecipeTitle";
 import styled from "styled-components";
 
 const RecipeList = (props) => {
-  const { recipeList, header = false } = props;
+  const { recipeList, header = false, setCancelLike } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
+  // const [cancelLike, setCancelLike] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: 0,
   });
@@ -111,7 +112,13 @@ const RecipeList = (props) => {
                   <IngredientList key={i} recipe={recipe} />
                 </StCupHeight>
                 <div className="padding_box">
-                  <RecipeTitle recipeId={recipe.recipeId} title={titleText} />
+                  <RecipeTitle
+                    recipeId={recipe.recipeId}
+                    title={titleText}
+                    header={header}
+                    liked={recipe.isLiked}
+                    setCancelLike={setCancelLike}
+                  />
                 </div>
               </div>
             </StSlickBox>

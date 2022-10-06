@@ -1,14 +1,38 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import talk from "../../../assets/svg/talk.svg";
+import like from "../../../assets/svg/like_fill_m.svg";
+
+import api from "../../../server/api";
 
 import styled from "styled-components";
 
 const RecipeTitle = (props) => {
   const navigate = useNavigate();
 
-  const { title, recipeId } = props;
+  const { title, recipeId, header, liked, setCancelLike } = props;
+  // console.log(liked);
+  // const [cancelLike, setCancelLike] = useState(liked);
 
+  const likeCard = async (e) => {
+    e.stopPropagation();
+    // console.log(
+    //   e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove(),
+    // );
+    let contentType = "application/json";
+    try {
+      await api(contentType)
+        .patch(`/recipes/${recipeId}/dislike`)
+        .then((res) => {
+          console.log(res);
+        });
+      // setCancelLike((prev) => !prev);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // console.log(cancelLike);
   return (
     <StRecipeTitle>
       <span>{title}</span>
@@ -22,6 +46,14 @@ const RecipeTitle = (props) => {
             navigate(`/recipe/${recipeId}/comment`, { state: title });
           }}
         />
+        {header && (
+          <img
+            className="like_btn"
+            src={like}
+            alt="좋아요"
+            onClick={likeCard}
+          />
+        )}
       </StIconSet>
     </StRecipeTitle>
   );
