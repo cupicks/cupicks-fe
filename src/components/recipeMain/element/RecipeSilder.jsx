@@ -92,17 +92,17 @@ const RecipeSlider = (props) => {
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
-          if (title.length > 10) {
-            titleText = title.slice(0, 10) + "..";
+          if (title.length > 12) {
+            titleText = title.slice(0, 12) + "..";
           }
 
-          if (windowWidth < 450) {
-            if (title.length > 6) {
-              titleText = title.slice(0, 6) + "..";
+          if (windowWidth < 400) {
+            if (title.length > 5) {
+              titleText = title.slice(0, 5) + "..";
             }
           } else if (windowWidth < 600) {
-            if (title.length > 8) {
-              titleText = title.slice(0, 8) + "..";
+            if (title.length > 10) {
+              titleText = title.slice(0, 10) + "..";
             }
           }
 
