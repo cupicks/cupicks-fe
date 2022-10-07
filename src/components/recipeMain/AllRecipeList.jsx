@@ -8,6 +8,7 @@ import styledLayoutComponents from "../../styles/customLayoutStyle";
 const { CustomFlexListWrap, CustomFlexList } = styledLayoutComponents;
 
 import ConfirmBox from "../elements/modal/ConfirmBox";
+import Ingredient from "./element/Ingredient";
 
 const AllRecipeList = (props) => {
   const { loggedIn } = props;
@@ -39,14 +40,21 @@ const AllRecipeList = (props) => {
       await api(contentType)
         .get(`/recipes?page=${page}&count=12`)
         .then((res) => {
-          setItems([...res.data.recipeList]);
+          if (res.data.isSuccess) {
+            setItems([...res.data.recipeList]);
+          }
+          console.log("첫번째 요청");
+          console.log(res);
         });
     } else {
       await api(contentType)
-        .get(`/recipes?page=${page + 1}&count=6`)
+        .get(`/recipes?page=${page}&count=6`)
         .then((res) => {
+          if (res.data.isSuccess && page !== 2) {
+            setItems([...items, ...res.data.recipeList]);
+          }
+          console.log("n번째 요청");
           console.log(res);
-          setItems([...items, ...res.data.recipeList]);
         });
     }
     setLoading(false);
