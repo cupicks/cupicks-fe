@@ -16,6 +16,13 @@ import { gotoScrollTop as gotoRecipeScrollTop } from "../../util/goToScrollTop";
 const UserGuideContents = (props) => {
   const { username, loggedIn, scrollTopLookAround, scrollElement } = props;
   const navigate = useNavigate();
+  const goToCreate = () => {
+    if (!loggedIn) {
+      navigate("/recipe/create/guest", { replace: true, state: undefined });
+      return;
+    }
+    navigate("/recipe/create", { replace: true, state: undefined });
+  };
 
   return (
     <StUserGuideContents>
@@ -36,7 +43,7 @@ const UserGuideContents = (props) => {
           >
             <img className="icon" src={icon01} alt="둘러보기" />
           </StIconList>
-          <StIconList onClick={() => navigate("/recipe/create/guest")}>
+          <StIconList onClick={goToCreate}>
             <img className="icon" src={icon02} alt="레시피 만들기" />
           </StIconList>
           <StIconList onClick={() => navigate("/mypage")}>
