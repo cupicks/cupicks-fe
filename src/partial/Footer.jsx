@@ -39,7 +39,8 @@ const Footer = ({ pathname }) => {
   };
 
   const pathCommunity = pathname === "/recipe" && pathname !== "/recipe/create";
-  const pathRecipeCreate = pathname === "/recipe/create";
+  const pathRecipeCreate =
+    pathname === "/recipe/create" || pathname === "/recipe/create/guest";
   const pathMypage = pathname === "/mypage" || pathname === "/profile/edit";
 
   return (
