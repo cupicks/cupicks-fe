@@ -22,11 +22,11 @@ const RecipeBody = (props) => {
       const response = await api(contentType)
         .get(`/ranking/weekly-recipe`)
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           setFavRecipe([...res.data.bestRecipeList]);
         });
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 

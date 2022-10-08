@@ -69,7 +69,6 @@ const RecipeSlider = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
-  // console.log(recipeList);
 
   // 모달을 보여주는 state.
   const [needLogginModal, setNeedLogginModal] = useState(false);
