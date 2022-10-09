@@ -59,7 +59,9 @@ const Nickname = (props) => {
       </CustomInputBox>
 
       <StErrorBox>
-        <p className="info">닉네임은 영문 또는 숫자 2~10자로 입력해주세요.</p>
+        <p className="info">
+          닉네임은 한글 또는 영문 또는 숫자 2~10자로 입력해주세요.
+        </p>
         {errors.nickname && <p>{errors.nickname.message}</p>}
       </StErrorBox>
     </StDiv>
