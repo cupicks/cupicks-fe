@@ -39,6 +39,7 @@ const ResetPassword = () => {
   };
 
   const clickResetPw = async () => {
+    const currentEmail = getValues("email");
     if (errors.email) {
       setEmailError(true);
       setTimeout(() => {
@@ -49,16 +50,21 @@ const ResetPassword = () => {
 
     try {
       const res = await api(contentType).get(
-        `/auth/send-password?email=${getValues("email")}`,
+        `/auth/send-password?email=${currentEmail}`,
       );
       console.log(res);
       setResetSuccess(true);
 
-      setTimeout(() => {
-        navigate("/sign-in");
-      }, 1000);
+      if (res.data.isSuccess) {
+        setTimeout(() => {
+          // API 업데이트 후 이곳에 토큰 같이 보내기
+          navigate("/sign-in", { state: { email: currentEmail } });
+        }, 1000);
+      }
     } catch (err) {
-      setError("emailFailure", { message: err.response.data.message });
+      setError("emailFailure", {
+        message: `${currentEmail}은(는)\n 존재하지 않는 이메일입니다.`,
+      });
 
       setEmailFailure(true);
       setTimeout(() => {
