@@ -21,7 +21,7 @@
 - GitHub / [백엔드, Express 저장소](https://github.com/cupicks/cupicks-be)
 - GitHub / [백엔드, Labmda 저장소](https://github.com/cupicks/cupicks-be-lambda)
 
-### BE 팀원
+### FE 팀원
 
 | 포지션 | 이름 | number | email | Link |
 | :---- | :---- | :---- | :---- | :---- |
@@ -29,7 +29,7 @@
 | Frontend | 문창용 | 010-2596-3918 | cmun2@illinois.edu | [GitHub](https://github.com/cmun2) |
 | Frontend | 도원석 | 010-2513-1114 | wsdo970@gmail.com | [GitHub](https://github.com/wonseok-do) |
 
-### BE 역할
+### FE 역할
 
 | 포지션 | 이름 | Role |
 | :---- | :---- | :---- |
