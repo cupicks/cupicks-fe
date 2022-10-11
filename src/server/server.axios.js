@@ -5,25 +5,39 @@ const serverAxios = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
+/** refreshToken과 accessToken를 삭제 */
+const removeBothToken = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+};
+
+const getTokensObj = () => {
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  return {
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+    isExpiredAccessTkn: isExpired(accessToken),
+    isExpiredRefreshTkn: isExpired(refreshToken),
+  };
+};
+
 /** @param { Request } req */
 const requestHandler = async (req) => {
-  const accessToken = localStorage.getItem("accessToken");
-  const isExpiredAccessTkn = isExpired(accessToken);
+  const { accessToken, isExpiredAccessTkn, refreshToken, isExpiredRefreshTkn } =
+    getTokensObj();
 
-  const refreshToken = localStorage.getItem("refreshToken");
-  const isExpiredRefreshTkn = isExpired(refreshToken);
-
-  // 토큰 만료 로직 => 이슈에 정리
-  // https://github.com/cupicks/cupicks-fe/issues/117
-  if (isExpiredRefreshTkn) {
+  // 토큰 만료
+  if (refreshToken && isExpiredRefreshTkn) {
     // console.log("로그아웃 상태");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-  } else {
+    removeBothToken();
+  } else if (refreshToken !== null) {
+    // 토큰이 만료되지 않음
     // console.log("로그인 상태");
 
-    if (isExpiredAccessTkn) {
-      // console.log("액세스 토큰이 만료되었습니다.");
+    if (!accessToken || isExpiredAccessTkn) {
+      console.log("액세스 토큰이 만료되었습니다.");
 
       try {
         const response = await serverAxios.get(
@@ -38,8 +52,7 @@ const requestHandler = async (req) => {
         return req;
       } catch (error) {
         console.log(error);
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("accessToken");
+        removeBothToken();
 
         return req;
       }
