@@ -10,7 +10,7 @@
 
 ### 아키텍처
 
-<image src="https://user-images.githubusercontent.com/86306802/193556455-15aa6cc8-58e5-4825-9740-4f338a51aa0f.png" />
+<image src="https://user-images.githubusercontent.com/86306802/193556455-15aa6cc8-58e5-4825-9740-4f338a51aa0f.png" style= "width:50%" />
 
 ### 관련 링크
 
