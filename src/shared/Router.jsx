@@ -33,6 +33,7 @@ const Router = () => {
 
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
+  const accessToken = localStorage.getItem("accessToken");
 
   const caseNoLoggedIn = [
     "/sign-in",
@@ -78,7 +79,7 @@ const Router = () => {
         });
       }
     }
-  }, [loggedIn]);
+  }, [pathname]);
 
   return (
     <>

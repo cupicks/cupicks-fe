@@ -21,6 +21,7 @@ const RecipeDescBody = (props) => {
   } = recipe;
   const { recipeDeleteButtonClickHandler } = confirmProps;
   const [isAuthor, setIsAuthor] = useState(false);
+  const token = localStorage.getItem("refreshToken");
 
   const getProfile = async () => {
     const contentType = "application/json";
@@ -34,7 +35,7 @@ const RecipeDescBody = (props) => {
     }
   };
   useEffect(() => {
-    getProfile();
+    token ? getProfile() : "";
   }, []);
 
   // 프로필 이미지

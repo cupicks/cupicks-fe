@@ -47,7 +47,6 @@ const RecipeBody = (props) => {
 
       <RecipeSlider loggedIn={loggedIn} recipeList={favRecipe} header={true} /> */}
 
-      {/* 임시 타이틀 */}
       <CustomRecipeListTitle>
         <h1>전체 레시피</h1>
       </CustomRecipeListTitle>
