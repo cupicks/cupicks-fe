@@ -4,9 +4,14 @@
 
 > Cupick 은 **이미지만 보고 만드는 카페 레시피 제작 및 공유 서비스** 입니다. <br>
 > 
-> 2022.08.26 ~ 2022.10.07 까지 총 **42 일** 간 진행되었습니다.
+> 프로젝트는 2022.08.26 ~ 2022.10.07 까지 총 **42 일** 간 진행되었습니다.<br>
+> 종료 후, 2022.10.11 부터 **유저 테스트** 반영한 **추가 기능** 및 **리팩터링** 작업을 하고 있습니다.
 
----
+### 버전 관리
+
+| 버전 | 기간 |
+| ------- | --- |
+| v1.0.000 | 2022.08.26 ~ 2022.10.07 |
 
 ### 아키텍처
 
@@ -18,8 +23,6 @@
 - Notion / [브로슈어](https://www.notion.so/24545255734e48d487e3b55da356dc4e)
 - Notion / [협업 문서](https://www.notion.so/73c1cc9c739a481fa92192ba7676811f)
 - GitHub / [프론트엔드, React 저장소](https://github.com/cupicks/cupicks-fe)
-- GitHub / [백엔드, Express 저장소](https://github.com/cupicks/cupicks-be)
-- GitHub / [백엔드, Labmda 저장소](https://github.com/cupicks/cupicks-be-lambda)
 
 ### FE 팀원
 
