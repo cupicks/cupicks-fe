@@ -84,24 +84,24 @@ const StTextInputContainer = styled.div`
   input,
   textarea {
     color: #393939;
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 400;
-    line-height: 27px;
+    line-height: 2.7rem;
   }
 
   .info_box {
     color: #aaa;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 700;
-    line-height: 21px;
+    line-height: 2.1rem;
   }
 
   .error_box {
     color: #aaa;
 
-    min-height: 20px;
+    min-height: 2rem;
   }
 
   &:last-child {
@@ -120,18 +120,18 @@ const StIsPulicBox = styled.div`
   align-items: center;
 
   .info_box {
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 700;
-    line-height: 24px;
+    line-height: 2.4rem;
   }
 
   display: none;
 `;
 
 const StRangeBar = styled.div`
-  width: 46px;
-  height: 23px;
-  border-radius: 50px;
+  width: 4.6rem;
+  height: 2.3rem;
+  border-radius: 5rem;
 
   position: relative;
 
@@ -153,16 +153,16 @@ const StRangeBar = styled.div`
   }
 
   .range_circle {
-    width: 23px;
+    width: 2.3rem;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 1.5rem;
 
     position: absolute;
     left: ${(props) => (props.isPublic ? "50%" : "0")};
     right: 0;
 
     background-color: #fff;
-    border: 1px solid ${(props) => (props.isPublic ? "#393939" : "#cdcdcd")};
+    border: 0.1rem solid ${(props) => (props.isPublic ? "#393939" : "#cdcdcd")};
     color: #fff;
 
     transition: all 0.4s;

@@ -122,27 +122,27 @@ const StMypageMyInfo = styled.div`
 `;
 
 const StDropMenu = styled.ul`
-  max-width: calc(100vw - 180px);
-  border-radius: 10px;
+  max-width: calc(100vw - 18rem);
+  border-radius: 1rem;
 
   position: absolute;
-  left: 150px;
+  left: 15rem;
   transform: translateY(40%);
   z-index: 9;
 
-  box-shadow: 2px 2px 8px rgba(55, 55, 55, 0.2);
+  box-shadow: 0.2rem 0.2rem 0.8rem rgba(55, 55, 55, 0.2);
   color: #393939;
 
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 150%;
 
   cursor: pointer;
 
   li {
-    padding: 10px 22px 11px;
+    padding: 1rem 2.2rem 1.1rem;
 
-    border-bottom: 1px solid #cdcdcd;
+    border-bottom: 0.1rem solid #cdcdcd;
     background-color: #fff;
 
     span {
@@ -154,7 +154,7 @@ const StDropMenu = styled.ul`
     .email {
       color: #cdcdcd;
       font-weight: 500;
-      font-size: 13px;
+      font-size: 1.3rem;
     }
   }
 
@@ -169,13 +169,13 @@ const StProfilePic = styled.div`
   height: 5rem;
   border-radius: 50%;
 
-  margin-right: 5px;
+  margin-right: 0.5rem;
 
   position: relative;
 
   background: #eee url(${(props) => props.ProfileImageSrc}) no-repeat center /
     cover;
-  border: 1px solid #eee;
+  border: 0.1rem solid #eee;
 
   img {
     position: absolute;

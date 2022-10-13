@@ -1,16 +1,20 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import styled from "styled-components";
-import talk_edit from "../../assets/svg/talk_edit.svg";
-import CommentOption from "./CommentOption";
-import api from "../../server/api";
 import { Navigate, useParams } from "react-router-dom";
+
 import { useJwt } from "react-jwt";
-import CommentInput from "./CommentInput";
-import ToastMessage from "../elements/modal/ToastMessage";
 import { useInView } from "react-intersection-observer";
 
+import api from "../../server/api";
+
+import ToastMessage from "../elements/modal/ToastMessage";
+import CommentOption from "./CommentOption";
+import CommentInput from "./CommentInput";
+
+import styled from "styled-components";
 import styledLayoutComponents from "../../styles/customLayoutStyle";
 const { CustomWrapBody } = styledLayoutComponents;
+
+import talk_edit from "../../assets/svg/talk_edit.svg";
 
 const CommentBody = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,8 +44,8 @@ const CommentBody = () => {
   /****************************/
   const [guestLoginShadow, setGuestLoginShadow] = useState(false);
   const [needLogginModal, setNeedLogginModal] = useState(false);
-
   const userLogin = Boolean(token);
+
   /****************************/
   /******** 로그인 기능 ********/
   /****************************/
@@ -402,7 +406,7 @@ const StOption = styled.button`
   }
 `;
 
-// 비로그인 댓글 작성 막는 div
+// 비로그인 댓글 작성 막는 회색 영역
 const StGuestLoginShadow = styled.div`
   position: absolute;
   width: 100%;

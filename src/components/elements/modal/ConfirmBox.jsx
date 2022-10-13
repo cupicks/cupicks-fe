@@ -87,7 +87,7 @@ const StModal = styled.div`
   left: 0;
   z-index: 999999;
 
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 600;
   line-height: 150%;
   text-align: center;
@@ -96,23 +96,23 @@ const StModal = styled.div`
     display: flex;
     flex-flow: column;
     align-items: center;
-    gap: 20px;
+    gap: 2rem;
 
     width: 90%;
-    max-width: 350px;
-    border-radius: 15px;
+    max-width: 35rem;
+    border-radius: 1.5rem;
 
-    padding: 35px 0 22px;
+    padding: 3.5rem 0 2.2rem;
 
     position: relative;
     transform: translateY(-60%);
 
     background-color: #fff;
     color: #393939;
-    border: 1px solid #393939;
-    box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25);
+    border: 0.1rem solid #393939;
+    box-shadow: 0rem 0.4rem 2.6rem rgba(0, 0, 0, 0.25);
 
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 700;
 
     box-sizing: initial;
@@ -126,19 +126,19 @@ const StModal = styled.div`
 
   .button_close {
     position: absolute;
-    top: 11px;
-    right: 15px;
+    top: 1.1rem;
+    right: 1.5rem;
 
     cursor: pointer;
   }
 
   button {
     all: unset;
-    padding: 8px 60px;
+    padding: 0.8rem 6rem;
 
     background: #101010;
     color: #fff;
-    border-radius: 10px;
+    border-radius: 1rem;
 
     cursor: pointer;
   }
