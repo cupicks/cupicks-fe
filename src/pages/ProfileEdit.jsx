@@ -118,7 +118,7 @@ const StProfileEdit = styled.form`
 
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 1rem;
 
   background-color: #eee;
 

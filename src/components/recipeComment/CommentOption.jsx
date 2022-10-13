@@ -90,9 +90,9 @@ const ModalBack = styled.div`
 
 const MenuPage = styled.div`
   width: 90%;
-  max-width: 500px;
+  max-width: 50rem;
 
-  border-radius: 10px;
+  border-radius: 1rem;
 
   background-color: #101010;
 
@@ -101,10 +101,10 @@ const MenuPage = styled.div`
     display: block;
     width: 100%;
 
-    padding: 20px 0;
+    padding: 2rem 0;
 
     text-align: center;
-    font-size: 17px;
+    font-size: 1.7rem;
     font-weight: 500;
 
     color: white;
@@ -113,6 +113,6 @@ const MenuPage = styled.div`
   }
 
   .edit_btn {
-    border-bottom: 1px solid #ededed;
+    border-bottom: 0.1rem solid #ededed;
   }
 `;
