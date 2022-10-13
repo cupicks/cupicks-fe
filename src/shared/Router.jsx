@@ -1,5 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Bedge from "../pages/Bedge";
 
 const Comments = lazy(() => import("../pages/Comments"));
 const Login = lazy(() => import("../pages/Login"));
@@ -90,6 +91,9 @@ const Router = () => {
           <Route path="/recipe/:recipeId/comment" element={<Comments />} />
           <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
           <Route path="/sign-up/complete" element={<RegisterComplete />} />
+
+          {/* 뷰 */}
+          <Route path="/bedge" element={<Bedge />} />
 
           {!loggedIn && (
             <>

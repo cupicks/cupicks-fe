@@ -14,7 +14,12 @@ const Layout = () => {
   let layoutType = { headerFooter: false, footer: false, header: false };
   let { header, footer, headerFooter } = layoutType;
 
-  const caseHeaderFooter = ["/recipe/create/guest", "/mypage", "/profile"];
+  const caseHeaderFooter = [
+    "/recipe/create/guest",
+    "/mypage",
+    "/profile",
+    "/bedge",
+  ];
   const caseFooter = ["/recipe"];
 
   function handlePathname() {
