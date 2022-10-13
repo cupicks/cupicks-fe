@@ -73,8 +73,8 @@ const StRecipeIngredient = styled.div`
     border-bottom: 2px solid #aaa;
     color: #222;
 
-    font-size: 1.1em;
-    line-height: 40px;
+    font-size: 1.1rem;
+    line-height: 4rem;
   }
 
   input[type="range"] {
@@ -114,7 +114,7 @@ const StRecipeIngredient = styled.div`
   .flex_box {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 2rem;
 
     span {
       color: #aaa;
@@ -130,7 +130,7 @@ const StRecipeIngredient = styled.div`
 
 const StColorCircleBox = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   justify-content: center;
   flex-flow: wrap;
 

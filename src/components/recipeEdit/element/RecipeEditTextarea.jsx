@@ -27,7 +27,7 @@ const StTextarea = styled.textarea`
   all: unset;
 
   flex: 1 1 auto;
-  min-height: 40px;
+  min-height: 4rem;
 
   color: #666;
 

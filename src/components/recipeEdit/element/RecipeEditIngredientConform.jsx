@@ -51,7 +51,7 @@ const StTextInputContainer = styled.div`
   flex-flow: column;
 
   padding: 1rem 1.2rem;
-  margin-top: 10px;
+  margin-top: 1rem;
 
   text-align: left;
 
@@ -59,17 +59,17 @@ const StTextInputContainer = styled.div`
 
   .info_box {
     color: #aaa;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 700;
-    line-height: 21px;
+    line-height: 2.1rem;
   }
 
   .error_box {
     color: #aaa;
 
-    min-height: 20px;
+    min-height: 2rem;
   }
 `;
 
@@ -79,7 +79,7 @@ const StTable = styled.table`
     display: flex;
   }
   .title {
-    padding-right: 4px;
+    padding-right: 0.4rem;
   }
   span {
     display: block;

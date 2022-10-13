@@ -81,6 +81,6 @@ const StWrap = styled.div`
   flex-flow: column;
 
   .info_box_center {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 `;
