@@ -53,18 +53,26 @@ const CustomFlexListWrap = styled.div`
       display: flex;
       flex-flow: wrap;
 
-      gap: ${theme.gaps.md};
+      gap: calc(
+        ${theme.gaps.md} * ${(props) => (props.scale ? props.scale : 1)}
+      );
 
       ${theme.devices.tablet} {
-        gap: ${theme.gaps.base};
+        gap: calc(
+          ${theme.gaps.base} * ${(props) => (props.scale ? props.scale : 1)}
+        );
       }
 
       ${theme.devices.mobile} {
-        gap: ${theme.gaps.sm};
+        gap: calc(
+          ${theme.gaps.sm} * ${(props) => (props.scale ? props.scale : 1)}
+        );
       }
 
       ${theme.devices.xs} {
-        gap: ${theme.gaps.xs};
+        gap: calc(
+          ${theme.gaps.xs} * ${(props) => (props.scale ? props.scale : 1)}
+        );
       }
     `;
   }}
@@ -73,7 +81,17 @@ const CustomFlexListWrap = styled.div`
 const CustomFlexList = styled.div`
   ${({ theme }) => {
     return css`
-      flex: ${theme.flexItems.md};
+      flex: 0 0
+        calc(
+          (
+              100% -
+                (
+                  ${theme.gaps.md} * 2 *
+                    ${(props) => (props.scale ? props.scale : 1)}
+                )
+            ) / 3
+        );
+
       height: 27vh;
       min-height: 20rem;
       max-height: 50rem;
@@ -88,15 +106,27 @@ const CustomFlexList = styled.div`
       cursor: pointer;
 
       ${theme.devices.tablet} {
-        flex: ${theme.flexItems.base};
+        flex: 0 0
+          calc(
+            (
+                100% - ${theme.gaps.base} * 2 *
+                  ${(props) => (props.scale ? props.scale : 1)}
+              ) / 3
+          );
       }
 
       ${theme.devices.mobile} {
-        flex: ${theme.flexItems.sm};
+        flex: 0 0
+          calc(
+            (
+                100% - ${theme.gaps.sm} * 1 *
+                  ${(props) => (props.scale ? props.scale : 1)}
+              ) / 2
+          );
       }
 
       ${theme.devices.xs} {
-        flex: ${theme.flexItems.xs};
+        flex: 1 1 100%;
       }
 
       :hover {
