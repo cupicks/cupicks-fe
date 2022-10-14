@@ -47,10 +47,17 @@ const ResetPassword = () => {
       }, 1000);
       return;
     }
+    const data = {
+      email: currentEmail,
+    };
 
+    const queryStringData = Object.keys(data)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+      .join("&");
     try {
-      const res = await api(contentType).get(
-        `/auth/send-password?email=${currentEmail}`,
+      const res = await api(contentType).patch(
+        "/auth/send-password",
+        queryStringData,
       );
       console.log(res);
       setResetSuccess(true);
