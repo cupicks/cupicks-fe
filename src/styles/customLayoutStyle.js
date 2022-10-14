@@ -119,9 +119,9 @@ const CustomFlexList = styled.div`
         flex: 0 0
           calc(
             (
-              100% - ${theme.gaps.sm} * 1 *
-                ${(props) => (props.scale ? props.scale : 1)} / 2
-            )
+                100% - ${theme.gaps.sm} * 1 *
+                  ${(props) => (props.scale ? props.scale : 1)}
+              ) / 2
           );
       }
 

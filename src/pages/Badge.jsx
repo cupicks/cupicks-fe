@@ -1,16 +1,11 @@
 import styled from "styled-components";
 import styledElementComponents from "../styles/customElementStyle";
-const {
-  CustomTitle,
-  CustomSmallBoldTextLink,
-  CustomLineBox,
-  CustomSmallLightText,
-} = styledElementComponents;
+const { CustomTitle } = styledElementComponents;
 import styledLayoutComponents from "../styles/customLayoutStyle";
 const { CustomFlexListWrap, CustomFlexList } = styledLayoutComponents;
 
-const Bedge = () => {
-  const bedges = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+const Badge = () => {
+  const badges = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
     <>
@@ -21,7 +16,7 @@ const Bedge = () => {
         </h1>
       </StTitle>
       <StFlexListWrap scale={2}>
-        {bedges.map((bedge) => (
+        {badges.map((badge) => (
           <StFlexList scale={2}>
             <StBegdeImage src="" alt="이미지" />
             <p>배지!</p>
@@ -32,7 +27,7 @@ const Bedge = () => {
   );
 };
 
-export default Bedge;
+export default Badge;
 
 const StTitle = styled(CustomTitle)`
   text-align: center;

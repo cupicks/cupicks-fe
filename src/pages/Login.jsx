@@ -99,11 +99,14 @@ const Login = () => {
       });
     } catch (err) {
       console.log(err);
-      setError("loginError", { message: err.response.data.message });
+      // setError("loginError", { message: err.response.data.message });
+      setError("loginError", {
+        message: `일치하지 않는\n 회원정보 입니다.`,
+      });
       setLoginError(true);
       setTimeout(() => {
         setLoginError(false);
-      }, 1000);
+      }, 2000);
     }
   };
   return (
@@ -115,14 +118,14 @@ const Login = () => {
       {pwFailure && (
         <ToastMessage
           text={errors?.password?.message}
-          timer={1800}
+          timer={2000}
           smallFont={true}
         />
       )}
       {loginError && (
         <ToastMessage
           text={errors?.loginError?.message}
-          timer={1800}
+          timer={2000}
           smallFont={true}
         />
       )}
