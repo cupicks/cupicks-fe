@@ -67,8 +67,3 @@ DevDependencies
 <img src="https://img.shields.io/badge/Google Analytics-E37400?style=flat-square&logo=Google Analytics&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Lighthouse-F44B21?style=flat-square&logo=Lighthouse&logoColor=white"/></a>
 
-Infra
-
-<img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/NGINX_Amplify-009639?style=flat-square&logo=NGINX&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Fail2Ban-000000?style=flat-square"/></a>
