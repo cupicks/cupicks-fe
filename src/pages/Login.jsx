@@ -50,12 +50,32 @@ const Login = () => {
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
 
+  // resetPassword에서 받은 state
+  // (send-password 요청이 성공했을 경우)
+  const resetEmail = location.state?.resetEmail;
+  const resetPasswordToken = location.search.split("?resetPasswordToken=")[1];
+
+  const data = { resetPasswordToken: resetPasswordToken };
+
+  const queryStringData = Object.keys(data)
+    .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+    .join("&");
+
+  if (resetPasswordToken) {
+    const contentType = "application/x-www-form-urlencoded";
+    try {
+      api(contentType).patch("/auth/reset-password", queryStringData);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
       setTimeout(() => {
         setMessageModal(false);
-      }, 1500);
+      }, 2000);
     }
   }, []);
 
@@ -67,19 +87,19 @@ const Login = () => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-    }, 1000);
+    }, 2000);
     if (errors.email) {
       setEmailFailure(true);
       setTimeout(() => {
         setEmailFailure(false);
-      }, 1000);
+      }, 2000);
       return;
     }
     if (errors.password) {
       setPwFailure(true);
       setTimeout(() => {
         setPwFailure(false);
-      }, 1000);
+      }, 2000);
       return;
     }
 
@@ -113,7 +133,7 @@ const Login = () => {
     <CustomWrapFullVH>
       {/* 모달창 */}
       {emailFailure && (
-        <ToastMessage text={errors?.email?.message} timer={1800} />
+        <ToastMessage text={errors?.email?.message} timer={2000} />
       )}
       {pwFailure && (
         <ToastMessage
@@ -154,6 +174,7 @@ const Login = () => {
             placeholder="이메일 주소를 입력해 주세요"
             autoComplete="off"
             maxLength={100}
+            defaultValue={resetEmail ? resetEmail : ""}
             {...register("email", {
               required: true,
               pattern: {
@@ -212,7 +233,7 @@ const Login = () => {
       </StLoginForm>
 
       <StFlexBox>
-        <StResetPassword onClick={() => navigate("/resetPassword")}>
+        <StResetPassword onClick={() => navigate("/reset-password")}>
           비밀번호를 잊으셨나요?
         </StResetPassword>
       </StFlexBox>

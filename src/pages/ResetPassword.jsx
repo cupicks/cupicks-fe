@@ -47,13 +47,7 @@ const ResetPassword = () => {
       }, 1000);
       return;
     }
-    const data = {
-      email: currentEmail,
-    };
 
-    const queryStringData = Object.keys(data)
-      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
-      .join("&");
     try {
       const res = await api(contentType).patch(
         "/auth/send-password",
@@ -64,8 +58,12 @@ const ResetPassword = () => {
 
       if (res.data.isSuccess) {
         setTimeout(() => {
-          // API 업데이트 후 이곳에 토큰 같이 보내기
-          navigate("/sign-in", { state: { email: currentEmail } });
+          navigate("/sign-in", {
+            state: {
+              resetEmail: currentEmail,
+              message: "이메일로 발송된\n임시비밀번호를 입력해주세요.",
+            },
+          });
         }, 1000);
       }
     } catch (err) {
@@ -82,6 +80,19 @@ const ResetPassword = () => {
 
   return (
     <CustomWrapFullVH>
+      <button
+        onClick={() => {
+          navigate("/sign-in", {
+            state: {
+              resetEmail: "test@test.com",
+              message: "이메일로 발송된\n임시비밀번호를 입력해주세요.",
+            },
+          });
+        }}
+      >
+        테스트버튼
+      </button>
+
       <StForm onSubmit={handleSubmit(onSubmit)}>
         {/* 모달 */}
         {emailFailure && (

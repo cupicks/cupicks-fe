@@ -99,7 +99,8 @@ const Router = () => {
             <>
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<Register />} />
-              <Route path="/resetPassword" element={<ResetPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/confirm-password" element={<Login />} />
 
               {caseYesLoggedIn.map((path, idx) => (
                 <Route

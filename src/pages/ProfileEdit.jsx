@@ -31,12 +31,12 @@ const ProfileEdit = () => {
 
     const newNickname =
       data.nickname === "" ? profiles?.nickname : data.nickname;
-    const newPassword = data.password;
-    let params = `profile?nickname=${newNickname}`;
+    const newPassword = data?.password;
+    // let params = `profile?nickname=${newNickname}`;
 
-    if (newPassword !== undefined && newPassword !== "") {
-      params += `&password=${newPassword}`;
-    }
+    // if (newPassword !== undefined && newPassword !== "") {
+    //   params += `&password=${newPassword}`;
+    // }
 
     const form = new FormData();
     form.append(
@@ -44,8 +44,11 @@ const ProfileEdit = () => {
       data.imageValue === undefined ? null : data.imageValue[0],
     );
 
+    newNickname ? form.append("nickname", newNickname) : "";
+    newPassword ? form.append("password", newPassword) : "";
+
     try {
-      const res = await api(contentType).patch(params, form);
+      const res = await api(contentType).patch("/profile", form);
       navigate("/mypage", {
         state: { message: "프로필 수정에 성공하셨습니다." },
       });
