@@ -32,14 +32,6 @@
 | Frontend | 문창용 | 010-2596-3918 | cmun2@illinois.edu | [GitHub](https://github.com/cmun2) |
 | Frontend | 도원석 | 010-2513-1114 | wsdo970@gmail.com | [GitHub](https://github.com/wonseok-do) |
 
-### FE 역할
-
-| 포지션 | 이름 | Role |
-| :---- | :---- | :---- |
-| Frontend, VL | 두선아 | |
-| Frontend | 문창용 | |
-| Frontend | 도원석 | |
-
 ### 문서 리스트
 
 자유 양식
