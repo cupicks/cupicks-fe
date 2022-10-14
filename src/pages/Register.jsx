@@ -74,15 +74,20 @@ const Register = () => {
       "imageValue",
       getValues("image") === undefined ? null : getValues("image")[0],
     );
+    form.append("nickname", getValues("nickname"));
+    form.append("email", getValues("email"));
+    form.append("password", getValues("password"));
+    form.append("nicknameVerifyToken", getValues("nicknameVerifyToken"));
+    form.append("emailVerifyToken", getValues("emailVerifyToken"));
 
-    const newPassword = getValues("password");
-    const newnicknameVerifyToken = getValues("nicknameVerifyToken");
-    const newemailVerifyToken = getValues("emailVerifyToken");
+    // const newPassword = getValues("password");
+    // const newnicknameVerifyToken = getValues("nicknameVerifyToken");
+    // const newemailVerifyToken = getValues("emailVerifyToken");
 
-    let urlTypeTwo = `/auth/signup?password=${newPassword}&nicknameVerifyToken=${newnicknameVerifyToken}&emailVerifyToken=${newemailVerifyToken}`;
+    // let urlTypeTwo = `/auth/signup?password=${newPassword}&nicknameVerifyToken=${newnicknameVerifyToken}&emailVerifyToken=${newemailVerifyToken}`;
 
     try {
-      const res = await api(contentType).post(urlTypeTwo, form);
+      const res = await api(contentType).post("/auth/signup", form);
       console.log(res);
       setCompletion(true);
       setTimeout(() => {
@@ -137,12 +142,23 @@ const Register = () => {
     //닉네임 중복확인
     if (level === 2) {
       const contentType = "application/x-www-form-urlencoded";
-      try {
-        const emailVerifyToken = getValues("emailVerifyToken");
-        const nickname = getValues("nickname");
-        const nicknameVerifyUrl = `/auth/confirm-nickname?emailVerifyToken=${emailVerifyToken}&nickname=${nickname}`;
+      const data = {
+        emailVerifyToken: getValues("emailVerifyToken"),
+        nickname: getValues("nickname"),
+      };
 
-        const res = await api(contentType).get(nicknameVerifyUrl);
+      const queryStringData = Object.keys(data)
+        .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+        .join("&");
+      try {
+        // const emailVerifyToken = getValues("emailVerifyToken");
+        // const nickname = getValues("nickname");
+        // const nicknameVerifyUrl = `/auth/confirm-nickname?emailVerifyToken=${emailVerifyToken}&nickname=${nickname}`;
+
+        const res = await api(contentType).patch(
+          "/auth/confirm-nickname",
+          queryStringData,
+        );
         const token = res.data.nicknameVerifyToken;
         setValue("nicknameVerifyToken", token);
         console.log(getValues("nicknameVerifyToken"));
@@ -204,9 +220,17 @@ const Register = () => {
       }, 1000);
       return;
     }
+    const data = {
+      email: getValues("email"),
+    };
+
+    const queryStringData = Object.keys(data)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+      .join("&");
     try {
-      const res = await api(contentType).get(
-        `/auth/send-email?email=${getValues("email")}`,
+      const res = await api(contentType).patch(
+        "/auth/send-email",
+        queryStringData,
       );
       console.log(res.data.message);
       setCheckEmail(true); // input(이메일) 비활성화
@@ -238,12 +262,18 @@ const Register = () => {
       setCheck(false);
     }, 1000);
     let contentType = "application/x-www-form-urlencoded";
-    try {
-      const email = getValues("email");
-      const number = getValues("Number");
+    const data = {
+      email: getValues("email"),
+      emailVerifyCode: getValues("Number"),
+    };
 
-      const res = await api(contentType).get(
-        `/auth/confirm-email?email=${email}&email-verify-code=${number}`,
+    const queryStringData = Object.keys(data)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+      .join("&");
+    try {
+      const res = await api(contentType).patch(
+        "/auth/confirm-email",
+        queryStringData,
       );
       const token = res.data.emailVerifyToken;
       console.log(token);
