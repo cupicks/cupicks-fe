@@ -32,28 +32,29 @@ const ResetPassword = () => {
   const [emailError, setEmailError] = useState(false);
   const [emailFailure, setEmailFailure] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
-  const contentType = "application/x-www-form-urlencoded";
 
   const onSubmit = async (data) => {
     console.log(data);
   };
 
-  const clickResetPw = async () => {
+  const resetButtonClickHandler = async () => {
+    const contentType = "application/x-www-form-urlencoded";
     const currentEmail = getValues("email");
+
     if (errors.email) {
       setEmailError(true);
       setTimeout(() => {
         setEmailError(false);
-      }, 1000);
+      }, 2000);
       return;
     }
-    const data = {
-      email: currentEmail,
-    };
+
+    const data = { email: currentEmail };
 
     const queryStringData = Object.keys(data)
       .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
       .join("&");
+
     try {
       const res = await api(contentType).patch(
         "/auth/send-password",
@@ -61,36 +62,76 @@ const ResetPassword = () => {
       );
       console.log(res);
       setResetSuccess(true);
-
-      if (res.data.isSuccess) {
-        setTimeout(() => {
-          // API 업데이트 후 이곳에 토큰 같이 보내기
-          navigate("/sign-in", { state: { email: currentEmail } });
-        }, 1000);
-      }
     } catch (err) {
+      console.log(err.response.data.message);
+      const passwordResetLimit =
+        err.response.data.message.includes("이메일 제한 횟수");
+      let message = "";
+
+      if (passwordResetLimit) {
+        // 5번 초과
+        message = "하루 비밀번호 초기화\n 제한 횟수 5번을\n 초과하였습니다.";
+      } else {
+        // 존재하지 않는 이메일
+        message = `${currentEmail}은(는)\n 존재하지 않는 이메일입니다.`;
+      }
+
       setError("emailFailure", {
-        message: `${currentEmail}은(는)\n 존재하지 않는 이메일입니다.`,
+        message: message,
       });
 
       setEmailFailure(true);
       setTimeout(() => {
         setEmailFailure(false);
-      }, 1000);
+      }, 2000);
     }
   };
+
+  const resetPasswordToken = location.search.split("?resetPasswordToken=")[1];
+
+  const resetPasswordTokenHandler = async () => {
+    const data = { resetPasswordToken: resetPasswordToken };
+
+    console.log(data);
+
+    const queryStringData = Object.keys(data)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+      .join("&");
+
+    if (resetPasswordToken) {
+      const contentType = "application/x-www-form-urlencoded";
+      try {
+        const res = await api(contentType).patch(
+          "/auth/reset-password",
+          queryStringData,
+        );
+        console.log(res);
+        if (res.data.isSuccess) {
+          localStorage.setItem("accessToken", res.data.accessToken);
+          localStorage.setItem("refreshToken", res.data.refreshToken);
+          navigate("/profile/edit?state=resetPassword");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  if (resetPasswordToken) {
+    resetPasswordTokenHandler();
+  }
 
   return (
     <CustomWrapFullVH>
       <StForm onSubmit={handleSubmit(onSubmit)}>
         {/* 모달 */}
         {emailFailure && (
-          <ToastMessage text={errors?.emailFailure?.message} timer={1000} />
+          <ToastMessage text={errors?.emailFailure?.message} timer={2000} />
         )}
         {resetSuccess && (
           <ToastMessage
             text={"임시 비밀번호를 이메일로 발송했어요!"}
-            timer={1000}
+            timer={2000}
           />
         )}
 
@@ -119,7 +160,7 @@ const ResetPassword = () => {
         />
 
         <StButton
-          onClick={clickResetPw}
+          onClick={resetButtonClickHandler}
           disabled={
             watch("email") === undefined || watch("email") === "" || check
           }

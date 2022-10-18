@@ -18,7 +18,7 @@ const Layout = () => {
     "/recipe/create/guest",
     "/mypage",
     "/profile",
-    "/bedge",
+    "/badge",
   ];
   const caseFooter = ["/recipe"];
 
