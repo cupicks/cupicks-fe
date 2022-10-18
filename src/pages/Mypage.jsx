@@ -13,13 +13,9 @@ import ToastMessage from "../components/elements/modal/ToastMessage";
 
 const Mypage = () => {
   const location = useLocation();
-  const [messageModal, setMessageModal] = useState(false);
   const [profiles, setProfiles] = useState();
+  const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
-
-  const token = localStorage.getItem("refreshToken");
-  const { decodedToken } = useJwt(token);
-  let userData = decodedToken;
 
   const getProfile = async () => {
     const contentType = "application/json";
@@ -39,19 +35,17 @@ const Mypage = () => {
       }, 1500);
     }
   }, []);
+
   useEffect(() => {
     getProfile();
   }, []);
+
   return (
     <StWrap>
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
-      {userData !== null && (
-        <>
-          <MypageMyInfo token={token} userData={userData} profiles={profiles} />
-          <MypageRecipeMyList on={true} />
-          <MypageRecipeLikeList />
-        </>
-      )}
+      <MypageMyInfo profiles={profiles} />
+      <MypageRecipeMyList on={true} />
+      <MypageRecipeLikeList />
     </StWrap>
   );
 };

@@ -50,25 +50,8 @@ const Login = () => {
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
 
-  // resetPassword에서 받은 state
-  // (send-password 요청이 성공했을 경우)
+  // resetPassword
   const resetEmail = location.state?.resetEmail;
-  const resetPasswordToken = location.search.split("?resetPasswordToken=")[1];
-
-  const data = { resetPasswordToken: resetPasswordToken };
-
-  const queryStringData = Object.keys(data)
-    .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
-    .join("&");
-
-  if (resetPasswordToken) {
-    const contentType = "application/x-www-form-urlencoded";
-    try {
-      api(contentType).patch("/auth/reset-password", queryStringData);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   useEffect(() => {
     if (messageText !== undefined) {
@@ -109,9 +92,11 @@ const Login = () => {
       .join("&");
     console.log(queryStringData);
     const contentType = "application/x-www-form-urlencoded";
+
     try {
       const res = await api(contentType).post("/auth/signin", queryStringData);
       console.log(res);
+
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       navigate("/recipe", {

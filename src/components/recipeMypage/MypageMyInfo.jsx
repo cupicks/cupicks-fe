@@ -13,8 +13,8 @@ import styled from "styled-components";
 const MypageMyInfo = (props) => {
   const [dropBox, setDropBox] = useState(false);
   const navigate = useNavigate();
-  const { token, userData, profiles } = props;
-  const { nickname, imageUrl, email, userId } = userData;
+  const { profiles } = props;
+  const token = localStorage.getItem("refreshToken");
 
   const onClickGoToProfileEdit = () => {
     navigate(`/profile/edit`);

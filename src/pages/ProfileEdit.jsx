@@ -24,6 +24,10 @@ const ProfileEdit = () => {
   } = useForm({ criteriaMode: "all", mode: "onChange" });
   const [failure, setFailure] = useState(false);
   const [profiles, setProfiles] = useState();
+  const [messageModal, setMessageModal] = useState(false);
+  let messageText;
+  if (location.search.includes("resetPassword"))
+    messageText = "새로 사용할 비밀번호를\n 입력해주세요!";
 
   /** 프로필 수정 request */
   const onSubmit = async (data) => {
@@ -32,11 +36,6 @@ const ProfileEdit = () => {
     const newNickname =
       data.nickname === "" ? profiles?.nickname : data.nickname;
     const newPassword = data?.password;
-    // let params = `profile?nickname=${newNickname}`;
-
-    // if (newPassword !== undefined && newPassword !== "") {
-    //   params += `&password=${newPassword}`;
-    // }
 
     const form = new FormData();
     form.append(
@@ -59,7 +58,7 @@ const ProfileEdit = () => {
         setFailure(true);
         setTimeout(() => {
           setFailure(false);
-        }, 1000);
+        }, 2000);
       }
     }
   };
@@ -67,22 +66,31 @@ const ProfileEdit = () => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user);
-      // setProfiles([...profiles, res.data.user]);
+      // console.log(res.data.user);
       setProfiles(res.data.user);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getProfile();
+
+    if (messageText !== undefined) {
+      setMessageModal(true);
+      setTimeout(() => {
+        setMessageModal(false);
+      }, 2000);
+    }
   }, []);
 
   return (
     <>
       {failure && (
-        <ToastMessage text={"이미 존재하는 닉네임입니다."} timer={1000} />
+        <ToastMessage text={"이미 존재하는 닉네임입니다."} timer={2000} />
       )}
+      {messageModal && <ToastMessage text={messageText} timer={2000} />}
+
       <StProfileEdit onSubmit={handleSubmit(onSubmit)}>
         <Navigation goto="/mypage">
           <span className="title">개인 정보 편집</span>
