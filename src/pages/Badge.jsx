@@ -78,11 +78,11 @@ const Badge = () => {
     { name: "댓글 첫 발자국", createdAt: "2022. 10. 26" },
     { name: "좋아요 첫 발자국", createdAt: "2022. 10. 26" },
     { name: "레시피 연금술사", createdAt: "2022. 10. 26" },
-    { name: "능숙한 리스너", createdAt: "2022. 10. 26" },
+    // { name: "능숙한 리스너", createdAt: "2022. 10. 26" },
     { name: "친화력 대장", createdAt: "2022. 10. 26" },
-    // { name: "인기쟁이 바리스타", createdAt: "2022. 10. 26" },
+    { name: "인기쟁이 바리스타", createdAt: "2022. 10. 26" },
     { name: "위클리 승리자", createdAt: "2022. 10. 26" },
-    // { name: "진정한 커픽커", createdAt: "2022. 10. 26" },
+    { name: "진정한 커픽커", createdAt: "2022. 10. 26" },
   ];
 
   /** badge리스트와 유저 배지를 비교해, 새로운 배지 배열를 리턴합니다. */
@@ -220,11 +220,56 @@ const StFlexList = styled(CustomFlexList)`
   font-weight: 500;
   color: ${(props) => props.fontColor};
 
-  border: 2px solid transparent;
+  // A. 애니메이션 없는 그라데이션 보더
+  /* border: 2px solid transparent;
   background: linear-gradient(#fff, #fff),
     linear-gradient(to right bottom, ${(props) => props.borderColor});
   background-origin: border-box;
-  background-clip: content-box, border-box;
+  background-clip: content-box, border-box; */
+
+  // B. 애니메이션 있는 보더 관련 속성
+  position: relative;
+  z-index: 99;
+  background-color: #fff;
+
+  ::after {
+    content: "";
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border-radius: 0.7rem;
+    position: absolute;
+    background-color: #fff;
+    background-origin: content-box;
+    z-index: -1;
+  }
+
+  ::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    position: absolute;
+
+    border: 2px solid transparent;
+    background: linear-gradient(
+      to right bottom,
+      ${(props) => props.borderColor}
+    );
+    background-origin: border-box;
+    background-clip: border-box;
+    z-index: -1;
+
+    animation: borderBehavior 1s ease-out forwards;
+  }
+
+  @keyframes borderBehavior {
+    0% {
+      height: 0%;
+    }
+    100% {
+      height: 100%;
+    }
+  }
+  //
 
   .createAt {
     display: block;
