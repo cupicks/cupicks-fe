@@ -5,11 +5,15 @@ import { useLocation } from "react-router-dom";
 import api from "../server/api";
 
 import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
+import MypageRecipe from "../components/recipeMypage/MypageRecipe";
 import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
 import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
 
 import styled from "styled-components";
 import ToastMessage from "../components/elements/modal/ToastMessage";
+
+import noRecipeBanner01 from "../assets/image/illustration/banner_no-recipe01.png";
+import noRecipeBanner02 from "../assets/image/illustration/banner_no-recipe02.png";
 
 const Mypage = () => {
   const location = useLocation();
@@ -40,12 +44,33 @@ const Mypage = () => {
     getProfile();
   }, []);
 
+  const myRecipeProps = {
+    isPagenation: true,
+    pageInt: 1,
+    countInt: 4,
+    titleString: "내가 만든 레시피",
+    imageSrc: noRecipeBanner01,
+    apiUrl: "/profile/my-recipe",
+    header: false,
+  };
+
+  const likeRecipeProps = {
+    isPagenation: true,
+    pageInt: 1,
+    countInt: 4,
+    titleString: "좋아요 레시피",
+    imageSrc: noRecipeBanner02,
+    apiUrl: "/profile/like-recipe",
+    header: true,
+  };
+
   return (
     <StWrap>
       {messageModal && <ToastMessage text={messageText} timer={1500} />}
       <MypageMyInfo profiles={profiles} />
-      <MypageRecipeMyList on={true} />
-      <MypageRecipeLikeList />
+
+      <MypageRecipe on={true} recipeProps={myRecipeProps} />
+      <MypageRecipe recipeProps={likeRecipeProps} />
     </StWrap>
   );
 };
