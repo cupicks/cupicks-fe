@@ -6,8 +6,6 @@ import api from "../server/api";
 
 import MypageMyInfo from "../components/recipeMypage/MypageMyInfo";
 import MypageRecipe from "../components/recipeMypage/MypageRecipe";
-import MypageRecipeLikeList from "../components/recipeMypage/MypageRecipeLikeList";
-import MypageRecipeMyList from "../components/recipeMypage/MypageRecipeMyList";
 
 import styled from "styled-components";
 import ToastMessage from "../components/elements/modal/ToastMessage";
