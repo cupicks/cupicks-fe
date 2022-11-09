@@ -171,9 +171,7 @@ const Login = () => {
           />
         </CustomInputBox>
 
-        <CustomErrorBox>
-          {errors.email && <p>{errors.email.message}</p>}
-        </CustomErrorBox>
+        <StErrorBox>{errors.email && <p>{errors.email.message}</p>}</StErrorBox>
 
         <label>비밀번호</label>
         <CustomInputBox>
@@ -200,9 +198,9 @@ const Login = () => {
           />
         </CustomInputBox>
 
-        <CustomErrorBox>
+        <StErrorBox>
           {errors.password && <p>{errors.password.message}</p>}
-        </CustomErrorBox>
+        </StErrorBox>
 
         <CustomButton
           onClick={clickLogin}
@@ -260,6 +258,13 @@ const StLoginForm = styled(CustomForm)`
 const StFlexBox = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const StErrorBox = styled(CustomErrorBox)`
+  min-height: 3rem;
+  p {
+    position: absolute;
+  }
 `;
 
 const StResetPassword = styled(CustomSmallBoldTextLink)`

@@ -48,6 +48,7 @@ const Router = () => {
     "/profile/edit",
     "/recipe/:recipeId/edit",
     "/recipe/create/guest",
+    "/badge",
   ];
   let pathNeedLoggedIn = false;
 

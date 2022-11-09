@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import styledElementComponents from "../styles/customElementStyle";
+
 const { CustomTitle } = styledElementComponents;
 import styledLayoutComponents from "../styles/customLayoutStyle";
 const { CustomFlexListWrap, CustomFlexList } = styledLayoutComponents;
 
+import api from "../server/api";
+
+// 뱃지 아이콘
 import badge_bg from "../assets/svg/badge_background.svg";
 import badge_none from "../assets/svg/badges/badge_none.svg";
 import badge0 from "../assets/svg/badges/badge00.svg";
@@ -15,6 +19,7 @@ import badge5 from "../assets/svg/badges/badge05.svg";
 import badge6 from "../assets/svg/badges/badge06.svg";
 import badge7 from "../assets/svg/badges/badge07.svg";
 import badge8 from "../assets/svg/badges/badge08.svg";
+import { useEffect } from "react";
 
 const Badge = () => {
   const badges = [
@@ -74,16 +79,25 @@ const Badge = () => {
     },
   ];
   const userBadges = [
-    { name: "레시피 첫 발자국", createdAt: "2022. 10. 26" },
-    { name: "댓글 첫 발자국", createdAt: "2022. 10. 26" },
-    { name: "좋아요 첫 발자국", createdAt: "2022. 10. 26" },
-    { name: "레시피 연금술사", createdAt: "2022. 10. 26" },
+    // { name: "레시피 첫 발자국", createdAt: "2022. 10. 26" },
+    // { name: "댓글 첫 발자국", createdAt: "2022. 10. 26" },
+    // { name: "좋아요 첫 발자국", createdAt: "2022. 10. 26" },
+    // { name: "레시피 연금술사", createdAt: "2022. 10. 26" },
     // { name: "능숙한 리스너", createdAt: "2022. 10. 26" },
-    { name: "친화력 대장", createdAt: "2022. 10. 26" },
-    { name: "인기쟁이 바리스타", createdAt: "2022. 10. 26" },
-    { name: "위클리 승리자", createdAt: "2022. 10. 26" },
-    { name: "진정한 커픽커", createdAt: "2022. 10. 26" },
+    // { name: "친화력 대장", createdAt: "2022. 10. 26" },
+    // { name: "인기쟁이 바리스타", createdAt: "2022. 10. 26" },
+    // { name: "위클리 승리자", createdAt: "2022. 10. 26" },
+    // { name: "진정한 커픽커", createdAt: "2022. 10. 26" },
   ];
+
+  const fetchBadgeList = async () => {
+    let contentType = "application/json";
+    const data = await api(contentType)
+      .get(`/badge`)
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   /** badge리스트와 유저 배지를 비교해, 새로운 배지 배열를 리턴합니다. */
   const matchBadges = (badges, userBadges) => {
@@ -113,7 +127,12 @@ const Badge = () => {
     });
     return matchResult;
   };
+
   const matchBadgeslist = matchBadges(badges, userBadges);
+
+  useEffect(() => {
+    fetchBadgeList();
+  }, []);
 
   return (
     <StWrap>
