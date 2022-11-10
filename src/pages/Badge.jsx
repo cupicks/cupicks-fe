@@ -20,6 +20,7 @@ import badge6 from "../assets/svg/badges/badge06.svg";
 import badge7 from "../assets/svg/badges/badge07.svg";
 import badge8 from "../assets/svg/badges/badge08.svg";
 import { useEffect } from "react";
+import { useState } from "react";
 
 const Badge = () => {
   const badges = [
@@ -78,25 +79,37 @@ const Badge = () => {
       isExist: false,
     },
   ];
-  const userBadges = [
-    // { name: "레시피 첫 발자국", createdAt: "2022. 10. 26" },
-    // { name: "댓글 첫 발자국", createdAt: "2022. 10. 26" },
-    // { name: "좋아요 첫 발자국", createdAt: "2022. 10. 26" },
-    // { name: "레시피 연금술사", createdAt: "2022. 10. 26" },
-    // { name: "능숙한 리스너", createdAt: "2022. 10. 26" },
-    // { name: "친화력 대장", createdAt: "2022. 10. 26" },
-    // { name: "인기쟁이 바리스타", createdAt: "2022. 10. 26" },
-    // { name: "위클리 승리자", createdAt: "2022. 10. 26" },
-    // { name: "진정한 커픽커", createdAt: "2022. 10. 26" },
-  ];
+  let userBadges = [];
+  const [matchBadgeslist, setMatchBadgeslist] = useState(badges);
+
+  // const userBadges = [
+  //   // { name: "레시피 첫 발자국", createdAt: "2022. 10. 26" },
+  //   // { name: "댓글 첫 발자국", createdAt: "2022. 10. 26" },
+  //   // { name: "좋아요 첫 발자국", createdAt: "2022. 10. 26" },
+  //   // { name: "레시피 연금술사", createdAt: "2022. 10. 26" },
+  //   // { name: "능숙한 리스너", createdAt: "2022. 10. 26" },
+  //   // { name: "친화력 대장", createdAt: "2022. 10. 26" },
+  //   // { name: "인기쟁이 바리스타", createdAt: "2022. 10. 26" },
+  //   // { name: "위클리 승리자", createdAt: "2022. 10. 26" },
+  //   // { name: "진정한 커픽커", createdAt: "2022. 10. 26" },
+  // ];
 
   const fetchBadgeList = async () => {
     let contentType = "application/json";
-    const data = await api(contentType)
-      .get(`/badge`)
-      .then((res) => {
-        console.log(res);
-      });
+    let userBadges;
+    try {
+      const res = await api(contentType).get(`/badge`);
+
+      if (res.data.isSuccess) {
+        userBadges = res.data.badgeList;
+
+        // 뱃지리스트 response 예시
+        userBadges = [{ name: "레시피 첫 발자국", createdAt: "2022. 10. 26" }];
+        setMatchBadgeslist(matchBadges(badges, userBadges));
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   /** badge리스트와 유저 배지를 비교해, 새로운 배지 배열를 리턴합니다. */
@@ -127,8 +140,6 @@ const Badge = () => {
     });
     return matchResult;
   };
-
-  const matchBadgeslist = matchBadges(badges, userBadges);
 
   useEffect(() => {
     fetchBadgeList();
