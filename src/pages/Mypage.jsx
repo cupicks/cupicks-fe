@@ -41,7 +41,7 @@ const Mypage = () => {
   useEffect(() => {
     getProfile();
   }, []);
-
+  
   const myRecipeProps = {
     isPagenation: true,
     pageInt: 1,
@@ -69,6 +69,7 @@ const Mypage = () => {
 
       <MypageRecipe on={true} recipeProps={myRecipeProps} />
       <MypageRecipe recipeProps={likeRecipeProps} />
+      
     </StWrap>
   );
 };
