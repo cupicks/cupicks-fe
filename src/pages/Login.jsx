@@ -50,12 +50,15 @@ const Login = () => {
   const [messageModal, setMessageModal] = useState(false);
   const messageText = location.state?.message;
 
+  // resetPassword
+  const resetEmail = location.state?.resetEmail;
+
   useEffect(() => {
     if (messageText !== undefined) {
       setMessageModal(true);
       setTimeout(() => {
         setMessageModal(false);
-      }, 1500);
+      }, 2000);
     }
   }, []);
 
@@ -67,19 +70,19 @@ const Login = () => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-    }, 1000);
+    }, 2000);
     if (errors.email) {
       setEmailFailure(true);
       setTimeout(() => {
         setEmailFailure(false);
-      }, 1000);
+      }, 2000);
       return;
     }
     if (errors.password) {
       setPwFailure(true);
       setTimeout(() => {
         setPwFailure(false);
-      }, 1000);
+      }, 2000);
       return;
     }
 
@@ -87,11 +90,10 @@ const Login = () => {
     const queryStringData = Object.keys(data)
       .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
       .join("&");
-    console.log(queryStringData);
     const contentType = "application/x-www-form-urlencoded";
+
     try {
       const res = await api(contentType).post("/auth/signin", queryStringData);
-      console.log(res);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       navigate("/recipe", {
@@ -99,30 +101,33 @@ const Login = () => {
       });
     } catch (err) {
       console.log(err);
-      setError("loginError", { message: err.response.data.message });
+      // setError("loginError", { message: err.response.data.message });
+      setError("loginError", {
+        message: `일치하지 않는\n 회원정보 입니다.`,
+      });
       setLoginError(true);
       setTimeout(() => {
         setLoginError(false);
-      }, 1000);
+      }, 2000);
     }
   };
   return (
     <CustomWrapFullVH>
       {/* 모달창 */}
       {emailFailure && (
-        <ToastMessage text={errors?.email?.message} timer={1800} />
+        <ToastMessage text={errors?.email?.message} timer={2000} />
       )}
       {pwFailure && (
         <ToastMessage
           text={errors?.password?.message}
-          timer={1800}
+          timer={2000}
           smallFont={true}
         />
       )}
       {loginError && (
         <ToastMessage
           text={errors?.loginError?.message}
-          timer={1800}
+          timer={2000}
           smallFont={true}
         />
       )}
@@ -151,6 +156,7 @@ const Login = () => {
             placeholder="이메일 주소를 입력해 주세요"
             autoComplete="off"
             maxLength={100}
+            defaultValue={resetEmail ? resetEmail : ""}
             {...register("email", {
               required: true,
               pattern: {
@@ -162,9 +168,7 @@ const Login = () => {
           />
         </CustomInputBox>
 
-        <CustomErrorBox>
-          {errors.email && <p>{errors.email.message}</p>}
-        </CustomErrorBox>
+        <StErrorBox>{errors.email && <p>{errors.email.message}</p>}</StErrorBox>
 
         <label>비밀번호</label>
         <CustomInputBox>
@@ -191,9 +195,9 @@ const Login = () => {
           />
         </CustomInputBox>
 
-        <CustomErrorBox>
+        <StErrorBox>
           {errors.password && <p>{errors.password.message}</p>}
-        </CustomErrorBox>
+        </StErrorBox>
 
         <CustomButton
           onClick={clickLogin}
@@ -209,7 +213,7 @@ const Login = () => {
       </StLoginForm>
 
       <StFlexBox>
-        <StResetPassword onClick={() => navigate("/resetPassword")}>
+        <StResetPassword onClick={() => navigate("/reset-password")}>
           비밀번호를 잊으셨나요?
         </StResetPassword>
       </StFlexBox>
@@ -251,6 +255,13 @@ const StLoginForm = styled(CustomForm)`
 const StFlexBox = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const StErrorBox = styled(CustomErrorBox)`
+  min-height: 3rem;
+  p {
+    position: absolute;
+  }
 `;
 
 const StResetPassword = styled(CustomSmallBoldTextLink)`

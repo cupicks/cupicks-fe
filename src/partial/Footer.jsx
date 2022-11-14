@@ -7,7 +7,7 @@ import createIcon from "../assets/svg/add.svg";
 import { ReactComponent as Icon01 } from "../assets/svg/community.svg";
 import { ReactComponent as Icon02 } from "../assets/svg/community.svg";
 import { ReactComponent as Icon03 } from "../assets/svg/make_recipe.svg";
-import { ReactComponent as Icon04 } from "../assets/svg/account.svg";
+import { ReactComponent as Icon04 } from "../assets/svg/badge.svg";
 import { ReactComponent as Icon05 } from "../assets/svg/account.svg";
 
 import styled from "styled-components";
@@ -38,8 +38,13 @@ const Footer = ({ pathname }) => {
     navigate("/mypage", { replace: true, state: undefined });
   };
 
+  const goToBadge = () => {
+    navigate("/badge", { replace: true, state: undefined });
+  };
+
   const pathCommunity = pathname === "/recipe" && pathname !== "/recipe/create";
-  const pathRecipeCreate = pathname === "/recipe/create";
+  const pathRecipeCreate =
+    pathname === "/recipe/create" || pathname === "/recipe/create/guest";
   const pathMypage = pathname === "/mypage" || pathname === "/profile/edit";
 
   return (
@@ -63,11 +68,11 @@ const Footer = ({ pathname }) => {
           </div>
         </CustomFooterButton>
 
-        {/* <CustomFooterButton onClick={goToCreate}>
-        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
-          <Icon04 />
-        </div>
-      </CustomFooterButton> */}
+        <StBadgeButton onClick={goToBadge}>
+          <div className={pathname === "/badge" ? "svg_box on" : "svg_box"}>
+            <Icon04 />
+          </div>
+        </StBadgeButton>
 
         <CustomFooterButton onClick={goToMypage}>
           <div className={pathMypage ? "svg_box on" : "svg_box"}>
@@ -80,3 +85,7 @@ const Footer = ({ pathname }) => {
 };
 
 export default Footer;
+
+const StBadgeButton = styled(CustomFooterButton)`
+  margin-top: 0.2rem;
+`;

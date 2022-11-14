@@ -22,7 +22,6 @@ const RecipeBody = (props) => {
       const response = await api(contentType)
         .get(`/ranking/weekly-recipe`)
         .then((res) => {
-          console.log(res);
           setFavRecipe([...res.data.bestRecipeList]);
         });
     } catch (err) {
@@ -40,13 +39,13 @@ const RecipeBody = (props) => {
 
   return (
     <StWrap>
-      <CustomRecipeListTitle>
+      {/* API 수정 후 다시 사용 */}
+      {/* <CustomRecipeListTitle>
         <h1>이번주 인기 레시피</h1>
       </CustomRecipeListTitle>
 
-      <RecipeSlider loggedIn={loggedIn} recipeList={favRecipe} header={true} />
+      <RecipeSlider loggedIn={loggedIn} recipeList={favRecipe} header={true} /> */}
 
-      {/* 임시 타이틀 */}
       <CustomRecipeListTitle>
         <h1>전체 레시피</h1>
       </CustomRecipeListTitle>

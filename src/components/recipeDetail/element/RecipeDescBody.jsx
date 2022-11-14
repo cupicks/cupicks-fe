@@ -21,12 +21,12 @@ const RecipeDescBody = (props) => {
   } = recipe;
   const { recipeDeleteButtonClickHandler } = confirmProps;
   const [isAuthor, setIsAuthor] = useState(false);
+  const token = localStorage.getItem("refreshToken");
 
   const getProfile = async () => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user.nickname);
       const userName = res.data.user.nickname;
       setIsAuthor(userName === nickname);
     } catch (err) {
@@ -34,7 +34,7 @@ const RecipeDescBody = (props) => {
     }
   };
   useEffect(() => {
-    getProfile();
+    token ? getProfile() : "";
   }, []);
 
   // 프로필 이미지

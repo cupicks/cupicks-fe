@@ -1,5 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Badge from "../pages/Badge";
 
 const Comments = lazy(() => import("../pages/Comments"));
 const Login = lazy(() => import("../pages/Login"));
@@ -33,6 +34,7 @@ const Router = () => {
 
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
+  const accessToken = localStorage.getItem("accessToken");
 
   const caseNoLoggedIn = [
     "/sign-in",
@@ -46,6 +48,7 @@ const Router = () => {
     "/profile/edit",
     "/recipe/:recipeId/edit",
     "/recipe/create/guest",
+    "/badge",
   ];
   let pathNeedLoggedIn = false;
 
@@ -64,7 +67,9 @@ const Router = () => {
     } else {
       if (loggedIn) {
         setLoggedIn(false);
-        navigate("/sign-in");
+        navigate("/sign-in", {
+          state: { message: "자동으로 \n 로그아웃 되었습니다." },
+        });
       }
     }
   }, [pathname]);
@@ -78,7 +83,7 @@ const Router = () => {
         });
       }
     }
-  }, [loggedIn]);
+  }, [pathname]);
 
   return (
     <>
@@ -90,11 +95,15 @@ const Router = () => {
           <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
           <Route path="/sign-up/complete" element={<RegisterComplete />} />
 
+          {/* 뷰 */}
+          <Route path="/badge" element={<Badge />} />
+
           {!loggedIn && (
             <>
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<Register />} />
-              <Route path="/resetPassword" element={<ResetPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/confirm-password" element={<ResetPassword />} />
 
               {caseYesLoggedIn.map((path, idx) => (
                 <Route

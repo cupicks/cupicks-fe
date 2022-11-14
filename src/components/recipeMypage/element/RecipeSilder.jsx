@@ -5,14 +5,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import IngredientList from "./IngredientList";
-import RecipeTitle from "./RecipeTitle";
-
 import styled from "styled-components";
 import RecipeSlickBox from "./RecipeSlickBox";
+import { useRef } from "react";
 
 const RecipeSlider = (props) => {
-  const { recipeList, header = false, bannerImage } = props;
+  const { recipeList, header = false, bannerImage, nextPage } = props;
   const navigate = useNavigate();
   const [dragging, setDragging] = useState(false);
   const [countRecipeList, setCountRecipeList] = useState(recipeList?.length);
@@ -20,8 +18,20 @@ const RecipeSlider = (props) => {
     width: 0,
   });
 
+  const sliderRef = useRef();
+  const sliderState = sliderRef.current?.innerSlider.state;
+  const slideIndex = recipeList.length - 1 - 2;
+
+  const onSwipeHandler = () => {
+    if (sliderState) {
+      const { currentSlide } = sliderState;
+      if (currentSlide !== 0 && currentSlide >= slideIndex) nextPage();
+    }
+  };
+
   const handleBeforeChange = useCallback(() => {
     setDragging(true);
+    onSwipeHandler();
   }, [setDragging]);
 
   const handleAfterChange = useCallback(() => {
@@ -45,6 +55,7 @@ const RecipeSlider = (props) => {
     draggable: true,
     beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,
+    onSwipe: onSwipeHandler,
     centerMode: true,
     infinite: false,
     slidesToShow: 1,
@@ -74,7 +85,7 @@ const RecipeSlider = (props) => {
           <img src={bannerImage} alt="레시피가 없습니다." />
         </StListEmpty>
       )}
-      <StSlider {...settings}>
+      <StSlider {...settings} ref={sliderRef} header={header}>
         {recipeList?.map((recipe, i) => {
           const title = recipe.title;
           let titleText = title;
@@ -113,6 +124,11 @@ export default RecipeSlider;
 
 const StSlider = styled(Slider)`
   background-color: #fff;
+  height: ${(props) =>
+    props.header
+      ? "calc(40vh + 5rem + (1.2rem * 2))"
+      : "calc(40vh + (1.2rem * 2))"};
+  overflow: hidden;
 
   .padding_box {
     min-height: 4.2rem;

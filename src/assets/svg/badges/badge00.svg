@@ -1,0 +1,46 @@
+
+      <svg
+        width="76"
+        height="76"
+        viewBox="0 0 76 76"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="76" height="76" rx="38" fill="url(#paint0_linear_0_1)" />
+        <ellipse
+          cx="51.3382"
+          cy="43.3241"
+          rx="12.3382"
+          ry="22.6757"
+          fill="#fff"
+        />
+        <rect
+          x="36.332"
+          y="51.9941"
+          width="30.0119"
+          height="2.00079"
+          fill="#FDDB82"
+        />
+        <rect
+          x="16.65"
+          y="14.65"
+          width="27.7"
+          height="42.7"
+          rx="3.35"
+          stroke="white"
+          stroke-width="3.3"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_0_1"
+            x1="38"
+            y1="0"
+            x2="38"
+            y2="76"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FFEBBB" />
+            <stop offset="1" stop-color="#FDDB82" />
+          </linearGradient>
+        </defs>
+      </svg>
