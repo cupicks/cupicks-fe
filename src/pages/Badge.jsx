@@ -21,6 +21,7 @@ import badge7 from "../assets/svg/badges/badge07.svg";
 import badge8 from "../assets/svg/badges/badge08.svg";
 import { useEffect } from "react";
 import { useState } from "react";
+import { YYYYMMDD } from "../util/time";
 
 const Badge = () => {
   const badges = [
@@ -82,6 +83,7 @@ const Badge = () => {
   let userBadges = [];
   const [matchBadgeslist, setMatchBadgeslist] = useState(badges);
 
+  // 뱃지 response 예시입니다!
   // const userBadges = [
   //   // { name: "레시피 첫 발자국", createdAt: "2022. 10. 26" },
   //   // { name: "댓글 첫 발자국", createdAt: "2022. 10. 26" },
@@ -101,10 +103,8 @@ const Badge = () => {
       const res = await api(contentType).get(`/badge`);
 
       if (res.data.isSuccess) {
-        userBadges = res.data.badgeList;
+        userBadges = res.data.bedgeList; // bedge
 
-        // 뱃지리스트 response 예시
-        userBadges = [{ name: "레시피 첫 발자국", createdAt: "2022. 10. 26" }];
         setMatchBadgeslist(matchBadges(badges, userBadges));
       }
     } catch (e) {
@@ -120,11 +120,11 @@ const Badge = () => {
       let badgeMatch;
 
       for (const ub in userBadges) {
-        badgeMatch = badge.name == userBadges[ub].name;
+        badgeMatch = badge.name == userBadges[ub].bedgeName;
         if (badgeMatch) {
           matchResult.push({
             ...badge,
-            createdAt: userBadges[ub].createdAt,
+            createdAt: YYYYMMDD(userBadges[ub].createdAt),
             isExist: true,
           });
           break;
