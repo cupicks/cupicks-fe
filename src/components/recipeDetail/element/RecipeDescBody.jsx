@@ -27,7 +27,6 @@ const RecipeDescBody = (props) => {
     const contentType = "application/json";
     try {
       const res = await api(contentType).get("/profile/my-profile");
-      console.log(res.data.user.nickname);
       const userName = res.data.user.nickname;
       setIsAuthor(userName === nickname);
     } catch (err) {

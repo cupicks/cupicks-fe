@@ -5,8 +5,8 @@ import {
   getIngredientArray,
   exceptIceAmount,
   calcMaxAmount,
-  setMaxAmountAndCupFullState,
   setMaxAmountState,
+  isCupFull,
 } from "../../../util/recipeCreate/recipeIngredientAmount";
 import { useEffect, useState } from "react";
 
@@ -36,7 +36,11 @@ const RecipeIngredientForm = (props) => {
 
   useEffect(() => {
     ingredientAmountChangeHandler();
-  }, [watch("ingredientList")]);
+
+    if (isCupFull(newFields, currCupSize)) {
+      setCupState((prev) => ({ ...prev, cupFull: true }));
+    }
+  }, [watch("ingredientList"), addNewIngredientMode]);
 
   return (
     <StWrap>

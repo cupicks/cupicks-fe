@@ -56,7 +56,8 @@ const calcMaxAmount = (ingredientValuesArray, cupSize) => {
  * @returns number
  */
 const setMaxAmountState = (maxAmount, setCupState, cupFull) => {
-  console.log(maxAmount);
+  // console.log("이번에 입력할 수 있는 재료 최대량: " + maxAmount);
+
   if (maxAmount === 0 && !cupFull) {
     setCupState((prev) => ({ ...prev, cupFull: true }));
     return "재료가 다 찼습니다.";
@@ -93,12 +94,25 @@ const setMaxAmountAndCupFullState = (maxAmount, cupFull, setCupState) => {
   return "재료 최대량이 변경되었습니다.";
 };
 
+/** 음료 재료 전체로 cupFull 확인 */
+const isCupFull = (ingredientValuesArray, cupSize) => {
+  let sum = 0;
+  ingredientValuesArray.map((list) => {
+    if (list.ingredientAmount) {
+      sum += +list?.ingredientAmount;
+    }
+  });
+
+  return cupSize <= sum;
+};
+
 export {
   getIngredientArray,
   exceptIceAmount,
   calcMaxAmount,
   setMaxAmountAndCupFullState,
   setMaxAmountState,
+  isCupFull,
 };
 
 // module.exports = {

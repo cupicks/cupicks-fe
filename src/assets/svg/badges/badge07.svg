@@ -1,0 +1,21 @@
+<svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="76" height="76" rx="38" fill="url(#paint0_linear_0_1)"/>
+<rect x="17.65" y="14.65" width="27.7" height="42.7" rx="3.35" stroke="white" stroke-width="3.3"/>
+<path d="M36.8017 57.7439L33.2314 45.6943L42.6033 50.1571L50.1901 42.124L58.2232 50.1571L66.2562 45.6943L62.2397 57.7439C55.9918 59.529 43.4959 59.0827 36.8017 57.7439Z" fill="white"/>
+<path d="M62.2397 59.9753C55.5455 61.7604 43.0496 61.3141 37.248 59.9753L38.5868 65.3306C45.281 66.2232 55.5455 66.2232 60.9009 65.3306L62.2397 59.9753Z" fill="white"/>
+<circle cx="33.2314" cy="44.8017" r="2.23141" fill="white"/>
+<circle cx="50.1904" cy="41.2314" r="2.23141" fill="white"/>
+<circle cx="66.2558" cy="44.8017" r="2.23141" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M61.5 24C61.5 28.6944 57.6944 32.5 53 32.5C57.6944 32.5 61.5 36.3056 61.5 41C61.5 36.3056 65.3056 32.5 70 32.5C65.3056 32.5 61.5 28.6944 61.5 24Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M52 8C52 10.2091 50.2091 12 48 12C50.2091 12 52 13.7909 52 16C52 13.7909 53.7909 12 56 12C53.7909 12 52 10.2091 52 8Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M22.5 7C22.5 8.38071 21.3807 9.5 20 9.5C21.3807 9.5 22.5 10.6193 22.5 12C22.5 10.6193 23.6193 9.5 25 9.5C23.6193 9.5 22.5 8.38071 22.5 7Z" fill="#E5F0FD" fill-opacity="0.7161"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.5 24C40.5 25.3807 39.3807 26.5 38 26.5C39.3807 26.5 40.5 27.6193 40.5 29C40.5 27.6193 41.6193 26.5 43 26.5C41.6193 26.5 40.5 25.3807 40.5 24Z" fill="#E5F0FD" fill-opacity="0.7161"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 41C10.5 43.4853 8.48528 45.5 6 45.5C8.48528 45.5 10.5 47.5147 10.5 50C10.5 47.5147 12.5147 45.5 15 45.5C12.5147 45.5 10.5 43.4853 10.5 41Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.5 59C28.5 62.5899 25.5899 65.5 22 65.5C25.5899 65.5 28.5 68.4101 28.5 72C28.5 68.4101 31.4101 65.5 35 65.5C31.4101 65.5 28.5 62.5899 28.5 59Z" fill="#E5F0FD" fill-opacity="0.7161"/>
+<defs>
+<linearGradient id="paint0_linear_0_1" x1="38" y1="0" x2="38" y2="76" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FDDB82"/>
+<stop offset="1" stop-color="#859DF9"/>
+</linearGradient>
+</defs>
+</svg>
