@@ -43,8 +43,6 @@ const AllRecipeList = (props) => {
           if (res.data.isSuccess) {
             setItems([...res.data.recipeList]);
           }
-          console.log("첫번째 요청");
-          console.log(res);
         });
     } else {
       await api(contentType)
@@ -53,8 +51,6 @@ const AllRecipeList = (props) => {
           if (res.data.isSuccess && page !== 2) {
             setItems([...items, ...res.data.recipeList]);
           }
-          console.log("n번째 요청");
-          console.log(res);
         });
     }
     setLoading(false);

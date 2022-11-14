@@ -80,7 +80,6 @@ const RecipeDetail = () => {
     try {
       const response = await api(contentType).get(`/recipes/${recipeId}`);
       setRecipe(response.data.recipe);
-      console.log(response.data);
     } catch (err) {
       console.log(err);
       navigate("/404");
