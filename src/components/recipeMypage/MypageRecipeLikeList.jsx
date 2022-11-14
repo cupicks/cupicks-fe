@@ -1,47 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 
 import styled from "styled-components";
 
 import RecipeSilder from "./element/RecipeSilder";
 import RecipeListToggle from "./element/RecipeListToggle";
 
-import noRecipeBanner01 from "../../assets/image/illustration/banner_no-recipe01.png";
+import noRecipeBanner02 from "../../assets/image/illustration/banner_no-recipe02.png";
 
 import api from "../../server/api";
 
-const MypageRecipe = (props) => {
-  const { on = false, recipeProps } = props;
-  const {
-    isPagenation,
-    pageInt,
-    countInt,
-    titleString,
-    imageSrc,
-    apiUrl,
-    header,
-  } = recipeProps;
-
+const MypageRecipeLikeList = () => {
   const [recipeList, setRecipeList] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [cancelLike, setCancelLike] = useState(false);
 
   // 페이지네이션 재료
-  const [page, setPage] = useState(pageInt);
-  const [count, setCount] = useState(countInt);
-  let pageEnd = false;
+  // const [page, setPage] = useState(1);
+  // const [count, setCount] = useState(3);
 
   const Recipefetching = async () => {
     let contentType = "application/json";
 
     try {
       const response = await api(contentType)
-        .get(`${apiUrl}?page=${page}&count=${count}`)
+        .get(`/profile/like-recipe?page=1&count=50`)
         .then((res) => {
           console.log(res);
-
-          if (res.data.recipeList.length === 0) {
-            pageEnd = true;
-            return;
-          }
           setRecipeList([...recipeList, ...res.data.recipeList]);
         });
       setLoaded(true);
@@ -50,28 +34,23 @@ const MypageRecipe = (props) => {
     }
   };
 
-  const nextPage = () => {
-    if (!pageEnd) {
-      setPage((prev) => prev + 1);
-    }
-  };
-
   useEffect(() => {
     Recipefetching();
-  }, [page]);
+  }, []);
 
   return (
     <>
       {loaded && (
         <StMypageRecipeWrap>
-          <RecipeListToggle on={on}>{titleString}</RecipeListToggle>
+          <RecipeListToggle>좋아요 레시피</RecipeListToggle>
           <div className="toggleContents">
             <RecipeSilder
               recipeList={recipeList}
               setRecipeList={setRecipeList}
-              bannerImage={imageSrc}
-              nextPage={nextPage}
-              header={header}
+              header={true}
+              Recipefetching={Recipefetching}
+              setCancelLike={setCancelLike}
+              bannerImage={noRecipeBanner02}
             />
           </div>
         </StMypageRecipeWrap>
@@ -80,6 +59,6 @@ const MypageRecipe = (props) => {
   );
 };
 
-export default MypageRecipe;
+export default MypageRecipeLikeList;
 
 const StMypageRecipeWrap = styled.div``;
