@@ -48,6 +48,7 @@ const Router = () => {
     "/profile/edit",
     "/recipe/:recipeId/edit",
     "/recipe/create/guest",
+    "/badge",
   ];
   let pathNeedLoggedIn = false;
 
@@ -66,7 +67,9 @@ const Router = () => {
     } else {
       if (loggedIn) {
         setLoggedIn(false);
-        navigate("/sign-in");
+        navigate("/sign-in", {
+          state: { message: "자동으로 \n 로그아웃 되었습니다." },
+        });
       }
     }
   }, [pathname]);
