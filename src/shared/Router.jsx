@@ -1,21 +1,21 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Badge from "../pages/Badge";
-import Category from "../pages/Category";
 
-const Comments = lazy(() => import("../pages/Comments"));
-const Login = lazy(() => import("../pages/Login"));
 const Landing = lazy(() => import("../pages/Landing"));
-const Mypage = lazy(() => import("../pages/Mypage"));
+const NotFound = lazy(() => import("../pages/NotFound"));
+const Register = lazy(() => import("../pages/Register"));
+const RegisterComplete = lazy(() => import("../pages/RegisterComplete"));
+const Category = lazy(() => import("../pages/Category"));
+const Login = lazy(() => import("../pages/Login"));
 const Recipe = lazy(() => import("../pages/Recipe"));
 const RecipeCreate = lazy(() => import("../pages/RecipeCreate"));
 const RecipeDetail = lazy(() => import("../pages/RecipeDetail"));
-const Register = lazy(() => import("../pages/Register"));
-const RegisterComplete = lazy(() => import("../pages/RegisterComplete"));
-const ResetPassword = lazy(() => import("../pages/ResetPassword"));
-const ProfileEdit = lazy(() => import("../pages/ProfileEdit"));
-const NotFound = lazy(() => import("../pages/NotFound"));
 const RecipeEdit = lazy(() => import("../pages/RecipeEdit"));
+const Comments = lazy(() => import("../pages/Comments"));
+const Mypage = lazy(() => import("../pages/Mypage"));
+const ProfileEdit = lazy(() => import("../pages/ProfileEdit"));
+const ResetPassword = lazy(() => import("../pages/ResetPassword"));
 
 const Router = () => {
   const navigate = useNavigate();
@@ -40,6 +40,7 @@ const Router = () => {
   const caseNoLoggedIn = [
     "/sign-in",
     "/sign-up",
+    "/sign-up/category",
     "/sign-up/complete",
     "/resetPassword",
   ];
@@ -87,20 +88,21 @@ const Router = () => {
     <>
       <Suspense fallback={null}>
         <Routes>
+          {/* 로그인과 상관 없는 페이지 */}
           <Route path="/" element={<Landing />} />
           <Route path="/recipe" element={<Recipe loggedIn={loggedIn} />} />
           <Route path="/category" element={<Category />} />
           <Route path="/recipe/:recipeId/comment" element={<Comments />} />
           <Route path="/recipe/:recipeId/detail" element={<RecipeDetail />} />
           <Route path="/sign-up/complete" element={<RegisterComplete />} />
-
-          {/* 뷰 */}
           <Route path="/badge" element={<Badge />} />
 
+          {/* 로그인하지 않은 페이지 */}
           {!loggedIn && (
             <>
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<Register />} />
+              <Route path="/sign-up/category" element={<Category />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
 
               {caseYesLoggedIn.map((path, idx) => (
@@ -121,6 +123,7 @@ const Router = () => {
             </>
           )}
 
+          {/* 로그인한 페이지 */}
           {loggedIn && (
             <>
               <Route path="/recipe/create" element={<RecipeCreate />} />
