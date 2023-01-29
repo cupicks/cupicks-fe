@@ -5,6 +5,8 @@ import styled from "styled-components";
 import RecipeSilder from "./element/RecipeSilder";
 import RecipeListToggle from "./element/RecipeListToggle";
 
+import noRecipeBanner01 from "../../assets/image/illustration/banner_no-recipe01.png";
+
 import api from "../../server/api";
 
 const MypageRecipe = (props) => {

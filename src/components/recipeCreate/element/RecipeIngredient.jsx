@@ -166,6 +166,34 @@ const StRecipeIngredient = styled.div`
     cursor: pointer;
   }
 
+  input[type="range"] {
+    height: 0.5rem;
+    border-radius: 1rem;
+
+    margin-top: 1rem;
+
+    background-color: #ccc;
+    border: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #333;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    border-radius: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #333;
+    cursor: pointer;
+  }
+
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;

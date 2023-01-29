@@ -1,11 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ConfirmBox from "../components/elements/modal/ConfirmBox";
-
-import createIcon from "../assets/svg/add.svg";
 import { ReactComponent as Icon01 } from "../assets/svg/community.svg";
-import { ReactComponent as Icon02 } from "../assets/svg/community.svg";
+import { ReactComponent as Icon02 } from "../assets/svg/search_recipe.svg";
 import { ReactComponent as Icon03 } from "../assets/svg/make_recipe.svg";
 import { ReactComponent as Icon04 } from "../assets/svg/badge.svg";
 import { ReactComponent as Icon05 } from "../assets/svg/account.svg";
@@ -16,10 +12,7 @@ const { CustomFooter, CustomFooterButton } = styledLayoutComponents;
 
 const Footer = ({ pathname }) => {
   const navigate = useNavigate();
-
-  const [needLogginModal, setNeedLogginModal] = useState(false);
   const userLogin = Boolean(localStorage.getItem("refreshToken"));
-  const timer = 1000;
 
   const goToCreate = () => {
     if (!userLogin) {
@@ -30,13 +23,14 @@ const Footer = ({ pathname }) => {
     navigate("/recipe/create", { replace: true, state: undefined });
   };
 
-  const goToMain = () => {
+  const goToMain = () =>
     navigate("/recipe", { replace: true, state: undefined });
-  };
 
-  const goToMypage = () => {
+  const goToMypage = () =>
     navigate("/mypage", { replace: true, state: undefined });
-  };
+
+  const goToBadge = () =>
+    navigate("/badge", { replace: true, state: undefined });
 
   const goToBadge = () => {
     navigate("/badge", { replace: true, state: undefined });
@@ -56,11 +50,11 @@ const Footer = ({ pathname }) => {
           </div>
         </CustomFooterButton>
 
-        {/* <CustomFooterButton onClick={goToMain}>
-        <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
-          <Icon02 />
-        </div>
-      </CustomFooterButton> */}
+        {/* <StBadgeButton onClick={goToMain}>
+          <div className={pathname === "/recipe" ? "svg_box on" : "svg_box"}>
+            <Icon02 />
+          </div>
+        </StBadgeButton> */}
 
         <CustomFooterButton onClick={goToCreate}>
           <div className={pathRecipeCreate ? "svg_box on" : "svg_box"}>
@@ -86,6 +80,9 @@ const Footer = ({ pathname }) => {
 
 export default Footer;
 
+/** 검색하기랑 활동 배지 아이콘 전용 마진 값 */
 const StBadgeButton = styled(CustomFooterButton)`
-  margin-top: 0.2rem;
+  & > div {
+    margin-top: 0.2rem;
+  }
 `;
