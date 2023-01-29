@@ -41,26 +41,6 @@ const Mypage = () => {
   useEffect(() => {
     getProfile();
   }, []);
-  
-  const myRecipeProps = {
-    isPagenation: true,
-    pageInt: 1,
-    countInt: 4,
-    titleString: "내가 만든 레시피",
-    imageSrc: noRecipeBanner01,
-    apiUrl: "/profile/my-recipe",
-    header: false,
-  };
-
-  const likeRecipeProps = {
-    isPagenation: true,
-    pageInt: 1,
-    countInt: 4,
-    titleString: "좋아요 레시피",
-    imageSrc: noRecipeBanner02,
-    apiUrl: "/profile/like-recipe",
-    header: true,
-  };
 
   const myRecipeProps = {
     isPagenation: true,
@@ -89,7 +69,6 @@ const Mypage = () => {
 
       <MypageRecipe on={true} recipeProps={myRecipeProps} />
       <MypageRecipe recipeProps={likeRecipeProps} />
-
     </StWrap>
   );
 };
