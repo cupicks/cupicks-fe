@@ -94,7 +94,6 @@ const Login = () => {
 
     try {
       const res = await api(contentType).post("/auth/signin", queryStringData);
-
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       navigate("/recipe", {
