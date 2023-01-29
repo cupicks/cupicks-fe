@@ -55,6 +55,7 @@ const Router = () => {
     "/profile/edit",
     "/recipe/:recipeId/edit",
     "/recipe/create/guest",
+    "/badge",
   ];
   let pathNeedLoggedIn = false;
 
@@ -73,7 +74,9 @@ const Router = () => {
     } else {
       if (loggedIn) {
         setLoggedIn(false);
-        navigate("/sign-in");
+        navigate("/sign-in", {
+          state: { message: "자동으로 \n 로그아웃 되었습니다." },
+        });
       }
     }
   }, [pathname]);
@@ -109,7 +112,8 @@ const Router = () => {
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<Register />} />
               <Route path="/sign-up/category" element={<Category />} />
-              <Route path="/resetPassword" element={<ResetPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/confirm-password" element={<ResetPassword />} />
 
               {caseYesLoggedIn.map((path, idx) => (
                 <Route
