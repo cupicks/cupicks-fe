@@ -77,7 +77,7 @@ const RecipeSlider = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
-  console.log(countRecipeList);
+
   return (
     <>
       {(recipeList?.length === 0 || countRecipeList === 0) && (
