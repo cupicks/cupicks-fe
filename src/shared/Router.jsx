@@ -17,6 +17,8 @@ const Mypage = lazy(() => import("../pages/Mypage"));
 const ProfileEdit = lazy(() => import("../pages/ProfileEdit"));
 const ResetPassword = lazy(() => import("../pages/ResetPassword"));
 
+const TheEnd = lazy(() => import("../pages/TheEnd"));
+
 const Router = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,6 +34,9 @@ const Router = () => {
       </Routes>
     );
   }
+
+  /*** 서비스 종료 ***/
+  const [serviceDown, setServiceDown] = useState(true);
 
   const pathname = location.pathname;
   const refreshToken = localStorage.getItem("refreshToken");
@@ -88,6 +93,7 @@ const Router = () => {
     <>
       <Suspense fallback={null}>
         <Routes>
+          {serviceDown && <Route path="/" element={<TheEnd />} />}
           {/* 로그인과 상관 없는 페이지 */}
           <Route path="/" element={<Landing />} />
           <Route path="/recipe" element={<Recipe loggedIn={loggedIn} />} />
@@ -122,7 +128,6 @@ const Router = () => {
               ))}
             </>
           )}
-
           {/* 로그인한 페이지 */}
           {loggedIn && (
             <>
@@ -132,7 +137,6 @@ const Router = () => {
               <Route path="/recipe/:recipeId/edit" element={<RecipeEdit />} />
             </>
           )}
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

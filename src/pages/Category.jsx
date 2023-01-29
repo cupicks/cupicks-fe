@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+
+import styled from "styled-components";
+
 import block from "../assets/svg/block.svg";
 import cancel from "../assets/svg/cancel.svg";
 import check from "../assets/svg/check.svg";
-import styled from "styled-components";
+import Navigation from "../partial/Navigation";
 
 const Category = () => {
   const {
@@ -29,8 +32,10 @@ const Category = () => {
     { id: 2, name: "457ml" },
     { id: 3, name: "530ml" },
   ];
+
   const [btnActive, setBtnActive] = useState(false);
   const [checkedItems, setCheckedItems] = useState(new Set());
+
   const clickBtnActive = ({ target }) => {
     setBtnActive(!btnActive);
     checkedItemHandler(target.parentNode, target.value, target.checked);
@@ -47,10 +52,14 @@ const Category = () => {
     return checkedItems;
   };
   console.log(checkedItems);
+
   return (
     <div>
-      <div>취향 카테고리</div>
-      <div>선호옵션</div>
+      {/*  */}
+      <Navigation goto="/">
+        <span className="title">취향 카테고리</span>
+      </Navigation>
+      <h1>선호옵션</h1>
       {/* {btnActive ? (
         <StBtnI onClick={clickBtnActive}>355ml</StBtnI>
       ) : (
