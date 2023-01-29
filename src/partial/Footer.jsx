@@ -32,10 +32,6 @@ const Footer = ({ pathname }) => {
   const goToBadge = () =>
     navigate("/badge", { replace: true, state: undefined });
 
-  const goToBadge = () => {
-    navigate("/badge", { replace: true, state: undefined });
-  };
-
   const pathCommunity = pathname === "/recipe" && pathname !== "/recipe/create";
   const pathRecipeCreate =
     pathname === "/recipe/create" || pathname === "/recipe/create/guest";
