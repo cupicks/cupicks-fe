@@ -62,7 +62,7 @@ const StWrap = styled.div`
   }
 
   img {
-    width: 40%;
+    width: 41%;
     max-width: 300px;
 
     display: block;
